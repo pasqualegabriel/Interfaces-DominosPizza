@@ -6,6 +6,12 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import java.util.ArrayList
 import org.mockito.Spy
+import pizza.Distribucion
+import pedido.Plato
+import pizza.Pizza
+import pizza.Grande
+import pizza.Ingrediente
+import pizza.DistribucionEnPizza
 
 class PlatoTest 
 {

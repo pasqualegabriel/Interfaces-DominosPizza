@@ -1,3 +1,5 @@
+package pizza
+
 import org.eclipse.xtend.lib.annotations.Accessors
 
 /**

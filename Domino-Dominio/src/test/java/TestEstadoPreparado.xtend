@@ -4,6 +4,13 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import static org.mockito.Mockito.*
 import static org.junit.Assert.*
+import estados.EstadoDePedido
+import pedido.Pedido
+import pedido.Delivery
+import pedido.Local
+import estados.ListoParaEnviar
+import estados.ListoParaRetirar
+import estados.Preparando
 
 class TestEstadoPreparado {
 	

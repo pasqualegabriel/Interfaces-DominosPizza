@@ -1,3 +1,6 @@
+package pedido
+
+import estados.ListoParaRetirar
 
 class Local implements  FormaDeRetiro {
 	

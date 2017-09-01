@@ -1,3 +1,6 @@
+package pedido
+
+import estados.EstadoDePedido
 
 interface FormaDeRetiro {
 	

@@ -1,4 +1,6 @@
+package estados
 
+import pedido.Pedido
 
 class Preparando extends EstadoDePedido{
 	
@@ -10,9 +12,8 @@ class Preparando extends EstadoDePedido{
 	override siguiente(Pedido unPedido){
 		var unaFormaDeEnvio = unPedido.formaDeRetiro
 		var estadoSiguiente = unaFormaDeEnvio.avanzarEstado
-		if(! estadoSiguiente.equals(null)){
-			unPedido.estadoActual = estadoSiguiente
-		} 
+		unPedido.estadoActual = estadoSiguiente
+	
 	}
 	
 	override previo() {

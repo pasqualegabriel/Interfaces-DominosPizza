@@ -4,6 +4,9 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import pizza.Distribucion
+import pizza.Ingrediente
+import pizza.DistribucionEnPizza
 
 class DistribucionTest 
 {

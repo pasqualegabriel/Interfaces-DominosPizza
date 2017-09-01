@@ -1,3 +1,6 @@
+package pedido
+
+import estados.ListoParaEnviar
 
 class Delivery implements FormaDeRetiro{
 	

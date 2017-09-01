@@ -1,5 +1,11 @@
+package pedido
+
 import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.Accessorsimport pizza.Pizza
+import pizza.Tamanio
+import pizza.Distribucion
+import pizza.Ingrediente
+import pizza.DistribucionEnPizza
 
 @Accessors
 class Plato 

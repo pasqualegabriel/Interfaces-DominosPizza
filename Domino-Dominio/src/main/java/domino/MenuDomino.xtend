@@ -1,5 +1,8 @@
+package domino
+
 import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.Accessorsimport pizza.Ingrediente
+import pizza.Pizza
 
 @Accessors
 class MenuDomino 
@@ -25,8 +28,6 @@ class MenuDomino
 
 	/**
 	 * Agrega una pizza a la lista de promociones. Si esta la pizza, no la agrega
-	 * @param unaPizza	- La {@linkplain Pizza} a agregar.
-	 * @author Victor Degano
 	 */	
 	def agregarPromocion(Pizza unaPizza) 
 	{
@@ -37,8 +38,6 @@ class MenuDomino
 	/**
 	 * Quita una pizza de la lista de Promociones. Si no esta la Pizza, lanza una excepcion
 	 * Precondicion: tiene que estar la pizza a quitar
-	 * @param unaPizza	- La {@linkplain pizza} a quitar.
-	 * @author Victor Degano
 	 */
 	def borrarPromocion(Pizza unaPizza) 
 	{
@@ -50,8 +49,6 @@ class MenuDomino
 	
 	/**
 	 * Agrega un ingrediente a la lista de ingredientes. Si esta el ingrediente, no lo agrega
-	 * @param unIngrediente	- El {@linkplain Ingrediente} a agregar.
-	 * @author Victor Degano
 	 */
 	def agregarIngrediente(Ingrediente unIngrediente) 
 	{
@@ -62,8 +59,6 @@ class MenuDomino
 	/**
 	 * Quita un ingrediente de la lista de ingredientes. Si no esta el ingrediente, lanza una excepcion
 	 * Precondicion: tiene que estar el ingrediente a quitar
-	 * @param unIngrediente	- El {@linkplain Ingrediente} a quitar.
-	 * @author Victor Degano
 	 */
 	def borrarIngrediente(Ingrediente unIngrediente) 
 	{

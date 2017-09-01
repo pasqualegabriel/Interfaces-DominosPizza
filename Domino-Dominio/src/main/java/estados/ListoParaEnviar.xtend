@@ -1,4 +1,4 @@
-
+package estados
 class ListoParaEnviar extends EstadoDePedido{
 	
 

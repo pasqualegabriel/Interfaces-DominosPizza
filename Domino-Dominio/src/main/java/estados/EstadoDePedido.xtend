@@ -1,4 +1,9 @@
+package estados
 
+import pedido.Pedido
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 abstract class EstadoDePedido  {
 	protected String nombre
 	

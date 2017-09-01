@@ -1,4 +1,7 @@
-class Cancelado extends EstadoDePedido {
+package estados
+class Entregado extends EstadoDePedido {
+	
+	
 	
 	override proximo() {
 		this
@@ -7,4 +10,5 @@ class Cancelado extends EstadoDePedido {
 	override previo() {
 		this
 	}
+	
 }

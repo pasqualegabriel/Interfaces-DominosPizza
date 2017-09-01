@@ -1,3 +1,5 @@
+package pizza
+
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.HashMap
 import java.util.ArrayList

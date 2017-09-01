@@ -1,0 +1,4 @@
+package domino
+class EstrategiaDeNotificacion {
+	
+}
