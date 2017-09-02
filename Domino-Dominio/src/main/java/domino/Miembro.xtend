@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import java.util.List
 import pedido.Pedido
+import comunicables.Comunicable
 
 /**
  *  Responsabilidad: Representar al usuario cliente registrado en el sistema y manejar
@@ -37,6 +38,10 @@ class Miembro {
 	// Metodos
 	def agregarPedido(Pedido unPedido) { 
 		historialDePedidos.add(unPedido)
+	}
+	
+	def comunicar(Comunicable comunicable) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 	
