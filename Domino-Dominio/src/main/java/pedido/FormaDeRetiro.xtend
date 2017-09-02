@@ -2,9 +2,10 @@ package pedido
 
 import estados.EstadoDePedido
 
-interface FormaDeRetiro {
-	
+interface FormaDeRetiro 
+{
 
 	def EstadoDePedido avanzarEstado()
 
+	def Integer precioDeRetiro()
 }

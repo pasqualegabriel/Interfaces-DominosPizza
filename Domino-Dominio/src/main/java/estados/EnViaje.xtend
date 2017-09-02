@@ -1,14 +1,14 @@
 package estados
 
 import pedido.Pedido
+import domino.PasajeAEntregado
 
 class EnViaje extends EstadoDePedido {
 	
-	 override siguiente(Pedido unPedido){
-		var estadoSiguiente = this.proximo()
-		unPedido.estadoActual = estadoSiguiente
-		unPedido.notify()
-			
+	 override siguiente(Pedido unPedido)
+	 {
+		super.siguiente(unPedido)
+		unPedido.notifyObservers(new PasajeAEntregado)			
 	}
 	
 	override proximo() {

@@ -12,6 +12,8 @@ import pedido.Pedido
 import domino.Miembro
 import pedido.Plato
 import estados.Cancelado
+import pedido.Local
+import pedido.Delivery
 
 //import javax.swing.Timer
 //import java.awt.event.ActionEvent
@@ -24,8 +26,8 @@ class TestPedido {
 	Pedido 			pedido
 	@Mock Miembro 	clienteMock
 	@Mock Plato 	unPlato
-
-
+	@Mock Local unRetiroEnElLocal
+	@Mock Delivery unRetiroConDelivery	
 	// SetUp 
 	// Se inician los mocks y crea un pedido Hecho por un clienteMock
 	
@@ -133,15 +135,19 @@ class TestPedido {
 	@Test
 	def test009UnPedidoCalculaCalculaSuPrecio() {
 		
+		//Setup
+		var precioPedido = 0
 		// Exercise
-		
+		pedido.formaDeRetiro = unRetiroEnElLocal
 		pedido.agregarPlato(unPlato)
 		when(unPlato.calcularPrecio).thenReturn(100 /*pesos*/ )
-		pedido.calcularPrecio
+		when(unRetiroEnElLocal.precioDeRetiro).thenReturn(0 /*pesos*/ )
+		precioPedido = pedido.calcularPrecio
 		
 		// Assertion
 		
 		assertEquals(pedido.platos.size, 1)
+		assertEquals(100,precioPedido)
 	}
 
 	@Test
@@ -201,6 +207,24 @@ class TestPedido {
 		//Exercise
 		//Test
 		assertFalse(pedido.tardoMasDe30Minutos())
+	}
+	
+	@Test
+	def test012UnPedidoConDeliveryCalculaSuPrecio() {
+		
+		//Setup
+		var precioPedido = 0
+		// Exercise
+		pedido.formaDeRetiro = unRetiroConDelivery
+		pedido.agregarPlato(unPlato)
+		when(unPlato.calcularPrecio).thenReturn(100 /*pesos*/ )
+		when(unRetiroConDelivery.precioDeRetiro).thenReturn(15 /*pesos*/ )
+		precioPedido = pedido.calcularPrecio
+		
+		// Assertion
+		
+		assertEquals(pedido.platos.size, 1)
+		assertEquals(115,precioPedido)
 	}
 }
 

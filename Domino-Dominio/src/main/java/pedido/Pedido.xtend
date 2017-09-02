@@ -68,7 +68,7 @@ class Pedido extends Observable {
 		for (p : platos) {
 			precio = precio + p.calcularPrecio
 		}
-		montoAPagar= precio
+		montoAPagar= precio + this.getFormaDeRetiro().precioDeRetiro
 	}
 	
 	def cancelar() {

@@ -1,7 +1,16 @@
 package estados
-class ListoParaEnviar extends EstadoDePedido{
-	
 
+import pedido.Pedido
+import domino.PasajeEnViaje
+
+class ListoParaEnviar extends EstadoDePedido
+{
+	
+	override void siguiente(Pedido unPedido)
+	{
+		super.siguiente(unPedido)
+		unPedido.notifyObservers(new PasajeEnViaje)
+	}
 	
 	override previo() {
 		var estadoPrevio = new Preparando

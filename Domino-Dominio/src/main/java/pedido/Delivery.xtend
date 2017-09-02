@@ -8,6 +8,11 @@ class Delivery implements FormaDeRetiro{
 		var estadoADevolver = new ListoParaEnviar
 		estadoADevolver
 	}
+	
+	override precioDeRetiro() 
+	{
+		15
+	}
 
 	
 }
