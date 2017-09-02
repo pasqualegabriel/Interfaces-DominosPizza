@@ -37,7 +37,7 @@ class PasajeAEntregadoTest
 		//Exercise
 		unPasajeAEntregado.enviar(unDomino,unPedido)
 		//Test
-		verify(unDomino, times(1)). cerrarPedido(unPedido)
+		verify(unDomino, times(1)). cerrarPedidoEntregado(unPedido)
 		verify(unMailSender, times(0)).sendMail(unMiembro.mail,unPasajeAEntregado.tituloMensaje,unPasajeAEntregado.cuerpoMensaje)
 	}
 	
@@ -56,7 +56,7 @@ class PasajeAEntregadoTest
 		unPasajeAEntregado.enviar(unDomino,unPedido)
 		
 		//Test
-		verify(unDomino, times(1)). cerrarPedido(unPedido)
+		verify(unDomino, times(1)). cerrarPedidoEntregado(unPedido)
 		verify(unMailSender, times(1)).sendMail(unMiembro.mail,unPasajeAEntregado.tituloMensaje,unPasajeAEntregado.cuerpoMensaje)
 	}
 	

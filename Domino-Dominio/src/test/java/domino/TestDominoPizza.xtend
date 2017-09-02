@@ -61,7 +61,7 @@ class TestDominoPizza {
 		// Exercise
 		
 		domino.agregarPedido(pedidoMock)
-		domino.cerrarPedido (pedidoMock)
+		domino.cerrarPedidoEntregado (pedidoMock)
 		
 		// Assertion
 		

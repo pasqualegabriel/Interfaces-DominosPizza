@@ -11,7 +11,7 @@ class PasajeAEntregado implements EstrategiaDeNotificacion
 	 */
 	override enviar(DominoPizza unDominoPizza, Pedido unPedido) 
 	{
-		unDominoPizza.cerrarPedido(unPedido)
+		unDominoPizza.cerrarPedidoEntregado(unPedido)
 		
 		if (unPedido.tardoMasDe30Minutos())
 		{

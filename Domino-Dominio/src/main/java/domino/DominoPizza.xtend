@@ -6,6 +6,7 @@ import java.util.List
 import java.util.Observer
 import java.util.Observable
 import pedido.Pedido
+import pasajes.Pasaje
 
 /**
  *  Responsabilidad:  Contener el menu, y controlar el manejo de los pedidos.
@@ -18,15 +19,17 @@ class DominoPizza implements Observer {
 	
 	List<Pedido> pedidosAbiertos
 	List<Pedido> pedidosCerrados
+	List<Pedido> pedidosCancelados
 	MenuDomino 	 menuDisponible
 	
 	// Constructores
 	
 	new(){
 		super()
-		pedidosAbiertos = new ArrayList<Pedido>
-		pedidosCerrados = new ArrayList<Pedido>
-		menuDisponible  = new MenuDomino
+		pedidosAbiertos 		= new ArrayList<Pedido>
+		pedidosCerrados 		= new ArrayList<Pedido>
+		pedidosCancelados		= new ArrayList<Pedido>
+		menuDisponible  		= new MenuDomino
 	}
 	
 	// Metodos
@@ -39,13 +42,21 @@ class DominoPizza implements Observer {
 	
 	// Toma un pedido que se encuentra dentro de los pedidos abiertos, lo quita de ahi y lo agrega a los pedidos cerrados
 	// Precondicion: El pedido tiene que estar en los pedidos abiertos.
-	def cerrarPedido(Pedido unPedido) {
+	def void cerrarPedidoEntregado(Pedido unPedido) {
 		pedidosAbiertos.remove(unPedido)
 		pedidosCerrados.add(unPedido)
 	}
 	
-	override update(Observable unPedido, Object arg) {
-		//var pedido = unPedido as Pedido	
+	override update(Observable unPedido, Object unPasaje) {
+		var pedido = unPedido as Pedido	
+		var pasaje = unPasaje as Pasaje
+		
+		pasaje.ejecutar(pedido,this)
+		
+	}
+	def void agregarPedidosCancelados(Pedido unPedido){
+		pedidosAbiertos.remove(unPedido)
+		pedidosCancelados.add(unPedido)
 		
 	}
 	

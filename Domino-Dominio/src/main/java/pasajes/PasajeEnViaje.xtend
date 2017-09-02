@@ -1,25 +1,25 @@
 package pasajes
 
-import comunicables.ComunicacionEnViaje
 import comunicables.Comunicable
 import org.eclipse.xtend.lib.annotations.Accessors
 import pedido.Pedido
 import domino.DominoPizza
+import comunicables.ComunicadoParaViaje
 
 @Accessors
-class PasajeEnViaje {
+class PasajeEnViaje implements Pasaje {
 	
 	// Estructura
-	Comunicable comunicacion
+	Comunicable comunicado
 	
 	// Constructor
 	
 	new(){
-		comunicacion = new ComunicacionEnViaje
+		comunicado = new ComunicadoParaViaje
 	}
 	
-	def ejecutar(Pedido pedido, DominoPizza pizza) {
-		pedido.miembro.comunicar(comunicacion)
+	override ejecutar(Pedido unPedido, DominoPizza unDominoPizza) {
+		unPedido.miembro.comunicar(comunicado)
 	}
 	
 }

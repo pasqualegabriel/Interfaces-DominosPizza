@@ -27,12 +27,12 @@ class Miembro {
 	
 	new(String unNombre, String unNick, String unPassword, String unMail, String unaDireccion) {
 		
-		historialDePedidos= new ArrayList<Pedido>
-		nombre			  = unNombre
-		nick			  = unNick
-		password		  = unPassword
-		mail			  = unMail
-		direccion		  = unaDireccion
+		historialDePedidos	= new ArrayList<Pedido>
+		nombre			  	= unNombre
+		nick			  	= unNick
+		password		  	= unPassword
+		mail			  	= unMail
+		direccion		  	= unaDireccion
 	}
 	
 	// Metodos
@@ -40,8 +40,8 @@ class Miembro {
 		historialDePedidos.add(unPedido)
 	}
 	
-	def comunicar(Comunicable comunicable) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def void comunicar(Comunicable comunicable) {
+		
 	}
 	
 	

@@ -1,6 +1,6 @@
 package comunicables
 
-class ComunicacionEnViaje implements Comunicable {
+class ComunicadoParaViaje implements Comunicable {
 	
 	override tituloMensaje() {
 		"Pedido en Viaje!"

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 //import static org.mockito.Matchers.anyLong;
 //import static org.mockito.Matchers.thenReturn;
 import org.mockito.MockitoAnnotations
-import java.time.format.DateTimeFormatter
+//import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import pedido.Pedido
 import domino.Miembro
@@ -72,13 +72,13 @@ class TestPedido {
 		
 		// SetUp
 		
-		var dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
-		var now = LocalDateTime.now()
-		var ahora = dateformat.format(now)
-
+		//var dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
+		//var now = LocalDateTime.now()
+		//var ahora = dateformat.format(now)
+		var tiempoActual= LocalDateTime.now()
 		// Assertion
 		
-		assertEquals(pedido.fecha, ahora)
+		assertEquals(pedido.fecha.class, tiempoActual.class)
 	}
 
 	@Test
@@ -190,10 +190,8 @@ class TestPedido {
 	@Test
 	def test010SiAUnPedidoQueTieneMasDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaTrue()
 	{
-		//Setup
-		var DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
-		var fechaPedido = dateformat.format(LocalDateTime.of(2017,9,01,14,55,00))
-		pedido.fecha = fechaPedido
+		val treintaMinitosDespues = LocalDateTime.now.plusMinutes(31)
+		pedido.fecha = treintaMinitosDespues
 		//Exercise
 		//Test
 		assertTrue(pedido.tardoMasDe30Minutos())
@@ -203,9 +201,8 @@ class TestPedido {
 	def test011SiAUnPedidoQueTieneMenosDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaFalse()
 	{
 		//Setup
-		var DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
-		var fechaPedido = dateformat.format(LocalDateTime.now)
-		pedido.fecha = fechaPedido
+		var horaActual = LocalDateTime.now
+		pedido.fecha = horaActual
 		//Exercise
 		//Test
 		assertFalse(pedido.tardoMasDe30Minutos())
