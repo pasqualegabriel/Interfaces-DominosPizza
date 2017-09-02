@@ -1,4 +1,4 @@
-
+package domino
 import static org.mockito.Mockito.* 
 import org.junit.Before
 import org.junit.Test
@@ -61,3 +61,4 @@ class PasajeAEntregadoTest
 	}
 	
 }
+				

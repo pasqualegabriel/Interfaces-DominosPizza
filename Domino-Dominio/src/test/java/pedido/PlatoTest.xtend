@@ -1,3 +1,5 @@
+package pedido
+
 import static org.junit.Assert.*
 import static org.mockito.Mockito.*
 import org.junit.Before
@@ -116,3 +118,4 @@ class PlatoTest
 	}
 
 }
+						

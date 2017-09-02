@@ -1,3 +1,5 @@
+package domino
+
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.Before
 import org.junit.Test

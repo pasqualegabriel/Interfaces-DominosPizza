@@ -1,3 +1,5 @@
+package domino
+
 import static org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -129,3 +131,4 @@ class MenuDominoTest
 		assertTrue(menuPrueba.ingredientesDisponibles().isEmpty())
 	}
 }
+				

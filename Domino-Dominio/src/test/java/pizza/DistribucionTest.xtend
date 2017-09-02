@@ -1,3 +1,5 @@
+package pizza
+
 import static org.junit.Assert.*
 import static org.mockito.Mockito.*
 import org.junit.Before
@@ -105,3 +107,4 @@ class DistribucionTest
 	}
 	
 }
+		

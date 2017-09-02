@@ -1,3 +1,5 @@
+package pizza
+
 import static org.junit.Assert.*
 import static org.mockito.Mockito.*
 import org.junit.Before
@@ -114,3 +116,4 @@ class PizzaTest
 		assertEquals("Izquierda", pizzaDePrueba.distribucion.posicionIngrediente(queso).name)
 	}
 }
+		
