@@ -29,9 +29,9 @@ class PizzaTest
 		//Setup
 		//Exercise
 		//Test		
-		assertEquals("Muzzarella",pizzaDePrueba.nombre())	
-		assertEquals(75,pizzaDePrueba.precioBase())
-		assertEquals(unaDistribucion, pizzaDePrueba.distribucion())
+		assertEquals("Muzzarella",pizzaDePrueba.nombre)	
+		assertEquals(75,pizzaDePrueba.precioBase)
+		assertEquals(unaDistribucion, pizzaDePrueba.distribucion)
 	}
 	
 	@Test
@@ -42,7 +42,7 @@ class PizzaTest
 		pizzaDePrueba.cambiarNombre("Jamon y Anchoas")
 		
 		//Test
-		assertEquals("Jamon y Anchoas",pizzaDePrueba.nombre())
+		assertEquals("Jamon y Anchoas",pizzaDePrueba.nombre)
 	}
 
 	@Test
@@ -53,7 +53,7 @@ class PizzaTest
 		pizzaDePrueba.cambiarPrecio(90)
 		
 		//Test
-		assertEquals(90,pizzaDePrueba.precioBase())
+		assertEquals(90,pizzaDePrueba.precioBase)
 	}
 
 	@Test
@@ -64,7 +64,7 @@ class PizzaTest
 		pizzaDePrueba.agregarIngrediente(queso,DistribucionEnPizza.Toda)
 		
 		//Test
-		assertTrue(pizzaDePrueba.distribucion().tieneAlIngrediente(queso))
+		assertTrue(pizzaDePrueba.distribucion.tieneAlIngrediente(queso))
 		verify(unaDistribucion, times(1)).agregarIngrediente(queso,DistribucionEnPizza.Toda)
 	}
 	
@@ -79,7 +79,7 @@ class PizzaTest
 		pizzaDePrueba.quitarIngrediente(queso)
 		
 		//Test
-		assertTrue(!pizzaDePrueba.distribucion().tieneIngredientes())
+		assertTrue(!pizzaDePrueba.distribucion.tieneIngredientes())
 		verify(unaDistribucion, times(1)).tieneIngredientes()
 		verify(unaDistribucion, times(1)).quitarIngrediente(queso)
 		verify(unaDistribucion, times(1)).agregarIngrediente(queso,DistribucionEnPizza.Toda)
@@ -95,7 +95,7 @@ class PizzaTest
 		pizzaDePrueba.quitarIngrediente(queso)
 		
 		//Test
-		assertTrue(pizzaDePrueba.distribucion().tieneIngredientes())
+		assertTrue(pizzaDePrueba.distribucion.tieneIngredientes())
 		verify(unaDistribucion, times(1)).tieneIngredientes
 		verify(unaDistribucion, times(1)).quitarIngrediente(queso)
 	}
@@ -110,7 +110,7 @@ class PizzaTest
 		pizzaDePrueba.cambiarDistribucionDe(queso,DistribucionEnPizza.Izquierda)
 		
 		//Test
-		assertTrue(!pizzaDePrueba.distribucion().tieneIngredientes())
-		assertEquals("Izquierda", pizzaDePrueba.distribucion().posicionIngrediente(queso).name)
+		assertTrue(!pizzaDePrueba.distribucion.tieneIngredientes())
+		assertEquals("Izquierda", pizzaDePrueba.distribucion.posicionIngrediente(queso).name)
 	}
 }

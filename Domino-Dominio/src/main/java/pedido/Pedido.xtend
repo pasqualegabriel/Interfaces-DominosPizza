@@ -75,5 +75,19 @@ class Pedido extends Observable {
 		estadoActual= new Cancelado
 	}
 
+	/**
+	 * Retorna True si tardo en entregarse mas de 30 minutos 
+	 */	
+	def tardoMasDe30Minutos() 
+	{
+		var fechaAComparar	= LocalDateTime.now
+		
+		var DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
+		var fechaDePedido = LocalDateTime.parse(this.getFecha,dateformat)	//Convierte el string a local date
+		var fechaLimiteSinDemora = fechaDePedido.plusMinutes(30)			//Setea la fecha de pedido con 30 minutos adelantados
+		
+		fechaAComparar.isAfter(fechaLimiteSinDemora)	//Se fija si unaFecha es superior a la fecha de pedido
+	}
+
 }
 

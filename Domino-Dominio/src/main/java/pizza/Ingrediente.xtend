@@ -8,26 +8,18 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Ingrediente 
 {
-	
+	//Atributos
 	String nombre
 	Integer precio
 	
+	//Constructor
 	new(String unNombre, int unPrecio) 
 	{
 		this.nombre = unNombre
 		this.precio = unPrecio
 	}
-
-	def nombre()
-	{
-		this.getNombre
-	}
 	
-	def precio()
-	{
-		this.getPrecio
-	}
-	
+	//Getters & Setters
 	def void cambiarPrecio(int nuevoPrecio)
 	{
 		this.precio = nuevoPrecio

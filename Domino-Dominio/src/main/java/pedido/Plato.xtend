@@ -1,19 +1,26 @@
 package pedido
 
-import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessorsimport pizza.Pizza
 import pizza.Tamanio
 import pizza.Distribucion
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
+import java.util.List
 
+/**
+ * Clase que modela a un plato del dominio de domino's pizza. 
+ * Un plato se encarga de contener a la pizza elegida, tener un tamaño para la pizza, contener a los 
+ * ingredientes extras que se le van a poner y calcular el costo total del plato.
+ */
 @Accessors
 class Plato 
 {
+	//Atributos
 	Pizza pizza
 	Tamanio tamanio
 	Distribucion ingredientesExtras
 	
+	//Constructores
 	new(Pizza unaPizza, Tamanio unTamanio, Distribucion unaDistribucion)
 	{
 		this.pizza = unaPizza
@@ -21,30 +28,27 @@ class Plato
 		this.ingredientesExtras = unaDistribucion	
 	}
 	
-	def pizza()
-	{
-		this.getPizza
-	}
+	//Getters & Setters	
 	
-	def tamanio()
-	{
-		this.getTamanio
-	}
-	
-	def ingredientesExtras()
-	{
-		this.getIngredientesExtras
-	}
-	
+	//Metodos
+	/**
+	 * Cambia la pizza del plato por la pizza pasada. Se quitaran de los ingredientes extras(Si los hubiere), 
+	 * todo aquel ingrediente que este dentro de la pizza.
+	 * @param unaPizza	- La {@linkplain Pizza} que se va a poenr en el plato 
+	 */
 	def void cambiarPizza(Pizza unaPizza) 
 	{
 		this.pizza = unaPizza
-		this.quitarIngredientesExtrasInvalidos(this.pizza().listaDeIngredientes())
+		this.quitarIngredientesExtrasInvalidos(this.pizza.listaDeIngredientes())
 	}
 	
-	def void quitarIngredientesExtrasInvalidos(ArrayList<Ingrediente> ingredientesInvalidos) 
+	/**
+	 * Toma una lista y quita todos los ingrediente extras del plato, si hay, que figuren en esa lista.
+	 * @param ingredientesInvalidos	-	Es la lista de ingredientes que se quiere quitar de los ingredientes extras.
+	 */
+	private def void quitarIngredientesExtrasInvalidos(List<Ingrediente> ingredientesInvalidos) 
 	{
-		this.ingredientesExtras().quitarIngredienteSInvalidos(ingredientesInvalidos)
+		this.ingredientesExtras.quitarIngredienteSInvalidos(ingredientesInvalidos)
 	}
 
 	/**
@@ -55,7 +59,7 @@ class Plato
 	 */
 	def void agregarIngredienteExtra(Ingrediente unIngrediente, DistribucionEnPizza unaDistribucion) 
 	{
-		this.ingredientesExtras().agregarIngrediente(unIngrediente, unaDistribucion)
+		this.ingredientesExtras.agregarIngrediente(unIngrediente, unaDistribucion)
 	}
 
 	/**
@@ -65,7 +69,7 @@ class Plato
 	 */
 	def void quitarIngredienteExtra(Ingrediente unIngrediente) 
 	{
-		this.ingredientesExtras().quitarIngrediente(unIngrediente)
+		this.ingredientesExtras.quitarIngrediente(unIngrediente)
 	}
 
 	/**
@@ -77,14 +81,23 @@ class Plato
 		
 	}
 	
+	/**
+	 * Devuelve el factor de tamaño para poder calcular el precio base de la pizza en base a este.
+	 */
 	private def factorDeTamanio() {
-		this.tamanio().factorDeTamanio()
+		this.tamanio.factorDeTamanio()
 	}
 	
+	/**
+	 * Devuelve el precio base de la pizza.
+	 */
 	private def precioDePizza() {
-		this.pizza().precioBase()
+		this.pizza.precioBase
 	}
 	
+	/**
+	 * Devuelve el precio total de todos los ingredientes extras seleccionados en el plato. 
+	 */
 	def costoDeIngredientesExtras() 
 	{
 		this.ingredientesExtras.costoDeIngredientes

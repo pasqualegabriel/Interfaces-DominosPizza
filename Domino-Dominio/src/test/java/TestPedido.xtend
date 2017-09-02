@@ -179,5 +179,28 @@ class TestPedido {
 
 // Falta lo del tiempo y confirmar!!!
 
+	@Test
+	def test010SiAUnPedidoQueTieneMasDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaTrue()
+	{
+		//Setup
+		var DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
+		var fechaPedido = dateformat.format(LocalDateTime.of(2017,9,01,14,55,00))
+		pedido.fecha = fechaPedido
+		//Exercise
+		//Test
+		assertTrue(pedido.tardoMasDe30Minutos())
+	}
+	
+	@Test
+	def test011SiAUnPedidoQueTieneMenosDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaFalse()
+	{
+		//Setup
+		var DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
+		var fechaPedido = dateformat.format(LocalDateTime.now)
+		pedido.fecha = fechaPedido
+		//Exercise
+		//Test
+		assertFalse(pedido.tardoMasDe30Minutos())
+	}
 }
 

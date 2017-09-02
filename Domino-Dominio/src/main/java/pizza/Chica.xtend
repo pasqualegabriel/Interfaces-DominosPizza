@@ -1,5 +1,8 @@
 package pizza
 
+/* 
+ * Implementa la representacion de un tamaño de pizza Chico con su respectivo coeficiente de precio
+ */
 class Chica implements Tamanio 
 {
 	override nombre() 
@@ -7,6 +10,9 @@ class Chica implements Tamanio
 		"Chica"
 	}
 	
+	/**
+	 * Retorna el factor a aplicarle a un precio.
+	 */
 	override factorDeTamanio() 
 	{
 		0.5

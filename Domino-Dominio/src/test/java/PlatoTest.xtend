@@ -38,9 +38,9 @@ class PlatoTest
 		when(tamanioGrande.nombre()).thenReturn("Grande")
 		//Excersice
 		//Test
-		assertEquals(unaDeMuzza,unPlato.pizza())
-		assertEquals("Grande",unPlato.tamanio().nombre())
-		assertTrue(unPlato.ingredientesExtras().tieneIngredientes)
+		assertEquals(unaDeMuzza,unPlato.pizza)
+		assertEquals("Grande",unPlato.tamanio.nombre())
+		assertTrue(unPlato.ingredientesExtras.tieneIngredientes)
 	}
 	
 	@Test
@@ -50,8 +50,8 @@ class PlatoTest
 		//Exercise
 		unPlato.agregarIngredienteExtra(provolone, DistribucionEnPizza.Toda)
 		//Test
-		assertTrue(!unPlato.ingredientesExtras().tieneIngredientes())
-		assertTrue(unPlato.ingredientesExtras().tieneAlIngrediente(provolone))
+		assertTrue(!unPlato.ingredientesExtras.tieneIngredientes())
+		assertTrue(unPlato.ingredientesExtras.tieneAlIngrediente(provolone))
 	}
 	
 	@Test(expected=typeof(RuntimeException))
@@ -72,7 +72,7 @@ class PlatoTest
 		//Exercise
 		unPlato.cambiarPizza(unaCustomizada)
 		//Test
-		assertEquals(unaCustomizada, unPlato.pizza())
+		assertEquals(unaCustomizada, unPlato.pizza)
 	}
 	
 	@Test
@@ -87,14 +87,14 @@ class PlatoTest
 		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Toda)
 		unPlato.cambiarPizza(unaDeJamon)
 		//Test
-		assertTrue(unPlato.ingredientesExtras().tieneIngredientes())
+		assertTrue(unPlato.ingredientesExtras.tieneIngredientes())
 	}
 	
 	@Test
 	def Dado_Un_Plato_Con_Una_Pizza_Customizada_Grande_Y_Sin_Ingredientes_Extras_Si_le_Pido_El_Precio_Devuelve_70()
 	{
 		//Setup
-		when(unaCustomizada.precioBase()).thenReturn(70)
+		when(unaCustomizada.precioBase).thenReturn(70)
 		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue())
 		//Exercise
 		unPlato.cambiarPizza(unaCustomizada)			
@@ -106,9 +106,9 @@ class PlatoTest
 	def Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Que_Sale_85_De_Tamaño_Familiar_Y_Con_Jamon_Como_Ingrediente_Extra_Que_Vale_15_Si_le_Pido_El_Precio_Devuelve_100()
 	{
 		//Setup
-		when(unaDeMuzza.precioBase()).thenReturn(85)
+		when(unaDeMuzza.precioBase).thenReturn(85)
 		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue())
-		when(jamon.precio()).thenReturn(15)
+		when(jamon.precio).thenReturn(15)
 		//Exercise
 		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Izquierda)	
 		//Test

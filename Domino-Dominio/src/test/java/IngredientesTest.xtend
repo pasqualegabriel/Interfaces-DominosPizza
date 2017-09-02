@@ -20,8 +20,8 @@ class IngredientesTest
 		//Setup
 		//Excercise
 		//Test
-		assertEquals("Muzzarella", muzzarella.nombre())
-		assertEquals(20, muzzarella.precio())			
+		assertEquals("Muzzarella", muzzarella.nombre)
+		assertEquals(20, muzzarella.precio)			
 	}
 	
 	@Test
@@ -31,7 +31,7 @@ class IngredientesTest
 		//Excercise
 		muzzarella.cambiarPrecio(55)
 		//Test
-		assertEquals(55, muzzarella.precio())	
+		assertEquals(55, muzzarella.precio)	
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ class IngredientesTest
 		//Excercise
 		muzzarella.cambiarNombre("Muzzarella Especial")
 		//Test
-		assertEquals("Muzzarella Especial", muzzarella.nombre())		
+		assertEquals("Muzzarella Especial", muzzarella.nombre)		
 	}
 	
 }

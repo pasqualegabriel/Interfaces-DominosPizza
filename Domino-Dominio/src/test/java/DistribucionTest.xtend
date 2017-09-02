@@ -27,7 +27,7 @@ class DistribucionTest
 		//Setup
 		//Exercise
 		//Test		
-		assertTrue(unaDistribucion.ingredientes().isEmpty())
+		assertTrue(unaDistribucion.ingredientes.isEmpty())
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ class DistribucionTest
 		unaDistribucion.agregarIngrediente(queso,DistribucionEnPizza.Toda)
 		
 		//Test
-		assertTrue(!unaDistribucion.ingredientes().isEmpty())
-		assertEquals(1,unaDistribucion.ingredientes().size())
-		assertTrue(unaDistribucion.ingredientes().containsKey(queso))
+		assertTrue(!unaDistribucion.ingredientes.isEmpty())
+		assertEquals(1,unaDistribucion.ingredientes.size())
+		assertTrue(unaDistribucion.ingredientes.containsKey(queso))
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ class DistribucionTest
 		unaDistribucion.quitarIngrediente(queso)
 		
 		//Test
-		assertTrue(unaDistribucion.ingredientes().isEmpty())
+		assertTrue(unaDistribucion.ingredientes.isEmpty())
 	}
 	
 	@Test(expected=typeof(RuntimeException))
@@ -64,7 +64,7 @@ class DistribucionTest
 		unaDistribucion.quitarIngrediente(queso)
 		
 		//Test
-		assertTrue(unaDistribucion.ingredientes().isEmpty())
+		assertTrue(unaDistribucion.ingredientes.isEmpty())
 	}
 	
 	@Test
@@ -77,8 +77,8 @@ class DistribucionTest
 		unaDistribucion.cambiarDistribucionDe(queso,DistribucionEnPizza.Izquierda)
 		
 		//Test
-		assertTrue(!unaDistribucion.ingredientes().isEmpty())
-		assertEquals("Izquierda", unaDistribucion.ingredientes().get(queso).name)
+		assertTrue(!unaDistribucion.ingredientes.isEmpty())
+		assertEquals("Izquierda", unaDistribucion.ingredientes.get(queso).name)
 	}
 	
 	@Test
@@ -94,8 +94,8 @@ class DistribucionTest
 	def Dada_Una_Distribucion_Con_Dos_Ingredientes_Si_Le_Pido_Que_Calcule_El_Costo_De_Los_Ingredientes_Devuelve_27()
 	{
 		//Setup
-		when(queso.precio()).thenReturn(15)
-		when(jamon.precio()).thenReturn(12)
+		when(queso.precio).thenReturn(15)
+		when(jamon.precio).thenReturn(12)
 		//Excersice
 		unaDistribucion.agregarIngrediente(queso,DistribucionEnPizza.Toda)
 		unaDistribucion.agregarIngrediente(jamon,DistribucionEnPizza.Izquierda)
