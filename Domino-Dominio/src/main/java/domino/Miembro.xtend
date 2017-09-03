@@ -6,7 +6,7 @@ import java.util.List
 import pedido.Pedido
 import comunicables.Comunicable
 import formasDeComunicacion.ComunicacionPorMail
-
+import formasDeComunicacion.FormaDeComunicacion
 
 /**
  *  Responsabilidad: Representar al usuario cliente registrado en el sistema y manejar
@@ -18,34 +18,37 @@ class Miembro extends Usuario {
 	
 	// Estructura
 	
-	String 			nombre
-	String 			nick
-	String 			password
-	String			mail
-	String 			direccion
-	List<Pedido>	historialDePedidos
+	String 				nombre
+	String 				nick
+	String 				password
+	String				mail
+	String 				direccion
+	List<Pedido>    	historialDePedidos
+	FormaDeComunicacion formaDeComunicacion
+	
 	// Constructores
 	
 	new(String unNombre, String unNick, String unPassword, String unMail, String unaDireccion) {
 		
-		historialDePedidos= new ArrayList<Pedido>
-		nombre			  = unNombre
-		nick			  = unNick
-		password		  = unPassword
-		mail			  = unMail
-		direccion		  = unaDireccion
-		formaDeComunicacion= new ComunicacionPorMail
+		historialDePedidos  = new ArrayList<Pedido>
+		nombre			    = unNombre
+		nick			    = unNick
+		password		    = unPassword
+		mail			    = unMail
+		direccion		    = unaDireccion
+		formaDeComunicacion = new ComunicacionPorMail
 
 	}
 	
 	// Metodos
 	def agregarPedido(Pedido unPedido) { 
+		
 		historialDePedidos.add(unPedido)
 	}
 
 	override comunicar(Comunicable unComunicable) {
-		formaDeComunicacion.comunicarUsuario(this,unComunicable)
-
+		
+		formaDeComunicacion.comunicarUsuario(this, unComunicable)
 	}
 	
 	

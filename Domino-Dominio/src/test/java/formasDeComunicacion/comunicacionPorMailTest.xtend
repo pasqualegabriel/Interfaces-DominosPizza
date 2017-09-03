@@ -14,17 +14,16 @@ class comunicacionPorMailTest {
 	
 	// Estructura
 	ComunicacionPorMail unaComunicacionPorMail
-	@Mock Miembro mockMiembro 
-	@Mock Comunicable mockComunicable 
-	@Mock GMailSender  spyGmailSender
+	@Mock Miembro       mockMiembro 
+	@Mock Comunicable   mockComunicable 
+	@Mock GMailSender   gmailsenderMock
 	
 	// SetUp
 	@Before
 	def void setUp() {
-		spyGmailSender = spy(new GMailSender("pepita", "golondrina"))
 		MockitoAnnotations.initMocks(this)
 		unaComunicacionPorMail = new ComunicacionPorMail
-		
+		unaComunicacionPorMail.gmailsender = gmailsenderMock		
 		
 	}
 	
@@ -33,16 +32,14 @@ class comunicacionPorMailTest {
 	@Test
 	def test000CuandoAComunicacionPorMailComunicaAUnUsuarioSeLeEnviaUnMailAEste(){
 		
-		// Exercise
-		unaComunicacionPorMail.gmailsender = spyGmailSender 
-	
-		when(mockMiembro.mail).thenReturn("n.Autalan@Gmail.com")
+		when(mockMiembro.mail).thenReturn("mail")
 		when(mockComunicable.tituloMensaje).thenReturn("Probando")
 		when(mockComunicable.cuerpoMensaje).thenReturn("ACaraDePerro")
 		
 		unaComunicacionPorMail.comunicarUsuario(mockMiembro, mockComunicable)
 		
-		
+		verify(gmailsenderMock).sendMail("mail", "Probando", "ACaraDePerro")
+	
 	}
 	
 }

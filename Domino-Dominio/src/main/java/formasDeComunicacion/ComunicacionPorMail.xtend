@@ -20,9 +20,9 @@ class ComunicacionPorMail implements FormaDeComunicacion {
 	// Metodos
 	override comunicarUsuario(Miembro unUsuario, Comunicable unComunicable) {
 		var String mailDelUsuario = unUsuario.mail
-		var String titulo= unComunicable.tituloMensaje
-		var String cuerpo= unComunicable.cuerpoMensaje
-		GMailSender.instance.sendMail(mailDelUsuario, titulo, cuerpo)
+		var String titulo = unComunicable.tituloMensaje
+		var String cuerpo = unComunicable.cuerpoMensaje
+		gmailsender.sendMail(mailDelUsuario, titulo, cuerpo)
 	}
 
 }

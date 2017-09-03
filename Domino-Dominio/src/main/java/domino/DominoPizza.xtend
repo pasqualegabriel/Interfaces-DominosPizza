@@ -26,10 +26,10 @@ class DominoPizza implements Observer {
 	
 	new(){
 		super()
-		pedidosAbiertos 		= new ArrayList<Pedido>
-		pedidosCerrados 		= new ArrayList<Pedido>
-		pedidosCancelados		= new ArrayList<Pedido>
-		menuDisponible  		= new MenuDomino
+		pedidosAbiertos 	= new ArrayList<Pedido>
+		pedidosCerrados 	= new ArrayList<Pedido>
+		pedidosCancelados	= new ArrayList<Pedido>
+		menuDisponible  	= new MenuDomino
 	}
 	
 	// Metodos

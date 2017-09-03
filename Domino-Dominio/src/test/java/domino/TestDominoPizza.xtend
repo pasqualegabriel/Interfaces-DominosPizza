@@ -12,8 +12,8 @@ class TestDominoPizza {
 	
 	// Estructura
 	
-	DominoPizza 	domino
-	@Mock Pedido	pedidoMock
+	DominoPizza  domino
+	@Mock Pedido pedidoMock
 	
 	// SetUp
 	

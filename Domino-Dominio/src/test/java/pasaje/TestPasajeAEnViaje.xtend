@@ -11,41 +11,41 @@ import comunicables.ComunicadoParaViaje
 import pasajes.PasajeEnViaje
 import domino.Miembro
 
-
 class TestPasajeAEnViaje {
 	//Estructura
-	PasajeEnViaje					unPasajeEnViajeTest
-	@Mock Pedido 					unPedidoMock
-	@Mock DominoPizza 				unDominoPizzaMock
-	Miembro							unMiembroSpy
+	PasajeEnViaje				unPasajeEnViajeTest
+	@Mock Pedido 				unPedidoMock
+	@Mock DominoPizza	 		unDominoPizzaMock
+	@Mock Miembro		    	unMiembroMock
 	
 	@Before
 	def void SetUp(){
 		
 		
 		unPasajeEnViajeTest		= new PasajeEnViaje
-		unMiembroSpy			= spy(new Miembro("1","2","3","4","5"))
 		MockitoAnnotations.initMocks(this)
-		when(unPedidoMock.miembro).thenReturn(unMiembroSpy)
-		
+		when(unPedidoMock.miembro).thenReturn(unMiembroMock)
 		
 	}
+	
 	@Test
 	def unPasajeAEnViajeConoceASuCumunicableEnViaje(){
 		
 		var comunicacionRespuesta = new ComunicadoParaViaje
 		
-		assertEquals(unPasajeEnViajeTest.comunicado.class,comunicacionRespuesta.class)
+		assertEquals(unPasajeEnViajeTest.comunicado.class, comunicacionRespuesta.class)
 	}
 	
 	@Test
 	def unPasajeAEnViajePuedeEjecutaParaQueElMiembroDelPedidoEnvieElComunicado(){
 		
-		var unComunicado	=  unPasajeEnViajeTest.comunicado
+		var unComunicado = unPasajeEnViajeTest.comunicado
 		
-		unPasajeEnViajeTest.ejecutar(unPedidoMock,unDominoPizzaMock)
+		unPasajeEnViajeTest.ejecutar(unPedidoMock, unDominoPizzaMock)
 		
-		verify(unMiembroSpy).comunicar(unComunicado)
-		
+		verify(unMiembroMock).comunicar(unComunicado)
 	}
+	
 }
+
+

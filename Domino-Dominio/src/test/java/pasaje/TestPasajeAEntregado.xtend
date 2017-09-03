@@ -14,29 +14,27 @@ import pasajes.PasajeAEntregado
 
 class TestPasajeAEntregado {
 	//Estructura
-	PasajeAEntregado				pasajeAEntregadoTest
-	@Mock Pedido 					unPedidoMock
-	DominoPizza 					unDominoPizzaSpy
-	Miembro							unMiembroSpy
+	PasajeAEntregado pasajeAEntregadoTest
+	@Mock Pedido 	 unPedidoMock
+	DominoPizza 	 unDominoPizzaSpy
+	@Mock Miembro	 unMiembroMock
 	
 	@Before
 	def void SetUp(){
 		
 		
-		pasajeAEntregadoTest				= new PasajeAEntregado
-		unMiembroSpy						= spy(new Miembro("1","2","3","4","5"))
-		unDominoPizzaSpy					= spy(new DominoPizza)
+		pasajeAEntregadoTest = new PasajeAEntregado
+		unDominoPizzaSpy	 = spy(new DominoPizza)
 		MockitoAnnotations.initMocks(this)
-		when(unPedidoMock.miembro).thenReturn(unMiembroSpy)
-		
-							
+		when(unPedidoMock.miembro).thenReturn(unMiembroMock)
+				
 	}
 	
 	@Test
 	def unPasajeAEntregadoConoceASuCumunicadoParaEntregado(){
 		var unComunidacoRespuesta= new ComunicadoParaEntregasTardias
 		
-		assertEquals(pasajeAEntregadoTest.comunicado.class,unComunidacoRespuesta.class)
+		assertEquals(pasajeAEntregadoTest.comunicado.class, unComunidacoRespuesta.class)
 		
 	}
 	@Test
@@ -44,25 +42,24 @@ class TestPasajeAEntregado {
 		var unComunicadoParaElMiembro	= pasajeAEntregadoTest.comunicado
 		
 		when(unPedidoMock.tardoMasDe30Minutos).thenReturn(true)
-		pasajeAEntregadoTest.ejecutar(unPedidoMock,unDominoPizzaSpy)
-		verify(unMiembroSpy).comunicar(unComunicadoParaElMiembro)
+		pasajeAEntregadoTest.ejecutar(unPedidoMock, unDominoPizzaSpy)
+		
+		verify(unMiembroMock).comunicar(unComunicadoParaElMiembro)
 		verify(unDominoPizzaSpy).cerrarPedidoEntregado(unPedidoMock)
 		
 	}
-	/* 
+
 	@Test
 	def unPasajeAEntregadoSabeEjecutarseParaQueAlMiembroNoleLLegeUnMailPorqueNoPaso30MinYParaQueDominoCierreUnPedidoEntregado(){
 		var unComunicadoParaElMiembro	= pasajeAEntregadoTest.comunicado
 		
 		when(unPedidoMock.tardoMasDe30Minutos).thenReturn(false)
-		pasajeAEntregadoTest.ejecutar(unPedidoMock,unDominoPizzaSpy)
-	 	(unMiembroSpy).comunicar(unComunicadoParaElMiembro)
-		
+		pasajeAEntregadoTest.ejecutar(unPedidoMock, unDominoPizzaSpy)
+	
+	 	verify(unMiembroMock, times(0)).comunicar(unComunicadoParaElMiembro)
 		verify(unDominoPizzaSpy).cerrarPedidoEntregado(unPedidoMock)
-		
-		
-		
-	} */
+
+	} 
 	
 	
 	

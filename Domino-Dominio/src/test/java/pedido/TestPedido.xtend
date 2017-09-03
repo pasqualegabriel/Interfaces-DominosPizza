@@ -25,10 +25,10 @@ class TestPedido {
 
 	// Estructura
 	
-	Pedido 			pedido
-	@Mock Miembro 	clienteMock
-	@Mock Plato 	unPlato
-	@Mock Local unRetiroEnElLocal
+	Pedido 		   pedido
+	@Mock Miembro  clienteMock
+	@Mock Plato    unPlato
+	@Mock Local    unRetiroEnElLocal
 	@Mock Delivery unRetiroConDelivery	
 	// SetUp 
 	// Se inician los mocks y crea un pedido Hecho por un clienteMock
@@ -70,13 +70,7 @@ class TestPedido {
 	@Test
 	def test003UnPedidoComienzaConUnaFechaYHora() {
 		
-		// SetUp
-		
-		//var dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
-		//var now = LocalDateTime.now()
-		//var ahora = dateformat.format(now)
 		var tiempoActual= LocalDateTime.now()
-		// Assertion
 		
 		assertEquals(pedido.fecha.class, tiempoActual.class)
 	}
@@ -167,25 +161,6 @@ class TestPedido {
 		
 		assertEquals(pedido.estadoActual.class, cancelado.class)
 	}
-/* 
-	@Test
-	def test00CuandoUnPedidoLLevaCreado30minutosEnviaUnMailAlUsuarioPidiendoleDisculpasPorLaDemora() {
-		var unMinuto = 60000
-		var treintaMinutos = unMinuto * 30
-
-		var Timer timer = new Timer(100, new ActionListener() {
-			@Override
-			override void actionPerformed(ActionEvent arg0) {
-				//Acion a ejecutar
-			}
-		});
-		timer.setRepeats(false); // Only execute once
-		timer.start(); // Go go go!
-		
-	}*/
-	
-
-// Falta lo del tiempo y confirmar!!!
 
 	@Test
 	def test010SiAUnPedidoQueTieneMasDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaTrue()
@@ -194,7 +169,7 @@ class TestPedido {
 		pedido.fecha = treintaMinitosDespues
 		//Exercise
 		//Test
-		assertTrue(pedido.tardoMasDe30Minutos())
+		assertTrue(pedido.tardoMasDe30Minutos)
 	}
 	
 	@Test
@@ -205,7 +180,7 @@ class TestPedido {
 		pedido.fecha = horaActual
 		//Exercise
 		//Test
-		assertFalse(pedido.tardoMasDe30Minutos())
+		assertFalse(pedido.tardoMasDe30Minutos)
 	}
 	
 	@Test

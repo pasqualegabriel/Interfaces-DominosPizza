@@ -13,9 +13,9 @@ class PasajeAEntregado implements EstrategiaDeNotificacion
 	{
 		unDominoPizza.cerrarPedidoEntregado(unPedido)
 		
-		if (unPedido.tardoMasDe30Minutos())
+		if (unPedido.tardoMasDe30Minutos)
 		{
-			GMailSender.instance.sendMail(unPedido.miembro.mail,this.tituloMensaje,this.cuerpoMensaje())
+			GMailSender.instance.sendMail(unPedido.miembro.mail, this.tituloMensaje, this.cuerpoMensaje())
 		}
 	}
 	
