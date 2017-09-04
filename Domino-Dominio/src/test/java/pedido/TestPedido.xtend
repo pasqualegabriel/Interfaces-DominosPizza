@@ -5,10 +5,7 @@ import static org.junit.Assert.*
 import org.junit.Before
 import org.mockito.Mock
 import static org.mockito.Mockito.when;
-//import static org.mockito.Matchers.anyLong;
-//import static org.mockito.Matchers.thenReturn;
 import org.mockito.MockitoAnnotations
-//import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import pedido.Pedido
 import domino.Miembro
@@ -17,22 +14,18 @@ import estados.Cancelado
 import pedido.Local
 import pedido.Delivery
 
-//import javax.swing.Timer
-//import java.awt.event.ActionEvent
-//import java.awt.event.ActionListener
+
 
 class TestPedido {
 
 	// Estructura
-	
-	Pedido 		   pedido
+	      Pedido   pedido
 	@Mock Miembro  clienteMock
 	@Mock Plato    unPlato
 	@Mock Local    unRetiroEnElLocal
 	@Mock Delivery unRetiroConDelivery	
-	// SetUp 
-	// Se inician los mocks y crea un pedido Hecho por un clienteMock
 	
+	// SetUp 
 	@Before
 	def void setUp() {
 		MockitoAnnotations.initMocks(this)
@@ -41,16 +34,13 @@ class TestPedido {
 	}
 	
 	// Tests
-	
 	@Test
 	def test000UnPedidoTieneUnCliente() {
 		
 		// Exercise
-		
 		when(clienteMock.nombre).thenReturn("javi")
 		
 		// Assertion
-		
 		assertEquals(pedido.miembro.nombre, "javi")
 
 	}
@@ -91,12 +81,10 @@ class TestPedido {
 	def test006UnPedidoSeLeCambiaLaAclaracionATardoMucho() {
 		
 		// Exercise
-		
 		var aclaracionTest = "Tardo Mucho"
 		pedido.cambiarAclaracion(aclaracionTest)
 		
 		// Assertion
-		
 		assertEquals(pedido.aclaracion, aclaracionTest)
 	}
 
@@ -104,11 +92,9 @@ class TestPedido {
 	def test007SeLeAgregaUnPlatoAlPedido() {
 		
 		// Exercise
-		
 		pedido.agregarPlato(unPlato)
 		
 		// Assertion
-		
 		assertEquals(pedido.platos.size, 1)
 		assertFalse(pedido.platos.empty)
 	}
@@ -117,14 +103,12 @@ class TestPedido {
 	def test008SeLeQuitaUnPlatoAlPedido() {
 		
 		// Exercise
-		
 		pedido.agregarPlato(unPlato)
-		pedido.quitarPlato(unPlato)
+		pedido.quitarPlato (unPlato)
 
 		// Assertion
-		
 		assertEquals(pedido.platos.size, 0)
-		assertTrue(pedido.platos.empty)
+		assertTrue  (pedido.platos.empty)
 
 	}
 
@@ -133,15 +117,15 @@ class TestPedido {
 		
 		//Setup
 		var precioPedido = 0
+		
 		// Exercise
 		pedido.formaDeRetiro = unRetiroEnElLocal
 		pedido.agregarPlato(unPlato)
-		when(unPlato.calcularPrecio).thenReturn(100 /*pesos*/ )
-		when(unRetiroEnElLocal.precioDeRetiro).thenReturn(0 /*pesos*/ )
+		when(unPlato.calcularPrecio)          .thenReturn(100 /*pesos*/ )
+		when(unRetiroEnElLocal.precioDeRetiro).thenReturn(0   /*pesos*/ )
 		precioPedido = pedido.calcularPrecio
 		
 		// Assertion
-		
 		assertEquals(pedido.platos.size, 1)
 		assertEquals(100,precioPedido)
 	}
@@ -150,53 +134,51 @@ class TestPedido {
 	def test009UnPedidoPuedeCancelarse() {
 		
 		// SetUp
-		
 		var cancelado = new Cancelado
 
 		// Exercise
-		
 		pedido.cancelar()
 
 		// Assertion
-		
 		assertEquals(pedido.estadoActual.class, cancelado.class)
 	}
 
 	@Test
 	def test010SiAUnPedidoQueTieneMasDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaTrue()
 	{
+	    // SetUp
 		val treintaMinitosDespues = LocalDateTime.now.plusMinutes(31)
-		pedido.fecha = treintaMinitosDespues
-		//Exercise
-		//Test
+		pedido.fecha              = treintaMinitosDespues
+	
+		// Assertion
 		assertTrue(pedido.tardoMasDe30Minutos)
 	}
 	
 	@Test
 	def test011SiAUnPedidoQueTieneMenosDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaFalse()
 	{
-		//Setup
+		// Setup
 		var horaActual = LocalDateTime.now
-		pedido.fecha = horaActual
-		//Exercise
-		//Test
+		pedido.fecha   = horaActual
+		
+		// Assertion
 		assertFalse(pedido.tardoMasDe30Minutos)
 	}
 	
 	@Test
 	def test012UnPedidoConDeliveryCalculaSuPrecio() {
 		
-		//Setup
+		// Setup
 		var precioPedido = 0
+		
 		// Exercise
 		pedido.formaDeRetiro = unRetiroConDelivery
 		pedido.agregarPlato(unPlato)
-		when(unPlato.calcularPrecio).thenReturn(100 /*pesos*/ )
+		when(unPlato.calcularPrecio)            .thenReturn(100 /*pesos*/ )
 		when(unRetiroConDelivery.precioDeRetiro).thenReturn(15 /*pesos*/ )
 		precioPedido = pedido.calcularPrecio
 		
 		// Assertion
-		
 		assertEquals(pedido.platos.size, 1)
 		assertEquals(115,precioPedido)
 	}

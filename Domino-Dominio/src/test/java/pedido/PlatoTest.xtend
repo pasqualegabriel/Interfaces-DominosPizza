@@ -17,68 +17,74 @@ import pizza.DistribucionEnPizza
 
 class PlatoTest 
 {
-	Plato unPlato
-	@Spy Distribucion unaDistribucion
-	@Mock Pizza unaDeMuzza
-	@Mock Pizza unaCustomizada
-	@Mock Pizza unaDeJamon
-	@Mock Grande tamanioGrande
-	@Mock Ingrediente provolone
-	@Mock Ingrediente jamon
+	// Estructura
+		  Plato 		unPlato
+	@Spy  Distribucion  unaDistribucion
+	@Mock Pizza 		unaDeMuzza
+	@Mock Pizza 		unaCustomizada
+	@Mock Pizza 		unaDeJamon
+	@Mock Grande 		tamanioGrande
+	@Mock Ingrediente 	provolone
+	@Mock Ingrediente 	jamon
 	
+	// SetUp 
 	@Before
-	def void SetUp()
-	{
+	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unPlato	= new Plato(unaDeMuzza,tamanioGrande,unaDistribucion)		
 	}
-
+	
+	// Tests
 	@Test
-	def Dado_Un_Plato_Recien_Creado_Este_Tiene_Una_Pizza_El_Tamaño_De_La_Pizza_Y_Una_Lista_Sin_Ingredientes_Extras()
+	def test00Dado_Un_Plato_Recien_Creado_Este_Tiene_Una_Pizza_El_Tamaño_De_La_Pizza_Y_Una_Lista_Sin_Ingredientes_Extras()
 	{
-		//Setup
+		// Setup
 		when(tamanioGrande.nombre()).thenReturn("Grande")
-		//Excersice
-		//Test
+
+		// Assertion
 		assertEquals(unaDeMuzza,unPlato.pizza)
 		assertEquals("Grande",unPlato.tamanio.nombre())
-		assertTrue(unPlato.ingredientesExtras.tieneIngredientes)
+		assertTrue  (unPlato.ingredientesExtras.tieneIngredientes)
 	}
 	
 	@Test
-	def Dado_Un_Plato_Sin_Ingredientes_Extras_Si_Agrego_Un_Ingrediente_La_Lista_Ya_No_Esta_Vacia()
+	def test01Dado_Un_Plato_Sin_Ingredientes_Extras_Si_Agrego_Un_Ingrediente_La_Lista_Ya_No_Esta_Vacia()
 	{
-		//Setup
-		//Exercise
+		
+		// Exercise
 		unPlato.agregarIngredienteExtra(provolone, DistribucionEnPizza.Toda)
-		//Test
-		assertTrue(!unPlato.ingredientesExtras.tieneIngredientes())
-		assertTrue(unPlato.ingredientesExtras.tieneAlIngrediente(provolone))
+		
+		// Assertion
+		assertTrue(!unPlato.ingredientesExtras.tieneIngredientes)
+		assertTrue( unPlato.ingredientesExtras.tieneAlIngrediente(provolone))
 	}
 	
 	@Test(expected=typeof(RuntimeException))
-	def Dado_Un_Plato_Con_Un_Ingrediente_Extra_Si_Trato_De_Quitar_Un_Ingrediente_Que_No_Esta_La_Lista_Tira_Error()
+	def test02Dado_Un_Plato_Con_Un_Ingrediente_Extra_Si_Trato_De_Quitar_Un_Ingrediente_Que_No_Esta_La_Lista_Tira_Error()
 	{
-		//Setup
+		// Setup
 		unPlato.agregarIngredienteExtra(provolone, DistribucionEnPizza.Toda)
-		//Exercise
+		
+		// Exercise
 		unPlato.quitarIngredienteExtra(jamon)
-		//Test
+		
 	}
 	
 	@Test
-	def Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Si_Se_La_Cambia_Por_Una_Pizza_Customizada_La_Pizza_Del_Plato_Va_A_Ser_Esta()
+	def test03Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Si_Se_La_Cambia_Por_Una_Pizza_Customizada_La_Pizza_Del_Plato_Va_A_Ser_Esta()
 	{
-		//Setup
+		// Setup
 		when(unaDeJamon.listaDeIngredientes()).thenReturn(new ArrayList<Ingrediente>())
-		//Exercise
+		
+		// Exercise
 		unPlato.cambiarPizza(unaCustomizada)
-		//Test
+		
+		// Assertion
 		assertEquals(unaCustomizada, unPlato.pizza)
 	}
 	
 	@Test
-	def Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Y_Jamon_Como_Ingrediente_Extra_Si_Se_Cambia_Por_Una_Pizza_De_Jamon_No_Hay_Ingredientes_Extras()
+	def test04Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Y_Jamon_Como_Ingrediente_Extra_Si_Se_Cambia_Por_Una_Pizza_De_Jamon_No_Hay_Ingredientes_Extras()
 	{
 		//Setup
 		var ingredientesInvalidos	=	new ArrayList<Ingrediente>()
@@ -88,32 +94,37 @@ class PlatoTest
 		//Exercise
 		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Toda)
 		unPlato.cambiarPizza(unaDeJamon)
-		//Test
-		assertTrue(unPlato.ingredientesExtras.tieneIngredientes())
+		
+		// Assertion
+		assertTrue(unPlato.ingredientesExtras.tieneIngredientes)
 	}
 	
 	@Test
-	def Dado_Un_Plato_Con_Una_Pizza_Customizada_Grande_Y_Sin_Ingredientes_Extras_Si_le_Pido_El_Precio_Devuelve_70()
+	def test05Dado_Un_Plato_Con_Una_Pizza_Customizada_Grande_Y_Sin_Ingredientes_Extras_Si_le_Pido_El_Precio_Devuelve_70()
 	{
-		//Setup
-		when(unaCustomizada.precioBase).thenReturn(70)
-		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue())
-		//Exercise
-		unPlato.cambiarPizza(unaCustomizada)			
-		//Test
-		assertEquals(70, unPlato.calcularPrecio())
+		// Setup
+		when(unaCustomizada.precioBase)      .thenReturn(70)
+		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue)
+		
+		// Exercise
+		unPlato.cambiarPizza(unaCustomizada)	
+				
+		// Assertion
+		assertEquals(70, unPlato.calcularPrecio)
 	}
 	
 	@Test
-	def Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Que_Sale_85_De_Tamaño_Familiar_Y_Con_Jamon_Como_Ingrediente_Extra_Que_Vale_15_Si_le_Pido_El_Precio_Devuelve_100()
+	def test06Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Que_Sale_85_De_Tamaño_Familiar_Y_Con_Jamon_Como_Ingrediente_Extra_Que_Vale_15_Si_le_Pido_El_Precio_Devuelve_100()
 	{
-		//Setup
-		when(unaDeMuzza.precioBase).thenReturn(85)
-		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue())
-		when(jamon.precio).thenReturn(15)
-		//Exercise
+		// Setup
+		when(unaDeMuzza.precioBase)        .thenReturn(85)
+		when(tamanioGrande.factorDeTamanio).thenReturn(1.doubleValue)
+		when(jamon.precio)                 .thenReturn(15)
+		
+		// Exercise
 		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Izquierda)	
-		//Test
+		
+		// Assertion
 		assertEquals(100, unPlato.calcularPrecio())
 	}
 

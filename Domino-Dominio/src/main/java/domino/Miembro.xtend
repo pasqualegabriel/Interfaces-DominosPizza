@@ -10,7 +10,7 @@ import formasDeComunicacion.FormaDeComunicacion
 
 /**
  *  Responsabilidad: Representar al usuario cliente registrado en el sistema y manejar
- *  los pedidos que este hizo.
+ *  los pedidos que este ya hizo ademas de las preferencias de este.
  */
  
 @Accessors

@@ -13,16 +13,16 @@ import comunicables.ComunicadoParaEntregasTardias
 import pasajes.PasajeAEntregado
 
 class TestPasajeAEntregado {
-	//Estructura
-	PasajeAEntregado pasajeAEntregadoTest
-	@Mock Pedido 	 unPedidoMock
-	DominoPizza 	 unDominoPizzaSpy
-	@Mock Miembro	 unMiembroMock
 	
+	// Estructura
+		  PasajeAEntregado  pasajeAEntregadoTest
+	      DominoPizza 	    unDominoPizzaSpy
+	@Mock Miembro	        unMiembroMock
+	@Mock Pedido 	        unPedidoMock
+	
+	// Setup
 	@Before
-	def void SetUp(){
-		
-		
+	def void setUp(){
 		pasajeAEntregadoTest = new PasajeAEntregado
 		unDominoPizzaSpy	 = spy(new DominoPizza)
 		MockitoAnnotations.initMocks(this)
@@ -30,32 +30,41 @@ class TestPasajeAEntregado {
 				
 	}
 	
+	// Tests
 	@Test
-	def unPasajeAEntregadoConoceASuCumunicadoParaEntregado(){
+	def test00unPasajeAEntregadoConoceASuCumunicadoParaEntregado(){
+		// Setup
 		var unComunidacoRespuesta= new ComunicadoParaEntregasTardias
 		
+		// Assertion
 		assertEquals(pasajeAEntregadoTest.comunicado.class, unComunidacoRespuesta.class)
 		
 	}
 	@Test
-	def unPasajeAEntregadoSabeEjecutarseParaQueAlMiembroDelPedidoLeLLegueUnMailEnCasoQueHayanPasado30MinYParaQueDominoCierreUnPedidoEntregado(){
+	def test01unPasajeAEntregadoSabeEjecutarseParaQueAlMiembroDelPedidoLeLLegueUnMailEnCasoQueHayanPasado30MinYParaQueDominoCierreUnPedidoEntregado(){
+		// Setup
 		var unComunicadoParaElMiembro	= pasajeAEntregadoTest.comunicado
 		
+		// Exercise
 		when(unPedidoMock.tardoMasDe30Minutos).thenReturn(true)
 		pasajeAEntregadoTest.ejecutar(unPedidoMock, unDominoPizzaSpy)
 		
+		// Assertion
 		verify(unMiembroMock).comunicar(unComunicadoParaElMiembro)
 		verify(unDominoPizzaSpy).cerrarPedidoEntregado(unPedidoMock)
 		
 	}
 
 	@Test
-	def unPasajeAEntregadoSabeEjecutarseParaQueAlMiembroNoleLLegeUnMailPorqueNoPaso30MinYParaQueDominoCierreUnPedidoEntregado(){
+	def test02unPasajeAEntregadoSabeEjecutarseParaQueAlMiembroNoleLLegeUnMailPorqueNoPaso30MinYParaQueDominoCierreUnPedidoEntregado(){
+		// Setup
 		var unComunicadoParaElMiembro	= pasajeAEntregadoTest.comunicado
 		
+		// Exercise
 		when(unPedidoMock.tardoMasDe30Minutos).thenReturn(false)
 		pasajeAEntregadoTest.ejecutar(unPedidoMock, unDominoPizzaSpy)
 	
+		// Assertion
 	 	verify(unMiembroMock, times(0)).comunicar(unComunicadoParaElMiembro)
 		verify(unDominoPizzaSpy).cerrarPedidoEntregado(unPedidoMock)
 

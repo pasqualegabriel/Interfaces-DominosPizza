@@ -11,36 +11,46 @@ import pedido.Pedido
 import estados.Cancelado
 
 class TestEstadoCancelado {
-	//Estructura
-	EstadoDePedido	unEstadoCanceladoTest
-	EstadoDePedido  otroEstadoCanceladoTest
-	@Mock Pedido 	unPedidoMock
-		
+	
+	// Estructura
+	@Mock Pedido 			unPedidoMock
+		  EstadoDePedido	unEstadoCanceladoTest
+	      EstadoDePedido  	otroEstadoCanceladoTest
+	
+	// Setup
 	@Before
-	def void SetUp(){
+	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoCanceladoTest		= spy(new Cancelado)
 		otroEstadoCanceladoTest		= new Cancelado
 	}
 	
+	// Tests
 	@Test
-	def cuandoElEstadoCanceladoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00cuandoElEstadoCanceladoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoCanceladoTest		 .siguiente(unPedidoMock)
 		
-		unEstadoCanceladoTest.siguiente(unPedidoMock)
+		// Assertion
 		verify(unEstadoCanceladoTest).siguiente(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoElEstadoCanceladoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01cuandoElEstadoCanceladoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoCanceladoTest		 .anterior(unPedidoMock)
 		
-		unEstadoCanceladoTest.anterior(unPedidoMock)
+		// Assertion
 		verify(unEstadoCanceladoTest).anterior(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoElEstadoCanceladoSeLePidePrevioYEntregadoDevuelveElEstadoCancelado(){
+	def test02cuandoElEstadoCanceladoSeLePidePrevioYEntregadoDevuelveElEstadoCancelado(){
+		// Setup
 		var estadoRespuesta = new Cancelado 
-		assertEquals(otroEstadoCanceladoTest.previo.class,estadoRespuesta.class)
+		
+		// Assertion
+		assertEquals(otroEstadoCanceladoTest.previo .class,estadoRespuesta.class)
 		assertEquals(otroEstadoCanceladoTest.proximo.class,estadoRespuesta.class)
 	}	
 }

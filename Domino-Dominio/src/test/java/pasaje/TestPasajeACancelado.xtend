@@ -9,16 +9,16 @@ import domino.DominoPizza
 import pasajes.PasajeACancelado
 
 class TestPasajeACancelado {
-	//Estructura
-	PasajeACancelado				pasajeACanceladoTest
+	
+	// Estructura
 	@Mock Pedido 					unPedidoMock
-	DominoPizza 					unDominoPizzaSpy
+		  PasajeACancelado			pasajeACanceladoTest
+		  DominoPizza 				unDominoPizzaSpy
 	
 
+	// Setup
 	@Before
-	def void SetUp(){
-		
-		
+	def void setUp(){
 		pasajeACanceladoTest				= new PasajeACancelado
 		unDominoPizzaSpy					= spy(new DominoPizza)
 		MockitoAnnotations.initMocks(this)
@@ -26,9 +26,14 @@ class TestPasajeACancelado {
 							
 	}
 	
+	// Tests
 	@Test
-	def elPasajeACanceladoPuedeEjecutarseYPonerUnPedidoALaListaDeCanceladosDeDominoPizza(){
+	def test00elPasajeACanceladoPuedeEjecutarseYPonerUnPedidoALaListaDeCanceladosDeDominoPizza(){
+		
+		// Exercise
 		pasajeACanceladoTest.ejecutar(unPedidoMock,unDominoPizzaSpy)
+		
+		// Assertion
 		verify(unDominoPizzaSpy).agregarPedidosCancelados(unPedidoMock)	
 		
 	}

@@ -9,19 +9,23 @@ import pedido.Delivery
 import estados.ListoParaEnviar
 
 class TesFormaDeRetiroPorDelivery {
+	
 	//Estructura
 	FormaDeRetiro 	unRetiroPorDeliveryTest
 	EstadoDePedido 	estadoResultado
 	
+	// SetUp 
 	@Before
-	def void SetUp(){
+	def void setUp(){
 		unRetiroPorDeliveryTest	= new Delivery
 		estadoResultado 		= new ListoParaEnviar 
 	}
 	
+	// Tests
 	@Test
-	def unRetiroPorDeliveryTestSiSeLePideAvanzarEstadoEsteRetornaUnEstadoListoParaEnviar(){
-		 
+	def test00unRetiroPorDeliveryTestSiSeLePideAvanzarEstadoEsteRetornaUnEstadoListoParaEnviar(){
+		
+		// Assertion
 		assertEquals(unRetiroPorDeliveryTest.avanzarEstado.class,estadoResultado.class)
 	}
 }

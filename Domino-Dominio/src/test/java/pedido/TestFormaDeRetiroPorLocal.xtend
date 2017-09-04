@@ -14,16 +14,18 @@ class TestFormaDeRetiroPorLocal {
 	FormaDeRetiro 		unRetiroPorLocalTest
 	EstadoDePedido 		estadoResultado
 	
+	// SetUp 
 	@Before
-	def void SetUp(){
+	def void setUp(){
 		unRetiroPorLocalTest	= new Local
 		estadoResultado			= new ListoParaRetirar
 	}
 	
+	// Tests
 	@Test
-	def unRetiroPporLocalTestCuandoSeLePideAvanzarEstadoRetornaElEstadoListoParaRetirar(){
+	def test00unRetiroPporLocalTestCuandoSeLePideAvanzarEstadoRetornaElEstadoListoParaRetirar(){
 		
-		
+		// Assertion
 		assertEquals(unRetiroPorLocalTest.avanzarEstado.class, estadoResultado.class)
 	}
 	 	

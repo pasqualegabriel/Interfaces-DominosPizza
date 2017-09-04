@@ -2,13 +2,19 @@ package estados
 
 import pedido.Pedido
 
+// Responsabilidad: -Manejar comportamiento de pedido el cual depende de que este preparandose
+//                  -Indicar cual es el siguiente o anterior estado que le sigue
+
+
 class Preparando extends EstadoDePedido{
 	
+	// Constructor 
 	new(){
 		super()
 		nombre = "Preparando"
 	}
 
+	// Metodos
 	override siguiente(Pedido unPedido){
 		var unaFormaDeEnvio = unPedido.formaDeRetiro
 		var estadoSiguiente = unaFormaDeEnvio.avanzarEstado

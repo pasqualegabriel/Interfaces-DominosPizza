@@ -13,41 +13,54 @@ import estados.Entregado
 import estados.Preparando
 
 class TestEstadoListoParaRetirar {
-	//Estructura
-	EstadoDePedido	unEstadoListoParaRetirarTest
-	EstadoDePedido  otroEstadoListoParaRetirarTest
-	@Mock Pedido 	unPedidoMock
 	
+	// Estructura
+		  EstadoDePedido  unEstadoListoParaRetirarTest
+		  EstadoDePedido  otroEstadoListoParaRetirarTest
+	@Mock Pedido	 	  unPedidoMock
+	
+	// Setup
 	@Before
-	def void SetUp(){
+	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoListoParaRetirarTest	= spy(new ListoParaRetirar)
 		otroEstadoListoParaRetirarTest	= new ListoParaRetirar
 	}
 	
+	// Tests
 	@Test
-	def cuandoElEstadoListoParaRetirarLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00cuandoElEstadoListoParaRetirarLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoListoParaRetirarTest		.siguiente(unPedidoMock)
 		
-		unEstadoListoParaRetirarTest.siguiente(unPedidoMock)
+		// Assertion
 		verify(unEstadoListoParaRetirarTest).siguiente(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoElEstadoListoParaRetirarLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01cuandoElEstadoListoParaRetirarLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoListoParaRetirarTest		.anterior(unPedidoMock)
 		
-		unEstadoListoParaRetirarTest.anterior(unPedidoMock)
+		// Assertion
 		verify(unEstadoListoParaRetirarTest).anterior(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoElEstadoListoParaRetirarSeLePidePrevioDevuelveElEstadoPreparando(){
+	def test02cuandoElEstadoListoParaRetirarSeLePidePrevioDevuelveElEstadoPreparando(){
+		// Setup
 		var estadoRespuesta = new Preparando
+		
+		// Assertion
 		assertEquals(otroEstadoListoParaRetirarTest.previo.class,estadoRespuesta.class)
 	}
 	
 	@Test
-	def cuandoElEstadoListoParaRetirarSeLePideProximoDevuelveElEstadoEntregado(){
+	def test03cuandoElEstadoListoParaRetirarSeLePideProximoDevuelveElEstadoEntregado(){
+		// Setup
 		var estadoRespuesta = new Entregado
+		
+		// Assertion
 		assertEquals(otroEstadoListoParaRetirarTest.proximo.class,estadoRespuesta.class)
 	}
 }

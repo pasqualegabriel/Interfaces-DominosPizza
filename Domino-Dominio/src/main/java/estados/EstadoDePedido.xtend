@@ -2,12 +2,18 @@ package estados
 
 import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
-import domino.PasajeACancelado
+import pasajes.PasajeACancelado
+
+// Responsabilidad: -Manejar comportamiento de pedido el cual depende del estado en el cual se encuentre
+//                  -Indicar cual es el siguiente o anterior estado que le sigue
 
 @Accessors
 abstract class EstadoDePedido  {
+	
+	// Estructura
 	protected String nombre
 	
+	// Metodos
 	 def void siguiente(Pedido unPedido){
 		var estadoSiguiente = this.proximo()
 		unPedido.estadoActual = estadoSiguiente

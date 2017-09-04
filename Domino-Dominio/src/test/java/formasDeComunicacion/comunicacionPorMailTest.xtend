@@ -13,31 +13,32 @@ import mailSender.GMailSender
 class comunicacionPorMailTest {
 	
 	// Estructura
-	ComunicacionPorMail unaComunicacionPorMail
-	@Mock Miembro       mockMiembro 
-	@Mock Comunicable   mockComunicable 
-	@Mock GMailSender   gmailsenderMock
+		  ComunicacionPorMail unaComunicacionPorMail
+	@Mock Miembro     		  mockMiembro 
+	@Mock Comunicable  		  mockComunicable 
+	@Mock GMailSender  		  gmailsenderMock
 	
 	// SetUp
 	@Before
 	def void setUp() {
 		MockitoAnnotations.initMocks(this)
-		unaComunicacionPorMail = new ComunicacionPorMail
+		unaComunicacionPorMail             = new ComunicacionPorMail
 		unaComunicacionPorMail.gmailsender = gmailsenderMock		
 		
 	}
 	
 	// Tests
-	
 	@Test
 	def test000CuandoAComunicacionPorMailComunicaAUnUsuarioSeLeEnviaUnMailAEste(){
-		
+		// Setup
 		when(mockMiembro.mail).thenReturn("mail")
 		when(mockComunicable.tituloMensaje).thenReturn("Probando")
 		when(mockComunicable.cuerpoMensaje).thenReturn("ACaraDePerro")
 		
+		// Exercise
 		unaComunicacionPorMail.comunicarUsuario(mockMiembro, mockComunicable)
 		
+		// Assertion
 		verify(gmailsenderMock).sendMail("mail", "Probando", "ACaraDePerro")
 	
 	}

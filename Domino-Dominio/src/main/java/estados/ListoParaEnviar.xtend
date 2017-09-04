@@ -1,11 +1,14 @@
 package estados
 
 import pedido.Pedido
-import domino.PasajeEnViaje
+import pasajes.PasajeEnViaje
+
+// Responsabilidad: -Manejar comportamiento de pedido el cual depende de que este este listo para enviar
+//                  -Indicar cual es el siguiente o anterior estado que le sigue
 
 class ListoParaEnviar extends EstadoDePedido
 {
-	
+	// Metodos
 	override void siguiente(Pedido unPedido)
 	{
 		super.siguiente(unPedido)

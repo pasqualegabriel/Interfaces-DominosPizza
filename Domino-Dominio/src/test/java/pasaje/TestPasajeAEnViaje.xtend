@@ -12,37 +12,42 @@ import pasajes.PasajeEnViaje
 import domino.Miembro
 
 class TestPasajeAEnViaje {
-	//Estructura
-	PasajeEnViaje				unPasajeEnViajeTest
+	
+	// Estructura
+		  PasajeEnViaje			unPasajeEnViajeTest
 	@Mock Pedido 				unPedidoMock
 	@Mock DominoPizza	 		unDominoPizzaMock
 	@Mock Miembro		    	unMiembroMock
 	
+	// SetUp
 	@Before
-	def void SetUp(){
-		
-		
+	def void setUp(){
 		unPasajeEnViajeTest		= new PasajeEnViaje
 		MockitoAnnotations.initMocks(this)
 		when(unPedidoMock.miembro).thenReturn(unMiembroMock)
 		
 	}
 	
+	// Tests
 	@Test
-	def unPasajeAEnViajeConoceASuCumunicableEnViaje(){
-		
+	def test00unPasajeAEnViajeConoceASuCumunicableEnViaje(){
+		// Setup
 		var comunicacionRespuesta = new ComunicadoParaViaje
 		
+		// Assertion
 		assertEquals(unPasajeEnViajeTest.comunicado.class, comunicacionRespuesta.class)
 	}
 	
 	@Test
-	def unPasajeAEnViajePuedeEjecutaParaQueElMiembroDelPedidoEnvieElComunicado(){
+	def test01unPasajeAEnViajePuedeEjecutaParaQueElMiembroDelPedidoEnvieElComunicado(){
 		
+		// Setup
 		var unComunicado = unPasajeEnViajeTest.comunicado
 		
+		// Exercise
 		unPasajeEnViajeTest.ejecutar(unPedidoMock, unDominoPizzaMock)
 		
+		// Assertion
 		verify(unMiembroMock).comunicar(unComunicado)
 	}
 	

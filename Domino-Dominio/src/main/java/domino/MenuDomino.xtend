@@ -4,18 +4,23 @@ import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessorsimport pizza.Ingrediente
 import pizza.Pizza
 
+// Responsabilidad: Administrar las promociones e ingredientes disponibles
+
 @Accessors
 class MenuDomino 
 {
+	// Estructura
 	ArrayList<Ingrediente> ingredientesDisponibles
-	ArrayList<Pizza> promocionesDisponibles
+	ArrayList<Pizza>	   promocionesDisponibles
 
+	// Constructores
 	new()
 	{
 		ingredientesDisponibles	= new ArrayList<Ingrediente>()
 		promocionesDisponibles	= new ArrayList<Pizza>()
 	}
 	
+	// Metodos
 	def ingredientesDisponibles()
 	{
 		this.getIngredientesDisponibles

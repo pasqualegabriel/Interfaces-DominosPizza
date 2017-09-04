@@ -13,11 +13,13 @@ import estados.ListoParaEnviar
 import estados.Entregado
 
 class TestEstadoEnViaje {
-	//Estructura
-	EstadoDePedido	unEstadoEnViajeTest
-	EstadoDePedido	otroEstadoEnViajeTest
-	@Mock Pedido 	unPedidoMock
 	
+	// Estructura
+	@Mock Pedido 	        unPedidoMock
+		  EstadoDePedido	unEstadoEnViajeTest
+		  EstadoDePedido	otroEstadoEnViajeTest
+	
+	// Setup
 	@Before
 	def void SetUp(){
 		MockitoAnnotations.initMocks(this)
@@ -26,28 +28,39 @@ class TestEstadoEnViaje {
 		
 	}
 	
+	// Tests
 	@Test
-	def cuandoElEstadoEnViajeLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00cuandoElEstadoEnViajeLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoEnViajeTest		   .siguiente(unPedidoMock)
 		
-		unEstadoEnViajeTest.siguiente(unPedidoMock)
+		// Assertion
 		verify(unEstadoEnViajeTest).siguiente(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoEstadoEnViajeLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01cuandoEstadoEnViajeLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoEnViajeTest		   .anterior(unPedidoMock)
 		
-		unEstadoEnViajeTest.anterior(unPedidoMock)
+		// Assertion
 		verify(unEstadoEnViajeTest).anterior(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoAEstadoEnViajeSeLePideElPrevioDevuelveElEstadoListoParaEnviar(){
+	def test02cuandoAEstadoEnViajeSeLePideElPrevioDevuelveElEstadoListoParaEnviar(){
+		// Setup
 		var estadoRespuesta = new ListoParaEnviar
+		
+		// Assertion
 		assertEquals(otroEstadoEnViajeTest.previo.class,estadoRespuesta.class)
 	}
 	@Test
-	def cuandoAEstadoEnViajeSeLePideElProximoDevuelveElEstadoEntregado(){
+	def test03cuandoAEstadoEnViajeSeLePideElProximoDevuelveElEstadoEntregado(){
+		// Setup
 		var estadoRespuesta = new Entregado
+		
+		// Assertion
 		assertEquals(otroEstadoEnViajeTest.proximo.class,estadoRespuesta.class)
 		
 	}

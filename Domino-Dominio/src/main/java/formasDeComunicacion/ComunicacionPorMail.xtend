@@ -5,6 +5,9 @@ import mailSender.GMailSender
 import domino.Miembro
 import org.eclipse.xtend.lib.annotations.Accessors
 
+// Responsabilidad: Comunicar al usuario a travez de mail ciertos mensajes que el sistema necesita hacerle
+//           		llegar cuando suceden ciertos eventos
+
 @Accessors
 class ComunicacionPorMail implements FormaDeComunicacion {
 

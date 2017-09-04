@@ -16,58 +16,64 @@ import estados.Preparando
 
 class TestEstadoPreparado {
 	
-	//Estructura
-	EstadoDePedido 			unEstadoPreparandoTest
-	EstadoDePedido			otroEstadoDePreparandoTest
-	@Mock Pedido 			unPedidoMock
-	@Mock Pedido 			otroPedidoMock
-	@Mock Local				unaFormaDeRetiroPorLocalMock
-	@Mock Delivery 			unaFormadeRetiroPorDelivyMock
-	@Mock ListoParaEnviar	unEstadoListoParaRetirarMock
-	@Mock ListoParaRetirar 	unEstadoListoParaEnviarMock
+	// Estructura
+	@Mock Pedido 					unPedidoMock
+	@Mock Pedido 					otroPedidoMock
+	@Mock Local						unaFormaDeRetiroPorLocalMock
+	@Mock Delivery 					unaFormadeRetiroPorDelivyMock
+	@Mock ListoParaEnviar			unEstadoListoParaRetirarMock
+	@Mock ListoParaRetirar 			unEstadoListoParaEnviarMock
+	  	  EstadoDePedido 			unEstadoPreparandoTest
+		  EstadoDePedido			otroEstadoDePreparandoTest
 	
-	
+	// Setup
 	@Before
 	def void SetUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoPreparandoTest		= spy(new Preparando)
 		otroEstadoDePreparandoTest	= new Preparando
 		
-		when(unaFormaDeRetiroPorLocalMock.avanzarEstado).thenReturn(unEstadoListoParaRetirarMock)
+		when(unaFormaDeRetiroPorLocalMock.avanzarEstado) .thenReturn(unEstadoListoParaRetirarMock)
 		when(unaFormadeRetiroPorDelivyMock.avanzarEstado).thenReturn(unEstadoListoParaEnviarMock)
 		
 		
-		when(unPedidoMock.formaDeRetiro).thenReturn(unaFormaDeRetiroPorLocalMock)
+		when(unPedidoMock.formaDeRetiro)  .thenReturn(unaFormaDeRetiroPorLocalMock)
 		when(otroPedidoMock.formaDeRetiro).thenReturn(unaFormadeRetiroPorDelivyMock)
 		
 	}
 	
-	
+	// Tests
 	@Test
-	def cuandoElEstadoPrerandoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
-		unEstadoPreparandoTest.siguiente(unPedidoMock)
+	def test00cuandoElEstadoPrerandoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoPreparandoTest		  .siguiente(unPedidoMock)
 		verify(unEstadoPreparandoTest).siguiente(unPedidoMock)
 		
-		unEstadoPreparandoTest.siguiente(otroPedidoMock)
+		// Assertion
+		unEstadoPreparandoTest	      .siguiente(otroPedidoMock)
 		verify(unEstadoPreparandoTest).siguiente(otroPedidoMock)
 	}
 	@Test
-	def cuandoElEstadoPrerandoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01cuandoElEstadoPrerandoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
 		unEstadoPreparandoTest.anterior(unPedidoMock)
+		
+		// Assertion
 		verify(unEstadoPreparandoTest).anterior(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoAElEstadoPreprandoSeLePidePrevioEsteTeDaElEstadoAnteriorQueEsElMismo(){
-		
+	def test02cuandoAElEstadoPreprandoSeLePidePrevioEsteTeDaElEstadoAnteriorQueEsElMismo(){
+		// Setup
 		var unEstadoRespuesta = new Preparando
 		
+		// Assertion
 		assertEquals(otroEstadoDePreparandoTest.previo.class,unEstadoRespuesta.class)
 	}
 	
 	@Test
-	def cuandoAElEstadoPreparandoSeLePideProximoDevuelveNull(){
-		
+	def test03cuandoAElEstadoPreparandoSeLePideProximoDevuelveNull(){
+		// Assertion
 		assertEquals(otroEstadoDePreparandoTest.proximo,null)
 	}
 	

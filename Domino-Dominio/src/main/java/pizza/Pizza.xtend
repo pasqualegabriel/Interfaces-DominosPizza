@@ -9,12 +9,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Pizza 
 {
-	//Atributos
-	String nombre
-	Integer precioBase
-	Distribucion distribucion
+	// Atributos
+	String 			nombre
+	Integer 		precioBase
+	Distribucion    distribucion
 	
-	//Constructor
+	// Constructor
 	new(String unNombre, int unPrecio, Distribucion unaDistribucion) 
 	{
 		this.nombre 		= unNombre	
@@ -22,7 +22,7 @@ class Pizza
 		this.distribucion 	= unaDistribucion
 	}
 	
-	//Getters & Setters
+	// Getters & Setters
 	def void cambiarNombre(String unNombre) 
 	{
 		this.nombre = unNombre
@@ -33,7 +33,7 @@ class Pizza
 		this.precioBase = nuevoPrecio
 	}
 	
-	//Metodos
+	// Metodos
 	/**
 	 * Agrega un nuevo ingrediente con su respectiva distribucion a la lista de ingredientes de la pizza. 
 	 * La distribucion puede ser "Todo", "Izquierda" o "Derecha". Si ya esta el ingrediente, lo reemplaza.

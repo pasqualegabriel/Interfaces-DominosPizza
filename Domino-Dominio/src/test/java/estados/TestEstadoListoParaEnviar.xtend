@@ -14,42 +14,53 @@ import estados.EnViaje
 
 class TestEstadoListoParaEnviar {
 	
-	//Estructura
-	EstadoDePedido	unEstadoListoParaEnviarTest
-	EstadoDePedido	otroEstadoListoParaEnviarTest
-	@Mock Pedido 	unPedidoMock
-	
+	// Estructura
+	@Mock Pedido		 	unPedidoMock
+		  EstadoDePedido	unEstadoListoParaEnviarTest
+		  EstadoDePedido	otroEstadoListoParaEnviarTest
+
+	// Setup
 	@Before
-	def void SetUp(){
+	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoListoParaEnviarTest		= spy(new ListoParaEnviar)
 		otroEstadoListoParaEnviarTest	= new ListoParaEnviar 
 	}
 	
+	// Tests
 	@Test
-	def cuandoElEstadoListoParaEnviarLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00cuandoElEstadoListoParaEnviarLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoListoParaEnviarTest        .siguiente(unPedidoMock)
 		
-		unEstadoListoParaEnviarTest.siguiente(unPedidoMock)
+		// Assertion
 		verify(unEstadoListoParaEnviarTest).siguiente(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoElEstadoListoParaEnviarLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01cuandoElEstadoListoParaEnviarLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoListoParaEnviarTest        .anterior(unPedidoMock)
 		
-		unEstadoListoParaEnviarTest.anterior(unPedidoMock)
+		// Assertion
 		verify(unEstadoListoParaEnviarTest).anterior(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoAlEstadoListoParaEnviarSeLePideSuPrevioDevuelveElEstadoPreparando(){
+	def test02cuandoAlEstadoListoParaEnviarSeLePideSuPrevioDevuelveElEstadoPreparando(){
+		// Exercise
 		var unEstadoRespuesta	= new Preparando
 		
+		// Assertion
 		assertEquals(otroEstadoListoParaEnviarTest.previo.class,unEstadoRespuesta.class)
 	}
 	
 	@Test
-	def cuandoAlEstadoLIstoParaEnviarSeLePideSuProximoDevuelveElEstadoEnViaje(){
+	def test03cuandoAlEstadoLIstoParaEnviarSeLePideSuProximoDevuelveElEstadoEnViaje(){
+		// Setup
 		var estadoRespuesta = new EnViaje
+		
+		// Assertion
 		assertEquals(otroEstadoListoParaEnviarTest.proximo.class,estadoRespuesta.class)
 	}
 	

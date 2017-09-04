@@ -10,14 +10,17 @@ import java.util.ArrayListimport java.util.List
 @Accessors
 class Distribucion 
 {
+	// Estructura
 	HashMap<Ingrediente, DistribucionEnPizza> ingredientes
-		
+	
+	// Constructores
 	new()
 	{
 		this.ingredientes = new HashMap<Ingrediente, DistribucionEnPizza>() 
 	}
 
-
+	
+	// Metodos
 	/**
 	 * Agrega un nuevo ingrediente con su respectiva distribucion a la lista de ingredientes. 
 	 * La distribucion puede ser "Todo", "Izquierda" o "Derecha". Si ya esta el ingrediente, lo reemplaza.

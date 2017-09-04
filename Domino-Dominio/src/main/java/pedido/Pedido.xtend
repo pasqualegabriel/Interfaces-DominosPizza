@@ -78,19 +78,6 @@ class Pedido extends Observable {
 	def tardoMasDe30Minutos() 
 	{
 		fecha.minusMinutes(30).isAfter(LocalDateTime.now) || fecha.minusMinutes(30).equals(LocalDateTime.now)
-		
-	
-		
-		
-		/* 
-		var fechaAComparar	= LocalDateTime.now
-		
-		var DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyy/MM/dd HH:mm:ss")
-		var fechaDePedido = LocalDateTime.parse(this.getFecha,)	//Convierte el string a local date
-		var fechaLimiteSinDemora = fechaDePedido.plusMinutes(30)			//Setea la fecha de pedido con 30 minutos adelantados
-		
-		fechaAComparar.isAfter(fechaLimiteSinDemora)	//Se fija si unaFecha es superior a la fecha de pedido
-		 */
 	}
 
 }

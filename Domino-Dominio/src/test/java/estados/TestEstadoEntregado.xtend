@@ -12,35 +12,44 @@ import estados.Entregado
 
 class TestEstadoEntregado {
 
-	//Estructura
-	EstadoDePedido	unEstadoEntregadoTest
-	EstadoDePedido  otroEstadoEntregadoTest
-	@Mock Pedido 	unPedidoMock
+	// Estructura
+	@Mock Pedido 			unPedidoMock
+		  EstadoDePedido	unEstadoEntregadoTest
+		  EstadoDePedido  	otroEstadoEntregadoTest
 	
+	// Setup
 	@Before
-	def void SetUp(){
+	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoEntregadoTest		= spy(new Entregado)
 		otroEstadoEntregadoTest		= new Entregado
 		
 	}
 	
+	// Tests
 	@Test
-	def cuandoElEstadoEntregadoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00cuandoElEstadoEntregadoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoEntregadoTest		 .siguiente(unPedidoMock)
 		
-		unEstadoEntregadoTest.siguiente(unPedidoMock)
+		// Assertion
 		verify(unEstadoEntregadoTest).siguiente(unPedidoMock)
 	}
 	
 	@Test
-	def cuandoElEstadoEntregadoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01cuandoElEstadoEntregadoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+		// Exercise
+		unEstadoEntregadoTest		 .anterior(unPedidoMock)
 		
-		unEstadoEntregadoTest.anterior(unPedidoMock)
+		// Assertion
 		verify(unEstadoEntregadoTest).anterior(unPedidoMock)
 	}
 	@Test
-	def cuandoElEstadoEntregaSeLePidePrevioYEntregadoDevuelveElEstadoEntregado(){
+	def test02cuandoElEstadoEntregaSeLePidePrevioYEntregadoDevuelveElEstadoEntregado(){
+		// Exercise
 		var estadoRespuesta = new Entregado 
+		
+		// Assertion
 		assertEquals(otroEstadoEntregadoTest.previo.class,estadoRespuesta.class)
 		assertEquals(otroEstadoEntregadoTest.proximo.class,estadoRespuesta.class)
 	}

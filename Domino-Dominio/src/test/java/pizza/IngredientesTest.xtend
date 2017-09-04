@@ -7,42 +7,42 @@ import pizza.Ingrediente
 
 class IngredientesTest 
 {
-
+	// Estructura
 	Ingrediente muzzarella
 	
+	// Setup
 	@Before
-	def void SetUp()
+	def void setUp()
 	{
 		muzzarella	= new Ingrediente("Muzzarella" , 20)
 	}
 	
+	// Tests
 	@Test
-	def Dado_Un_Ingrediente_Recien_Creado_Si_Le_Pido_Su_Nombre_Y_Precio_Los_Da()
+	def test01Dado_Un_Ingrediente_Recien_Creado_Si_Le_Pido_Su_Nombre_Y_Precio_Los_Da()
 	{
-		//Setup
-		//Excercise
-		//Test
+		// Assertion
 		assertEquals("Muzzarella", muzzarella.nombre)
 		assertEquals(20, muzzarella.precio)			
 	}
 	
 	@Test
-	def Dado_Un_Ingrediente_Si_Se_Cambia_El_Precio_Este_Lo_Actualiza()
+	def test02Dado_Un_Ingrediente_Si_Se_Cambia_El_Precio_Este_Lo_Actualiza()
 	{
-		//Setup
-		//Excercise
+		// Exercise
 		muzzarella.cambiarPrecio(55)
-		//Test
+		
+		// Assertion
 		assertEquals(55, muzzarella.precio)	
 	}
 	
 	@Test
-	def Dado_Un_Ingrediente_Si_Se_Cambia_El_Nombre_Este_Lo_Actualiza()
+	def test03Dado_Un_Ingrediente_Si_Se_Cambia_El_Nombre_Este_Lo_Actualiza()
 	{
-		//Setup
-		//Excercise
+		// Exercise
 		muzzarella.cambiarNombre("Muzzarella Especial")
-		//Test
+		
+		// Assertion
 		assertEquals("Muzzarella Especial", muzzarella.nombre)		
 	}
 	

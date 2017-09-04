@@ -15,12 +15,12 @@ import java.util.List
 @Accessors
 class Plato 
 {
-	//Atributos
+	//	Atributos
 	Pizza pizza
 	Tamanio tamanio
 	Distribucion ingredientesExtras
 	
-	//Constructores
+	//	Constructores
 	new(Pizza unaPizza, Tamanio unTamanio, Distribucion unaDistribucion)
 	{
 		this.pizza = unaPizza
@@ -28,9 +28,9 @@ class Plato
 		this.ingredientesExtras = unaDistribucion	
 	}
 	
-	//Getters & Setters	
+	//	Getters & Setters	
 	
-	//Metodos
+	//	Metodos
 	/**
 	 * Cambia la pizza del plato por la pizza pasada. Se quitaran de los ingredientes extras(Si los hubiere), 
 	 * todo aquel ingrediente que este dentro de la pizza.
