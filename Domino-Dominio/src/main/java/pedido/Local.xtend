@@ -8,8 +8,7 @@ class Local implements  FormaDeRetiro {
 	
 	// Metodos
 	override avanzarEstado() {
-		var estado = new ListoParaRetirar
-		estado
+		new ListoParaRetirar
 	}
 	
 	override precioDeRetiro() 

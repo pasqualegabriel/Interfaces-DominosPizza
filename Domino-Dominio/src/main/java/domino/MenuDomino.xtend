@@ -1,7 +1,8 @@
 package domino
 
-import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessorsimport pizza.Ingrediente
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import pizza.Ingrediente
 import pizza.Pizza
 
 // Responsabilidad: Administrar las promociones e ingredientes disponibles
@@ -10,15 +11,9 @@ import pizza.Pizza
 class MenuDomino 
 {
 	// Estructura
-	ArrayList<Ingrediente> ingredientesDisponibles
-	ArrayList<Pizza>	   promocionesDisponibles
+	List<Ingrediente> ingredientesDisponibles = newArrayList
+	List<Pizza>	   promocionesDisponibles = newArrayList
 
-	// Constructores
-	new()
-	{
-		ingredientesDisponibles	= new ArrayList<Ingrediente>()
-		promocionesDisponibles	= new ArrayList<Pizza>()
-	}
 	
 	// Metodos
 	def ingredientesDisponibles()

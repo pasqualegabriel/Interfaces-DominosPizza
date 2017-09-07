@@ -8,8 +8,7 @@ class Delivery implements FormaDeRetiro{
 	
 	// Metodos 
 	override avanzarEstado() {
-		var estadoADevolver = new ListoParaEnviar
-		estadoADevolver
+		new ListoParaEnviar
 	}
 	
 	override precioDeRetiro() 

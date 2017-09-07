@@ -9,39 +9,42 @@ import static org.junit.Assert.*
 import estados.EstadoDePedido
 import pedido.Pedido
 import estados.Cancelado
+import domino.Miembro
 
 class TestEstadoCancelado {
 	
 	// Estructura
-	@Mock Pedido 			unPedidoMock
-		  EstadoDePedido	unEstadoCanceladoTest
-	      EstadoDePedido  	otroEstadoCanceladoTest
+	Pedido 				unPedidoSpy
+	EstadoDePedido		unEstadoCanceladoTest
+	
+	@Mock Miembro		unMockMiembro
 	
 	// Setup
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unEstadoCanceladoTest		= spy(new Cancelado)
-		otroEstadoCanceladoTest		= new Cancelado
+		unPedidoSpy					= spy(new Pedido(unMockMiembro))
+		unEstadoCanceladoTest		= new Cancelado
+		
 	}
 	
 	// Tests
 	@Test
 	def test00cuandoElEstadoCanceladoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
 		// Exercise
-		unEstadoCanceladoTest		 .siguiente(unPedidoMock)
+		unEstadoCanceladoTest		 .siguiente(unPedidoSpy)
 		
 		// Assertion
-		verify(unEstadoCanceladoTest).siguiente(unPedidoMock)
+		verify(unPedidoSpy).estadoActual = unEstadoCanceladoTest.proximo
 	}
 	
 	@Test
 	def test01cuandoElEstadoCanceladoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
 		// Exercise
-		unEstadoCanceladoTest		 .anterior(unPedidoMock)
+		unEstadoCanceladoTest		 .anterior(unPedidoSpy)
 		
 		// Assertion
-		verify(unEstadoCanceladoTest).anterior(unPedidoMock)
+		verify(unPedidoSpy).estadoActual = unEstadoCanceladoTest.previo
 	}
 	
 	@Test
@@ -50,7 +53,7 @@ class TestEstadoCancelado {
 		var estadoRespuesta = new Cancelado 
 		
 		// Assertion
-		assertEquals(otroEstadoCanceladoTest.previo .class,estadoRespuesta.class)
-		assertEquals(otroEstadoCanceladoTest.proximo.class,estadoRespuesta.class)
+		assertEquals(unEstadoCanceladoTest.previo .class,estadoRespuesta.class)
+		assertEquals(unEstadoCanceladoTest.proximo.class,estadoRespuesta.class)
 	}	
 }

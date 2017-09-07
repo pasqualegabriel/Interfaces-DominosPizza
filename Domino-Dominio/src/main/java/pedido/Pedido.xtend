@@ -25,7 +25,6 @@ class Pedido extends Observable {
 	Miembro 				miembro
 	List<Plato> 			platos
 	LocalDateTime 			fecha
-	Integer 				montoAPagar
 	String 					aclaracion
 	FormaDeRetiro 			formaDeRetiro
 
@@ -37,12 +36,13 @@ class Pedido extends Observable {
 		estadoActual = new Preparando
 		miembro      = unMiembro
 		platos       = new ArrayList<Plato>()
-		montoAPagar  = 0 /*Pesos*/
 		aclaracion   = ""
 		fecha        = LocalDateTime.now()
 		
 
 	}
+	
+
 
 	// Metodos
 	
@@ -61,11 +61,8 @@ class Pedido extends Observable {
 	}
 
 	def calcularPrecio() {
-		var  precio = 0
-		for (p : platos) {
-			precio = precio + p.calcularPrecio
-		}
-		montoAPagar= precio + this.getFormaDeRetiro().precioDeRetiro
+		val precioPlatos = platos.stream.mapToInt[it.calcularPrecio].sum()
+		precioPlatos + formaDeRetiro.precioDeRetiro
 	}
 	
 	def cancelar() {

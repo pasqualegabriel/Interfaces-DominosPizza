@@ -66,19 +66,13 @@ class TestPedido {
 	}
 
 	@Test
-	def test004UnPedidoComienzaConUnMontoAPagarDeCeroPesos() {
-		
-		assertEquals(pedido.montoAPagar, 0 /*Pesos*/ )
-	}
-
-	@Test
-	def test005UnPedidoComienzaSinAclaracion() {
+	def test004UnPedidoComienzaSinAclaracion() {
 		
 		assertTrue(pedido.aclaracion.isEmpty())
 	}
 
 	@Test
-	def test006UnPedidoSeLeCambiaLaAclaracionATardoMucho() {
+	def test005UnPedidoSeLeCambiaLaAclaracionATardoMucho() {
 		
 		// Exercise
 		var aclaracionTest = "Tardo Mucho"
@@ -89,7 +83,7 @@ class TestPedido {
 	}
 
 	@Test
-	def test007SeLeAgregaUnPlatoAlPedido() {
+	def test006SeLeAgregaUnPlatoAlPedido() {
 		
 		// Exercise
 		pedido.agregarPlato(unPlato)
@@ -100,7 +94,7 @@ class TestPedido {
 	}
 
 	@Test
-	def test008SeLeQuitaUnPlatoAlPedido() {
+	def test007SeLeQuitaUnPlatoAlPedido() {
 		
 		// Exercise
 		pedido.agregarPlato(unPlato)
@@ -113,7 +107,7 @@ class TestPedido {
 	}
 
 	@Test
-	def test009UnPedidoCalculaCalculaSuPrecio() {
+	def test008UnPedidoCalculaCalculaSuPrecio() {
 		
 		//Setup
 		var precioPedido = 0
