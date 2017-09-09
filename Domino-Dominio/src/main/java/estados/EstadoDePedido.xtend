@@ -2,7 +2,6 @@ package estados
 
 import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
-import pasajes.PasajeACancelado
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende del estado en el cual se encuentre
 //                  -Indicar cual es el siguiente o anterior estado que le sigue
@@ -29,9 +28,12 @@ abstract class EstadoDePedido  {
 	def void cancelar(Pedido unPedido)
 	{
 		unPedido.estadoActual= new Cancelado()
-		unPedido.notifyObservers(new PasajeACancelado)
+
 	}
 	
 	def EstadoDePedido proximo()
 	def EstadoDePedido previo()
+	
+
+	
 }

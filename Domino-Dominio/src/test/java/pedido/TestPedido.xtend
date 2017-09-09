@@ -30,7 +30,7 @@ class TestPedido {
 	def void setUp() {
 		MockitoAnnotations.initMocks(this)
 		pedido = new Pedido(clienteMock)
-
+		pedido.tiempoDeEspera = 30
 	}
 	
 	// Tests
@@ -140,10 +140,6 @@ class TestPedido {
 	@Test
 	def test010SiAUnPedidoQueTieneMasDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaTrue()
 	{
-	    // SetUp
-		val treintaMinitosDespues = LocalDateTime.now.plusMinutes(31)
-		pedido.fecha              = treintaMinitosDespues
-	
 		// Assertion
 		assertTrue(pedido.tardoMasDe30Minutos)
 	}
@@ -151,11 +147,8 @@ class TestPedido {
 	@Test
 	def test011SiAUnPedidoQueTieneMenosDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaFalse()
 	{
-		// Setup
-		var horaActual = LocalDateTime.now
-		pedido.fecha   = horaActual
-		
-		// Assertion
+
+		pedido.tiempoDeEspera = 29
 		assertFalse(pedido.tardoMasDe30Minutos)
 	}
 	

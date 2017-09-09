@@ -28,6 +28,10 @@ class Miembro extends Usuario {
 	
 	// Constructores
 	
+	new(){
+		super()
+	}
+	
 	new(String unNombre, String unNick, String unPassword, String unMail, String unaDireccion) {
 		
 		historialDePedidos  = new ArrayList<Pedido>

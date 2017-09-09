@@ -4,7 +4,7 @@ import pedido.Pedido
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende de este estado
 class Entregado extends EstadoDePedido {
-	
+
 	// Metodos
 	override cancelar(Pedido unPedido)
 	{	}
@@ -16,5 +16,4 @@ class Entregado extends EstadoDePedido {
 	override previo() {
 		this
 	}
-	
 }

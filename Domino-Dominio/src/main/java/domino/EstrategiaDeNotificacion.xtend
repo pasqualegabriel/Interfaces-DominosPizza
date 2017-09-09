@@ -1,6 +1,7 @@
 package domino
 
 import pedido.Pedido
+import persistencia.Home
 
 /**
  * Interfaz encargada de que se realice la notificacion al cliente segun el estado de un pedido y el manejo del pedido en dominopizza.
@@ -9,7 +10,7 @@ import pedido.Pedido
 
 interface EstrategiaDeNotificacion 
 {
-	def void enviar(DominoPizza unDominoPizza, Pedido unPedido)	
+	def void enviar(Home unDominoPizza, Pedido unPedido)	
 	
 	def String tituloMensaje()
 	

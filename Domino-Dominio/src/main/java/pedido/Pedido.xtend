@@ -4,11 +4,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
 import java.time.LocalDateTime
-import java.util.Observable
 import estados.Preparando
 import domino.Miembro
 import estados.EstadoDePedido
 import estados.Cancelado
+import java.time.LocalTime
+import org.uqbar.commons.model.annotations.Observable
 
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
@@ -16,8 +17,9 @@ import estados.Cancelado
  * 					 - Manejar datos de interes respecto aquella misma orden.
  */
  
+@Observable
 @Accessors
-class Pedido extends Observable {
+class Pedido {
 
 	// Estructura
 	
@@ -27,6 +29,7 @@ class Pedido extends Observable {
 	LocalDateTime 			fecha
 	String 					aclaracion
 	FormaDeRetiro 			formaDeRetiro
+	Integer					tiempoDeEspera
 
 	// Constructor
 	
@@ -38,7 +41,6 @@ class Pedido extends Observable {
 		platos       = new ArrayList<Plato>()
 		aclaracion   = ""
 		fecha        = LocalDateTime.now()
-		
 
 	}
 	
@@ -74,8 +76,14 @@ class Pedido extends Observable {
 	 */	
 	def tardoMasDe30Minutos() 
 	{
-		fecha.minusMinutes(30).isAfter(LocalDateTime.now) || fecha.minusMinutes(30).equals(LocalDateTime.now)
+		this.tiempoDeEspera >= 30
+//		fecha.minusMinutes(30).isAfter(LocalDateTime.now) || fecha.minusMinutes(30).equals(LocalDateTime.now)
 	}
-
+	
+	def calcularTiempoDeEntrega() 
+	{
+		this.tiempoDeEspera = (LocalTime.now.toSecondOfDay - fecha.toLocalTime.toSecondOfDay)/60
+	}
+	
 }
 

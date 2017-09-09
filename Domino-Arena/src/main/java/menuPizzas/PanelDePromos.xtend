@@ -38,11 +38,11 @@ class PanelDePromos extends PanelConListaEditable {
 	}
 	
 	override initCreateButton(Panel aPanel) {
-			new Button(aPanel) => [
+		new Button(aPanel) => [
 			caption = "Crear"
 			
 			onClick [ | ]
-			]
+		]
 	}
 	
 	override initEditButton(Panel aPanel) {
@@ -50,7 +50,7 @@ class PanelDePromos extends PanelConListaEditable {
 			caption = "Edit"
 			
 			onClick [ | ]
-			]
+		]
 	}
 	
 	override initDeleteButton(Panel aPanel) {
@@ -58,7 +58,7 @@ class PanelDePromos extends PanelConListaEditable {
 			caption = "Delete"
 			
 			onClick [ | ]
-			]
+		]
 	}
 	
 }
