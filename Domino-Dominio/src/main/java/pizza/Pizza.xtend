@@ -1,12 +1,13 @@
 package pizza
 
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.Accessorsimport org.uqbar.commons.model.annotations.Observable
 
 /**
  * Clase que modela la representacion de una pizza en Dominos.
  * La responsabilidad es la de mantener los ingredientes que la componene con su distribucion, el nombre y el precio que tendra.
  */
 @Accessors
+@Observable
 class Pizza 
 {
 	// Atributos

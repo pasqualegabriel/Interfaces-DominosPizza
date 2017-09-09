@@ -1,11 +1,12 @@
 package pizza
 
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.Accessorsimport org.uqbar.commons.model.annotations.Observable
 
 /**
  *  Clase que representa a un ingrediente de una pizza el cual tiene su precio.
  */
 @Accessors
+@Observable
 class Ingrediente 
 {
 	// Atributos
