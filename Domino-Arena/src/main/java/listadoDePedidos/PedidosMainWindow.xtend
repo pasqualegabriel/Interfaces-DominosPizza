@@ -47,7 +47,7 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
 		val tablaPedidos = new Table<AdapterPedido>(panelPedidos, typeof(AdapterPedido))
 		tablaPedidos => [
 			numberVisibleRows = 5
-			items <=> "listaDePedidosAbiertos"
+			items <=> "pedidos"
 			value <=> "pedidoSeleccionado"
 		]
 
