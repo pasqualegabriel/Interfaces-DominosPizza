@@ -26,7 +26,7 @@ class Pedido {
 	
 	EstadoDePedido 			estadoActual
 	Miembro 				miembro
-	List<Plato> 			platos
+	List<Plato> 			platos 
 	LocalDateTime 			fecha
 	String 					aclaracion
 	FormaDeRetiro 			formaDeRetiro

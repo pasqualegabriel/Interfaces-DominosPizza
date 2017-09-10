@@ -8,7 +8,7 @@ import org.uqbar.arena.widgets.Button
 import agregarIngrediente.CrearIngredientesWindow
 import agregarIngrediente.EditarIngredientesWindow
 import agregarPizza.EditarPizzaWindow
-import agregarPizza.CrearPizzaWindow
+
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	

@@ -9,10 +9,7 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import pizza.Ingrediente
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.RadioSelector
-import org.uqbar.arena.bindings.ObservableProperty
+
 
 class EditarPizzaWindow extends TransactionalDialog<Pizza>{
 	

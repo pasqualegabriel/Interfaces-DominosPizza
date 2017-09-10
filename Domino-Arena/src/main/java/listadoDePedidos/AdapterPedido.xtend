@@ -13,6 +13,7 @@ import estados.Entregado
 import estados.EnViaje
 import estados.ListoParaEnviar
 import estados.ListoParaRetirar
+import plato.PlatoAdapter
 
 @Accessors
 @TransactionalAndObservable
@@ -21,40 +22,42 @@ class AdapterPedido {
 	String nombre
 	Pedido pedido
 	EstadoDePedido estadoActual
-	String precio
-	List<EstadoDePedido> estadosSelector 
-	List<Plato> 		platos = newArrayList
-	Plato platoSeleccionado
-	EstadoDePedido cambioDeEstado 
+	EstadoDePedido cambioDeEstado
+	List<EstadoDePedido> estadosSelector  = newArrayList
+	List<PlatoAdapter> 		platos = newArrayList
+	PlatoAdapter platoSeleccionado
 	
+	 
+	String precio
 
 	new(Pedido unPedido, int nroPedido) {
 		super()
 		nombre = "Pedido " + nroPedido
 		pedido = unPedido
 		estadoActual= unPedido.estadoActual
+		
+		coleccionDeEstados
+		coleccionDePlatosAdapater
 		precio = "$" + pedido.calcularPrecio.toString
-		estadosSelector = this.coleccionDeEstados
-		platos	= pedido.platos
+		
+		
 	}
 	
-	def coleccionDeEstados() {
-		var coleccion = newArrayList
-		coleccion.add(new Entregado)
-		coleccion.add(new Preparando)
-		coleccion.add(new Cancelado)
-		coleccion.add(new EnViaje)
-		coleccion.add(new ListoParaEnviar)
-		coleccion.add(new ListoParaRetirar)
-//		if(pedido.estadoActual.nombre.equals("Preparado")){
-//			var aaa= pedido.formaDeRetiro.avanzarEstado
-//			coleccion.add(aaa)
-//			System.out.println(pedido.formaDeRetiro)
-//			System.out.println(aaa)
-//		}else{ coleccion.add(pedido.estadoActual.proximo)}
-
+	def void coleccionDePlatosAdapater() {
 		
-		coleccion
+		for(Plato unPlato: pedido.platos){
+			platos.add(new PlatoAdapter(unPlato))
+		}
+		
+	}
+	
+	def void coleccionDeEstados() {
+		estadosSelector.add(new Entregado)
+		estadosSelector.add(new Preparando)
+		estadosSelector.add(new Cancelado)
+		estadosSelector.add(new EnViaje)
+		estadosSelector.add(new ListoParaEnviar)
+		estadosSelector.add(new ListoParaRetirar)
 	}
 
 	def getHora() {
@@ -70,15 +73,14 @@ class AdapterPedido {
 		Home.instance.cerrarPedidoEntregado(pedido)
 	}
 
+	//Protocolo
 	def siguienteEstado() {
 		pedido.siguiente
-		estadosSelector = coleccionDeEstados
 		this.estadoActual = pedido.estadoActual
 	}
 
 	def void anteriorEstado() {
 		pedido.anterior
-		estadosSelector = coleccionDeEstados
 		this.estadoActual = pedido.estadoActual
 	}
 

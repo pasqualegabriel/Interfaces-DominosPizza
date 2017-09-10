@@ -15,6 +15,9 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.TextBox
+import plato.PlatoWindow
+import plato.PlatoAdapter
+import estados.EstadoDePedido
 
 class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
@@ -45,7 +48,7 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Selector<AdapterPedido>(panelEstados) => [
 			allowNull(false)
-			items <=> "estadosSelector"
+			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
 			
 			bindEnabled(estadoSeleccionado)
@@ -74,7 +77,7 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelTablaPlatos).text = "Platos"
 
-		val tablaPedidos = new Table(panelTablaPlatos, typeof(Plato)) => [
+		val tablaPedidos = new Table(panelTablaPlatos, typeof(PlatoAdapter)) => [
 			numberVisibleRows = 6
 			items <=> "platos"
 			value <=> "platoSeleccionado"
@@ -87,12 +90,12 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Column(tablaPedidos) => [
 			title = "Tamaño"
-			bindContentsToProperty("tamanio")
+			bindContentsToProperty("tamanio.nombre")
 		]
 
 		new Column(tablaPedidos) => [
 			title = "Precio"
-			bindContentsToProperty("calcularPrecio")
+			bindContentsToProperty("precio")
 		]
 
 	}
@@ -103,13 +106,18 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Button(panelBotonesPlatos) => [
 			caption = "Agregar"
-			onClick []
+			onClick [new PlatoWindow(this, new PlatoAdapter(new Plato)).open
+				
+					]
 		]
 
 		new Button(panelBotonesPlatos) => [
 			caption = "Editar"
-			onClick [ /*modelObject*/
-			]
+			onClick [ 	
+						modelObject.platoSeleccionado.sizeSelect  = modelObject.platoSeleccionado.plato.tamanio
+						modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
+						new PlatoWindow(this,  modelObject.platoSeleccionado).open
+					]
 		]
 
 		new Button(panelBotonesPlatos) => [

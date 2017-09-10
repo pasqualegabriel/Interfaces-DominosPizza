@@ -12,6 +12,9 @@ import estados.ListoParaEnviar
 import pizza.Distribucion
 import pedido.Plato
 import pizza.Chica
+import pizza.Porcion
+import pizza.Grande
+import pizza.Familiar
 
 @Accessors
 class Home {
@@ -29,8 +32,17 @@ class Home {
 		val distribucion = new Distribucion
 		val tamaño		 = new Chica
 		val pizza	= new Pizza("Pizza Re piola para villeros",8,distribucion)
+		val pizza2	= new Pizza("Pizza llena de Roque",8,distribucion)
+		val pizza3 	= new Pizza("La ZAPI FAMILIAR ",8,distribucion)
+		agregarPromocion(pizza)
+		agregarPromocion(pizza2)
+		agregarPromocion(pizza3)
+		
 		
 		val plato		 = new Plato(pizza,tamaño,distribucion)
+		val plato2	 	 = new Plato(pizza,tamaño,distribucion)
+		plato.nombre = "MuzzaBienPiola"
+		plato2.nombre= "LaPizzaDelCandombe"
 		
 		val pedido1 = new Pedido(new Miembro("Laura", "nick1", "unPassword", "unMail", "unaDireccion"))
 		val pedido2 = new Pedido(new Miembro("Maria", "nick1", "unPassword", "unMail", "unaDireccion"))	
@@ -38,6 +50,7 @@ class Home {
 		pedido1.estadoActual = new ListoParaEnviar 
 		pedido2.formaDeRetiro = new Local 
 		pedido1.agregarPlato(plato)
+		pedido1.agregarPlato(plato2)
 		pedido2.agregarPlato(plato)
 		
 		this.pedidosAbiertos.add(pedido1)
@@ -52,7 +65,7 @@ class Home {
 	List<Pedido> 	  pedidosAbiertos		  = newArrayList
 	List<Pedido>	  pedidosCerrados		  = newArrayList	
 	int 			  nroPedido 			  = 0
-
+	 
 	
 	// Metodos
 	def ingredientesDisponibles()
@@ -124,6 +137,11 @@ class Home {
 		pedidosAbiertos.remove(unPedido)
 		pedidosCerrados.add(unPedido)
 		
+	}
+	
+	def tamanios() 
+	{
+		#[new Chica, new Porcion, new Grande, new Familiar]
 	}
 
 

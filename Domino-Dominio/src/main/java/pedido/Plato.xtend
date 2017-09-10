@@ -23,6 +23,9 @@ class Plato
 	Tamanio tamanio
 	Distribucion ingredientesExtras
 	
+	new(){
+		super()
+	}
 	//	Constructores
 	new(Pizza unaPizza, Tamanio unTamanio, Distribucion unaDistribucion)
 	{
