@@ -11,9 +11,15 @@ import org.uqbar.arena.widgets.Button
 
 class PanelDePromos extends PanelConListaEditable {
 	
-	new(Container container) {
+	
+	MenuDeDominoMainWindow mainWindow
+		
+	new(Container container, MenuDeDominoMainWindow aMainWindow) {
 		super(container)
+		mainWindow = aMainWindow
 	}
+	
+	
 	
 	override initLabel(Panel aPanel) {
 		var aLabel = new Label(aPanel).text="Promociones"
@@ -40,7 +46,7 @@ class PanelDePromos extends PanelConListaEditable {
 	override initCreateButton(Panel aPanel) {
 		new Button(aPanel) => [
 			caption = "Crear"
-			
+			//mainWindow.crearPizza()
 			onClick [ | ]
 		]
 	}
@@ -48,17 +54,16 @@ class PanelDePromos extends PanelConListaEditable {
 	override initEditButton(Panel aPanel) {
 		new Button(aPanel) => [
 			caption = "Edit"
-			
-			onClick [ | ]
-		]
+			onClick [ | mainWindow.editarPizza() ]
+			]
+
 	}
 	
 	override initDeleteButton(Panel aPanel) {
 		new Button(aPanel) => [
 			caption = "Delete"
-			
-			onClick [ | ]
-		]
+			onClick [ | mainWindow.eliminarPizza()  ]
+			]
 	}
 	
 }
