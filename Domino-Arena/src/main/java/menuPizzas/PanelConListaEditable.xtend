@@ -7,6 +7,7 @@ import org.uqbar.arena.layout.VerticalLayout
 
 abstract class PanelConListaEditable extends Panel {
 	
+	
 	new(Container container) {
 		super(container)
 		this.initLayout	

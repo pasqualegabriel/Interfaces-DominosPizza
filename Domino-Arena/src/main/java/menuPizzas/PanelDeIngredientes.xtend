@@ -1,6 +1,5 @@
 package menuPizzas
 
-import org.uqbar.arena.widgets.Container
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.tables.Table
@@ -8,11 +7,16 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import pizza.Ingrediente
+import org.uqbar.arena.widgets.Container
+
 
 class PanelDeIngredientes extends PanelConListaEditable {
 	
-	new(Container container) {
+	MenuDeDominoMainWindow mainWindow
+		
+	new(Container container, MenuDeDominoMainWindow aMainWindow) {
 		super(container)
+		mainWindow = aMainWindow
 	}
 	
 	override initLabel(Panel aPanel) {
@@ -39,17 +43,18 @@ class PanelDeIngredientes extends PanelConListaEditable {
 	
 	override initCreateButton(Panel aPanel) {
 			new Button(aPanel) => [
-			caption = "Crear"
+				caption = "Crear"
 			
-			onClick [ | ]
+				onClick [ | mainWindow.crearIngrediente()
+			    ]
 			]
 	}
-	
+
 	override initEditButton(Panel aPanel) {
 		new Button(aPanel) => [
 			caption = "Edit"
 			
-			onClick [ | ]
+			onClick [ | mainWindow.editarIngrediente()]
 			]
 	}
 	
@@ -57,7 +62,7 @@ class PanelDeIngredientes extends PanelConListaEditable {
 		new Button(aPanel) => [
 			caption = "Delete"
 			
-			onClick [ | ]
+			onClick [ |mainWindow.eliminarIngrediente() ]
 			]
 	}
 }

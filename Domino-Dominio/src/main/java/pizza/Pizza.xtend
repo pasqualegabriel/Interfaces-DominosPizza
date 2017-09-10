@@ -1,6 +1,7 @@
 package pizza
 
 import org.eclipse.xtend.lib.annotations.Accessorsimport org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.Transactional
 
 /**
  * Clase que modela la representacion de una pizza en Dominos.
@@ -8,6 +9,7 @@ import org.eclipse.xtend.lib.annotations.Accessorsimport org.uqbar.commons.mode
  */
 @Accessors
 @Observable
+@Transactional
 class Pizza 
 {
 	// Atributos
