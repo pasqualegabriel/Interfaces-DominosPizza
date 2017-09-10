@@ -3,9 +3,8 @@ package pasajes
 import comunicables.Comunicable
 import org.eclipse.xtend.lib.annotations.Accessors
 import pedido.Pedido
-import domino.DominoPizza
 import comunicables.ComunicadoParaViaje
-
+import persistencia.Home
 
 // Responsabilidad: Encapsular el comportamiento de  los cambios que dominoPizza tiene que hacer 
 //					sobre y con el pedido cuando su estado pasa a estar en viaje
@@ -23,7 +22,7 @@ class PasajeEnViaje implements Pasaje {
 	}
 	
 	// Metodos
-	override ejecutar(Pedido unPedido, DominoPizza unDominoPizza) {
+	override ejecutar(Pedido unPedido, Home unDominoPizza) {
 		unPedido.miembro.comunicar(comunicado)
 	}
 	

@@ -18,4 +18,9 @@ class Cancelado extends EstadoDePedido {
 	override previo() {
 		this
 	}
+	
+	override nombre() {
+		"Cancelado"
+	}
+	
 }

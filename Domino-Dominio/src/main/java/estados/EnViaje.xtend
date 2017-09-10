@@ -1,28 +1,37 @@
 package estados
 
 import pedido.Pedido
-import pasajes.PasajeAEntregado
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende de que este este en viaje
 //                  -Indicar cual es el siguiente o anterior estado que le sigue
 
 class EnViaje extends EstadoDePedido {
 	
+
+	new(){
+		super()
+	}
+	
+	
 	// Metodos
 	 override siguiente(Pedido unPedido)
 	 {
-		super.siguiente(unPedido)
-		unPedido.notifyObservers(new PasajeAEntregado)			
+		var estadoSiguiente = this.proximo()
+		unPedido.estadoActual = estadoSiguiente
+		unPedido.calcularTiempoDeEntrega()
+		
 	}
 	
 	override proximo() {
-		var estadoProximo = new Entregado
-		estadoProximo
+		new Entregado
 	}
 	
 	override previo() {
-		var estadoPrevio = new ListoParaEnviar
-		estadoPrevio
+		new ListoParaEnviar
+	}
+	
+	override nombre() {
+		"En Viaje"
 	}
 	
 

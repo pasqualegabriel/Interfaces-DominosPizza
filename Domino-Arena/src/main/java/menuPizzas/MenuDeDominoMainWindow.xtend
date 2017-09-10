@@ -40,6 +40,7 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 		new PanelDeIngredientes(mainPanel,this)
 		// agregamos el boton para cerrar todo
 		new Button(mainPanel) => [
+
 			caption = "cerrar"
 			onClick [ | this.close]
 			]

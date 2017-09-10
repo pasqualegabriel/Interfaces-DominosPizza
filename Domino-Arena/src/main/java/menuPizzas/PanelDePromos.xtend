@@ -44,25 +44,24 @@ class PanelDePromos extends PanelConListaEditable {
 	}
 	
 	override initCreateButton(Panel aPanel) {
-			new Button(aPanel) => [
+		new Button(aPanel) => [
 			caption = "Crear"
 			//mainWindow.crearPizza()
 			onClick [ | ]
-			]
+		]
 	}
 	
 	override initEditButton(Panel aPanel) {
 		new Button(aPanel) => [
 			caption = "Edit"
-			
 			onClick [ | mainWindow.editarPizza() ]
 			]
+
 	}
 	
 	override initDeleteButton(Panel aPanel) {
 		new Button(aPanel) => [
 			caption = "Delete"
-			
 			onClick [ | mainWindow.eliminarPizza()  ]
 			]
 	}

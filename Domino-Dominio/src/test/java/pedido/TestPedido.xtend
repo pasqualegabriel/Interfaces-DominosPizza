@@ -13,8 +13,8 @@ import pedido.Plato
 import estados.Cancelado
 import pedido.Local
 import pedido.Delivery
-
-
+import estados.ListoParaEnviar
+import estados.Preparando
 
 class TestPedido {
 
@@ -30,7 +30,7 @@ class TestPedido {
 	def void setUp() {
 		MockitoAnnotations.initMocks(this)
 		pedido = new Pedido(clienteMock)
-
+		pedido.tiempoDeEspera = 30
 	}
 	
 	// Tests
@@ -140,10 +140,6 @@ class TestPedido {
 	@Test
 	def test010SiAUnPedidoQueTieneMasDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaTrue()
 	{
-	    // SetUp
-		val treintaMinitosDespues = LocalDateTime.now.plusMinutes(31)
-		pedido.fecha              = treintaMinitosDespues
-	
 		// Assertion
 		assertTrue(pedido.tardoMasDe30Minutos)
 	}
@@ -151,11 +147,8 @@ class TestPedido {
 	@Test
 	def test011SiAUnPedidoQueTieneMenosDe30MinutosDeDemoraSeLePReguntaSiTardoMasDe30MinutosDaFalse()
 	{
-		// Setup
-		var horaActual = LocalDateTime.now
-		pedido.fecha   = horaActual
-		
-		// Assertion
+
+		pedido.tiempoDeEspera = 29
 		assertFalse(pedido.tardoMasDe30Minutos)
 	}
 	
@@ -175,6 +168,24 @@ class TestPedido {
 		// Assertion
 		assertEquals(pedido.platos.size, 1)
 		assertEquals(115,precioPedido)
+	}
+	
+	@Test
+	def test013UnPedidoPuedepasarASuSiguienteEstado(){
+		var estadoRespuesta = new ListoParaEnviar
+		pedido.formaDeRetiro = new Delivery
+		pedido.siguiente
+		assertEquals(pedido.estadoActual.class,estadoRespuesta.class)
+		
+	}
+	
+	@Test
+	def test014UnPedidoPuedepasarASuAnteriorEstado(){
+		var estadoRespuesta = new Preparando
+		
+		pedido.anterior
+		assertEquals(pedido.estadoActual.class,estadoRespuesta.class)
+		
 	}
 }
 
