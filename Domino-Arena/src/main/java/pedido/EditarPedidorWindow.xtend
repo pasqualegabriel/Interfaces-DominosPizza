@@ -23,7 +23,7 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		
+
 		this.title = "Editar un Pedido"
 
 		mainPanel.layout = new VerticalLayout()
@@ -32,6 +32,24 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		platos(mainPanel)
 
+	}
+
+	def estados(Panel mainPanel) {
+
+		var panelEstados = new Panel(mainPanel)
+		panelEstados.layout = new HorizontalLayout
+
+		new Label(panelEstados).text = "Estado"
+
+		val estadoSeleccionado = new NotNullObservable("estadoActual")
+
+		new Selector<AdapterPedido>(panelEstados) => [
+			allowNull(false)
+			items <=> "estadosSelector"
+			value <=> "cambioDeEstado"
+			
+			bindEnabled(estadoSeleccionado)
+		]
 	}
 
 	def platos(Panel mainPanel) {
@@ -44,12 +62,11 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 		botonesPlatos(panelPlatos)
 
 		aclaracionesPlatos(mainPanel)
-		
+
 		datosPlatos(mainPanel)
-		
+
 		ultimosBotonesPlatos(mainPanel)
 	}
-	
 
 	def tablaPlatos(Panel panelPlatos) {
 		var panelTablaPlatos = new Panel(panelPlatos)
@@ -101,26 +118,8 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 		]
 	}
 
-	def estados(Panel mainPanel) {
-
-		var panelEstados = new Panel(mainPanel)
-		panelEstados.layout = new HorizontalLayout
-
-		new Label(panelEstados).text = "Estado"
-
-		val estadoSeleccionado = new NotNullObservable("estadoActual")
-
-		new Selector<AdapterPedido>(panelEstados) => [
-			allowNull(false)
-			items <=> "estados"
-			value <=> "estadoActual"
-			bindEnabled(estadoSeleccionado)
-
-		]
-	}
-
 	def aclaracionesPlatos(Panel mainPanel) {
-		
+
 		new Label(mainPanel).text = "Aclaraciones"
 
 		new TextBox(mainPanel) => [
@@ -129,46 +128,43 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 			value <=> "pedido.aclaracion"
 		]
 	}
-	
-		
+
 	def void datosPlatos(Panel mainPanel) {
 
 		var panelDatosPlatos = new Panel(mainPanel)
 		panelDatosPlatos.layout = new ColumnLayout(2)
-		
+
 		new Label(panelDatosPlatos).text = "Cliente"
-		
+
 		new Label(panelDatosPlatos).value <=> "pedido.miembro.nombre"
-		
+
 		new Label(panelDatosPlatos).text = "Costo de envío"
-		
+
 		new Label(panelDatosPlatos).text = "$15"
-		
+
 		new Label(panelDatosPlatos).text = "Monto total"
-		
+
 		new Label(panelDatosPlatos).value <=> "pedido.calcularPrecio"
-		
+
 		new Label(panelDatosPlatos).text = "Fecha"
-		
+
 		new Label(panelDatosPlatos).value <=> "pedido.fecha"
 	}
-	
+
 	def ultimosBotonesPlatos(Panel mainPanel) {
-		
+
 		var panelUltimosBotonesPlatos = new Panel(mainPanel)
 		panelUltimosBotonesPlatos.layout = new HorizontalLayout
-		
+
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Aceptar"
 			onClick []
 		]
-		
+
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Cancelar"
 			onClick [close]
 		]
 	}
-	
-	
 
 }

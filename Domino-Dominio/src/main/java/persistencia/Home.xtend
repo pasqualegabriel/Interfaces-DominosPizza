@@ -33,8 +33,7 @@ class Home {
 		val plato		 = new Plato(pizza,tamaño,distribucion)
 		
 		val pedido1 = new Pedido(new Miembro("Laura", "nick1", "unPassword", "unMail", "unaDireccion"))
-		val pedido2 = new Pedido(new Miembro("Maria", "nick1", "unPassword", "unMail", "unaDireccion"))
-		
+		val pedido2 = new Pedido(new Miembro("Maria", "nick1", "unPassword", "unMail", "unaDireccion"))	
 		pedido1.formaDeRetiro = new Delivery
 		pedido1.estadoActual = new ListoParaEnviar 
 		pedido2.formaDeRetiro = new Local 

@@ -39,7 +39,7 @@ class Pedido {
 		super()
 		estadoActual = new Preparando
 		miembro      = unMiembro
-		platos       = new ArrayList<Plato>()
+		platos       = new ArrayList<Plato>
 		aclaracion   = ""
 		fecha        = LocalDateTime.now()
 

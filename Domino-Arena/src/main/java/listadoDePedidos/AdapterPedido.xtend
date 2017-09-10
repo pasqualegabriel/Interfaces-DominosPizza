@@ -4,14 +4,15 @@ import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
 import persistencia.Home
 import estados.EstadoDePedido
-import estados.EnViaje
-import estados.Entregado
 import java.util.List
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pedido.Plato
-import pizza.Chica
-import pizza.Pizza
-import pizza.Distribucion
+import estados.Cancelado
+import estados.Preparando
+import estados.Entregado
+import estados.EnViaje
+import estados.ListoParaEnviar
+import estados.ListoParaRetirar
 
 @Accessors
 @TransactionalAndObservable
@@ -21,9 +22,10 @@ class AdapterPedido {
 	Pedido pedido
 	EstadoDePedido estadoActual
 	String precio
-	List<EstadoDePedido> estados
-	List<Plato> 		platos
+	List<EstadoDePedido> estadosSelector 
+	List<Plato> 		platos = newArrayList
 	Plato platoSeleccionado
+	EstadoDePedido cambioDeEstado 
 	
 
 	new(Pedido unPedido, int nroPedido) {
@@ -32,15 +34,27 @@ class AdapterPedido {
 		pedido = unPedido
 		estadoActual= unPedido.estadoActual
 		precio = "$" + pedido.calcularPrecio.toString
+		estadosSelector = this.coleccionDeEstados
+		platos	= pedido.platos
+	}
+	
+	def coleccionDeEstados() {
+		var coleccion = newArrayList
+		coleccion.add(new Entregado)
+		coleccion.add(new Preparando)
+		coleccion.add(new Cancelado)
+		coleccion.add(new EnViaje)
+		coleccion.add(new ListoParaEnviar)
+		coleccion.add(new ListoParaRetirar)
+//		if(pedido.estadoActual.nombre.equals("Preparado")){
+//			var aaa= pedido.formaDeRetiro.avanzarEstado
+//			coleccion.add(aaa)
+//			System.out.println(pedido.formaDeRetiro)
+//			System.out.println(aaa)
+//		}else{ coleccion.add(pedido.estadoActual.proximo)}
+
 		
-		estados = newArrayList
-		estados.add(new EnViaje)
-		estados.add(new Entregado)
-		
-		platos = newArrayList
-		var plato1 = new Plato(new Pizza("Pizza1",10,new Distribucion), new Chica, new Distribucion)
-		plato1.nombre = "Plato1"
-		platos.add(plato1)
+		coleccion
 	}
 
 	def getHora() {
@@ -58,11 +72,13 @@ class AdapterPedido {
 
 	def siguienteEstado() {
 		pedido.siguiente
+		estadosSelector = coleccionDeEstados
 		this.estadoActual = pedido.estadoActual
 	}
 
 	def void anteriorEstado() {
 		pedido.anterior
+		estadosSelector = coleccionDeEstados
 		this.estadoActual = pedido.estadoActual
 	}
 
