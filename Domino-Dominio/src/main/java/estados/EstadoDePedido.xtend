@@ -9,8 +9,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 abstract class EstadoDePedido  {
 	
-	// Estructura
-	protected String nombre
 	
 	// Metodos
 	 def void siguiente(Pedido unPedido){
@@ -34,6 +32,7 @@ abstract class EstadoDePedido  {
 	def EstadoDePedido proximo()
 	def EstadoDePedido previo()
 	
+	def String nombre()
 
 	
 }

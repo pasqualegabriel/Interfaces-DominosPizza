@@ -16,4 +16,9 @@ class Entregado extends EstadoDePedido {
 	override previo() {
 		this
 	}
+	
+	override nombre() {
+		"Entregado"
+	}
+	
 }

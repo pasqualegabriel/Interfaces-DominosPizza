@@ -6,6 +6,12 @@ import pizza.Pizza
 import pizza.Ingrediente
 import pedido.Pedido
 import domino.Miembro
+import pedido.Delivery
+import pedido.Local
+import estados.ListoParaEnviar
+import pizza.Distribucion
+import pedido.Plato
+import pizza.Chica
 
 @Accessors
 class Home {
@@ -20,8 +26,21 @@ class Home {
 	
 	private new ()
 	{
+		val distribucion = new Distribucion
+		val tamaño		 = new Chica
+		val pizza	= new Pizza("Pizza Re piola para villeros",8,distribucion)
+		
+		val plato		 = new Plato(pizza,tamaño,distribucion)
+		
 		val pedido1 = new Pedido(new Miembro)
 		val pedido2 = new Pedido(new Miembro)
+		
+		pedido1.formaDeRetiro = new Delivery
+		pedido1.estadoActual = new ListoParaEnviar 
+		pedido2.formaDeRetiro = new Local 
+		pedido1.agregarPlato(plato)
+		pedido2.agregarPlato(plato)
+		
 		this.pedidosAbiertos.add(pedido1)
 		this.pedidosAbiertos.add(pedido2)
 

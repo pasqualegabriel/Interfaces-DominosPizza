@@ -23,4 +23,8 @@ class ListoParaEnviar extends EstadoDePedido
 		estadoProximo
 	}
 	
+	override nombre() {
+		"Listo para enviar"
+	}
+	
 }

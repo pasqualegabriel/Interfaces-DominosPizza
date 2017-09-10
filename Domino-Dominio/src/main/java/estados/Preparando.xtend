@@ -7,12 +7,6 @@ import pedido.Pedido
 
 
 class Preparando extends EstadoDePedido{
-	
-	// Constructor 
-	new(){
-		super()
-		nombre = "Preparando"
-	}
 
 	// Metodos
 	override siguiente(Pedido unPedido){
@@ -29,4 +23,9 @@ class Preparando extends EstadoDePedido{
 	override proximo() {
 		
 	}
+	
+	override nombre() {
+		"Preparado"
+	}
+	
 }

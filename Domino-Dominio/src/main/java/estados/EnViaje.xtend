@@ -30,6 +30,10 @@ class EnViaje extends EstadoDePedido {
 		new ListoParaEnviar
 	}
 	
+	override nombre() {
+		"En Viaje"
+	}
+	
 
 	
 }

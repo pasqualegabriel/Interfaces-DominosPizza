@@ -21,5 +21,9 @@ class ListoParaRetirar extends EstadoDePedido {
 
 		new Preparando
 	}
+	
+	override nombre() {
+		"Listo para retirar"
+	}
 
 }

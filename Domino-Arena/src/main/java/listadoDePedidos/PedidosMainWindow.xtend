@@ -61,10 +61,10 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
 			bindContentsToProperty("estadoActual")
 		]
 
-//		new Column(tablaPedidos) => [
-//			title = "Monto"
-//			bindContentsToProperty("calcularPrecio")
-//		]
+		new Column(tablaPedidos) => [
+			title = "Monto"
+			bindContentsToProperty("precio")
+		]
 
 		new Column(tablaPedidos) => [
 			title = "Hora"
@@ -76,19 +76,27 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
 
 	def botonesDeTablaDePedido(Panel panelPedidos) 
 	{
-		
+		val elementoSeleccionado= new NotNullObservable("pedidoSeleccionado")
 		var panelTablaDePedido = new Panel(panelPedidos) 
 		panelTablaDePedido.layout = new VerticalLayout
 		
 		new Button(panelTablaDePedido) => [
 			caption = "<<"
+			onClick [ 
+				modelObject.anteriorEstado
+				bindEnabled(elementoSeleccionado)
+			]
 		]
 		
 		new Button(panelTablaDePedido) => [
 			caption = ">>"
+			onClick [ 
+				modelObject.siguienteEstado
+				bindEnabled(elementoSeleccionado)
+			]
 		]
 	
-		val elementoSeleccionado= new NotNullObservable("pedidoSeleccionado")
+		
 		
 		new Button(panelTablaDePedido) => [
 			caption = "Cancelar"
@@ -120,6 +128,7 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
 		
 		new Button(panelBotones) => [
 			caption = "Salir"
+			onClick[this.close]
 		]
 	
 	}

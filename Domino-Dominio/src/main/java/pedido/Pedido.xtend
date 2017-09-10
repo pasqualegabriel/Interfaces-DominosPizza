@@ -11,6 +11,7 @@ import estados.Cancelado
 import java.time.LocalTime
 import org.uqbar.commons.model.annotations.Observable
 
+
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
  * 					 - Expresar el estado de la preparacion de ese pedido.
@@ -83,6 +84,13 @@ class Pedido {
 	def calcularTiempoDeEntrega() 
 	{
 		this.tiempoDeEspera = (LocalTime.now.toSecondOfDay - fecha.toLocalTime.toSecondOfDay)/60
+	}
+	
+	def siguiente(){
+		estadoActual.siguiente(this)
+	}
+	def anterior(){
+		estadoActual.anterior(this)
 	}
 	
 }
