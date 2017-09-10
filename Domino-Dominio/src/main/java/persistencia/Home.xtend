@@ -32,8 +32,8 @@ class Home {
 		
 		val plato		 = new Plato(pizza,tamaño,distribucion)
 		
-		val pedido1 = new Pedido(new Miembro)
-		val pedido2 = new Pedido(new Miembro)
+		val pedido1 = new Pedido(new Miembro("Laura", "nick1", "unPassword", "unMail", "unaDireccion"))
+		val pedido2 = new Pedido(new Miembro("Maria", "nick1", "unPassword", "unMail", "unaDireccion"))
 		
 		pedido1.formaDeRetiro = new Delivery
 		pedido1.estadoActual = new ListoParaEnviar 
@@ -44,6 +44,7 @@ class Home {
 		this.pedidosAbiertos.add(pedido1)
 		this.pedidosAbiertos.add(pedido2)
 
+
 	}
 	
 	// Estructura
@@ -52,6 +53,7 @@ class Home {
 	List<Pedido> 	  pedidosAbiertos		  = newArrayList
 	List<Pedido>	  pedidosCerrados		  = newArrayList	
 	int 			  nroPedido 			  = 0
+
 	
 	// Metodos
 	def ingredientesDisponibles()
@@ -123,6 +125,7 @@ class Home {
 		pedidosAbiertos.remove(unPedido)
 		pedidosCerrados.add(unPedido)
 		
-	}		
-	
+	}
+
+
 }

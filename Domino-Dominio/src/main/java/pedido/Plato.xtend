@@ -6,6 +6,7 @@ import pizza.Distribucion
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
 import java.util.List
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 /**
  * Clase que modela a un plato del dominio de domino's pizza. 
@@ -13,9 +14,11 @@ import java.util.List
  * ingredientes extras que se le van a poner y calcular el costo total del plato.
  */
 @Accessors
+@TransactionalAndObservable
 class Plato 
 {
 	//	Atributos
+	String nombre
 	Pizza pizza
 	Tamanio tamanio
 	Distribucion ingredientesExtras

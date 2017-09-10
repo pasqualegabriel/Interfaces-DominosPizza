@@ -37,13 +37,11 @@ class PedidosAppModel {
 	@Dependencies("pedidos")
 	def void siguienteEstado(){
 		pedidoSeleccionado.siguienteEstado
-		System.out.println(pedidoSeleccionado.estadoActual)
 	}
 	
 	@Dependencies("pedidos")
 	def void anteriorEstado(){
 		pedidoSeleccionado.anteriorEstado
-		System.out.println(pedidoSeleccionado.estadoActual)
 	}
 	
 	

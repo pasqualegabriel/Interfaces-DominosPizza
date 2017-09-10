@@ -7,6 +7,7 @@ import pedido.Pedido
 import comunicables.Comunicable
 import formasDeComunicacion.ComunicacionPorMail
 import formasDeComunicacion.FormaDeComunicacion
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 /**
  *  Responsabilidad: Representar al usuario cliente registrado en el sistema y manejar
@@ -14,6 +15,7 @@ import formasDeComunicacion.FormaDeComunicacion
  */
  
 @Accessors
+@TransactionalAndObservable
 class Miembro extends Usuario {
 	
 	// Estructura

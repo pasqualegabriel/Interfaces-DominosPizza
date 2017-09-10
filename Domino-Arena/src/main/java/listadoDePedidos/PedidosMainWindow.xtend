@@ -11,6 +11,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.bindings.NotNullObservable
+import pedido.EditarPedidorWindow
 
 class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
 	
@@ -109,6 +110,8 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
 		
 		new Button(panelTablaDePedido) => [
 			caption = "Editar"
+			onClick([new EditarPedidorWindow(this, modelObject.pedidoSeleccionado).open])
+			bindEnabled(elementoSeleccionado)
 		]
 	}
 
