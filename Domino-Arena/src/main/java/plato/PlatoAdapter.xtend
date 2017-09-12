@@ -11,35 +11,48 @@ import persistencia.Home
 @Accessors
 @TransactionalAndObservable
 class PlatoAdapter {
-	String 			nombre
-	Tamanio 		tamanio
-	String			precio
-	Plato			plato
-	List<Pizza> 	pizzaItems = newArrayList
-	Pizza			pizzaSelect
-	List<Tamanio>	itemsSize = newArrayList
-	Tamanio			sizeSelect					 
+	 
 	
+	String precio
+	Plato plato
+	List<Pizza> pizzaItems = newArrayList
+	Pizza pizzaSelect
+	List<Tamanio> itemsSize = newArrayList
+	Tamanio sizeSelect
+
 	new(Plato unPlato) {
-		plato		= unPlato
-		nombre		= plato.pizza.nombre
-		tamanio		= plato.tamanio
-		precio		= "$" + plato.calcularPrecio 
+		plato = unPlato
+		pizzaSelect = plato.pizza
+		sizeSelect = plato.tamanio
+		precio = "$" + plato.calcularPrecio
 		coleccionPizzaItems
 		coleccionTamanioItems
 	}
-	
+
 	def coleccionTamanioItems() {
-		itemsSize.addAll(Home.instance.tamanios)	
-	
+		itemsSize.addAll(Home.instance.tamanios)
+
 	}
-	
+
 	def coleccionPizzaItems() {
 		pizzaItems.addAll(Home.instance.getPromocionesDisponibles())
 	}
-	
-	
-	
-	
-	
+
+	def void setPizzaSelect(Pizza unaPizza) {
+		pizzaSelect = unaPizza
+		setPrecio
+	}
+
+	def void setSizeSelect(Tamanio unTamanio) {
+		sizeSelect = unTamanio
+		setPrecio
+
+	}
+
+	def void setPrecio() {
+		if (!pizzaSelect.equals(null) && !sizeSelect.equals(null)){
+			precio = "$" + pizzaSelect.precioBase * sizeSelect.factorDeTamanio
+		}
+	}
+
 }

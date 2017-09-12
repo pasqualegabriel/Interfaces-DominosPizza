@@ -58,11 +58,11 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	def eliminarIngrediente() {
 		modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)
 	}
-//	
+	
 //	def crearPizza() {
 //		new CrearPizzaWindow(this).open
 //	}
-//	
+	
 	def editarPizza() {
 		new EditarPizzaWindow(this, modelObject.pizzaSeleccionada).open
 	}

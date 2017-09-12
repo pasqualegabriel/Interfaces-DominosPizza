@@ -60,7 +60,7 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel>
 							]
 		
 		this.columnaTablaPedidos(tablaDePedidos,"Pedido","nombre")
-		this.columnaTablaPedidos(tablaDePedidos,"Estado","nombreDeEstado")
+		this.columnaTablaPedidos(tablaDePedidos,"Estado","cambioDeEstado.nombre")
 		this.columnaTablaPedidos(tablaDePedidos,"Monto","precio")
 		this.columnaTablaPedidos(tablaDePedidos,"Hora","hora")
 							
@@ -69,6 +69,7 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel>
 	/**Define un predefinido para crear las columnas */
 	def columnaTablaPedidos(Table<AdapterPedido> tablaDePedidos, String unTitulo, String propiedadABindear) {
 		new Column(tablaDePedidos) => 	[
+										
 											title = unTitulo
 											bindContentsToProperty(propiedadABindear)
 										]

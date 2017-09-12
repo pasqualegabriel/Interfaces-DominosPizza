@@ -18,13 +18,13 @@ import pedido.Plato
 @TransactionalAndObservable
 class AdapterPedido 
 {
-	Pedido pedidoAdaptado
-	Integer nroPedido
-	EstadoDePedido estadoActual
-	EstadoDePedido cambioDeEstado
-	List<EstadoDePedido> estadosSelector  = newArrayList
+	Pedido 					pedidoAdaptado
+	Integer 				nroPedido
+	EstadoDePedido 			estadoActual
+	EstadoDePedido 			cambioDeEstado
+	List<EstadoDePedido> 	estadosSelector  = newArrayList
 	List<PlatoAdapter> 		platos = newArrayList
-	PlatoAdapter platoSeleccionado
+	PlatoAdapter 			platoSeleccionado
 	String precio
 	
 	new(Integer nroDePedido, Pedido unPedido)
@@ -32,7 +32,7 @@ class AdapterPedido
 		super()
 		this.nroPedido		= nroDePedido
 		this.pedidoAdaptado	= unPedido
-		estadoActual= unPedido.estadoActual
+		cambioDeEstado= unPedido.estadoActual
 		coleccionDeEstados
 		coleccionDePlatosAdapater
 		precio = "$" + pedidoAdaptado.calcularPrecio.toString
@@ -44,6 +44,10 @@ class AdapterPedido
 		for(Plato unPlato: pedidoAdaptado.platos){
 			platos.add(new PlatoAdapter(unPlato))
 		}
+		
+	}
+	def void agregarPlatoAdapter(PlatoAdapter unPlatoAdapter){
+		platos.add(unPlatoAdapter)
 		
 	}
 	

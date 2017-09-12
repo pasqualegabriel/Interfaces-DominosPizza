@@ -7,6 +7,8 @@ import pizza.Ingrediente
 import pizza.DistribucionEnPizza
 import java.util.List
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import pizza.Chica
+import persistencia.Home
 
 /**
  * Clase que modela a un plato del dominio de domino's pizza. 
@@ -24,6 +26,9 @@ class Plato
 	
 	new(){
 		super()
+		pizza = Home.instance.getPromocionesDisponibles.get(1)
+		tamanio = new Chica
+		ingredientesExtras = new Distribucion
 	}
 	//	Constructores
 	new(Pizza unaPizza, Tamanio unTamanio, Distribucion unaDistribucion)

@@ -3,7 +3,7 @@ package plato
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.WindowOwner
+
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Label
@@ -12,11 +12,17 @@ import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.Button
 import pizza.Pizza
 import pizza.Tamanio
+import org.eclipse.xtend.lib.annotations.Accessors
+import pedido.EditarPedidoWindow
 
-class PlatoWindow extends TransactionalDialog<PlatoAdapter> {
-
-	new(WindowOwner owner, PlatoAdapter model) {
+@Accessors
+class EditarPlatoWindow extends TransactionalDialog<PlatoAdapter> {
+	
+	protected EditarPedidoWindow mainWindow
+	
+	new(EditarPedidoWindow  owner, PlatoAdapter model) {
 		super(owner, model)
+		mainWindow = owner
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -94,8 +100,9 @@ class PlatoWindow extends TransactionalDialog<PlatoAdapter> {
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
-				
-
+				this.accept
+				setAsDefault
+				disableOnError
 			]
 		]
 

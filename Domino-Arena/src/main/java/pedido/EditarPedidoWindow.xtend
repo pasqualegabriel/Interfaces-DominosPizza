@@ -7,7 +7,6 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Selector
-import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -15,9 +14,9 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.TextBox
-import plato.PlatoWindow
 import plato.PlatoAdapter
 import estados.EstadoDePedido
+import plato.EditarPlatoWindow
 
 class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
@@ -44,16 +43,13 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelEstados).text = "Estado"
 
-		val estadoSeleccionado = new NotNullObservable("estadoActual")
-
+		// val estadoSeleccionado = new NotNullObservable("estadoActual")
 		new Selector<EstadoDePedido>(panelEstados) => [
 			allowNull(false)
 			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
-//			val propiedadEstados = bindItems(new ObservableProperty(AdapterPedido, "coleccionDeEstados"))
-//			propiedadEstados.adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
-			
-			bindEnabled(estadoSeleccionado)
+
+		// bindEnabled(estadoSeleccionado)
 		]
 	}
 
@@ -87,12 +83,12 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Column(tablaPedidos) => [
 			title = "Nombre"
-			bindContentsToProperty("nombre")
+			bindContentsToProperty("pizzaSelect.nombre")
 		]
 
 		new Column(tablaPedidos) => [
 			title = "Tamaño"
-			bindContentsToProperty("tamanio.nombre")
+			bindContentsToProperty("sizeSelect.nombre")
 		]
 
 		new Column(tablaPedidos) => [
@@ -108,18 +104,20 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Button(panelBotonesPlatos) => [
 			caption = "Agregar"
-			onClick [new PlatoWindow(this, new PlatoAdapter(new Plato)).open
-				
-					]
+			onClick [
+
+	
+				new AgregarPlatoWindow(this).open
+			]
 		]
 
 		new Button(panelBotonesPlatos) => [
 			caption = "Editar"
-			onClick [ 	
-//						modelObject.platoSeleccionado.sizeSelect  = modelObject.platoSeleccionado.plato.tamanio
-//						modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
-						new PlatoWindow(this, modelObject.platoSeleccionado).open
-					]
+			onClick [
+				modelObject.platoSeleccionado.sizeSelect = modelObject.platoSeleccionado.plato.tamanio
+				modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
+				new EditarPlatoWindow(this, modelObject.platoSeleccionado).open
+			]
 		]
 
 		new Button(panelBotonesPlatos) => [
@@ -168,7 +166,11 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Aceptar"
-			onClick []
+			onClick [
+	
+				accept
+				disableOnError
+			]
 		]
 
 		new Button(panelUltimosBotonesPlatos) => [
@@ -176,5 +178,6 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 			onClick [close]
 		]
 	}
+
 
 }
