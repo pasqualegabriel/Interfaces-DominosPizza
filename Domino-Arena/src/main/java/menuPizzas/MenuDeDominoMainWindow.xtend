@@ -8,7 +8,7 @@ import org.uqbar.arena.widgets.Button
 import agregarIngrediente.CrearIngredientesWindow
 import agregarIngrediente.EditarIngredientesWindow
 import agregarPizza.EditarPizzaWindow
-
+import agregarPizza.CrearPizzaWindow
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	
@@ -58,11 +58,11 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	def eliminarIngrediente() {
 		modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)
 	}
-//	
-//	def crearPizza() {
-//		new CrearPizzaWindow(this).open
-//	}
-//	
+	
+	def crearPizza() {
+		new CrearPizzaWindow(this).open
+	}
+	
 	def editarPizza() {
 		new EditarPizzaWindow(this, modelObject.pizzaSeleccionada).open
 	}
