@@ -25,7 +25,7 @@ class PasajeAEntregado implements Pasaje {
 		if(unPedido.tardoMasDe30Minutos){
 			unPedido.miembro.comunicar(comunicado)
 		}
-		unDominopizza.cerrarPedidoEntregado(unPedido)
+		unDominopizza.cerrarPedidoEntregadoCancelado(unPedido)
 		
 	}
 	

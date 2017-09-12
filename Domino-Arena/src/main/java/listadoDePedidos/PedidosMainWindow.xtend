@@ -11,133 +11,133 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.bindings.NotNullObservable
-import pedido.EditarPedidorWindow
+import menuPizzas.MenuDeDominoMainWindow
+import menuPizzas.MenuDeDominoAppModel
+import pedido.EditarPedidoWindow
+import listadoDePedidosCerrados.MainWindowListaPedidosCerrados
 
-class PedidosMainWindow extends SimpleWindow<PedidosAppModel> {
+class PedidosMainWindow extends SimpleWindow<PedidosAppModel> 
+{
 	
-	new(WindowOwner parent, PedidosAppModel model) {
-		super(parent, model)
-	}
-
-	override protected addActions(Panel actionsPanel) {
-	}
-
-	override protected createFormPanel(Panel mainPanel) {
-
-		this.title = "Dominos Pizza"
-		// decimos que su layout va a ser vertical
-		mainPanel.layout = new VerticalLayout
-
-
-		// Agregamos el contenido a nuestro panel que van a ser 2 paneles mas!
-		new Label(mainPanel) => [
-			text = "Pedidos Abiertos"
-		]
-		this.panelDePedidos(mainPanel)
-
-		this.panelDeBotones(mainPanel)
-
-	}
-
-	def panelDePedidos(Panel mainPanel) {
-// 		decimos que su layout va a ser vertical
-		var panelPedidos = new Panel(mainPanel)
-		panelPedidos.layout = new HorizontalLayout
-
-		
-		val tablaPedidos = new Table<AdapterPedido>(panelPedidos, typeof(AdapterPedido))
-		tablaPedidos => [
-			numberVisibleRows = 5
-			items <=> "pedidos"
-			value <=> "pedidoSeleccionado"
-		]
-
-		new Column(tablaPedidos) => [
-			title = "Pedido"
-			bindContentsToProperty("nombre")
-		]
-
-		new Column(tablaPedidos) => [
-			title = "Estado"
-			bindContentsToProperty("estadoActual")
-		]
-
-		new Column(tablaPedidos) => [
-			title = "Monto"
-			bindContentsToProperty("precio")
-		]
-
-		new Column(tablaPedidos) => [
-			title = "Hora"
-			bindContentsToProperty("hora")
-		]
-		
-		this.botonesDeTablaDePedido(panelPedidos)
-	}
-
-	def botonesDeTablaDePedido(Panel panelPedidos) 
+	new(WindowOwner parent) 
 	{
-		val elementoSeleccionado= new NotNullObservable("pedidoSeleccionado")
-		var panelTablaDePedido = new Panel(panelPedidos) 
+		super(parent, new PedidosAppModel)
+	}
+	
+	override protected addActions(Panel actionsPanel) 
+	{
+		//No se Va A Usar
+	}
+	
+	override protected createFormPanel(Panel mainPanel) 
+	{
+		title = "Dominos Pizza"
+		mainPanel.layout = new VerticalLayout
+		
+		new Label(mainPanel) => [ text = "Pedidos Abiertos" ]		
+		this.panelDeListaPedidos(mainPanel)
+		this.panelDeBotonesInferiores(mainPanel)
+	}
+	
+	/**Define el panel donde se contendra la tabla de pedidos y los botones que interactuan con esta */
+	def panelDeListaPedidos(Panel mainPanel)
+	{
+		var panelDeListaPedidos	= new Panel(mainPanel)
+		panelDeListaPedidos.layout = new HorizontalLayout
+		
+		this.tablaListaDePedidos(panelDeListaPedidos)
+		this.panelBotonesListaDePedidos(panelDeListaPedidos)
+	}
+	
+	/**Define la tabla donde se Encuentra la lista de pedidos */
+	def tablaListaDePedidos(Panel panelDeListaPedidos)
+	{
+		val tablaDePedidos = new Table<AdapterPedido>(panelDeListaPedidos, typeof(AdapterPedido))
+		tablaDePedidos	=>	[
+								numberVisibleRows = 5
+								items <=> "listaDePedidosAbiertos"
+								value <=> "pedidoSeleccionado"
+							]
+		
+		this.columnaTablaPedidos(tablaDePedidos,"Pedido","nombre")
+		this.columnaTablaPedidos(tablaDePedidos,"Estado","nombreDeEstado")
+		this.columnaTablaPedidos(tablaDePedidos,"Monto","precio")
+		this.columnaTablaPedidos(tablaDePedidos,"Hora","hora")
+							
+	}
+	
+	/**Define un predefinido para crear las columnas */
+	def columnaTablaPedidos(Table<AdapterPedido> tablaDePedidos, String unTitulo, String propiedadABindear) {
+		new Column(tablaDePedidos) => 	[
+											title = unTitulo
+											bindContentsToProperty(propiedadABindear)
+										]
+	}
+	
+	/**Define Los botones que interactuan con la tabla de pedidos */
+	def panelBotonesListaDePedidos(Panel panelDeListaPedidos)
+	{
+		val unPedidoSeleccionado= new NotNullObservable("pedidoSeleccionado")
+		var panelTablaDePedido = new Panel(panelDeListaPedidos) 
 		panelTablaDePedido.layout = new VerticalLayout
 		
-		new Button(panelTablaDePedido) => [
-			caption = "<<"
-			onClick [ 
-				modelObject.anteriorEstado
-				bindEnabled(elementoSeleccionado)
-			]
-		]
 		
-		new Button(panelTablaDePedido) => [
-			caption = ">>"
-			onClick [ 
-				modelObject.siguienteEstado
-				bindEnabled(elementoSeleccionado)
-			]
-		]
+		this.botonesAvanceRetroceso(panelTablaDePedido)
 	
+		new Button(panelTablaDePedido)=>[
+											caption = "Cancelar"
+											onClick [	modelObject.cerrarPedidoSeleccionado()	]
+											bindEnabled(unPedidoSeleccionado)
+										]
 		
+		new Button(panelTablaDePedido)=>[
+											caption = "Editar"
+											onClick [	new EditarPedidoWindow(this, modelObject.pedidoSeleccionado).open	]
+											bindEnabled(unPedidoSeleccionado)
+										]
 		
-		new Button(panelTablaDePedido) => [
-			caption = "Cancelar"
-			onClick [ 
-				modelObject.cancelarPedidoSeleccionado
-				bindEnabled(elementoSeleccionado)
-			]
-			
-		]
-		
-		new Button(panelTablaDePedido) => [
-			caption = "Editar"
-			onClick([new EditarPedidorWindow(this, modelObject.pedidoSeleccionado).open])
-			bindEnabled(elementoSeleccionado)
-		]
 	}
-
-
-	def panelDeBotones(Panel panel) 
+	
+	/**Define los botones de avance y retroceso de estado de los pedidos */
+	def botonesAvanceRetroceso(Panel panelTablaDePedido) 
 	{
-		var panelBotones = new Panel(panel) 
-		panelBotones.layout = new HorizontalLayout
+		val unPedidoSeleccionado= new NotNullObservable("pedidoSeleccionado")
+		var panelRetrocederAvanzar = new Panel(panelTablaDePedido) 
+		panelRetrocederAvanzar.layout = new HorizontalLayout
+		new Button(panelRetrocederAvanzar)=>[
+												caption = "<<"
+												onClick [	modelObject.anteriorEstadoPedidoSeleccionado()	]
+												bindEnabled(unPedidoSeleccionado)
+											]
 		
-		new Button(panelBotones) => [
-			caption = "Menú"
-		]
-		
-		new Button(panelBotones) => [
-			caption = "Pedidos Cerrados"
-		]
-		
-		new Button(panelBotones) => [
-			caption = "Salir"
-			onClick[this.close]
-		]
-	
+		new Button(panelRetrocederAvanzar)=>[
+												caption = ">>"
+												onClick [	modelObject.siguienteEstadoPedidoSeleccionado()	]
+												bindEnabled(unPedidoSeleccionado)
+											]
 	}
-
+	
+	/**Define los botones de avance y retroceso de estado de los pedidos */
+	def panelDeBotonesInferiores(Panel MainPanel)
+	{
+		var panelBotonesInferiores = new Panel(MainPanel) 
+		panelBotonesInferiores.layout = new HorizontalLayout
+		new Button(panelBotonesInferiores)=>[
+												caption = "Menú"
+												onClick [ new MenuDeDominoMainWindow(this, new MenuDeDominoAppModel).open  
+													//Por que hay q pasarle el appModel de menu????
+												]
+											]
+		
+		new Button(panelBotonesInferiores)=>[
+												caption = "Pedidos Cerrados"
+												onClick [	new MainWindowListaPedidosCerrados(this).open	]
+											]
+											
+		new Button(panelBotonesInferiores)=>[
+												caption = "Salir"
+												onClick [	this.close	]
+											]
+	}
+	
 }
-
-
-
-

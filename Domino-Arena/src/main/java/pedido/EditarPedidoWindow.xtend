@@ -19,7 +19,7 @@ import plato.PlatoWindow
 import plato.PlatoAdapter
 import estados.EstadoDePedido
 
-class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
+class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 	new(WindowOwner owner, AdapterPedido model) {
 		super(owner, model)
@@ -46,9 +46,11 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		val estadoSeleccionado = new NotNullObservable("estadoActual")
 
-		new Selector<AdapterPedido>(panelEstados) => [
+		new Selector<EstadoDePedido>(panelEstados) => [
 			allowNull(false)
 			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
+//			val propiedadEstados = bindItems(new ObservableProperty(AdapterPedido, "coleccionDeEstados"))
+//			propiedadEstados.adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
 			
 			bindEnabled(estadoSeleccionado)
@@ -114,9 +116,9 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 		new Button(panelBotonesPlatos) => [
 			caption = "Editar"
 			onClick [ 	
-						modelObject.platoSeleccionado.sizeSelect  = modelObject.platoSeleccionado.plato.tamanio
-						modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
-						new PlatoWindow(this,  modelObject.platoSeleccionado).open
+//						modelObject.platoSeleccionado.sizeSelect  = modelObject.platoSeleccionado.plato.tamanio
+//						modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
+						new PlatoWindow(this, modelObject.platoSeleccionado).open
 					]
 		]
 
@@ -133,7 +135,7 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 		new TextBox(mainPanel) => [
 			width = 20
 			fontSize = 9
-			value <=> "pedido.aclaracion"
+			value <=> "pedidoAdaptado.aclaracion"
 		]
 	}
 
@@ -144,7 +146,7 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelDatosPlatos).text = "Cliente"
 
-		new Label(panelDatosPlatos).value <=> "pedido.miembro.nombre"
+		new Label(panelDatosPlatos).value <=> "pedidoAdaptado.miembro.nombre"
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
@@ -152,11 +154,11 @@ class EditarPedidorWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelDatosPlatos).text = "Monto total"
 
-		new Label(panelDatosPlatos).value <=> "pedido.calcularPrecio"
+		new Label(panelDatosPlatos).value <=> "pedidoAdaptado.calcularPrecio"
 
 		new Label(panelDatosPlatos).text = "Fecha"
 
-		new Label(panelDatosPlatos).value <=> "pedido.fecha"
+		new Label(panelDatosPlatos).value <=> "pedidoAdaptado.fecha"
 	}
 
 	def ultimosBotonesPlatos(Panel mainPanel) {

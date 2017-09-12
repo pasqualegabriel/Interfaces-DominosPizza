@@ -18,7 +18,6 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 class Plato 
 {
 	//	Atributos
-	String nombre
 	Pizza pizza
 	Tamanio tamanio
 	Distribucion ingredientesExtras

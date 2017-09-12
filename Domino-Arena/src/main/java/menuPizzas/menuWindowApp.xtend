@@ -15,8 +15,8 @@ class menuWindowApp extends Application{
 		new MenuDeDominoMainWindow(this, modelo) 
 	}
 	
-	def static void main(String[] args) {
-		new menuWindowApp().start()
-	}
+//	def static void main(String[] args) {
+//		new menuWindowApp().start()
+//	}
 		
 }

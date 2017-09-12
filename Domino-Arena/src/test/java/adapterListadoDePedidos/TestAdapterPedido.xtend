@@ -39,7 +39,7 @@ class TestAdapterPedido {
 		unSpyPedido = (new Pedido(unMiembroMock))
 		unSpyPedido.agregarPlato = plato
 		unSpyPedido.formaDeRetiro = unMockLocal
-		unAdapterTest = new AdapterPedido(unSpyPedido, 1)
+		unAdapterTest = new AdapterPedido(1, unSpyPedido)
 		when(unMockLocal.avanzarEstado).thenReturn(new ListoParaRetirar)
 		when(unMockLocal.precioDeRetiro).thenReturn(12)
 		
@@ -49,14 +49,14 @@ class TestAdapterPedido {
 
 	@Test
 	def test01UnAdapaterSabeDecirleASuPedidoQuePaseAlSiguienteEstado() {
-		unAdapterTest.siguienteEstado
+		unAdapterTest.pasarASiguienteEstado
 		assertEquals(unAdapterTest.estadoActual,unSpyPedido.formaDeRetiro.avanzarEstado.nombre)
 	}
 	
 
 	@Test
 	def test02UnAdapaterSabeDecirleASuPedidoQuePaseASuAnteriorEstado() {
-		unAdapterTest.anteriorEstado
+		unAdapterTest.pasarAAnteriorEstado
 		assertEquals(unAdapterTest.estadoActual,unSpyPedido.estadoActual.previo.nombre)
 
 	}

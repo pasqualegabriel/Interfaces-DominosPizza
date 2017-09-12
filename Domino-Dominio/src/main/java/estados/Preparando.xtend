@@ -25,7 +25,7 @@ class Preparando extends EstadoDePedido{
 	}
 	
 	override nombre() {
-		"Preparado"
+		"Preparando"
 	}
 	
 }

@@ -22,7 +22,7 @@ class PlatoAdapter {
 	
 	new(Plato unPlato) {
 		plato		= unPlato
-		nombre		= plato.nombre
+		nombre		= plato.pizza.nombre
 		tamanio		= plato.tamanio
 		precio		= "$" + plato.calcularPrecio 
 		coleccionPizzaItems

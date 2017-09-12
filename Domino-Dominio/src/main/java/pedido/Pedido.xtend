@@ -9,8 +9,7 @@ import domino.Miembro
 import estados.EstadoDePedido
 import estados.Cancelado
 import java.time.LocalTime
-import org.uqbar.commons.model.annotations.Observable
-
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
@@ -18,7 +17,7 @@ import org.uqbar.commons.model.annotations.Observable
  * 					 - Manejar datos de interes respecto aquella misma orden.
  */
  
-@Observable
+@TransactionalAndObservable
 @Accessors
 class Pedido {
 
@@ -42,7 +41,7 @@ class Pedido {
 		platos       = new ArrayList<Plato>
 		aclaracion   = ""
 		fecha        = LocalDateTime.now()
-
+		this.tiempoDeEspera = 0
 	}
 	
 
@@ -83,7 +82,7 @@ class Pedido {
 	
 	def calcularTiempoDeEntrega() 
 	{
-		this.tiempoDeEspera = (LocalTime.now.toSecondOfDay - fecha.toLocalTime.toSecondOfDay)/60
+		this.tiempoDeEspera = Math.abs(LocalTime.now.toSecondOfDay - fecha.toLocalTime.toSecondOfDay) / 60
 	}
 	
 	def siguiente(){

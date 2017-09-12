@@ -10,7 +10,7 @@ class PasajeACancelado implements Pasaje{
 	
 	override ejecutar(Pedido unPedido, Home unDominoPizza) {
 		
-		unDominoPizza.agregarPedidosCancelados(unPedido)
+		unDominoPizza.cerrarPedidoEntregadoCancelado(unPedido)
 	}
 	
 }
