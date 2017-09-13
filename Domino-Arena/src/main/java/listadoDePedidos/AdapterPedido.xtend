@@ -6,25 +6,23 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import estados.EstadoDePedido
 import java.util.List
 import plato.PlatoAdapter
-import estados.Entregado
-import estados.Preparando
-import estados.Cancelado
-import estados.EnViaje
-import estados.ListoParaEnviar
-import estados.ListoParaRetirar
 import pedido.Plato
 import org.uqbar.commons.model.annotations.Dependencies
+import persistencia.Home
 
 @Accessors
 @TransactionalAndObservable
 class AdapterPedido 
 {
+	Boolean					pedidoCerrado
 	Pedido 					pedidoAdaptado
 	
 	Integer 				nroPedido
+
 	
-	EstadoDePedido 			estadoActual
-	
+
+	String 					estadoActual
+
 	EstadoDePedido 			cambioDeEstado
 	
 	List<EstadoDePedido> 	estadosSelector  = newArrayList
@@ -37,19 +35,23 @@ class AdapterPedido
 	
 	String costoDeRealizacionDeEnvioString
 	double costoDeRealizacionDeEnvioInt
-	
-	new(Integer nroDePedido, Pedido unPedido)
+	new(Integer nroDePedido, Pedido unPedido, Boolean cerradoONo)
+
 	{
 		super()
 		this.nroPedido		= nroDePedido
 		this.pedidoAdaptado	= unPedido
-		cambioDeEstado= unPedido.estadoActual
+		estadoActual		= unPedido.estadoActual.nombre
+		cambioDeEstado		= unPedido.estadoActual
 		coleccionDeEstados
 		coleccionDePlatosAdapater
-		precio = "$" + pedidoAdaptado.calcularPrecio
 		costoDeRealizacionDeEnvioInt= pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		costoDeRealizacionDeEnvioString = "$" + pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		
+
+		precio = "$" + pedidoAdaptado.calcularPrecio.toString
+		pedidoCerrado	= cerradoONo
+
 	}
 	
 	def void setPrecio(){
@@ -68,34 +70,46 @@ class AdapterPedido
 		}
 		
 	}
-	def void agregarPlatoAdapter(PlatoAdapter unPlatoAdapter){
-		platos.add(unPlatoAdapter)
-		
-	}
+	def void agregarPlatoAdapter(PlatoAdapter unPlatoAdapter)
+	{	platos.add(unPlatoAdapter)	}
 	
-	def void coleccionDeEstados() {
-		estadosSelector.add(new Entregado)
-		estadosSelector.add(new Preparando)
-		estadosSelector.add(new Cancelado)
-		estadosSelector.add(new EnViaje)
-		estadosSelector.add(new ListoParaEnviar)
-		estadosSelector.add(new ListoParaRetirar)
-	}
-	
-	def getEstadoActual() {
-		estadoActual.nombre
+	def void coleccionDeEstados()
+	{	
+		this.estadosSelector = newArrayList
+		//una opcion seria que los estados sepan responder si tienen siguente o anterior 
+		//y controlarlos con dos if separados
+		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Preparando") && !pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
+		{ 	estadosSelector.add(pedidoAdaptado.estadoActual.previo)	}
+		estadosSelector.add(pedidoAdaptado.estadoActual)
+		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
+		{ 	estadosSelector.add(pedidoAdaptado.estadoActual.proximo)}
 	}
 	
 	def void pasarASiguienteEstado() 
 	{
 		this.pedidoAdaptado.siguiente()
-		this.estadoActual = pedidoAdaptado.estadoActual
+		this.estadoActual = pedidoAdaptado.estadoActual.nombre
+		this.coleccionDeEstados							//Refresca la lista del Selector
 	}
 	
 	def void pasarAAnteriorEstado() 
 	{
 		this.pedidoAdaptado.anterior()
-		this.estadoActual = pedidoAdaptado.estadoActual
+		this.estadoActual = pedidoAdaptado.estadoActual.nombre
+		this.coleccionDeEstados							//Refresca la lista del Selector
+	}
+	
+	def void cambiarAEstadoSeleccionado()
+	{
+		this.pedidoAdaptado.estadoActual = this.cambioDeEstado
+		this.estadoActual = this.pedidoAdaptado.estadoActual.nombre
+		
+		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado"))
+			pedidoAdaptado.calcularTiempoDeEntrega()
+			Home.instance.moverPedidoAPedidosCerrado(nroPedido,pedidoAdaptado)
+		
+		this.coleccionDeEstados							//Refresca la lista del Selector
+		this.cambioDeEstado	= pedidoAdaptado.estadoActual
 	}
 	
 	def void cancelar()
@@ -121,7 +135,7 @@ class AdapterPedido
 	@Dependencies("precio")
 	def getPrecio()
 	{
-		"$" + pedidoAdaptado.calcularPrecio 
+		precio
 	}
 	
 	def getFecha()

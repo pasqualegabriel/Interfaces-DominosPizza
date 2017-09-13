@@ -45,11 +45,11 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		new Label(panelEstados).text = "Estado"
 
 		new Selector<EstadoDePedido>(panelEstados) => [
+			bindEnabledToProperty("pedidoCerrado")
 			allowNull(false)
 			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
-
-		
+			onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") )
 		]
 	}
 
@@ -76,6 +76,7 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		new Label(panelTablaPlatos).text = "Platos"
 
 		val tablaPedidos = new Table(panelTablaPlatos, typeof(PlatoAdapter)) => [
+			bindEnabledToProperty("pedidoCerrado")
 			numberVisibleRows = 6
 			items <=> "platos"
 			value <=> "platoSeleccionado"
@@ -103,15 +104,15 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		panelBotonesPlatos.layout = new VerticalLayout
 
 		new Button(panelBotonesPlatos) => [
+			bindEnabledToProperty("pedidoCerrado")
 			caption = "Agregar"
 			onClick [
-
-	
-				new AgregarPlatoWindow(this).open
-			]
+						new AgregarPlatoWindow(this).open
+					]
 		]
 
 		new Button(panelBotonesPlatos) => [
+			bindEnabledToProperty("pedidoCerrado")
 			caption = "Editar"
 			onClick [
 				modelObject.platoSeleccionado.sizeSelect = modelObject.platoSeleccionado.plato.tamanio
@@ -122,6 +123,7 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		]
 
 		new Button(panelBotonesPlatos) => [
+			bindEnabledToProperty("pedidoCerrado")
 			caption = "Eliminar"
 			onClick []
 		]
@@ -132,6 +134,7 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		new Label(mainPanel).text = "Aclaraciones"
 
 		new TextBox(mainPanel) => [
+			bindEnabledToProperty("pedidoCerrado")
 			width = 20
 			fontSize = 9
 			value <=> "pedidoAdaptado.aclaracion"
