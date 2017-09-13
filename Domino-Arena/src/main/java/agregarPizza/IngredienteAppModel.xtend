@@ -28,6 +28,10 @@ class IngredienteAppModel {
 	new(Ingrediente unIngrediente, PlatoAdapter unPlatoAdapter) {
 		ingrediente = unIngrediente
 		platoAdapter = unPlatoAdapter
+		estaActivadoEnCheckbox = platoAdapter.pizzaSelect.distribucion.tieneAlIngrediente(unIngrediente)
+		if (estaActivadoEnCheckbox) {
+			this.distribucionSeleccionadaParaIngredientesExtras = platoAdapter.pizzaSelect.distribucion.posicionIngrediente(unIngrediente)
+		}
 	}
 
 	new(Ingrediente unIngrediente, Pizza unaPizza) {
