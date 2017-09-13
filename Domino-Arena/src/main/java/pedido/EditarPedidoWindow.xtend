@@ -116,6 +116,7 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 			onClick [
 				modelObject.platoSeleccionado.sizeSelect = modelObject.platoSeleccionado.plato.tamanio
 				modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
+				modelObject.platoSeleccionado.suAdapterPedido = modelObject
 				new EditarPlatoWindow(this, modelObject.platoSeleccionado).open
 			]
 		]
@@ -148,15 +149,15 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
-		new Label(panelDatosPlatos).text = "$15"
+		new Label(panelDatosPlatos).value <=> "costoDeRealizacionDeEnvioString"
 
 		new Label(panelDatosPlatos).text = "Monto total"
+	
+		new Label(panelDatosPlatos).value <=> "precio"
 
-		new Label(panelDatosPlatos).value <=> "pedidoAdaptado.calcularPrecio"
+		new Label(panelDatosPlatos).text = "Hora"
 
-		new Label(panelDatosPlatos).text = "Fecha"
-
-		new Label(panelDatosPlatos).value <=> "pedidoAdaptado.fecha"
+		new Label(panelDatosPlatos).value <=> "hora"
 	}
 
 	def ultimosBotonesPlatos(Panel mainPanel) {

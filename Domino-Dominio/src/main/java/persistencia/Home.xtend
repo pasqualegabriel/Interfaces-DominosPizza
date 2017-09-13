@@ -20,6 +20,7 @@ import java.util.HashMap
 import java.time.LocalDateTime
 import estados.Entregado
 import estados.Cancelado
+import estados.ListoParaRetirar
 
 @Accessors
 class Home {
@@ -34,39 +35,74 @@ class Home {
 	
 	private new ()
 	{
-		val distribucion = new Distribucion
-		val tamaño		 = new Chica
-		val pizza	= new Pizza("Pizza Re piola para villeros",8,distribucion)
-		val pizza2	= new Pizza("Pizza llena de Roque",8,distribucion)
-		val pizza3 	= new Pizza("La ZAPI FAMILIAR ",8,distribucion)
-		agregarPromocion(pizza)
+		//creacion de Distribuciones
+		var distribucion1 = new Distribucion
+		var distribucion2 = new Distribucion
+		var distribucion3 = new Distribucion
+		
+		//Creacion de Tamanio		
+		var tamanio1	= new Chica
+		var tamanio2	= new Familiar
+		var tamanio3	= new Porcion
+		
+		//creacion de Pizzas
+		var pizza1	= new Pizza("Muzzarela",100,distribucion1)
+		var pizza2	= new Pizza("Muzza + Anchoas",120,distribucion2)
+		var pizza3 	= new Pizza("Jamon y morron",140,distribucion3)
+		
+		//Agregamos a promos
+		agregarPromocion(pizza1)
 		agregarPromocion(pizza2)
 		agregarPromocion(pizza3)
 		
+		//Creacion de platos
+		var plato1		 = new Plato(pizza1,tamanio1,distribucion1)
+		var plato2	 	 = new Plato(pizza2,tamanio2,distribucion2)
+		var plato3		 = new Plato(pizza3,tamanio3,distribucion3)
 		
-		val plato		 = new Plato(pizza,tamaño,distribucion)
-		val plato2	 	 = new Plato(pizza,tamaño,distribucion)
+		var pedido1 = new Pedido(new Miembro("Laura", "nick1", "unPassword1", "unMail1", "unaDireccion1"))
+		var pedido2 = new Pedido(new Miembro("Maria", "nick2", "unPassword2", "unMail2", "unaDireccion2"))	
+		var pedido3 = new Pedido(new Miembro("Juan", "nick3", "unPassword3", "unMail3", "unaDireccion3"))
 		
-		val pedido1 = new Pedido(new Miembro("Laura", "nick1", "unPassword", "unMail", "unaDireccion"))
-		val pedido2 = new Pedido(new Miembro("Maria", "nick1", "unPassword", "unMail", "unaDireccion"))	
+		//agregamos forma de retiro al pedido
 		pedido1.formaDeRetiro = new Delivery
-		pedido1.estadoActual = new ListoParaEnviar 
-		pedido1.fecha = LocalDateTime.of(2017,9,10,19,30)
 		pedido2.formaDeRetiro = new Local
-		pedido2.estadoActual = new Preparando  
-		pedido2.fecha = LocalDateTime.of(2017,9,10,18,30)
-		pedido1.agregarPlato(plato)
-		pedido1.agregarPlato(plato2)
-		pedido2.agregarPlato(plato)
+		pedido3.formaDeRetiro = new Local
 		
-		this.pedidosAbiertos.put(nroPedido,pedido1)
-		nroPedido ++
-		this.pedidosAbiertos.put(nroPedido,pedido2)
-		nroPedido ++
+		//Agregamos estado de inicio al pedido
+		pedido1.estadoActual = new ListoParaEnviar 
+		pedido2.estadoActual = new Preparando 
+		pedido3.estadoActual = new ListoParaRetirar
+		
+		//Agregamos la fecha a los pedidos
+			
+		pedido1.fecha = LocalDateTime.of(2017,9,10,17,30)
+	 	pedido2.fecha = LocalDateTime.of(2017,9,10,18,30)
+		pedido3.fecha = LocalDateTime.of(2017,9,10,19,00)
+		
+		//Agregamos un plato a cada pedido
+		pedido1.agregarPlato(plato1)
+		pedido2.agregarPlato(plato2)
+		pedido3.agregarPlato(plato3)
+		
+		//Agregamos los pedidos a abierto
+		agregarPedido(pedido1)
+		agregarPedido(pedido2)
+		agregarPedido(pedido3)
+		
+		
+		//Para agregar ingedientes
+		agregarIngrediente(new Ingrediente("Anchoa",10))
+		agregarIngrediente(new Ingrediente("Morron",10))
+		agregarIngrediente(new Ingrediente("Jamon" ,10))
+		
+		
 		
 		/*Pedidos Cerrados*/
+		var distribucion4 = new Distribucion
+		var distribucion5 = new Distribucion
 		val pizzaMuzzaCerrada			= new Pizza("La Muzza", 15, new Distribucion)
-		val platoCerrado1				= new Plato(pizzaMuzzaCerrada,new Familiar,distribucion)
+		val platoCerrado1				= new Plato(pizzaMuzzaCerrada,new Familiar,distribucion4)
 		val pedidoCerrado1 				= new Pedido(new Miembro("La Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
 		pedidoCerrado1.agregarPlato(platoCerrado1)
 		pedidoCerrado1.formaDeRetiro	= new Local
@@ -75,7 +111,7 @@ class Home {
 		pedidoCerrado1.fecha 			= LocalDateTime.of(2017,9,11,19,30)
 		
 		val pizzaJamonCerrada			= new Pizza("Pizza Jamon", 25, new Distribucion)
-		val platoCerrado2				= new Plato(pizzaJamonCerrada,new Porcion, distribucion)
+		val platoCerrado2				= new Plato(pizzaJamonCerrada,new Porcion, distribucion5)
 		val pedidoCerrado2 				= new Pedido(new Miembro("La Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
 		pedidoCerrado2.agregarPlato(platoCerrado2)
 		pedidoCerrado2.formaDeRetiro	= new Local
@@ -89,10 +125,7 @@ class Home {
 		nroPedido ++
 		
 		
-		//Para agregar ingedientes
-		agregarIngrediente(new Ingrediente("Anchoa",5))
-		agregarIngrediente(new Ingrediente("Morron",2))
-		agregarIngrediente(new Ingrediente("Jamon",5))
+
 	}
 	
 	// Estructura
@@ -177,7 +210,9 @@ class Home {
 	// Precondicion: -El pedido no tiene que estar en la lista de pedidos cerrados
 	// 				 -El pedido no puede ya estar en la lista de pedidos abiertos
 	def agregarPedido(Pedido unPedido) { 
+	
 		pedidosAbiertos.put(this.nroPedido,unPedido)
+		nroPedido++
 	}
 	
 	def tamanios() 

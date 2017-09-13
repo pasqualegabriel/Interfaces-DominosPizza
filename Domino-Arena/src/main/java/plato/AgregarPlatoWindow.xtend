@@ -8,7 +8,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class AgregarPlatoWindow extends EditarPlatoWindow  {
 	
 	new(pedido.EditarPedidoWindow  owner) {
-		super(owner, new PlatoAdapter(new pedido.Plato))
+		
+		super(owner, new PlatoAdapter(new pedido.Plato,owner.modelObject))
 	
 	}
 	

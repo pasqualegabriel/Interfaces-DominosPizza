@@ -33,6 +33,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 	}
 
 
+
 	def selectorPizza(Panel mainPanel) {
 
 		var panelPizza = new Panel(mainPanel)
@@ -87,6 +88,9 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
+				unPlatoAdapter.plato.pizza = unPlatoAdapter.pizzaSelect
+				unPlatoAdapter.plato.tamanio = unPlatoAdapter.sizeSelect
+				
 				this.accept
 				setAsDefault
 				disableOnError

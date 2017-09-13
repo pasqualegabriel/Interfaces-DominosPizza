@@ -13,19 +13,30 @@ import estados.EnViaje
 import estados.ListoParaEnviar
 import estados.ListoParaRetirar
 import pedido.Plato
+import org.uqbar.commons.model.annotations.Dependencies
 
 @Accessors
 @TransactionalAndObservable
 class AdapterPedido 
 {
 	Pedido 					pedidoAdaptado
+	
 	Integer 				nroPedido
+	
 	EstadoDePedido 			estadoActual
+	
 	EstadoDePedido 			cambioDeEstado
+	
 	List<EstadoDePedido> 	estadosSelector  = newArrayList
+	
 	List<PlatoAdapter> 		platos = newArrayList
+	
 	PlatoAdapter 			platoSeleccionado
+	
 	String precio
+	
+	String costoDeRealizacionDeEnvioString
+	double costoDeRealizacionDeEnvioInt
 	
 	new(Integer nroDePedido, Pedido unPedido)
 	{
@@ -35,9 +46,20 @@ class AdapterPedido
 		cambioDeEstado= unPedido.estadoActual
 		coleccionDeEstados
 		coleccionDePlatosAdapater
-		precio = "$" + pedidoAdaptado.calcularPrecio.toString
+		precio = "$" + pedidoAdaptado.calcularPrecio
+		costoDeRealizacionDeEnvioInt= pedidoAdaptado.formaDeRetiro.precioDeRetiro
+		costoDeRealizacionDeEnvioString = "$" + pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		
 	}
+	
+	def void setPrecio(){
+		precio = "$" + pedidoAdaptado.calcularPrecio 
+	}
+//	def void setPrecio(double unPrecio){
+//		
+//		precio= "$" +(unPrecio + costoDeRealizacionDeEnvioInt)
+//		
+//	}
 	
 	def void coleccionDePlatosAdapater() {
 		
@@ -96,9 +118,10 @@ class AdapterPedido
 		pedidoAdaptado.estadoActual.nombre
 	}
 	
+	@Dependencies("precio")
 	def getPrecio()
 	{
-		this.pedidoAdaptado.calcularPrecio
+		"$" + pedidoAdaptado.calcularPrecio 
 	}
 	
 	def getFecha()
