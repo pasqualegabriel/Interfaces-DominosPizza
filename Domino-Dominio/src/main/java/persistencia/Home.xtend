@@ -87,6 +87,12 @@ class Home {
 		nroPedido ++
 		this.pedidosCerrados.put(nroPedido,pedidoCerrado2)
 		nroPedido ++
+		
+		
+		//Para agregar ingedientes
+		agregarIngrediente(new Ingrediente("Anchoa",5))
+		agregarIngrediente(new Ingrediente("Morron",2))
+		agregarIngrediente(new Ingrediente("Jamon",5))
 	}
 	
 	// Estructura
@@ -178,6 +184,8 @@ class Home {
 	{
 		#[new Chica, new Porcion, new Grande, new Familiar]
 	}
+	
+
 
 
 }

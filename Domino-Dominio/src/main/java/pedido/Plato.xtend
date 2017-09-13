@@ -81,6 +81,9 @@ class Plato
 	{
 		this.ingredientesExtras.quitarIngrediente(unIngrediente)
 	}
+	def void cambiarDistribucionDeUnIngrediente(Ingrediente unIngrediente, DistribucionEnPizza unaDistribucion){
+		this.ingredientesExtras.cambiarDistribucionDe(unIngrediente,unaDistribucion)
+	}
 
 	/**
 	 * Calcula el valor a pagar del plato. 

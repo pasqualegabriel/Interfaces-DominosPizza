@@ -17,6 +17,7 @@ import org.uqbar.arena.widgets.TextBox
 import plato.PlatoAdapter
 import estados.EstadoDePedido
 import plato.EditarPlatoWindow
+import plato.AgregarPlatoWindow
 
 class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
@@ -43,13 +44,12 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelEstados).text = "Estado"
 
-		// val estadoSeleccionado = new NotNullObservable("estadoActual")
 		new Selector<EstadoDePedido>(panelEstados) => [
 			allowNull(false)
 			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
 
-		// bindEnabled(estadoSeleccionado)
+		
 		]
 	}
 

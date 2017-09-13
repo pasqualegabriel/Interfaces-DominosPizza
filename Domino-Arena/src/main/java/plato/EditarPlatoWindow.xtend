@@ -1,10 +1,10 @@
 package plato
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.aop.windows.TransactionalDialog
+
 import org.uqbar.arena.widgets.Panel
 
-import org.uqbar.arena.layout.VerticalLayout
+
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Selector
@@ -14,28 +14,24 @@ import pizza.Pizza
 import pizza.Tamanio
 import org.eclipse.xtend.lib.annotations.Accessors
 import pedido.EditarPedidoWindow
+import pedido.EditarIngredienteTemplate
+import pizza.Ingrediente
+import agregarPizza.IngredienteAppModel
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.RadioSelector
 
 @Accessors
-class EditarPlatoWindow extends TransactionalDialog<PlatoAdapter> {
+class EditarPlatoWindow extends EditarIngredienteTemplate {
 	
 	protected EditarPedidoWindow mainWindow
+	protected PlatoAdapter unPlatoAdapter
 	
 	new(EditarPedidoWindow  owner, PlatoAdapter model) {
 		super(owner, model)
 		mainWindow = owner
+		unPlatoAdapter=model 
 	}
 
-	override protected createFormPanel(Panel mainPanel) {
-		this.title = "Plato"
-		mainPanel.layout = new VerticalLayout()
-		selectorPizza(mainPanel)
-		selectorSizePizza(mainPanel)
-		//radioSelectorAgregados(mainPanel)
-
-		footLabel(mainPanel)
-		footButton(mainPanel)
-
-	}
 
 	def selectorPizza(Panel mainPanel) {
 
@@ -71,15 +67,6 @@ class EditarPlatoWindow extends TransactionalDialog<PlatoAdapter> {
 
 	}
 
-//	def radioSelectorAgregados(Panel mainPanel) {
-//			var panelRadioSelector = new Panel(mainPanel)
-//			panelRadioSelector.layout = new HorizontalLayout()
-//			new RadioSelector<PlatoAdapter>(panelRadioSelector) =>[
-//				
-//				
-//			]
-//	
-//	}
 
 	def footLabel(Panel mainPanel) {
 		var panelLabel = new Panel(mainPanel)
@@ -112,6 +99,38 @@ class EditarPlatoWindow extends TransactionalDialog<PlatoAdapter> {
 				close
 			]
 		]
+	}
+	
+	override defaultTitle() {
+		"Plato"
+	}
+	
+	override initHead(Panel mainPanel) {
+		selectorPizza(mainPanel)
+		selectorSizePizza(mainPanel)
+	}
+	
+	override initBottom(Panel mainPanel) {
+		footLabel(mainPanel)
+		footButton(mainPanel)
+	}
+	
+	override createCheckBoxLabeledSeleccionable(Panel tablaDeIngredientes, Ingrediente unIngrediente) {
+		var ingredienteAppModel = new IngredienteAppModel(unIngrediente, unPlatoAdapter)
+      	var checkBoxDeIngrediente = new Panel(tablaDeIngredientes, ingredienteAppModel)
+      	checkBoxDeIngrediente.setLayout = new HorizontalLayout
+     	
+      
+		new CheckBox(checkBoxDeIngrediente) => [
+   			value <=> "estaActivadoEnCheckbox"
+		]
+		
+		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
+		
+		new RadioSelector(checkBoxDeIngrediente) => [
+            items <=> "distribuciones"
+            value <=> "distribucionSeleccionadaParaIngredientesExtras"
+      ]
 	}
 
 }

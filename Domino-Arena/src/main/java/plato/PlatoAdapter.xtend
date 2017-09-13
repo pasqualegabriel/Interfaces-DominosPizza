@@ -7,6 +7,8 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pizza.Pizza
 import java.util.List
 import persistencia.Home
+import pizza.Ingrediente
+import pizza.DistribucionEnPizza
 
 @Accessors
 @TransactionalAndObservable
@@ -53,6 +55,14 @@ class PlatoAdapter {
 		if (!pizzaSelect.equals(null) && !sizeSelect.equals(null)){
 			precio = "$" + pizzaSelect.precioBase * sizeSelect.factorDeTamanio
 		}
+	}
+	
+	def agregaIngredienteExtra(Ingrediente ingrediente, DistribucionEnPizza distribucion) {
+		plato.agregarIngredienteExtra(ingrediente,distribucion)
+	}
+	
+	def cambiarDistribucionDeIngredienteExtra(Ingrediente unIngrediente,DistribucionEnPizza unaDistribucion) {
+		plato.cambiarDistribucionDeUnIngrediente(unIngrediente,unaDistribucion)
 	}
 
 }

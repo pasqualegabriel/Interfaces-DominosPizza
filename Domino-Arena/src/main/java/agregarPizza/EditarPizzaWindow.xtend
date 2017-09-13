@@ -1,7 +1,6 @@
 package agregarPizza
 
 import menuPizzas.MenuDeDominoMainWindow
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import pizza.Pizza
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
@@ -13,14 +12,17 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.Button
+import pedido.EditarIngredienteTemplate
 
-class EditarPizzaWindow extends TransactionalDialog<Pizza>{
+class EditarPizzaWindow extends EditarIngredienteTemplate{
 	
 	protected MenuDeDominoMainWindow mainWindow
+	protected Pizza model
 	
 	new(MenuDeDominoMainWindow aMainWindow, Pizza unaPizza) {
 		
 		super(aMainWindow, unaPizza)
+		model = unaPizza
 		mainWindow = aMainWindow
 	}
 	
@@ -38,7 +40,7 @@ class EditarPizzaWindow extends TransactionalDialog<Pizza>{
 	
 	
 	
-	def initHead(Panel mainPanel) {
+	override initHead(Panel mainPanel) {
 		new Label(mainPanel).text = "Nombre"
 		new TextBox(mainPanel) => [
 			value <=> "nombre"
@@ -52,21 +54,7 @@ class EditarPizzaWindow extends TransactionalDialog<Pizza>{
 		]
 	}
 	
-// Los problemas empiezan por culpa de esto. Vos necesitas una Checkbox con selector
-// Por cada uno de los ingredientes que haya disponible. No hay otra forma que hacerlo que con un for
-// Esta parte no me parece que este mal, la parte que me parece mal es la de createCheckBox
 
-	def armarTablaDeIngredientes(Panel mainPanel) {
-		var tablaDeIngredientes = new Panel(mainPanel)
-		tablaDeIngredientes.layout= new VerticalLayout
-		var	listaDeIngredientes= mainWindow.modelObject.ingredientesDisponibles
-		
-		
-		for (Ingrediente unIngrediente: listaDeIngredientes ) {
-			this.createCheckBoxLabeledSeleccionable(tablaDeIngredientes, unIngrediente)
-		}
-		
-	}
 	
 // Esto hay que preguntarlo o rehacerlo. El problema mas grave de todos es que segun dijeron los profesores
 // tenes que tener un solo modelo por ventana. Pero aca cada checkbox opera con su propio modelo
@@ -76,28 +64,28 @@ class EditarPizzaWindow extends TransactionalDialog<Pizza>{
 // Otro problema es que al parecer se pierde la transaccionalidad asi, lo cual no deberia pasar.
 
 // El segundo problema esta en que el enabled no parece funcionar por alguna razon.
-	def createCheckBoxLabeledSeleccionable(Panel panel, Ingrediente unIngrediente) {
-	  	var ingredienteAppModel = new IngredienteAppModel(unIngrediente, modelObject)
+	override createCheckBoxLabeledSeleccionable(Panel panel, Ingrediente unIngrediente) {
+	  	var ingredienteAppModel = new IngredienteAppModel(unIngrediente, model)
       	var checkBoxDeIngrediente = new Panel(panel, ingredienteAppModel)
       	checkBoxDeIngrediente.setLayout = new HorizontalLayout
      	
       
 		new CheckBox(checkBoxDeIngrediente) => [
-   			value <=> "estaEnLaPizza"
+   			value <=> "estaActivadoEnCheckbox"
 		]
 		
 		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
 		
 		new RadioSelector(checkBoxDeIngrediente) => [
-			// enabled <=> "estaEnLaPizza"
+			//enabled <=> "estaEnLaPizza"
             items <=> "distribuciones"
-            value <=> "distribucionSeleccionada"
+            value <=> "distribucionSeleccionadaParaPizza"
       ]
 	}
       
  
 	
-	def initBottom(Panel mainPanel) {
+	override initBottom(Panel mainPanel) {
 		new Button(mainPanel) => [
 			caption = "Aceptar"
 			onClick [|this.accept]
@@ -112,7 +100,7 @@ class EditarPizzaWindow extends TransactionalDialog<Pizza>{
 		]
 	}
 	
-	def defaultTitle() {
+	override defaultTitle() {
 		"Editar Promo"
 	}
 	

@@ -16,6 +16,8 @@ class MenuDeDominoAppModel {
 	List<Pizza> promosDisponibles = new ArrayList<Pizza>
 	List<Ingrediente> ingredientesDisponibles = new ArrayList<Ingrediente>
 	
+	
+	// Remplazar creaciones por el home
 	new(){
 		promosDisponibles.add(new Pizza("Muzzarela Grande", 30, new Distribucion))
 		promosDisponibles.add(new Pizza("Anana", 60, new Distribucion))

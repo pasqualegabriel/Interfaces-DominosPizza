@@ -17,7 +17,7 @@ class CrearPizzaWindow extends EditarPizzaWindow{
   
    override accept() {
     	super.accept()
-    	this.mainWindow.modelObject.agregarPromocion(super.modelObject)
+    	this.mainWindow.modelObject.agregarPromocion(super.model)
   }
 	
 }
