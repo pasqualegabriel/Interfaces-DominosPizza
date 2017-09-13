@@ -125,7 +125,9 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		new Button(panelBotonesPlatos) => [
 			bindEnabledToProperty("pedidoCerrado")
 			caption = "Eliminar"
-			onClick []
+			onClick [
+				modelObject.eliminarPlato()
+			]
 		]
 	}
 

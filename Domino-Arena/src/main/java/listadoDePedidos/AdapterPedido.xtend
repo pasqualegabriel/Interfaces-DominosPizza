@@ -71,7 +71,10 @@ class AdapterPedido
 		
 	}
 	def void agregarPlatoAdapter(PlatoAdapter unPlatoAdapter)
-	{	platos.add(unPlatoAdapter)	}
+	{	pedidoAdaptado.agregarPlato(unPlatoAdapter.plato)
+		platos.add(unPlatoAdapter)
+		
+	}
 	
 	def void coleccionDeEstados()
 	{	
@@ -149,6 +152,13 @@ class AdapterPedido
 			"-"
 		else 
 			this.pedidoAdaptado.tiempoDeEspera.toString + " Minutos"
+	}
+	
+	def eliminarPlato() {
+		pedidoAdaptado.quitarPlato(platoSeleccionado.plato)
+		platos.remove(platoSeleccionado)
+		//platoSeleccionado = null
+		
 	}
 	
 }
