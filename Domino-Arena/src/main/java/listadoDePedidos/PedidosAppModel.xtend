@@ -58,7 +58,7 @@ class PedidosAppModel
 	{
 		this.listaDePedidosAbiertos.clear
 		val listaActualizada		= newArrayList
-		Home.instance.pedidosAbiertos.forEach[ claveNroPedido, valorPedido | listaActualizada.add(new AdapterPedido(claveNroPedido,valorPedido))]
+		Home.instance.pedidosAbiertos.forEach[ claveNroPedido, valorPedido | listaActualizada.add(new AdapterPedido(claveNroPedido,valorPedido, true))]
 		this.listaDePedidosAbiertos = ordenarListaDePedidosAbiertosPorHoraAscendente(listaActualizada)
 	}
 
@@ -73,7 +73,7 @@ class PedidosAppModel
 	{
 		this.listaDePedidosCerrados.clear
 		val listaActualizada		= newArrayList
-		Home.instance.pedidosCerrados.forEach[ claveNroPedido, valorPedido | listaActualizada.add(new AdapterPedido(claveNroPedido,valorPedido))]
+		Home.instance.pedidosCerrados.forEach[ claveNroPedido, valorPedido | listaActualizada.add(new AdapterPedido(claveNroPedido,valorPedido,false))]
 		this.listaDePedidosCerrados = ordenarListaDePedidosCerradosPorFechaDescendente(listaActualizada)
 	}
 	

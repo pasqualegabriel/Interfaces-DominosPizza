@@ -26,7 +26,7 @@ class TestPedidosAppModel {
 		MockitoAnnotations.initMocks(this)
 		unSpyPedido								= spy(new Pedido(unMiembroMock))
 		unSpyPedido.formaDeRetiro				= new Local
-		unAdapterSpy 							= spy(new AdapterPedido(1,unSpyPedido))
+		unAdapterSpy 							= spy(new AdapterPedido(1,unSpyPedido,true))
 		unPedidosAppModel						= new PedidosAppModel()
 		unPedidosAppModel.pedidoSeleccionado 	= unAdapterSpy
 		

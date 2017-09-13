@@ -72,9 +72,15 @@ class TestEstadoPreparado {
 	}
 	
 	@Test
-	def test03cuandoAElEstadoPreparandoSeLePideProximoDevuelveNull(){
+	def test03cuandoAElEstadoPreparandoSeLePideProximoDevuelveListoParaRetirar()
+	{
+		var unPreparado = new Preparando
+		unPreparado.unaFormaDeEnvio = unaFormaDeRetiroPorLocalMock
+		
+		when(unaFormaDeRetiroPorLocalMock.avanzarEstado).thenReturn(unEstadoListoParaEnviarMock)
+		when(unEstadoListoParaEnviarMock.nombre).thenReturn("Listo para retirar")
 		// Assertion
-		assertEquals(otroEstadoDePreparandoTest.proximo,null)
+		assertEquals(otroEstadoDePreparandoTest.proximo.nombre,unEstadoListoParaEnviarMock.nombre)
 	}
 	
 	

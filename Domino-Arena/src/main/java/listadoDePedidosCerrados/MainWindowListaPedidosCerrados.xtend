@@ -13,6 +13,7 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import listadoDePedidos.AdapterPedido
 import listadoDePedidos.PedidosAppModel
+import pedido.EditarPedidoWindow
 
 class MainWindowListaPedidosCerrados extends SimpleWindow<PedidosAppModel> 
 {
@@ -69,7 +70,7 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<PedidosAppModel>
 		
 		new Button(panelBotonesInferiores)=>[
 												caption = "Ver"
-												onClick [	]
+												onClick [	new EditarPedidoWindow(this, modelObject.pedidoSeleccionado).open	]
 												bindEnabled(unPedidoCerradoSeleccionado)
 											]
 		

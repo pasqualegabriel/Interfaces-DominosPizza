@@ -2,13 +2,13 @@ package estados
 
 import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende del estado en el cual se encuentre
 //                  -Indicar cual es el siguiente o anterior estado que le sigue
 
 @Accessors
-@Observable
+@TransactionalAndObservable
 abstract class EstadoDePedido  {
 	
 	

@@ -60,7 +60,7 @@ class PedidosMainWindow extends SimpleWindow<PedidosAppModel>
 							]
 		
 		this.columnaTablaPedidos(tablaDePedidos,"Pedido","nombre")
-		this.columnaTablaPedidos(tablaDePedidos,"Estado","cambioDeEstado.nombre")
+		this.columnaTablaPedidos(tablaDePedidos,"Estado","estadoActual")
 		this.columnaTablaPedidos(tablaDePedidos,"Monto","precio")
 		this.columnaTablaPedidos(tablaDePedidos,"Hora","hora")
 							
