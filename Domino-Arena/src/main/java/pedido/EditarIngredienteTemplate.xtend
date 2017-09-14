@@ -6,7 +6,13 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
 import pizza.Ingrediente
 import persistencia.Home
-
+import agregarPizza.IngredienteAdapter
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.bindings.ObservableProperty
+import org.uqbar.arena.widgets.RadioSelector
+import agregarPizza.IngredienteAdapterAbstract
 
 abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	
@@ -47,7 +53,29 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		}
 		
 	}
-		
 
-	def void createCheckBoxLabeledSeleccionable(Panel tablaDeIngredientes,Ingrediente unIngrediente)
+// Esto hay que preguntarlo o rehacerlo.
+// No pude encontrar otra manera de hacerlo por la naturaleza del checkbox, necesita contraponerse contra
+// algo que de un bool, y no encontre como hacerlo funcionar contra un map tampoco.
+// El problema es que al parecer se pierde la transaccionalidad asi, lo cual no deberia pasar.
+
+// El segundo problema esta en que el enabled no parece funcionar por alguna razon.
+
+	
+	def createCheckBoxLabeledSeleccionable(Panel tablaDeIngredientes,Ingrediente unIngrediente){
+		val ingredienteAppModel = this.getAdapter(unIngrediente)
+      	var checkBoxDeIngrediente = new Panel(tablaDeIngredientes)
+      	checkBoxDeIngrediente.setLayout = new HorizontalLayout	
+      
+		new CheckBox(checkBoxDeIngrediente).bindValue(new ObservableProperty(ingredienteAppModel, "estaActivadoEnCheckbox"))
+		
+		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
+		
+		val radio = new RadioSelector(checkBoxDeIngrediente)
+//		radio.bindEnabled(new ObservableProperty(ingredienteAppModel, "estaActivadoEnCheckbox"))
+		radio.bindItems(new ObservableProperty(ingredienteAppModel, "distribuciones"))
+		radio.bindValue(new ObservableProperty(ingredienteAppModel, "distribucionSeleccionada"))
+	}
+	
+	def IngredienteAdapterAbstract getAdapter(Ingrediente unIngrediente)
 }

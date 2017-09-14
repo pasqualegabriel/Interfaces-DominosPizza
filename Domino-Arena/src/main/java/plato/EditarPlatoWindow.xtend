@@ -16,7 +16,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import pedido.EditarPedidoWindow
 import pedido.EditarIngredienteTemplate
 import pizza.Ingrediente
-import agregarPizza.IngredienteAppModel
+import agregarPizza.IngredienteAdapter
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.RadioSelector
 
@@ -119,22 +119,9 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		footButton(mainPanel)
 	}
 	
-	override createCheckBoxLabeledSeleccionable(Panel tablaDeIngredientes, Ingrediente unIngrediente) {
-		var ingredienteAppModel = new IngredienteAppModel(unIngrediente, unPlatoAdapter)
-      	var checkBoxDeIngrediente = new Panel(tablaDeIngredientes, ingredienteAppModel)
-      	checkBoxDeIngrediente.setLayout = new HorizontalLayout
-     	
-      
-		new CheckBox(checkBoxDeIngrediente) => [
-   			value <=> "estaActivadoEnCheckbox"
-		]
-		
-		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
-		
-		new RadioSelector(checkBoxDeIngrediente) => [
-            items <=> "distribuciones"
-            value <=> "distribucionSeleccionadaParaIngredientesExtras"
-      ]
+	override getAdapter(Ingrediente unIngrediente) {
+		new IngredienteAdapterParaPlato(unIngrediente, unPlatoAdapter)
 	}
-
+	
+	
 }

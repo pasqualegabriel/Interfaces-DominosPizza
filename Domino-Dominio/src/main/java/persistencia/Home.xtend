@@ -21,6 +21,7 @@ import java.time.LocalDateTime
 import estados.Entregado
 import estados.Cancelado
 import estados.ListoParaRetirar
+import pizza.DistribucionEnPizza
 
 @Accessors
 class Home {
@@ -35,10 +36,23 @@ class Home {
 	
 	private new ()
 	{
+		
+			
+		//Creacion de Ingredientes
+		val anchoa = new Ingrediente("Anchoa",3)
+		val morron = new Ingrediente("Morron",10)
+		val jamon  = new Ingrediente("Jamon" ,7)
+		agregarIngrediente(anchoa)
+		agregarIngrediente(morron)
+		agregarIngrediente(jamon)
+		
 		//creacion de Distribuciones
 		var distribucion1 = new Distribucion
 		var distribucion2 = new Distribucion
 		var distribucion3 = new Distribucion
+		distribucion2.agregarIngrediente(anchoa,DistribucionEnPizza.Toda)
+		distribucion3.agregarIngrediente(jamon,DistribucionEnPizza.Izquierda)
+		distribucion3.agregarIngrediente(morron,DistribucionEnPizza.Derecha)
 		
 		//Creacion de Tamanio		
 		var tamanio1	= new Chica
@@ -90,11 +104,7 @@ class Home {
 		agregarPedido(pedido2)
 		agregarPedido(pedido3)
 		
-		
-		//Para agregar ingedientes
-		agregarIngrediente(new Ingrediente("Anchoa",10))
-		agregarIngrediente(new Ingrediente("Morron",10))
-		agregarIngrediente(new Ingrediente("Jamon" ,10))
+	
 		
 		
 		

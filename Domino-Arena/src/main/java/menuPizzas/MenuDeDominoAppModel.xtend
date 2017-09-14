@@ -6,39 +6,43 @@ import pizza.Ingrediente
 import pizza.Distribucion
 import java.util.List
 import java.util.ArrayList
+import persistencia.Home
 
 @Observable
 @Accessors
 class MenuDeDominoAppModel {
 	
+	Home home
 	Pizza pizzaSeleccionada
-	Ingrediente ingredienteSeleccionado
-	List<Pizza> promosDisponibles = new ArrayList<Pizza>
-	List<Ingrediente> ingredientesDisponibles = new ArrayList<Ingrediente>
-	
+	Ingrediente ingredienteSeleccionado	
 	
 	// Remplazar creaciones por el home
 	new(){
-		promosDisponibles.add(new Pizza("Muzzarela Grande", 30, new Distribucion))
-		promosDisponibles.add(new Pizza("Anana", 60, new Distribucion))
-		ingredientesDisponibles.add(new Ingrediente("Peperoni",3))
-		ingredientesDisponibles.add(new Ingrediente("Banana",4))
+		home= Home.instance
 	}
 	
 	def agregarIngrediente(Ingrediente unIngrediente){
-		ingredientesDisponibles.add(unIngrediente)	
+		home.agregarIngrediente(unIngrediente)
 	}
 	
 	def agregarPromocion(Pizza unaPizza){
-		promosDisponibles.add(unaPizza)
+		home.agregarPromocion(unaPizza)
 	}
 	
-	def eliminarIngrediente(Ingrediente ingrediente) {
-		ingredientesDisponibles.remove(ingrediente)
+	def eliminarIngrediente(Ingrediente unIngrediente) {
+		home.borrarIngrediente(unIngrediente)
 	}
 	
-	def eliminarPizza(Pizza pizza) {
-		promosDisponibles.remove(pizza)
+	def eliminarPizza(Pizza unaPizza) {
+		home.borrarPromocion(unaPizza)
+	}
+	
+	def getIngredientesDisponibles(){
+		home.getIngredientesDisponibles()
+	}
+	
+	def getPromosDisponibles(){
+		home.getPromocionesDisponibles
 	}
 	
 }
