@@ -32,12 +32,8 @@ class IngredienteAdapterParaPlato extends IngredienteAdapterAbstract {
 
 	}
 	
-	override cambiarDistribucion(Ingrediente ingrediente, DistribucionEnPizza unaDistribucion) {
-		platoAdapter.agregaIngredienteExtra(ingrediente, unaDistribucion)
-	}
-	
-	override agregarIngrediente(Ingrediente ingrediente, DistribucionEnPizza unaDistribucion) {
-		platoAdapter.cambiarDistribucionDeIngredienteExtra(ingrediente, unaDistribucion)
+	override agregarseAPizza() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 }

@@ -12,6 +12,8 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.widgets.RadioSelector
 import agregarPizza.IngredienteAdapterAbstract
+import org.uqbar.arena.widgets.Selector
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	
@@ -21,7 +23,6 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
-		this.title = this.defaultTitle
 		
 		// Se declara en forma de Template Metod para hacer la extension mas comoda
 		
@@ -29,8 +30,6 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		this.armarTablaDeIngredientes(mainPanel)
 		this.initBottom(mainPanel)
 	}
-	
-	def String defaultTitle()
 	
 	def void initHead(Panel mainPanel)
 	
@@ -52,29 +51,30 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		}
 		
 	}
-
-// Esto hay que preguntarlo o rehacerlo.
-// No pude encontrar otra manera de hacerlo por la naturaleza del checkbox, necesita contraponerse contra
-// algo que de un bool, y no encontre como hacerlo funcionar contra un map tampoco.
-// El problema es que al parecer se pierde la transaccionalidad asi, lo cual no deberia pasar.
-
-// El segundo problema esta en que el enabled no parece funcionar por alguna razon.
-
 	
 	def createCheckBoxLabeledSeleccionable(Panel tablaDeIngredientes,Ingrediente unIngrediente){
 		val ingredienteAppModel = this.getAdapter(unIngrediente)
-      	var checkBoxDeIngrediente = new Panel(tablaDeIngredientes)
-      	checkBoxDeIngrediente.setLayout = new HorizontalLayout	
-      
-		new CheckBox(checkBoxDeIngrediente).bindValue(new ObservableProperty(ingredienteAppModel, "estaActivadoEnCheckbox"))
+		this.agregarAModelo(ingredienteAppModel)
 		
+		
+      	var checkBoxDeIngrediente = new Panel(tablaDeIngredientes, ingredienteAppModel)
+      	checkBoxDeIngrediente.setLayout = new HorizontalLayout	
+      	
+      
+		new CheckBox(checkBoxDeIngrediente)=>[
+			value <=>"estaActivadoEnCheckbox"
+		]
+	
 		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
 		
-		val radio = new RadioSelector(checkBoxDeIngrediente)
-		radio.bindEnabled(new ObservableProperty(ingredienteAppModel, "estaActivadoEnCheckbox"))
-		radio.bindItems(new ObservableProperty(ingredienteAppModel, "distribuciones"))
-		radio.bindValue(new ObservableProperty(ingredienteAppModel, "distribucionSeleccionada"))
+		new Selector(checkBoxDeIngrediente)=>[
+     		allowNull(false)	
+			items <=> "distribuciones"
+			value <=> "distribucionSeleccionada"
+		]
 	}
+	
+	def void agregarAModelo(IngredienteAdapterAbstract abstract1)
 	
 	def IngredienteAdapterAbstract getAdapter(Ingrediente unIngrediente)
 }

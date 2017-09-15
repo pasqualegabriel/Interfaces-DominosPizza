@@ -9,16 +9,18 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import pizza.Ingrediente
 import org.uqbar.arena.widgets.Button
 import pedido.EditarIngredienteTemplate
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class EditarPizzaWindow extends EditarIngredienteTemplate{
 	
 	protected MenuDeDominoMainWindow mainWindow
-	protected Pizza model
+	protected PromoAppModel modelo
 	
-	new(MenuDeDominoMainWindow aMainWindow, Pizza unaPizza) {
+	new(MenuDeDominoMainWindow aMainWindow, PromoAppModel unaPizza) {
 		
 		super(aMainWindow, unaPizza)
-		model = unaPizza
+		modelo = unaPizza
 		mainWindow = aMainWindow
 	}
 	
@@ -38,7 +40,7 @@ class EditarPizzaWindow extends EditarIngredienteTemplate{
 	}
 	
 	override getAdapter(Ingrediente unIngrediente) {
-		new IngredienteAdapter(unIngrediente, model)
+		new IngredienteAdapter(unIngrediente, modelo.pizza)
 	}
 	
 	override initBottom(Panel mainPanel) {
@@ -56,9 +58,13 @@ class EditarPizzaWindow extends EditarIngredienteTemplate{
 		]
 	}
 	
-	override defaultTitle() {
-		"Editar Promo"
+	override void agregarAModelo(IngredienteAdapterAbstract unIngredienteAdapter){
+		modelo.ingredientes.add(unIngredienteAdapter)
 	}
 	
+	override accept() {
+		super.accept
+		modelo.agregarIngredientes
+	}
 	
 }

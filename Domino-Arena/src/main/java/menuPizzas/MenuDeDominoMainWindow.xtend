@@ -5,10 +5,14 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
-import agregarIngrediente.CrearIngredientesWindow
+
 import agregarIngrediente.EditarIngredientesWindow
 import agregarPizza.EditarPizzaWindow
-import agregarPizza.CrearPizzaWindow
+
+import agregarPizza.PromoAppModel
+import pizza.Ingrediente
+import pizza.Pizza
+import pizza.Distribucion
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	
@@ -48,7 +52,10 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 	
 	def crearIngrediente() {
-		new CrearIngredientesWindow(this).open
+		val	dialog = new EditarIngredientesWindow(this, new Ingrediente("",0))
+		dialog.onAccept[this.modelObject.agregarIngrediente(dialog.modelObject)]
+		dialog.open
+		
 	}
 	
 	def editarIngrediente() {
@@ -60,12 +67,14 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 
 	def crearPizza() {
-		new CrearPizzaWindow(this).open
+		val	dialog = new EditarPizzaWindow(this, new PromoAppModel(new Pizza("",0,new Distribucion)))
+		dialog.onAccept[this.modelObject.agregarPromocion(dialog.modelo.pizza)]
+		dialog.open
 	}
 
 	
 	def editarPizza() {
-		new EditarPizzaWindow(this, modelObject.pizzaSeleccionada).open
+		new EditarPizzaWindow(this, new PromoAppModel(modelObject.pizzaSeleccionada)).open
 	}
 	
 	def eliminarPizza() {

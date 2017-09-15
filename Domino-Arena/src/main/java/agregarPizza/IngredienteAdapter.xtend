@@ -6,6 +6,7 @@ import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Transactional
 import pizza.Pizza
 import pizza.DistribucionEnPizza
+import org.uqbar.commons.model.annotations.Dependencies
 
 @Observable
 @Accessors
@@ -23,28 +24,12 @@ class IngredienteAdapter extends IngredienteAdapterAbstract {
 		}
 		
 	}
-
-	override void setEstaActivadoEnCheckbox(Boolean unBool) {
-		if (!unBool && distribucionSeleccionada != null) {
-			pizza.quitarIngrediente(ingrediente)
-			distribucionSeleccionada = null
+	
+	override agregarseAPizza() {
+		if(estaActivadoEnCheckbox && distribucionSeleccionada != null){
+			pizza.distribucion.agregarIngrediente(ingrediente, distribucionSeleccionada)
 		}
-		estaActivadoEnCheckbox = unBool
-
 	}
-	
-	override cambiarDistribucion(Ingrediente ingrediente, DistribucionEnPizza unaDistribucion) {
-		pizza.cambiarDistribucionDe(ingrediente, unaDistribucion)
-	}
-	
-	override agregarIngrediente(Ingrediente ingrediente, DistribucionEnPizza unaDistribucion) {
-		pizza.agregarIngrediente(ingrediente, unaDistribucion)
-	}
-
-
-
-		
-			
 
 }
 

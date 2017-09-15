@@ -4,6 +4,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import pizza.Pizza
 import pizza.Ingrediente
 import persistencia.Home
+import org.uqbar.commons.model.annotations.Dependencies
+import java.util.List
 
 @Observable
 @Accessors
@@ -12,34 +14,44 @@ class MenuDeDominoAppModel {
 	Home home
 	Pizza pizzaSeleccionada
 	Ingrediente ingredienteSeleccionado	
+	List<Ingrediente> ingredientesDisponibles
+	List<Pizza> promosDisponibles
 	
-	// Remplazar creaciones por el home
+	
 	new(){
 		home= Home.instance
+		ingredientesDisponibles = home.getIngredientesDisponibles
+		promosDisponibles = home.getPromocionesDisponibles
 	}
 	
 	def agregarIngrediente(Ingrediente unIngrediente){
-		home.agregarIngrediente(unIngrediente)
+		
+	    ingredientesDisponibles.add(unIngrediente)
 	}
 	
 	def agregarPromocion(Pizza unaPizza){
-		home.agregarPromocion(unaPizza)
+		
+	 	promosDisponibles.add(unaPizza)
 	}
 	
 	def eliminarIngrediente(Ingrediente unIngrediente) {
-		home.borrarIngrediente(unIngrediente)
+	
+		ingredientesDisponibles.remove(unIngrediente)
 	}
 	
 	def eliminarPizza(Pizza unaPizza) {
-		home.borrarPromocion(unaPizza)
+		
+		promosDisponibles.remove(unaPizza)
 	}
 	
-	def getIngredientesDisponibles(){
-		home.getIngredientesDisponibles()
-	}
-	
-	def getPromosDisponibles(){
-		home.getPromocionesDisponibles
-	}
+//		Deberia ser asi, pero no anda!
+//
+//	def getIngredientesDisponibles(){
+//		home.getIngredientesDisponibles
+//	}
+//
+//	def getPromosDisponibles(){
+//		home.getPromocionesDisponibles
+//	}
 	
 }
