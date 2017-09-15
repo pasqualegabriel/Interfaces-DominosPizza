@@ -1,6 +1,6 @@
 package listadoDePedidosCerrados
 
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+//import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel

@@ -39,7 +39,7 @@ class TestAdapterPedido {
 		unSpyPedido = (new Pedido(unMiembroMock))
 		unSpyPedido.agregarPlato = plato
 		unSpyPedido.formaDeRetiro = unMockLocal
-		unAdapterTest = new PedidoAppModel(1, unSpyPedido,true)
+		unAdapterTest = new PedidoAppModel(unSpyPedido,true)
 		when(unMockLocal.avanzarEstado).thenReturn(new ListoParaRetirar)
 		when(unMockLocal.precioDeRetiro).thenReturn(12)
 		

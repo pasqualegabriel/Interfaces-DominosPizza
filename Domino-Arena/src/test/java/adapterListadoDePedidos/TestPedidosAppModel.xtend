@@ -26,9 +26,9 @@ class TestPedidosAppModel {
 		MockitoAnnotations.initMocks(this)
 		unSpyPedido								= spy(new Pedido(unMiembroMock))
 		unSpyPedido.formaDeRetiro				= new Local
-		unAdapterSpy 							= spy(new PedidoAppModel(1,unSpyPedido,true))
+		unAdapterSpy 							= spy(new PedidoAppModel(unSpyPedido,true))
 		unPedidosAppModel						= new DominoPizzaAppModel()
-		unPedidosAppModel.pedidoSelectItems 	= unAdapterSpy
+		unPedidosAppModel.pedidoSelectItem  	= unSpyPedido
 		
 	}
 	@Test

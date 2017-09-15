@@ -93,7 +93,7 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 		
 		new Button(panelTablaDePedido)=>[
 											caption = "Editar"
-											onClick [	new PedidoWindowEditar(this, modelObject.getPedidoSelectItem).open	]
+											onClick [	new PedidoWindowEditar(this, modelObject.pedidoSelectItem, false).open	]
 											bindEnabled(unPedidoSeleccionado)
 										]
 		

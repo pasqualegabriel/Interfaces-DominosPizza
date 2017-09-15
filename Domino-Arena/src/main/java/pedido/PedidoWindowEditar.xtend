@@ -73,7 +73,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(panelTablaPlatos).text = "Platos"
 
-		val tablaPedidos = new Table(panelTablaPlatos, typeof(PedidoAppModel)) => [
+		val tablaPedidos = new Table(panelTablaPlatos, typeof(Plato)) => [
 			bindEnabledToProperty("pedidoCerrado")
 			numberVisibleRows = 6
 			items <=> "itemsPlatos"
@@ -82,17 +82,17 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		new Column(tablaPedidos) => [
 			title = "Nombre"
-			bindContentsToProperty("platoSeleccionado.pizza.nombre")
+			bindContentsToProperty("pizza.nombre")
 		]
 
 		new Column(tablaPedidos) => [
 			title = "Tamaño"
-			bindContentsToProperty("platoSeleccionado.tamanio.nombre")
+			bindContentsToProperty("tamanio.nombre")
 		]
 
 		new Column(tablaPedidos) => [
 			title = "Precio"
-			bindContentsToProperty("precio")
+			bindContentsToProperty("calcularPrecio")
 		]
 
 	}
