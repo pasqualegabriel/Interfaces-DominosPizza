@@ -1,11 +1,10 @@
 package DominoPizzaInicio
 
-//import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
-import listadoDePedidos.DominoPizzaAppModel
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import menuPizzas.MenuDeDominoMainWindow
@@ -13,11 +12,16 @@ import listadoDePedidosCerrados.MainWindowListaPedidosCerrados
 import org.uqbar.arena.bindings.NotNullObservable
 import menuPizzas.MenuDeDominoAppModel
 import pedido.PedidoWindowEditar
+import runnable.DominosPizzaMainWindow
 
 class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 	new(WindowOwner parent, DominoPizzaAppModel model) {
 		super(parent, model)
+	}
+	
+	new(DominosPizzaMainWindow window) {
+		super(window, new DominoPizzaAppModel)
 	}
 
 	override protected addActions(Panel actionsPanel) {}
@@ -102,6 +106,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 			onClick [
 				new MenuDeDominoMainWindow(this, new MenuDeDominoAppModel).open
 			// Por que hay q pasarle el appModel de menu????
+			/*Hay que modificar esto el menu adentro intancia su modelo un appModel */
 			]
 		]
 

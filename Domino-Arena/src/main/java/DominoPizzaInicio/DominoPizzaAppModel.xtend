@@ -1,4 +1,4 @@
-package listadoDePedidos
+package DominoPizzaInicio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
@@ -20,12 +20,10 @@ class DominoPizzaAppModel
 	new()
 	{
 		this.repoDePedidosAbiertos
-		this.repoDePedidosCerrados()
+		this.repoDePedidosCerrados
 	}
-	def repoDePedidosCerrados() {
-		
-	}
-	/*Sirve para traer todos los pedidos pasarlo a un adapterPedido y luego guardarlo en una lista */
+
+	/**Sirve para traer todos los pedidos pasarlo a un adapterPedido y luego guardarlo en una lista */
 	def getRepoDePedidosAbiertos() {
 		this.itemsPedidosAbiertos.clear
 		val listaActualizada		= newArrayList
@@ -33,7 +31,7 @@ class DominoPizzaAppModel
 		this.itemsPedidosAbiertos = ordenarListaDePedidosAbiertosPorHoraAscendente(listaActualizada)
 	
 	}
-	/* ordena  una  lista del pedido en orden */
+	/** ordena  una  lista del pedido en orden */
 	def ordenarListaDePedidosAbiertosPorHoraAscendente(ArrayList<Pedido> listaActualizada) {
 		if (!listaActualizada.isEmpty || (listaActualizada.size > 1)){
 			
@@ -42,7 +40,7 @@ class DominoPizzaAppModel
 		listaActualizada
 	}
 	
-	/*cierra un pedido seleccionado */
+	/**cierra un pedido seleccionado */
 	@Dependencies("listaDePedidosAbiertos")
 	def void cerrarPedidoSeleccionado()
 	{
@@ -51,14 +49,14 @@ class DominoPizzaAppModel
 		pedidoSelectItem = null
 	}
 	
-	/* cancela un pedido seleccinado */
+	/** Cancela un pedido seleccinado */
 	def void cancelarPedidoSeleccionado()
 	{
 		pedidoSelectItem.cancelar()
 		this.cerrarPedidoSeleccionado
 	}
 	
-	/*pasa al siguiente estado */
+	/**Pasa al siguiente estado */
 	@Dependencies("itemsPedidosAbiertos")
 	def void siguienteEstadoPedidoSeleccionado()
 	{
@@ -69,7 +67,7 @@ class DominoPizzaAppModel
 			this.repoDePedidosAbiertos
 	}
 	
-	/*Pasa al anterior estado */
+	/**Pasa al anterior estado */
 	@Dependencies("itemsPedidosAbiertos")
 	def void anteriorEstadoPedidoSeleccionado()
 	{
@@ -77,7 +75,7 @@ class DominoPizzaAppModel
 		this.repoDePedidosAbiertos
 	}
 	
-	/*Trae la lista de pedidos cerrados*/
+	/**Trae la lista de pedidos cerrados*/
 	def getRepoDePedidosCerrados()
 	{
 		this.itemsPedidosCerrados.clear
@@ -86,7 +84,7 @@ class DominoPizzaAppModel
 		this.itemsPedidosCerrados = ordenarListaDePedidosCerradosPorFechaDescendente(listaActualizada)
 	}
 	
-	/* ordena la lista de pedidos cerrados */
+	/**ordena la lista de pedidos cerrados */
 	def ordenarListaDePedidosCerradosPorFechaDescendente(ArrayList<Pedido> listaActualizada)
 	{
 		if (!listaActualizada.isEmpty || (listaActualizada.size > 1))

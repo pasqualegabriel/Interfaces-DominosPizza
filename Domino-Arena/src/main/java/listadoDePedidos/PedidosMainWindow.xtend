@@ -15,6 +15,7 @@ import menuPizzas.MenuDeDominoMainWindow
 import menuPizzas.MenuDeDominoAppModel
 import listadoDePedidosCerrados.MainWindowListaPedidosCerrados
 import pedido.PedidoWindowEditar
+import DominoPizzaInicio.DominoPizzaAppModel
 
 class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel> 
 {
@@ -26,7 +27,6 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 	
 	override protected addActions(Panel actionsPanel) 
 	{
-		//No se Va A Usar
 	}
 	
 	override protected createFormPanel(Panel mainPanel) 
@@ -127,6 +127,7 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 												caption = "Menú"
 												onClick [ new MenuDeDominoMainWindow(this, new MenuDeDominoAppModel).open  
 													//Por que hay q pasarle el appModel de menu????
+													/*Hay que modificar esto el menu adentro intancia su modelo un appModel */
 												]
 											]
 		

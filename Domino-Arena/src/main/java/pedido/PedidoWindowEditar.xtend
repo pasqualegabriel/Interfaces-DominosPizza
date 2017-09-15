@@ -55,19 +55,16 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") )
 		]
 	}
-
+	/**Crea toda la estructura de la tabla para platos */
 	def tablaPlato(Panel mainPanel) {
 
 		var panelPlatos = new Panel(mainPanel)
 		panelPlatos.layout = new ColumnLayout(2)
-
-		tablaPlatos(panelPlatos)
-
+		tabla(panelPlatos)
 		botonesPlatos(panelPlatos)
-
 	}
-
-	def tablaPlatos(Panel panelPlatos) {
+	/**Crea una tabla de platos */
+	def tabla(Panel panelPlatos) {
 		var panelTablaPlatos = new Panel(panelPlatos)
 		panelTablaPlatos.layout = new VerticalLayout
 
@@ -80,23 +77,20 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			value <=> "platoSeleccionado"
 		]
 
-		new Column(tablaPedidos) => [
-			title = "Nombre"
-			bindContentsToProperty("pizza.nombre")
-		]
+		columnasDePlato(tablaPedidos,"Nombre","pizza.nombre")
+		columnasDePlato(tablaPedidos,"Tamaño","tamanio.nombre")
+		columnasDePlato(tablaPedidos,"Precio","calcularPrecio")
 
-		new Column(tablaPedidos) => [
-			title = "Tamaño"
-			bindContentsToProperty("tamanio.nombre")
-		]
-
-		new Column(tablaPedidos) => [
-			title = "Precio"
-			bindContentsToProperty("calcularPrecio")
-		]
 
 	}
-
+	/**Crea las columnas del plato */
+	def columnasDePlato(Table<Plato> tablaPedidos,String titulo,String value){
+		new Column(tablaPedidos) => [
+			title = titulo
+			bindContentsToProperty(value)
+		]
+	}
+	/**Crea los botones que van a utilizar la tabla de plato  */
 	def botonesPlatos(Panel panelPlatos) {
 		var panelBotonesPlatos = new Panel(panelPlatos)
 		panelBotonesPlatos.layout = new VerticalLayout
@@ -113,9 +107,6 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			bindEnabledToProperty("pedidoCerrado")
 			caption = "Editar"
 			onClick [
-//				modelObject.platoSeleccionado.sizeSelect = modelObject.platoSeleccionado.plato.tamanio
-//				modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
-//				modelObject.platoSeleccionado.suAdapterPedido = modelObject
 				new EditarPlatoWindow(this, modelObject.platoSeleccionado).open
 			]
 		]

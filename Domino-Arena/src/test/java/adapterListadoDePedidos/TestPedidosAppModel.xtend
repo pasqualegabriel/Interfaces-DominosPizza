@@ -11,8 +11,8 @@ import pedido.Local
 import estados.ListoParaRetirar
 import static org.junit.Assert.*
 import estados.Preparando
-import listadoDePedidos.DominoPizzaAppModel
 import listadoDePedidos.PedidoAppModel
+import DominoPizzaInicio.DominoPizzaAppModel
 
 class TestPedidosAppModel {
 	@Mock Miembro 	unMiembroMock	

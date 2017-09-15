@@ -37,9 +37,7 @@ class Home {
 	List<Ingrediente> ingredientesDisponibles = newArrayList
 	List<Pizza>		  promocionesDisponibles  = newArrayList
 	List<Pedido> 	  pedidosAbiertos		  = newArrayList
-//	HashMap<Integer, Pedido> pedidosAbiertos  = newHashMap
     List<Pedido>	  pedidosCerrados		  = newArrayList
-//	HashMap<Integer, Pedido> pedidosCerrados  = newHashMap	
 	int 			  nroPedido 			  = 1
 
 	private new ()
@@ -119,18 +117,18 @@ class Home {
 		/*Pedidos Cerrados*/
 		var distribucion4 = new Distribucion
 		var distribucion5 = new Distribucion
-		val pizzaMuzzaCerrada			= new Pizza("La Muzza", 15, new Distribucion)
+		val pizzaMuzzaCerrada			= new Pizza("Muzza", 15, new Distribucion)
 		val platoCerrado1				= new Plato(pizzaMuzzaCerrada,new Familiar,distribucion4)
-		val pedidoCerrado1 				= new Pedido(new Miembro("La Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
+		val pedidoCerrado1 				= new Pedido(new Miembro("Sr Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
 		pedidoCerrado1.agregarPlato(platoCerrado1)
 		pedidoCerrado1.formaDeRetiro	= new Local
 		pedidoCerrado1.estadoActual		= new Entregado
 		pedidoCerrado1.tiempoDeEspera	= 60
 		pedidoCerrado1.fecha 			= LocalDateTime.of(2017,9,11,19,30)
 		
-		val pizzaJamonCerrada			= new Pizza("Pizza Jamon", 25, new Distribucion)
+		val pizzaJamonCerrada			= new Pizza("Jamon y Morron", 25, new Distribucion)
 		val platoCerrado2				= new Plato(pizzaJamonCerrada,new Porcion, distribucion5)
-		val pedidoCerrado2 				= new Pedido(new Miembro("La Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
+		val pedidoCerrado2 				= new Pedido(new Miembro("Sr Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
 		pedidoCerrado2.agregarPlato(platoCerrado2)
 		pedidoCerrado2.formaDeRetiro	= new Local
 		pedidoCerrado2.estadoActual		= new Cancelado

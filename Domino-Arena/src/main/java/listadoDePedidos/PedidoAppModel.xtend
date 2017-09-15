@@ -21,6 +21,7 @@ class PedidoAppModel {
 	List<Plato> itemsPlatos = newArrayList
 	Plato platoSeleccionado
 	String costoDeEnvio
+	String precio
 
 	new(Pedido unPedido, Boolean cerradoONo) {
 		super()
@@ -31,7 +32,7 @@ class PedidoAppModel {
 		coleccionDePlatos
 		costoDeEnvio = "$" + pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		pedidoCerrado = cerradoONo
-
+		precio= "$" + pedidoAdaptado.calcularPrecio
 	}
 
 	def void coleccionDePlatos() {
@@ -99,7 +100,12 @@ class PedidoAppModel {
 	}
 
 	def getPrecio() {
-		"$" + pedidoAdaptado.calcularPrecio
+		precio
+		//"$" + pedidoAdaptado.calcularPrecio
+	}
+	
+	def void setPrecio(){
+		precio="$" + pedidoAdaptado.calcularPrecio
 	}
 
 	def getFecha() {
@@ -116,6 +122,7 @@ class PedidoAppModel {
 	def eliminarPlato() {
 		pedidoAdaptado.quitarPlato(platoSeleccionado)
 		itemsPlatos.remove(platoSeleccionado)
+		setPrecio
 		platoSeleccionado = null
 
 	}

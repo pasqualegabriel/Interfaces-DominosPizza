@@ -96,7 +96,7 @@ class EditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
-				
+				mainWindow.modelObject.setPrecio
 				this.accept
 				setAsDefault
 				disableOnError

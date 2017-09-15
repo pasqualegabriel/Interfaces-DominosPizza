@@ -7,7 +7,8 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.graphics.Image
 import org.uqbar.arena.widgets.Button
-import listadoDePedidos.PedidosMainWindow
+
+import DominoPizzaInicio.DominoPizzaWindow
 
 class DominosPizzaMainWindow extends Window<ImagenDominosPizza> {
 
@@ -27,7 +28,7 @@ class DominosPizzaMainWindow extends Window<ImagenDominosPizza> {
 
 		new Button(mainPanel) => [
 			caption = "Ingresar"
-			onClick [new PedidosMainWindow(this).open]
+			onClick [new DominoPizzaWindow(this).open]
 		]
 
 	}

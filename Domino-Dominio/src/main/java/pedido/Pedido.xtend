@@ -65,6 +65,8 @@ class Pedido {
 	def calcularPrecio() {
 		val precioPlatos = platos.stream.mapToInt[it.calcularPrecio].sum()
 		precioPlatos + formaDeRetiro.precioDeRetiro
+		
+		
 	}
 	
 	def cancelar() {
@@ -77,7 +79,6 @@ class Pedido {
 	def tardoMasDe30Minutos() 
 	{
 		this.tiempoDeEspera >= 30
-//		fecha.minusMinutes(30).isAfter(LocalDateTime.now) || fecha.minusMinutes(30).equals(LocalDateTime.now)
 	}
 	
 	def calcularTiempoDeEntrega() 
