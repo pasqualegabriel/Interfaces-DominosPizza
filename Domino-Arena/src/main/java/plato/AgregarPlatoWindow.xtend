@@ -1,20 +1,21 @@
 package plato
 
 import plato.EditarPlatoWindow
-import plato.PlatoAdapter
 import org.eclipse.xtend.lib.annotations.Accessors
+import pedido.PedidoWindowEditar
+import pedido.Plato
 
 @Accessors
 class AgregarPlatoWindow extends EditarPlatoWindow  {
 	
-	new(pedido.EditarPedidoWindow  owner) {
+	new(PedidoWindowEditar  owner) {
 		
-		super(owner, new PlatoAdapter(new pedido.Plato,owner.modelObject))
+		super(owner, new Plato)
 	
 	}
 	
 	override void accept(){
 		super.accept
-		mainWindow.modelObject.agregarPlatoAdapter(super.unPlatoAdapter)
+		mainWindow.modelObject.agregarPlatoAdapter(super.unPlato)
 	}
 }

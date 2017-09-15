@@ -6,7 +6,6 @@ import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Transactional
 import pizza.Pizza
 import pizza.DistribucionEnPizza
-import plato.PlatoAdapter
 
 @Observable
 @Accessors
@@ -26,7 +25,7 @@ class IngredienteAdapter extends IngredienteAdapterAbstract {
 	}
 
 	override void setEstaActivadoEnCheckbox(Boolean unBool) {
-		if (unBool == false && distribucionSeleccionada != null) {
+		if (!unBool && distribucionSeleccionada != null) {
 			pizza.quitarIngrediente(ingrediente)
 			distribucionSeleccionada = null
 		}

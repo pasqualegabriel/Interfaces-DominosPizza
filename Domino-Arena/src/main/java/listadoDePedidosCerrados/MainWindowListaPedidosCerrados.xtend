@@ -11,15 +11,16 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
-import listadoDePedidos.AdapterPedido
-import listadoDePedidos.PedidosAppModel
-import pedido.EditarPedidoWindow
+import listadoDePedidos.DominoPizzaAppModel
+import listadoDePedidos.PedidoAppModel
+import pedido.PedidoWindowEditar
+import DominoPizzaInicio.TablaPedido
 
-class MainWindowListaPedidosCerrados extends SimpleWindow<PedidosAppModel> 
+class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel> 
 {
 	
 	new(WindowOwner parent) {
-		super(parent, new PedidosAppModel)
+		super(parent, new DominoPizzaAppModel)
 	}
 	
 	override protected addActions(Panel actionsPanel) 
@@ -41,20 +42,24 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<PedidosAppModel>
 
 	def tablaDePedidosCerrados(Panel mainPanel)
 	{
-		val tablaDePedidosCerrados = new Table<AdapterPedido>(mainPanel,typeof(AdapterPedido))
-			tablaDePedidosCerrados =>	[
-											numberVisibleRows = 5
-											items <=> "listaDePedidosCerrados"
-											value <=> "pedidoSeleccionado"
-										]
-										
-		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Pedido","nombre")
-		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Estado","nombreDeEstado")
-		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Fecha","fecha")
-		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Tiempo De Espera","tiempoDeEspera")
+		
+		val tabla=new TablaPedido(mainPanel)
+		tabla.tablaPedidos(mainPanel,"itemsPedidosCerrados",
+		"Fecha","fecha","Espera","tiempoDeEspera","Pedidos Cerrados")
+//		val tablaDePedidosCerrados = new Table<PedidoAppModel>(mainPanel,typeof(PedidoAppModel))
+//			tablaDePedidosCerrados =>	[
+//											numberVisibleRows = 5
+//											items <=> "itemsPedidosCerrados"
+//											value <=> "pedidoSelectItems"
+//										]
+//										
+//		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Pedido","nombre")
+//		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Estado","nombreDeEstado")
+//		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Fecha","fecha")
+//		this.columnaTablaPedidosCerrados(tablaDePedidosCerrados,"Tiempo De Espera","tiempoDeEspera")
 	}
 	
-	def columnaTablaPedidosCerrados(Table<AdapterPedido> tablaDePedidos, String unTitulo, String propiedadABindear) 
+	def columnaTablaPedidosCerrados(Table<PedidoAppModel> tablaDePedidos, String unTitulo, String propiedadABindear) 
 	{
 		new Column(tablaDePedidos) => 	[
 											title = unTitulo
@@ -64,13 +69,13 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<PedidosAppModel>
 	
 	def botonesInferiores(Panel mainPanel)
 	{
-		val unPedidoCerradoSeleccionado	= new NotNullObservable("pedidoSeleccionado")
+		val unPedidoCerradoSeleccionado	= new NotNullObservable("pedidoSelectItem")
 		var panelBotonesInferiores 		= new Panel(mainPanel) 
 		panelBotonesInferiores.layout 	= new HorizontalLayout
 		
 		new Button(panelBotonesInferiores)=>[
 												caption = "Ver"
-												onClick [	new EditarPedidoWindow(this, modelObject.pedidoSeleccionado).open	]
+												onClick [	new PedidoWindowEditar(this, modelObject.pedidoSelectItem,false).open	]
 												bindEnabled(unPedidoCerradoSeleccionado)
 											]
 		

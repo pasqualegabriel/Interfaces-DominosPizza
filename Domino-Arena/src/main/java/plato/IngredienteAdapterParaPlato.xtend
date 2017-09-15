@@ -12,15 +12,24 @@ import org.uqbar.commons.model.annotations.Transactional
 @Transactional
 class IngredienteAdapterParaPlato extends IngredienteAdapterAbstract {
 	
-	PlatoAdapter platoAdapter
+	PlatoAppModel platoAdapter
 
-	new(Ingrediente unIngrediente, PlatoAdapter unPlatoAdapter) {
+	new(Ingrediente unIngrediente, PlatoAppModel unPlatoAdapter) {
 		super(unIngrediente)	
 		platoAdapter = unPlatoAdapter
 		estaActivadoEnCheckbox = platoAdapter.pizzaSelect.distribucion.tieneAlIngrediente(unIngrediente)
 		if (estaActivadoEnCheckbox) {
 			this.distribucionSeleccionada = platoAdapter.pizzaSelect.distribucion.posicionIngrediente(unIngrediente)
 		}
+	}
+	
+	override void setEstaActivadoEnCheckbox(Boolean unBool) {
+		if (!unBool && distribucionSeleccionada != null) {
+			platoAdapter.plato.quitarIngredienteExtra(ingrediente)
+			distribucionSeleccionada = null
+		}
+		estaActivadoEnCheckbox = unBool
+
 	}
 	
 	override cambiarDistribucion(Ingrediente ingrediente, DistribucionEnPizza unaDistribucion) {

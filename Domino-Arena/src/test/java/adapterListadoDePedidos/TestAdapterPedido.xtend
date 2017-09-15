@@ -9,7 +9,6 @@ import pedido.Pedido
 import domino.Miembro
 import static org.junit.Assert.*
 import pedido.Local
-import listadoDePedidos.AdapterPedido
 import estados.ListoParaRetirar
 import pizza.Pizza
 import pizza.Chica
@@ -20,12 +19,13 @@ import estados.Entregado
 import estados.Cancelado
 import estados.EnViaje
 import estados.ListoParaEnviar
+import listadoDePedidos.PedidoAppModel
 
 class TestAdapterPedido {
 	@Mock Miembro unMiembroMock
 	@Mock Local unMockLocal
 	Pedido unSpyPedido
-	AdapterPedido unAdapterTest
+	PedidoAppModel unAdapterTest
 	Plato plato
 
 	@Before
@@ -39,7 +39,7 @@ class TestAdapterPedido {
 		unSpyPedido = (new Pedido(unMiembroMock))
 		unSpyPedido.agregarPlato = plato
 		unSpyPedido.formaDeRetiro = unMockLocal
-		unAdapterTest = new AdapterPedido(1, unSpyPedido,true)
+		unAdapterTest = new PedidoAppModel(1, unSpyPedido,true)
 		when(unMockLocal.avanzarEstado).thenReturn(new ListoParaRetirar)
 		when(unMockLocal.precioDeRetiro).thenReturn(12)
 		

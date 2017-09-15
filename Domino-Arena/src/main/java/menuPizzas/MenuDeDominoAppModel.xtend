@@ -3,9 +3,6 @@ import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import pizza.Pizza
 import pizza.Ingrediente
-import pizza.Distribucion
-import java.util.List
-import java.util.ArrayList
 import persistencia.Home
 
 @Observable

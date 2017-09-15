@@ -16,7 +16,6 @@ import pizza.Porcion
 import pizza.Grande
 import pizza.Familiar
 import estados.Preparando
-import java.util.HashMap
 import java.time.LocalDateTime
 import estados.Entregado
 import estados.Cancelado
@@ -34,6 +33,15 @@ class Home {
 		instance
 	}
 	
+	// Estructura
+	List<Ingrediente> ingredientesDisponibles = newArrayList
+	List<Pizza>		  promocionesDisponibles  = newArrayList
+	List<Pedido> 	  pedidosAbiertos		  = newArrayList
+//	HashMap<Integer, Pedido> pedidosAbiertos  = newHashMap
+    List<Pedido>	  pedidosCerrados		  = newArrayList
+//	HashMap<Integer, Pedido> pedidosCerrados  = newHashMap	
+	int 			  nroPedido 			  = 1
+
 	private new ()
 	{
 		
@@ -129,25 +137,13 @@ class Home {
 		pedidoCerrado2.tiempoDeEspera 	= 0
 		pedidoCerrado2.fecha 			= LocalDateTime.of(2017,9,10,19,30)
 		
-		this.pedidosCerrados.put(nroPedido,pedidoCerrado1)
-		nroPedido ++
-		this.pedidosCerrados.put(nroPedido,pedidoCerrado2)
-		nroPedido ++
+		this.pedidosCerrados.add(pedidoCerrado1)
+		this.pedidosCerrados.add(pedidoCerrado2)
 		
 		
 
 	}
-	
-	// Estructura
-	List<Ingrediente> ingredientesDisponibles = newArrayList
-	List<Pizza>		  promocionesDisponibles  = newArrayList
-	//List<Pedido> 	  pedidosAbiertos		  = newArrayList
-	HashMap<Integer, Pedido> pedidosAbiertos  = newHashMap
-//	List<Pedido>	  pedidosCerrados		  = newArrayList
-	HashMap<Integer, Pedido> pedidosCerrados  = newHashMap	
-	int 			  nroPedido 			  = 1
-	 
-	
+
 	// Metodos
 	def ingredientesDisponibles()
 	{
@@ -205,15 +201,13 @@ class Home {
 	// Precondicion: El pedido tiene que estar en los pedidos abiertos.
 	def void cerrarPedidoEntregadoCancelado(Pedido unPedido) 
 	{
-		pedidosAbiertos.forEach	[clave, valor| if (valor == unPedido)
-													moverPedidoAPedidosCerrado(clave,unPedido)
-								]
+		moverPedidoAPedidosCerrado(unPedido)
 	}
 
-	def void moverPedidoAPedidosCerrado(Integer unNroPedido, Pedido unPedido) 
+	def void moverPedidoAPedidosCerrado(Pedido unPedido) 
 	{
-		pedidosAbiertos.remove(unNroPedido)
-		pedidosCerrados.put(unNroPedido,unPedido)
+		pedidosAbiertos.remove(unPedido)
+		pedidosCerrados.add(unPedido)
 	}
 	
 	
@@ -221,8 +215,8 @@ class Home {
 	// 				 -El pedido no puede ya estar en la lista de pedidos abiertos
 	def agregarPedido(Pedido unPedido) { 
 	
-		pedidosAbiertos.put(this.nroPedido,unPedido)
-		nroPedido++
+		pedidosAbiertos.add(unPedido)
+
 	}
 	
 	def tamanios() 

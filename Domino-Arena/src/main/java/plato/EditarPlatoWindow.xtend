@@ -13,25 +13,33 @@ import org.uqbar.arena.widgets.Button
 import pizza.Pizza
 import pizza.Tamanio
 import org.eclipse.xtend.lib.annotations.Accessors
-import pedido.EditarPedidoWindow
-import pedido.EditarIngredienteTemplate
-import pizza.Ingrediente
-import agregarPizza.IngredienteAdapter
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.arena.widgets.RadioSelector
+
+import pedido.Plato
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import pedido.PedidoWindowEditar
+import org.uqbar.arena.layout.VerticalLayout
 
 @Accessors
-class EditarPlatoWindow extends EditarIngredienteTemplate {
+class EditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 	
-	protected EditarPedidoWindow mainWindow
-	protected PlatoAdapter unPlatoAdapter
+	protected PedidoWindowEditar mainWindow
+	protected Plato unPlato
 	
-	new(EditarPedidoWindow  owner, PlatoAdapter model) {
-		super(owner, model)
+	new(PedidoWindowEditar  owner, Plato model) {
+		super(owner, new PlatoAppModel(model))
 		mainWindow = owner
-		unPlatoAdapter=model 
+		unPlato=model 
 	}
-
+	
+	override protected createFormPanel(Panel mainPanel) {
+		title = "Plato"
+		mainPanel.layout = new VerticalLayout
+		selectorPizza(mainPanel)
+		selectorSizePizza(mainPanel)
+		footLabel(mainPanel)
+		footButton(mainPanel)
+		
+	}
 
 
 	def selectorPizza(Panel mainPanel) {
@@ -42,7 +50,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Label(panelPizza).text = "Pizza"
 		val selectorNotNull = new NotNullObservable("pizzaSelect")
 
-		new Selector<PlatoAdapter>(panelPizza) => [
+		new Selector<PlatoAppModel>(panelPizza) => [
 			allowNull(false)
 			(items <=> "pizzaItems").adaptWith(typeof(Pizza), "nombre")
 			value <=> "pizzaSelect"
@@ -58,7 +66,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Label(panelSize).text = "Medida"
 		val selectorNotNull = new NotNullObservable("sizeSelect")
 
-		new Selector<PlatoAdapter>(panelSize) => [
+		new Selector<PlatoAppModel>(panelSize) => [
 			allowNull(false)
 			(items <=> "itemsSize").adaptWith(typeof(Tamanio), "nombre")
 			value <=> "sizeSelect"
@@ -88,8 +96,6 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
-				unPlatoAdapter.plato.pizza = unPlatoAdapter.pizzaSelect
-				unPlatoAdapter.plato.tamanio = unPlatoAdapter.sizeSelect
 				
 				this.accept
 				setAsDefault
@@ -105,23 +111,6 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		]
 	}
 	
-	override defaultTitle() {
-		"Plato"
-	}
-	
-	override initHead(Panel mainPanel) {
-		selectorPizza(mainPanel)
-		selectorSizePizza(mainPanel)
-	}
-	
-	override initBottom(Panel mainPanel) {
-		footLabel(mainPanel)
-		footButton(mainPanel)
-	}
-	
-	override getAdapter(Ingrediente unIngrediente) {
-		new IngredienteAdapterParaPlato(unIngrediente, unPlatoAdapter)
-	}
 	
 	
 }

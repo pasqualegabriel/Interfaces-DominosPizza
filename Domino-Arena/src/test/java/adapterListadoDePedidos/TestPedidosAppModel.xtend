@@ -7,18 +7,18 @@ import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations
 import pedido.Pedido
 import domino.Miembro
-import listadoDePedidos.AdapterPedido
 import pedido.Local
-import listadoDePedidos.PedidosAppModel
 import estados.ListoParaRetirar
 import static org.junit.Assert.*
 import estados.Preparando
+import listadoDePedidos.DominoPizzaAppModel
+import listadoDePedidos.PedidoAppModel
 
 class TestPedidosAppModel {
 	@Mock Miembro 	unMiembroMock	
 	Pedido  		unSpyPedido
-	AdapterPedido 	unAdapterSpy
-	PedidosAppModel unPedidosAppModel
+	PedidoAppModel 	unAdapterSpy
+	DominoPizzaAppModel unPedidosAppModel
 	
 	@Before
 	def void setUp() {
@@ -26,9 +26,9 @@ class TestPedidosAppModel {
 		MockitoAnnotations.initMocks(this)
 		unSpyPedido								= spy(new Pedido(unMiembroMock))
 		unSpyPedido.formaDeRetiro				= new Local
-		unAdapterSpy 							= spy(new AdapterPedido(1,unSpyPedido,true))
-		unPedidosAppModel						= new PedidosAppModel()
-		unPedidosAppModel.pedidoSeleccionado 	= unAdapterSpy
+		unAdapterSpy 							= spy(new PedidoAppModel(1,unSpyPedido,true))
+		unPedidosAppModel						= new DominoPizzaAppModel()
+		unPedidosAppModel.pedidoSelectItems 	= unAdapterSpy
 		
 	}
 	@Test

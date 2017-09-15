@@ -6,7 +6,6 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
 import pizza.Ingrediente
 import persistencia.Home
-import agregarPizza.IngredienteAdapter
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
@@ -72,7 +71,7 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
 		
 		val radio = new RadioSelector(checkBoxDeIngrediente)
-//		radio.bindEnabled(new ObservableProperty(ingredienteAppModel, "estaActivadoEnCheckbox"))
+		radio.bindEnabled(new ObservableProperty(ingredienteAppModel, "estaActivadoEnCheckbox"))
 		radio.bindItems(new ObservableProperty(ingredienteAppModel, "distribuciones"))
 		radio.bindValue(new ObservableProperty(ingredienteAppModel, "distribucionSeleccionada"))
 	}

@@ -9,11 +9,11 @@ import java.util.List
 import persistencia.Home
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
-import listadoDePedidos.AdapterPedido
+
 
 @Accessors
 @TransactionalAndObservable
-class PlatoAdapter {
+class PlatoAppModel {
 	 
 	
 	String precio
@@ -22,17 +22,7 @@ class PlatoAdapter {
 	Pizza pizzaSelect
 	List<Tamanio> itemsSize = newArrayList
 	Tamanio sizeSelect
-	AdapterPedido suAdapterPedido
 	
-	new(Plato unPlato, AdapterPedido unAdapterPedido){
-		plato = unPlato
-		pizzaSelect = plato.pizza
-		sizeSelect = plato.tamanio
-		precio = "$" + plato.calcularPrecio
-		coleccionPizzaItems
-		coleccionTamanioItems
-		suAdapterPedido= unAdapterPedido
-	}
 	
 	new(Plato unPlato) {
 		plato = unPlato
@@ -54,11 +44,13 @@ class PlatoAdapter {
 
 	def void setPizzaSelect(Pizza unaPizza) {
 		pizzaSelect = unaPizza
+		plato.pizza =unaPizza
 		setPrecio
 	}
 
 	def void setSizeSelect(Tamanio unTamanio) {
 		sizeSelect = unTamanio
+		plato.tamanio = unTamanio
 		setPrecio
 
 	}
@@ -67,7 +59,7 @@ class PlatoAdapter {
 		if (!pizzaSelect.equals(null) && !sizeSelect.equals(null) && !plato.ingredientesExtras.equals(null)){
 			var double costoTotal=pizzaSelect.precioBase * sizeSelect.factorDeTamanio + plato.ingredientesExtras.costoDeIngredientes
 			precio = "$" + costoTotal
-			suAdapterPedido.setPrecio()
+			
 		}
 	}
 	

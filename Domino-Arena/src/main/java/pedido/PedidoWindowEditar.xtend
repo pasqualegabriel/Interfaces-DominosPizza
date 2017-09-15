@@ -2,7 +2,6 @@ package pedido
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.aop.windows.TransactionalDialog
-import listadoDePedidos.AdapterPedido
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
@@ -14,15 +13,16 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.TextBox
-import plato.PlatoAdapter
 import estados.EstadoDePedido
 import plato.EditarPlatoWindow
 import plato.AgregarPlatoWindow
+import listadoDePedidos.PedidoAppModel
 
-class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
+class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
-	new(WindowOwner owner, AdapterPedido model) {
-		super(owner, model)
+	new(WindowOwner owner, Pedido pedido, boolean b) {
+		
+		super(owner, new PedidoAppModel(pedido,b))
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -31,13 +31,16 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		mainPanel.layout = new VerticalLayout()
 
-		estados(mainPanel)
+		selectorEstado(mainPanel)
 
-		platos(mainPanel)
+		tablaPlato(mainPanel)
+		aclaracionesPlatos(mainPanel)
+		datosPlatos(mainPanel)
+		ultimosBotonesPlatos(mainPanel)
 
 	}
 
-	def estados(Panel mainPanel) {
+	def selectorEstado(Panel mainPanel) {
 
 		var panelEstados = new Panel(mainPanel)
 		panelEstados.layout = new HorizontalLayout
@@ -53,7 +56,7 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		]
 	}
 
-	def platos(Panel mainPanel) {
+	def tablaPlato(Panel mainPanel) {
 
 		var panelPlatos = new Panel(mainPanel)
 		panelPlatos.layout = new ColumnLayout(2)
@@ -62,11 +65,6 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		botonesPlatos(panelPlatos)
 
-		aclaracionesPlatos(mainPanel)
-
-		datosPlatos(mainPanel)
-
-		ultimosBotonesPlatos(mainPanel)
 	}
 
 	def tablaPlatos(Panel panelPlatos) {
@@ -75,21 +73,21 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelTablaPlatos).text = "Platos"
 
-		val tablaPedidos = new Table(panelTablaPlatos, typeof(PlatoAdapter)) => [
+		val tablaPedidos = new Table(panelTablaPlatos, typeof(PedidoAppModel)) => [
 			bindEnabledToProperty("pedidoCerrado")
 			numberVisibleRows = 6
-			items <=> "platos"
+			items <=> "itemsPlatos"
 			value <=> "platoSeleccionado"
 		]
 
 		new Column(tablaPedidos) => [
 			title = "Nombre"
-			bindContentsToProperty("pizzaSelect.nombre")
+			bindContentsToProperty("platoSeleccionado.pizza.nombre")
 		]
 
 		new Column(tablaPedidos) => [
 			title = "Tamaño"
-			bindContentsToProperty("sizeSelect.nombre")
+			bindContentsToProperty("platoSeleccionado.tamanio.nombre")
 		]
 
 		new Column(tablaPedidos) => [
@@ -115,9 +113,9 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 			bindEnabledToProperty("pedidoCerrado")
 			caption = "Editar"
 			onClick [
-				modelObject.platoSeleccionado.sizeSelect = modelObject.platoSeleccionado.plato.tamanio
-				modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
-				modelObject.platoSeleccionado.suAdapterPedido = modelObject
+//				modelObject.platoSeleccionado.sizeSelect = modelObject.platoSeleccionado.plato.tamanio
+//				modelObject.platoSeleccionado.pizzaSelect = modelObject.platoSeleccionado.plato.pizza
+//				modelObject.platoSeleccionado.suAdapterPedido = modelObject
 				new EditarPlatoWindow(this, modelObject.platoSeleccionado).open
 			]
 		]
@@ -154,7 +152,7 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
-		new Label(panelDatosPlatos).value <=> "costoDeRealizacionDeEnvioString"
+		new Label(panelDatosPlatos).value <=> "costoDeEnvio"
 
 		new Label(panelDatosPlatos).text = "Monto total"
 	
@@ -173,7 +171,6 @@ class EditarPedidoWindow extends TransactionalDialog<AdapterPedido> {
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Aceptar"
 			onClick [
-	
 				accept
 				disableOnError
 			]

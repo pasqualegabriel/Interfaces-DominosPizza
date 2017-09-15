@@ -1,42 +1,33 @@
-package listadoDePedidos
+package DominoPizzaInicio
 
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+//import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
+import listadoDePedidos.DominoPizzaAppModel
 import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.bindings.NotNullObservable
 import menuPizzas.MenuDeDominoMainWindow
-import menuPizzas.MenuDeDominoAppModel
 import listadoDePedidosCerrados.MainWindowListaPedidosCerrados
+import org.uqbar.arena.bindings.NotNullObservable
+import menuPizzas.MenuDeDominoAppModel
 import pedido.PedidoWindowEditar
 
-class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel> 
-{
+class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 	
-	new(WindowOwner parent) 
-	{
-		super(parent, new DominoPizzaAppModel)
+	new(WindowOwner parent, DominoPizzaAppModel model) {
+		super(parent, model)
 	}
 	
-	override protected addActions(Panel actionsPanel) 
-	{
-		//No se Va A Usar
-	}
+	override protected addActions(Panel actionsPanel) {}
 	
-	override protected createFormPanel(Panel mainPanel) 
-	{
-		title = "Dominos Pizza"
+	override protected createFormPanel(Panel mainPanel) {
+		this.title = "Domino pizza"
 		mainPanel.layout = new VerticalLayout
 		
-		new Label(mainPanel) => [ text = "Pedidos Abiertos" ]		
-		this.panelDeListaPedidos(mainPanel)
-		this.panelDeBotonesInferiores(mainPanel)
+		panelDeListaPedidos(mainPanel)
+		panelDeBotonesInferiores(mainPanel)
 	}
 	
 	/**Define el panel donde se contendra la tabla de pedidos y los botones que interactuan con esta */
@@ -45,40 +36,18 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 		var panelDeListaPedidos	= new Panel(mainPanel)
 		panelDeListaPedidos.layout = new HorizontalLayout
 		
-		this.tablaListaDePedidos(panelDeListaPedidos)
+		val tabla=new TablaPedido(mainPanel)
+		tabla.tablaPedidos(mainPanel,"itemsPedidosAbiertos",
+		"Monto","calcularPrecio","Hora","fecha.toLocalTime","Pedidos Abiertos")
+		
 		this.panelBotonesListaDePedidos(panelDeListaPedidos)
 	}
 	
-	/**Define la tabla donde se Encuentra la lista de pedidos */
-	def tablaListaDePedidos(Panel panelDeListaPedidos)
-	{
-		val tablaDePedidos = new Table<PedidoAppModel>(panelDeListaPedidos, typeof(PedidoAppModel))
-		tablaDePedidos	=>	[
-								numberVisibleRows = 5
-								items <=> "itemsPedidosAbiertos"
-								value <=> "pedidoSelectItems"
-							]
 		
-		this.columnaTablaPedidos(tablaDePedidos,"Pedido","nombre")
-		this.columnaTablaPedidos(tablaDePedidos,"Estado","estadoActual")
-		this.columnaTablaPedidos(tablaDePedidos,"Monto","precio")
-		this.columnaTablaPedidos(tablaDePedidos,"Hora","hora")
-							
-	}
-	
-	/**Define un predefinido para crear las columnas */
-	def columnaTablaPedidos(Table<PedidoAppModel> tablaDePedidos, String unTitulo, String propiedadABindear) {
-		new Column(tablaDePedidos) => 	[
-										
-											title = unTitulo
-											bindContentsToProperty(propiedadABindear)
-										]
-	}
-	
 	/**Define Los botones que interactuan con la tabla de pedidos */
 	def panelBotonesListaDePedidos(Panel panelDeListaPedidos)
 	{
-		val unPedidoSeleccionado= new NotNullObservable("pedidoSeleccionado")
+		val unPedidoSeleccionado= new NotNullObservable("pedidoSelectItem")
 		var panelTablaDePedido = new Panel(panelDeListaPedidos) 
 		panelTablaDePedido.layout = new VerticalLayout
 		
@@ -93,7 +62,7 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 		
 		new Button(panelTablaDePedido)=>[
 											caption = "Editar"
-											onClick [	new PedidoWindowEditar(this, modelObject.getPedidoSelectItem).open	]
+											onClick [	new PedidoWindowEditar(this,modelObject.pedidoSelectItem,true).open	]
 											bindEnabled(unPedidoSeleccionado)
 										]
 		
@@ -102,7 +71,7 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 	/**Define los botones de avance y retroceso de estado de los pedidos */
 	def botonesAvanceRetroceso(Panel panelTablaDePedido) 
 	{
-		val unPedidoSeleccionado= new NotNullObservable("pedidoSeleccionado")
+		val unPedidoSeleccionado= new NotNullObservable("pedidoSelectItem")
 		var panelRetrocederAvanzar = new Panel(panelTablaDePedido) 
 		panelRetrocederAvanzar.layout = new HorizontalLayout
 		new Button(panelRetrocederAvanzar)=>[
@@ -140,5 +109,7 @@ class PedidosMainWindow extends SimpleWindow<DominoPizzaAppModel>
 												onClick [	this.close	]
 											]
 	}
+	
+
 	
 }
