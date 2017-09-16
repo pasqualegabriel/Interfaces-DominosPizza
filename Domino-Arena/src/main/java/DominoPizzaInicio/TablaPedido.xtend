@@ -17,6 +17,7 @@ class TablaPedido extends Panel {
 		super(container)
 	}
 
+
 	def tablaPedidos(Panel mainPanel, String listaDePedidos, String titulo3, String propiedad3, String titulo4,
 		String propiedad4, String titulo) {
 			

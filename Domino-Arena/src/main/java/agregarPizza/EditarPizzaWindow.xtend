@@ -1,7 +1,6 @@
 package agregarPizza
 
 import menuPizzas.MenuDeDominoMainWindow
-import pizza.Pizza
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox

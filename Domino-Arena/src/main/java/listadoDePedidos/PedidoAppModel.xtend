@@ -20,8 +20,8 @@ class PedidoAppModel {
 	List<EstadoDePedido> estadosSelector = newArrayList
 	List<Plato> itemsPlatos = newArrayList
 	Plato platoSeleccionado
-	String costoDeEnvio
-	String precio
+	int costoDeEnvio
+	int precio
 
 	new(Pedido unPedido, Boolean cerradoONo) {
 		super()
@@ -30,9 +30,9 @@ class PedidoAppModel {
 		cambioDeEstado = unPedido.estadoActual
 		coleccionDeEstados
 		coleccionDePlatos
-		costoDeEnvio = "$" + pedidoAdaptado.formaDeRetiro.precioDeRetiro
+		costoDeEnvio = pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		pedidoCerrado = cerradoONo
-		precio= "$" + pedidoAdaptado.calcularPrecio
+		setPrecio
 	}
 
 	def void coleccionDePlatos() {
@@ -79,9 +79,10 @@ class PedidoAppModel {
 		this.pedidoAdaptado.estadoActual = this.cambioDeEstado
 		this.estadoActual = this.pedidoAdaptado.estadoActual.nombre
 
-		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado"))
+		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado")){
 			pedidoAdaptado.calcularTiempoDeEntrega()
-		Home.instance.moverPedidoAPedidosCerrado(pedidoAdaptado)
+			Home.instance.moverPedidoAPedidosCerrado(pedidoAdaptado)
+		}
 
 		this.coleccionDeEstados // Refresca la lista del Selector
 		this.cambioDeEstado = pedidoAdaptado.estadoActual
@@ -105,7 +106,7 @@ class PedidoAppModel {
 	}
 	
 	def void setPrecio(){
-		precio="$" + pedidoAdaptado.calcularPrecio
+		precio= pedidoAdaptado.calcularPrecio
 	}
 
 	def getFecha() {

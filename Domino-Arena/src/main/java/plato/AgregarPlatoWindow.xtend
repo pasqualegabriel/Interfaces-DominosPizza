@@ -10,13 +10,13 @@ class AgregarPlatoWindow extends EditarPlatoWindow  {
 	
 	new(PedidoWindowEditar  owner) {
 		
-		super(owner, new Plato)
+		super(owner, new PlatoAppModel(new Plato))
 	
 	}
 	
 	override void accept(){
 		super.accept
-		mainWindow.modelObject.agregarPlatoAdapter(super.unPlato)
+		mainWindow.modelObject.agregarPlatoAdapter(super.unPlato.plato)
 		mainWindow.modelObject.setPrecio
 	}
 }

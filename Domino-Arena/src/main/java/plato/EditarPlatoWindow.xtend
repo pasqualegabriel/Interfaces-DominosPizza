@@ -13,33 +13,23 @@ import org.uqbar.arena.widgets.Button
 import pizza.Pizza
 import pizza.Tamanio
 import org.eclipse.xtend.lib.annotations.Accessors
-
-import pedido.Plato
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import pedido.PedidoWindowEditar
-import org.uqbar.arena.layout.VerticalLayout
+import pedido.EditarIngredienteTemplate
+import agregarPizza.IngredienteAdapterAbstract
+import pizza.Ingrediente
 
 @Accessors
-class EditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
+class EditarPlatoWindow extends EditarIngredienteTemplate {
 	
 	protected PedidoWindowEditar mainWindow
-	protected Plato unPlato
+	protected PlatoAppModel unPlato
 	
-	new(PedidoWindowEditar  owner, Plato model) {
-		super(owner, new PlatoAppModel(model))
+	new(PedidoWindowEditar  owner, PlatoAppModel unModel) {
+		super(owner, unModel)
 		mainWindow = owner
-		unPlato=model 
+		unPlato= unModel 
 	}
 	
-	override protected createFormPanel(Panel mainPanel) {
-		title = "Plato"
-		mainPanel.layout = new VerticalLayout
-		selectorPizza(mainPanel)
-		selectorSizePizza(mainPanel)
-		footLabel(mainPanel)
-		footButton(mainPanel)
-		
-	}
 
 
 	def selectorPizza(Panel mainPanel) {
@@ -76,19 +66,6 @@ class EditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
 	}
 
-
-	def footLabel(Panel mainPanel) {
-		var panelLabel = new Panel(mainPanel)
-		panelLabel.layout = new HorizontalLayout()
-
-		new Label(panelLabel).text = "Precio"
-		new Label(panelLabel) => [
-			
-			value <=> "precio"
-		]
-
-	}
-
 	def footButton(Panel mainPanel) {
 		var panelButton = new Panel(mainPanel)
 		panelButton.layout = new HorizontalLayout()
@@ -96,7 +73,7 @@ class EditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
-				mainWindow.modelObject.setPrecio
+			
 				this.accept
 				setAsDefault
 				disableOnError
@@ -111,6 +88,62 @@ class EditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 		]
 	}
 	
+
+
 	
+	override initHead(Panel mainPanel) {
+		selectorPizza(mainPanel)
+		selectorSizePizza(mainPanel)
+	}
+	
+	override initBottom(Panel mainPanel) {
+		footButtonCalculate(mainPanel)
+		footLabel(mainPanel)
+		footButton(mainPanel)
+	}
+	
+	def footButtonCalculate(Panel mainPanel) {
+		var panelButton 	= new Panel(mainPanel)
+		panelButton.layout 	= new HorizontalLayout()
+		
+		new Button(panelButton) => [
+			caption = "Calcular Precio"
+			onClick [
+				unPlato.setPrecio
+				setAsDefault
+				disableOnError
+			]
+		]
+	
+	
+	}
+	
+	def footLabel(Panel mainPanel) {
+		var panelLabel = new Panel(mainPanel)
+		panelLabel.layout = new HorizontalLayout()
+
+		new Label(panelLabel).text = "Precio"
+		new Label(panelLabel) => [
+			
+			value <=> "precio"
+		]
+
+	}
+	
+	
+	override agregarAModelo(IngredienteAdapterAbstract ingredienteAdapter) {
+			unPlato.ingredientesExtras.add(ingredienteAdapter)
+	}
+	
+	override getAdapter(Ingrediente unIngrediente) {
+		  new IngredienteExtraAppModel(unPlato,unIngrediente)
+	}
+	
+//	override accept() {
+//		super.accept
+//		mainWindow.modelObject.setPrecio
+//		unPlato.aceptarCambios
+//		//unPlato.agregarIngredientes
+//	}
 	
 }

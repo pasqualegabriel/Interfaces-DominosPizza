@@ -4,7 +4,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import pizza.Pizza
 import pizza.Ingrediente
 import persistencia.Home
-import org.uqbar.commons.model.annotations.Dependencies
 import java.util.List
 
 @Observable

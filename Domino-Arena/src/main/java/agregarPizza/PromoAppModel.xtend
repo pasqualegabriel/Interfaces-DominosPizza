@@ -41,7 +41,7 @@ class PromoAppModel {
 		pizza.distribucion= new Distribucion
 		// hacer esto con lambda
 		for (IngredienteAdapterAbstract ingrediente: ingredientes){
-			ingrediente.agregarseAPizza
+			ingrediente.agregarse
 		}
 	
 	}

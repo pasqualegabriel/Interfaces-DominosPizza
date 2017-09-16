@@ -17,12 +17,17 @@ import estados.EstadoDePedido
 import plato.EditarPlatoWindow
 import plato.AgregarPlatoWindow
 import listadoDePedidos.PedidoAppModel
+import plato.PlatoAppModel
 
 class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
-
+	
+	
+	
 	new(WindowOwner owner, Pedido pedido, boolean b) {
 		
 		super(owner, new PedidoAppModel(pedido,b))
+		
+		
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -107,7 +112,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			bindEnabledToProperty("pedidoCerrado")
 			caption = "Editar"
 			onClick [
-				new EditarPlatoWindow(this, modelObject.platoSeleccionado).open
+				new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open
 			]
 		]
 
@@ -162,6 +167,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Aceptar"
 			onClick [
+				
 				accept
 				disableOnError
 			]

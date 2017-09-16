@@ -5,7 +5,7 @@ import pizza.DistribucionEnPizza
 import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Transactional
-import org.uqbar.commons.model.annotations.Dependencies
+
 
 @Observable
 @Accessors
@@ -27,5 +27,5 @@ abstract class IngredienteAdapterAbstract {
 		#[DistribucionEnPizza.Izquierda, DistribucionEnPizza.Toda, DistribucionEnPizza.Derecha]
 	}
 	
-	def void agregarseAPizza() 
+	def void agregarse() 
 }

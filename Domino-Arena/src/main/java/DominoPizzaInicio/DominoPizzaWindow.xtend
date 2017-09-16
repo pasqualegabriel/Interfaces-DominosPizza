@@ -13,6 +13,7 @@ import org.uqbar.arena.bindings.NotNullObservable
 import menuPizzas.MenuDeDominoAppModel
 import pedido.PedidoWindowEditar
 import runnable.DominosPizzaMainWindow
+import org.uqbar.commons.model.exceptions.UserException
 
 class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
@@ -42,7 +43,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 		panelDeListaPedidos.layout = new HorizontalLayout
 
 		val tabla = new TablaPedido(panelDeListaPedidos)
-		tabla.tablaPedidos(panelDeListaPedidos, "itemsPedidosAbiertos", "Monto", "calcularPrecio", 
+		tabla.tablaPedidos(panelDeListaPedidos, "itemsPedidosAbiertos", "Monto", "precio", 
 							"Hora", "fecha.toLocalTime", "Pedidos Abiertos")
 
 		this.panelBotonesListaDePedidos(panelDeListaPedidos)
@@ -65,23 +66,33 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 		new Button(panelTablaDePedido) => [
 			caption = "Editar"
-			onClick [new PedidoWindowEditar(this, modelObject.pedidoSelectItem, true).open]
+			onClick [this.abrirDialogoDeEditarPedido]
 			bindEnabled(unPedidoSeleccionado)
 		]
 
 	}
+	
+	def abrirDialogoDeEditarPedido() {
+		val dialog = new PedidoWindowEditar(this, modelObject.pedidoSelectItem, true)
+		dialog.onAccept[this.modelObject.pedidoSelectItem.setPrecio()]
+		dialog.open
+	}
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */
 	def botonesAvanceRetroceso(Panel panelTablaDePedido) {
-		
+//		val erro = new ErrorsPanel(panelTablaDePedido,"Amigo no podes ir para atras")
 		val unPedidoSeleccionado = new NotNullObservable("pedidoSelectItem")
 		var panelRetrocederAvanzar = new Panel(panelTablaDePedido)
 		panelRetrocederAvanzar.layout = new HorizontalLayout
 		
 		new Button(panelRetrocederAvanzar) => [
 			caption = "<<"
-			onClick [
+			onClick [try{
 				modelObject.anteriorEstadoPedidoSeleccionado()
+				
+				}catch(StateException e){
+					throw new UserException("No se puede cambiar de estado")
+				}
 			]
 			bindEnabled(unPedidoSeleccionado)
 		]
@@ -94,6 +105,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 			bindEnabled(unPedidoSeleccionado)
 		]
 	}
+	
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */
 	def panelDeBotonesInferiores(Panel MainPanel) {

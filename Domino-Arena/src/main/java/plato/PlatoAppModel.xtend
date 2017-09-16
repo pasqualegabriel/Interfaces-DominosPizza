@@ -9,26 +9,29 @@ import java.util.List
 import persistencia.Home
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
-
+import agregarPizza.IngredienteAdapterAbstract
+import pizza.Distribucion
 
 @Accessors
 @TransactionalAndObservable
 class PlatoAppModel {
 	 
 	
-	String precio
+	double precio
 	Plato plato
-	List<Pizza> pizzaItems = newArrayList
+	List<Pizza> pizzaItems			= newArrayList
 	Pizza pizzaSelect
-	List<Tamanio> itemsSize = newArrayList
+	List<Tamanio> itemsSize 		= newArrayList
 	Tamanio sizeSelect
-	
+	List<IngredienteAdapterAbstract> ingredientesExtras = newArrayList
+    Distribucion distribucion 		= new Distribucion
+
 	
 	new(Plato unPlato) {
 		plato = unPlato
 		pizzaSelect = plato.pizza
 		sizeSelect = plato.tamanio
-		precio = "$" + plato.calcularPrecio
+		setPrecio
 		coleccionPizzaItems
 		coleccionTamanioItems
 	}
@@ -44,33 +47,55 @@ class PlatoAppModel {
 
 	def void setPizzaSelect(Pizza unaPizza) {
 		pizzaSelect = unaPizza
-		plato.pizza =unaPizza
-		setPrecio
+
 	}
 
 	def void setSizeSelect(Tamanio unTamanio) {
 		sizeSelect = unTamanio
-		plato.tamanio = unTamanio
-		setPrecio
+
 
 	}
 
 	def void setPrecio() {
 		if (!pizzaSelect.equals(null) && !sizeSelect.equals(null) && !plato.ingredientesExtras.equals(null)){
-			var double costoTotal=pizzaSelect.precioBase * sizeSelect.factorDeTamanio + plato.ingredientesExtras.costoDeIngredientes
-			precio = "$" + costoTotal
+			var double costoTotal=pizzaSelect.precioBase * sizeSelect.factorDeTamanio + distribucion.costoDeIngredientes
+			precio = costoTotal
 			
 		}
 	}
 	
 	def agregaIngredienteExtra(Ingrediente ingrediente, DistribucionEnPizza distribucion) {
 		plato.agregarIngredienteExtra(ingrediente,distribucion)
-		setPrecio
+		
 	}
 	
 	def cambiarDistribucionDeIngredienteExtra(Ingrediente unIngrediente,DistribucionEnPizza unaDistribucion) {
 		plato.cambiarDistribucionDeUnIngrediente(unIngrediente,unaDistribucion)
 		
 	}
+	
+	def agregarIngredientes() {
+		plato.ingredientesExtras= new Distribucion
+		for (IngredienteAdapterAbstract ingrediente: ingredientesExtras){
+			ingrediente.agregarse
+		}
+	}
+	
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

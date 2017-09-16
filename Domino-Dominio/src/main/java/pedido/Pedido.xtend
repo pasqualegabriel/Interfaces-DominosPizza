@@ -11,6 +11,7 @@ import estados.Cancelado
 import java.time.LocalTime
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
+
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
  * 					 - Expresar el estado de la preparacion de ese pedido.
@@ -30,7 +31,7 @@ class Pedido {
 	String 					aclaracion
 	FormaDeRetiro 			formaDeRetiro
 	Integer					tiempoDeEspera
-
+	Integer 				precio
 	// Constructor
 	
 	new(Miembro unMiembro) {
@@ -42,11 +43,22 @@ class Pedido {
 		aclaracion   = ""
 		fecha        = LocalDateTime.now()
 		this.tiempoDeEspera = 0
+		//formaDeRetiro = new Delivery
+		setPrecio(calcularPrecio)
+		
 	}
 	
-
+	def void setPrecio(){
+			precio = calcularPrecio
+	}
+	
+//	def void setFormaDeRetiro(FormaDeRetiro unaFormaDeRetiro){
+//		formaDeRetiro = unaFormaDeRetiro
+//		calcularPrecio
+//	}
 
 	// Metodos
+
 	
 	def cambiarAclaracion(String aclaracionNueva) {
 		aclaracion = aclaracionNueva
@@ -55,16 +67,20 @@ class Pedido {
 	// Precondicion: El plato tiene que ser un plato que no este ya en la lista de platos
 	def agregarPlato(Plato plato) {
 		platos.add(plato)
+		setPrecio
 	}
 	
 	// Precondicion: El plato tiene que estar en la lista de platos
 	def quitarPlato(Plato plato) {
 		platos.remove(plato)
+	    setPrecio
 	}
-
 	def calcularPrecio() {
-		val precioPlatos = platos.stream.mapToInt[it.calcularPrecio].sum()
-		precioPlatos + formaDeRetiro.precioDeRetiro
+		var precioPlatos = platos.stream.mapToInt[it.calcularPrecio].sum()
+		if(formaDeRetiro==null){precioPlatos }else{
+			precioPlatos + formaDeRetiro.precioDeRetiro
+		}
+		
 		
 		
 	}

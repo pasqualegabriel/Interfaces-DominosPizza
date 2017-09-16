@@ -5,8 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Transactional
 import pizza.Pizza
-import pizza.DistribucionEnPizza
-import org.uqbar.commons.model.annotations.Dependencies
+
 
 @Observable
 @Accessors
@@ -25,7 +24,7 @@ class IngredienteAdapter extends IngredienteAdapterAbstract {
 		
 	}
 	
-	override agregarseAPizza() {
+	override agregarse() {
 		if(estaActivadoEnCheckbox && distribucionSeleccionada != null){
 			pizza.distribucion.agregarIngrediente(ingrediente, distribucionSeleccionada)
 		}

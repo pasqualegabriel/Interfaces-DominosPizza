@@ -9,8 +9,6 @@ import persistencia.Home
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.bindings.ObservableProperty
-import org.uqbar.arena.widgets.RadioSelector
 import agregarPizza.IngredienteAdapterAbstract
 import org.uqbar.arena.widgets.Selector
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
@@ -36,9 +34,6 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	def void initBottom(Panel mainPanel)
 	
 
-// Los problemas empiezan por culpa de esto. Vos necesitas una Checkbox con selector
-// Por cada uno de los ingredientes que haya disponible. No hay otra forma que hacerlo que con un for
-// Esta parte no me parece que este mal, la parte que me parece mal es la de createCheckBox
 
 	def armarTablaDeIngredientes(Panel mainPanel) {
 		var tablaDeIngredientes = new Panel(mainPanel)
@@ -68,7 +63,8 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
 		
 		new Selector(checkBoxDeIngrediente)=>[
-     		allowNull(false)	
+     		allowNull(false)
+     	
 			items <=> "distribuciones"
 			value <=> "distribucionSeleccionada"
 		]
