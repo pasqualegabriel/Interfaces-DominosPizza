@@ -30,6 +30,7 @@ class IngredienteAdapter extends IngredienteAdapterAbstract {
 		}
 	}
 
+
 }
 
 

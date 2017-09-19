@@ -219,7 +219,7 @@ class Home {
 	
 	def tamanios() 
 	{
-		#[new Chica, new Porcion, new Grande, new Familiar]
+		#[new Porcion, new Chica, new Grande, new Familiar]
 	}
 	
 

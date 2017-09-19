@@ -109,7 +109,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Button(panelButton) => [
 			caption = "Calcular Precio"
 			onClick [
-				unPlato.setPrecio
+				unPlato.calcularPrecio
 				setAsDefault
 				disableOnError
 			]

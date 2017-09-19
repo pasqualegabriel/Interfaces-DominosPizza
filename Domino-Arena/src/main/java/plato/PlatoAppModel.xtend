@@ -47,12 +47,12 @@ class PlatoAppModel {
 
 	def void setPizzaSelect(Pizza unaPizza) {
 		pizzaSelect = unaPizza
-		setPrecio
+		//setPrecio
 	}
 
 	def void setSizeSelect(Tamanio unTamanio) {
 		sizeSelect = unTamanio
-		setPrecio
+		//setPrecio
 
 	}
 
@@ -66,7 +66,7 @@ class PlatoAppModel {
 	
 	def agregaIngredienteExtra(Ingrediente ingrediente, DistribucionEnPizza distribucion) {
 		plato.agregarIngredienteExtra(ingrediente,distribucion)
-		setPrecio
+		//setPrecio
 	}
 	
 	def cambiarDistribucionDeIngredienteExtra(Ingrediente unIngrediente,DistribucionEnPizza unaDistribucion) {
@@ -80,6 +80,19 @@ class PlatoAppModel {
 			ingrediente.agregarse
 		}
 		setPrecio
+	}
+	
+	def calcularPrecio() {
+		precio = pizzaSelect.precioBase * sizeSelect.factorDeTamanio 
+		         + distribucion.costoDeIngredientes + precioDeIngredientesExtras
+	}
+	
+	def getPrecioDeIngredientesExtras() {
+		var double precioDeIngredientesExtras = 0
+		for(IngredienteAdapterAbstract i: ingredientesExtras){
+			precioDeIngredientesExtras += i.getPrecio
+		}
+		precioDeIngredientesExtras
 	}
 	
 	

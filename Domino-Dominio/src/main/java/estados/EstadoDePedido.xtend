@@ -27,7 +27,7 @@ abstract class EstadoDePedido  {
 
 	def void cancelar(Pedido unPedido)
 	{
-		unPedido.estadoActual= new Cancelado()
+		unPedido.estadoActual = new Cancelado()
 
 	}
 	

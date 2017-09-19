@@ -27,5 +27,13 @@ abstract class IngredienteAdapterAbstract {
 		#[DistribucionEnPizza.Izquierda, DistribucionEnPizza.Toda, DistribucionEnPizza.Derecha]
 	}
 	
-	def void agregarse() 
+	def void agregarse()
+	
+	def int getGetPrecio(){
+		if(estaActivadoEnCheckbox && distribucionSeleccionada != null){
+			return this.ingrediente.precio
+		}
+		0
+	}
+	
 }
