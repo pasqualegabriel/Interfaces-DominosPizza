@@ -73,7 +73,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
-			
+				mainWindow.modelObject.setPrecio
 				this.accept
 				setAsDefault
 				disableOnError
@@ -109,6 +109,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		new Button(panelButton) => [
 			caption = "Calcular Precio"
 			onClick [
+				
 				unPlato.calcularPrecio
 				setAsDefault
 				disableOnError
@@ -139,11 +140,11 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		  new IngredienteExtraAppModel(unPlato,unIngrediente)
 	}
 	
-//	override accept() {
-//		super.accept
-//		mainWindow.modelObject.setPrecio
-//		unPlato.aceptarCambios
-//		//unPlato.agregarIngredientes
-//	}
+	override accept() {
+		super.accept
+		unPlato.aceptarCambio
+		mainWindow.modelObject.setPrecio
+		
+	}
 	
 }
