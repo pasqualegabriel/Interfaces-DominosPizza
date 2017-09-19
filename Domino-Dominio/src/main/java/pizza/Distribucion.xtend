@@ -108,7 +108,7 @@ class Distribucion
 	 */
 	def costoDeIngredientes() 
 	{
-		this.ingredientes.keySet().stream().mapToInt([ i | i.precio]).sum()	
+		this.ingredientes.keySet().stream().mapToDouble([ i | i.precio]).sum()	
 	}
 	
 }

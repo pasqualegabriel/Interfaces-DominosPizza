@@ -38,7 +38,10 @@ class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 		]
 		new Button(mainPanel) => [
 			caption = "Aceptar"
-			onClick [|this.accept]
+			onClick [|this.accept
+					   mainWindow.modelObject.actualizarIngredientesDisponibles
+				
+			]
 			
 			disableOnError	
 		]

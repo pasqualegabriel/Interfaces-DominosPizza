@@ -24,7 +24,7 @@ class PizzaTest
 	def void setUp()
 	{
 		MockitoAnnotations.initMocks(this)
-		pizzaDePrueba	= new Pizza("Muzzarella", 75, unaDistribucion)
+		pizzaDePrueba	= new Pizza("Muzzarella", 75.00, unaDistribucion)
 	}
 	
 	// Tests
@@ -32,7 +32,7 @@ class PizzaTest
 	def test00Dada_Una_Pizza_Recien_Creada_Si_Se_Le_Pide_Su_Nombre_Su_Precio_Y_Sus_Ingredientes_Los_Da()
 	{
 		assertEquals("Muzzarella",pizzaDePrueba.nombre)	
-		assertEquals(75,pizzaDePrueba.precioBase)
+		assertEquals(75.00,pizzaDePrueba.precioBase,000001)
 		assertEquals(unaDistribucion, pizzaDePrueba.distribucion)
 	}
 	
@@ -50,10 +50,10 @@ class PizzaTest
 	def test02Dada_Una_Pizza_Si_Le_Cambio_El_Precio_Y_Se_Lo_Pido_Devuelve_El_Nuevo_Precio()
 	{
 		// Exercise
-		pizzaDePrueba.cambiarPrecio(90)
+		pizzaDePrueba.cambiarPrecio(90.00)
 		
 		// Assertion
-		assertEquals(90,pizzaDePrueba.precioBase)
+		assertEquals(90.00,pizzaDePrueba.precioBase,0.000001)
 	}
 
 	@Test

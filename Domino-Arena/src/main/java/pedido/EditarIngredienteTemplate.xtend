@@ -5,13 +5,13 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
 import pizza.Ingrediente
-import persistencia.Home
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
 import agregarPizza.IngredienteAdapterAbstract
 import org.uqbar.arena.widgets.Selector
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import persistencia.HomeIngrediente
 
 abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	
@@ -38,7 +38,7 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	def armarTablaDeIngredientes(Panel mainPanel) {
 		var tablaDeIngredientes = new Panel(mainPanel)
 		tablaDeIngredientes.layout= new VerticalLayout
-		var	listaDeIngredientes= Home.instance.getIngredientesDisponibles()
+		var	listaDeIngredientes= HomeIngrediente.instance.ingredientesDisponibles
 		
 		
 		for (Ingrediente unIngrediente: listaDeIngredientes ) {

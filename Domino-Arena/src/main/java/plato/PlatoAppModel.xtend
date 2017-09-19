@@ -6,11 +6,15 @@ import pizza.Tamanio
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pizza.Pizza
 import java.util.List
-import persistencia.Home
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
 import pizza.Distribucion
 import agregarPizza.IngredienteAdapterAbstract
+import pizza.Porcion
+import pizza.Chica
+import pizza.Grande
+import pizza.Familiar
+import persistencia.HomePizza
 
 @Accessors
 @TransactionalAndObservable
@@ -21,38 +25,35 @@ class PlatoAppModel {
 	Plato plato
 	List<Pizza> pizzaItems			= newArrayList
 	Pizza pizzaSelect
-	List<Tamanio> itemsSize 		= newArrayList
+	List<Tamanio> itemsSize 		= #[new Porcion, new Chica, new Grande, new Familiar]
 	Tamanio sizeSelect
 	List<IngredienteAdapterAbstract> ingredientesExtras = newArrayList
     
 	
 	new(Plato unPlato) {
 		coleccionPizzaItems
-		coleccionTamanioItems
 		plato 			= unPlato
+		plato.pizza 	= HomePizza.instance.promocionesDisponibles.get(0)
 		pizzaSelect		= plato.pizza
-		sizeSelect		= itemsSize.findFirst[ t | t.nombre.equalsIgnoreCase(unPlato.tamanio.nombre) ]
-		precio = plato.calcularPrecio
+		sizeSelect		= itemsSize.findFirst[ t | t.nombre.equals(unPlato.tamanio.nombre) ]
+		precio 			= plato.calcularPrecio
 		
 	}
 
-	def coleccionTamanioItems() {
-		itemsSize.addAll(Home.instance.tamanios)
 
-	}
 
 	def coleccionPizzaItems() {
-		pizzaItems.addAll(Home.instance.getPromocionesDisponibles())
+		pizzaItems.addAll(HomePizza.instance.promocionesDisponibles)
 	}
 
 	def void setPizzaSelect(Pizza unaPizza) {
 		pizzaSelect = unaPizza
-		
+
 	}
 
 	def void setSizeSelect(Tamanio unTamanio) {
 		sizeSelect = unTamanio
-		
+
 
 	}
 	
@@ -75,12 +76,12 @@ class PlatoAppModel {
 	}
 	
 	def calcularPrecio() {
-		precio = pizzaSelect.precioBase * sizeSelect.factorDeTamanio 
-		         + precioDeIngredientesExtras
+		precio = (pizzaSelect.precioBase * sizeSelect.factorDeTamanio) + precioDeIngredientesExtras
+
 	}
 	
 	def getPrecioDeIngredientesExtras() {
-		var double precioDeIngredientesExtras = 0
+		var double precioDeIngredientesExtras = 0.00
 		for(IngredienteAdapterAbstract i: ingredientesExtras){
 			precioDeIngredientesExtras += i.getPrecio
 		}

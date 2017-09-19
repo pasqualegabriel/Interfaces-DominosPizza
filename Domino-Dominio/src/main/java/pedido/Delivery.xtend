@@ -13,7 +13,7 @@ class Delivery implements FormaDeRetiro{
 	
 	override precioDeRetiro() 
 	{
-		15
+		15.00
 	}
 
 	

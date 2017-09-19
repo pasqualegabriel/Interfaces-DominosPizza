@@ -10,5 +10,5 @@ interface FormaDeRetiro
 
 	def EstadoDePedido avanzarEstado()
 
-	def Integer precioDeRetiro()
+	def Double precioDeRetiro()
 }

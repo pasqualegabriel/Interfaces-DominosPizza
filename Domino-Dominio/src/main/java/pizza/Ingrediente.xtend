@@ -13,17 +13,17 @@ class Ingrediente
 {
 	// Atributos
 	String 	nombre
-	Integer precio
+	Double precio
 	
 	// Constructor
-	new(String unNombre, int unPrecio) 
+	new(String unNombre, Double unPrecio) 
 	{
 		this.nombre = unNombre
 		this.precio = unPrecio
 	}
 	
 	// Getters & Setters
-	def void cambiarPrecio(int nuevoPrecio)
+	def void cambiarPrecio(Double nuevoPrecio)
 	{
 		this.precio = nuevoPrecio
 	}

@@ -3,14 +3,15 @@ import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import pizza.Pizza
 import pizza.Ingrediente
-import persistencia.Home
 import java.util.List
+import persistencia.HomePizza
+import persistencia.HomeIngrediente
+
 
 @Observable
 @Accessors
 class MenuDeDominoAppModel {
 	
-	Home home
 	Pizza pizzaSeleccionada
 	Ingrediente ingredienteSeleccionado	
 	List<Ingrediente> ingredientesDisponibles
@@ -18,44 +19,37 @@ class MenuDeDominoAppModel {
 	
 	
 	new(){
-		home= Home.instance
-		ingredientesDisponibles = home.getIngredientesDisponibles
-		promosDisponibles = home.getPromocionesDisponibles
+		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
+		promosDisponibles = HomePizza.instance.promocionesDisponibles
 	}
 	
 	def agregarIngrediente(Ingrediente unIngrediente){
-		
-	    ingredientesDisponibles.add(unIngrediente)
+		HomeIngrediente.instance.agregarIngrediente(unIngrediente)
+	  
 	}
 	
+		def eliminarIngrediente(Ingrediente unIngrediente) {
+		HomeIngrediente.instance.borrarIngrediente(unIngrediente)
+		
+	}
 	def agregarPromocion(Pizza unaPizza){
-		
-	 	promosDisponibles.add(unaPizza)
+		 HomePizza.instance.agregarPromocion(unaPizza)
+	 	
 	}
-	
-	def eliminarIngrediente(Ingrediente unIngrediente) {
-	
-		ingredientesDisponibles.remove(unIngrediente)
-	}
-	
 	def eliminarPizza(Pizza unaPizza) {
-		
-		promosDisponibles.remove(unaPizza)
+		 HomePizza.instance.borrarPromocion(unaPizza)
 	}
 	
 	def void actualizarPromosDisponibles()
 	{
-		promosDisponibles = home.getPromocionesDisponibles
+		promosDisponibles = null
+		promosDisponibles = HomePizza.instance.promocionesDisponibles
 	}
 	
-//		Deberia ser asi, pero no anda!
-//
-//	def getIngredientesDisponibles(){
-//		home.getIngredientesDisponibles
-//	}
-//
-//	def getPromosDisponibles(){
-//		home.getPromocionesDisponibles
-//	}
+	def actualizarIngredientesDisponibles() {
+		ingredientesDisponibles = null
+		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
+	}
+	
 	
 }

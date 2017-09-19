@@ -2,18 +2,18 @@ package DominoPizzaInicio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
-import persistencia.Home
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import java.util.Comparator
 import pedido.Pedido
+import persistencia.HomePedido
 
 @TransactionalAndObservable
 @Accessors
 class DominoPizzaAppModel {
-	List<Pedido> itemsPedidosAbiertos = Home.instance.pedidosAbiertos
+	List<Pedido> itemsPedidosAbiertos = HomePedido.instance.pedidosAbiertos
 	Pedido pedidoSelectItem
-	List<Pedido> itemsPedidosCerrados = Home.instance.pedidosCerrados
+	List<Pedido> itemsPedidosCerrados = HomePedido.instance.pedidosCerrados
 
 	/**Sirve para traer todos los pedidos pasarlo a un adapterPedido y luego guardarlo en una lista */
 	def getRepoDePedidosAbiertos() {
@@ -58,7 +58,7 @@ class DominoPizzaAppModel {
 	@Dependencies("listaDePedidosAbiertos")
 	def void cerrarPedidoSeleccionado() 
 	{
-		Home.instance.moverPedidoAPedidosCerrado(this.pedidoSelectItem)
+		HomePedido.instance.moverPedidoAPedidosCerrado(this.pedidoSelectItem)
 		itemsPedidosAbiertos.remove(pedidoSelectItem)
 		pedidoSelectItem = null
 	}

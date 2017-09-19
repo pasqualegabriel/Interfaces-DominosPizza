@@ -13,7 +13,7 @@ class Local implements  FormaDeRetiro {
 	
 	override precioDeRetiro() 
 	{
-		0
+		0.00
 	}
 	
 }

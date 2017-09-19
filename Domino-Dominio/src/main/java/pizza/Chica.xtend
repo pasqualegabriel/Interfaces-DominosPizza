@@ -20,7 +20,7 @@ class Chica implements Tamanio
 	 */
 	override factorDeTamanio() 
 	{
-		0.5
+		0.50
 	}
 	
 }

@@ -45,7 +45,9 @@ class EditarPizzaWindow extends EditarIngredienteTemplate{
 	override initBottom(Panel mainPanel) {
 		new Button(mainPanel) => [
 			caption = "Aceptar"
-			onClick [|this.accept]
+			onClick [|this.accept
+				mainWindow.modelObject.actualizarPromosDisponibles
+			]
 			
 			disableOnError	
 		]

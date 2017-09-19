@@ -31,9 +31,9 @@ class Pedido {
 	String 					aclaracion
 	FormaDeRetiro 			formaDeRetiro
 	Integer					tiempoDeEspera
-	Integer 				precio
-	// Constructor
+	Double 					precio
 	
+	// Constructor
 	new(Miembro unMiembro) {
 		
 		super()
@@ -52,14 +52,6 @@ class Pedido {
 			precio = calcularPrecio
 	}
 	
-//	def void setFormaDeRetiro(FormaDeRetiro unaFormaDeRetiro){
-//		formaDeRetiro = unaFormaDeRetiro
-//		calcularPrecio
-//	}
-
-	// Metodos
-
-	
 	def cambiarAclaracion(String aclaracionNueva) {
 		aclaracion = aclaracionNueva
 	}
@@ -76,13 +68,10 @@ class Pedido {
 	    setPrecio
 	}
 	def calcularPrecio() {
-		var precioPlatos = platos.stream.mapToInt[it.calcularPrecio].sum()
+		var precioPlatos = platos.stream.mapToDouble[it.calcularPrecio].sum()
 		if(formaDeRetiro==null){precioPlatos }else{
 			precioPlatos + formaDeRetiro.precioDeRetiro
-		}
-		
-		
-		
+		}	
 	}
 	
 	def cancelar() {

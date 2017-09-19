@@ -18,27 +18,6 @@ class TablaPedido extends Panel {
 		super(container)
 	}
 
-
-//	def tablaPedidos(Panel mainPanel, String listaDePedidos, String titulo3, String propiedad3, String titulo4,
-//		String propiedad4, String titulo) {
-//			
-//		var panelTablaPedidos = new Panel(mainPanel)
-//		panelTablaPedidos.layout = new VerticalLayout
-//		
-//		new Label(panelTablaPedidos) => [text = titulo]
-//		val tablaDePedidos = new Table<Pedido>(panelTablaPedidos, typeof(Pedido))
-//		tablaDePedidos => [
-//
-//			numberVisibleRows = 5
-//			items <=> listaDePedidos
-//			value <=> "pedidoSelectItem"
-//		]
-//		this.columnaTablaPedidosSoloNombrePedido(tablaDePedidos,"Pedido","miembro.nombre")
-//		this.columnaTablaPedidosEstado(tablaDePedidos, "Estado", "estadoActual")
-//		this.columnaTablaPedidos(tablaDePedidos, titulo3, propiedad3)
-//		this.columnaTablaPedidos(tablaDePedidos, titulo4, propiedad4)
-//
-//	}
 	
 		def tablaPedidos(Panel mainPanel, String listaDePedidos, String titulo) {
 			
@@ -122,7 +101,7 @@ class TablaPedido extends Panel {
 			[
 				title = unTitulo
 				bindContentsToProperty(propiedadABindear).transformer = 
-											[ Integer precio | '''$«precio»''']
+											[ Double precio | '''$«precio»''']
 			]
 	}
 	

@@ -86,22 +86,22 @@ class DistribucionTest
 	def test05Dada_Una_Distribucion_Sin_Ingredientes_Si_Le_Pido_Que_Calcule_El_Costo_De_Los_Ingredientes_Devuelve_0()
 	{
 		// Assertion
-		assertEquals(0,unaDistribucion.costoDeIngredientes())
+		assertEquals(0,00,unaDistribucion.costoDeIngredientes())
 	}
 	
 	@Test
 	def test06Dada_Una_Distribucion_Con_Dos_Ingredientes_Si_Le_Pido_Que_Calcule_El_Costo_De_Los_Ingredientes_Devuelve_27()
 	{
 		// Setup
-		when(queso.precio).thenReturn(15)
-		when(jamon.precio).thenReturn(12)
+		when(queso.precio).thenReturn(15.00)
+		when(jamon.precio).thenReturn(12.00)
 		
 		// Exercise
 		unaDistribucion.agregarIngrediente(queso,DistribucionEnPizza.Toda)
 		unaDistribucion.agregarIngrediente(jamon,DistribucionEnPizza.Izquierda)
 		
 		// Assertion
-		assertEquals(27,unaDistribucion.costoDeIngredientes())
+		assertEquals(27,00,unaDistribucion.costoDeIngredientes())
 	}
 	
 }

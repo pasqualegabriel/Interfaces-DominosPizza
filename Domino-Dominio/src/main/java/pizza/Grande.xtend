@@ -21,6 +21,6 @@ class Grande implements Tamanio
 	 */
 	override factorDeTamanio() 
 	{
-		1
+		1.00
 	}	
 }

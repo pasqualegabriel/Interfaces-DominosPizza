@@ -14,11 +14,11 @@ class Pizza
 {
 	// Atributos
 	String 			nombre
-	Integer 		precioBase
+	Double 		precioBase
 	Distribucion    distribucion
 	
 	// Constructor
-	new(String unNombre, int unPrecio, Distribucion unaDistribucion) 
+	new(String unNombre, Double unPrecio, Distribucion unaDistribucion) 
 	{
 		this.nombre 		= unNombre	
 		this.precioBase 	= unPrecio
@@ -31,7 +31,7 @@ class Pizza
 		this.nombre = unNombre
 	}
 	
-	def void cambiarPrecio(int nuevoPrecio) 
+	def void cambiarPrecio(Double nuevoPrecio) 
 	{
 		this.precioBase = nuevoPrecio
 	}

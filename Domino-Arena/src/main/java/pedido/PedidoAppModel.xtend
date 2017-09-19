@@ -1,4 +1,4 @@
-package listadoDePedidos
+package pedido
 
 import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -6,7 +6,7 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import estados.EstadoDePedido
 import java.util.List
 import pedido.Plato
-import persistencia.Home
+import persistencia.HomePedido
 
 @Accessors
 @TransactionalAndObservable
@@ -19,8 +19,8 @@ class PedidoAppModel {
 	List<EstadoDePedido> estadosSelector = newArrayList
 	List<Plato> itemsPlatos = newArrayList
 	Plato platoSeleccionado
-	int costoDeEnvio
-	int precio
+	Double costoDeEnvio
+	Double precio
 
 	new(Pedido unPedido) {
 		super()
@@ -54,8 +54,6 @@ class PedidoAppModel {
 
 	def void coleccionDeEstados() {
 		this.estadosSelector = newArrayList
-		// una opcion seria que los estados sepan responder si tienen siguente o anterior 
-		// y controlarlos con dos if separados
 		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Preparando") &&
 			!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado")) {
 			estadosSelector.add(pedidoAdaptado.estadoActual.previo)
@@ -84,7 +82,7 @@ class PedidoAppModel {
 
 		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado")){
 			pedidoAdaptado.calcularTiempoDeEntrega()
-			Home.instance.moverPedidoAPedidosCerrado(pedidoAdaptado)
+			HomePedido.instance.moverPedidoAPedidosCerrado(pedidoAdaptado)
 		}
 
 		this.coleccionDeEstados // Refresca la lista del Selector
@@ -105,7 +103,7 @@ class PedidoAppModel {
 
 	def getPrecio() {
 		precio
-		//"$" + pedidoAdaptado.calcularPrecio
+
 	}
 	
 	def void setPrecio(){

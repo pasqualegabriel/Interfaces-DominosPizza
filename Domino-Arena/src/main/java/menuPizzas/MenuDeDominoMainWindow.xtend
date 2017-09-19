@@ -52,7 +52,7 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 	
 	def crearIngrediente() {
-		val	dialog = new EditarIngredientesWindow(this, new Ingrediente("",0))
+		val	dialog = new EditarIngredientesWindow(this, new Ingrediente("",0.00))
 		dialog.onAccept[this.modelObject.agregarIngrediente(dialog.modelObject)]
 		dialog.open
 		
@@ -67,7 +67,7 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 
 	def crearPizza() {
-		val	dialog = new EditarPizzaWindow(this, new PromoAppModel(new Pizza("",0,new Distribucion)))
+		val	dialog = new EditarPizzaWindow(this, new PromoAppModel(new Pizza("",0.00,new Distribucion)))
 		dialog.onAccept[this.modelObject.agregarPromocion(dialog.modelo.pizza)]
 		dialog.open
 	}
@@ -76,7 +76,6 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	def editarPizza() {
 		var editorDePizzas = new EditarPizzaWindow(this, new PromoAppModel(modelObject.pizzaSeleccionada))
 		editorDePizzas.open
-		editorDePizzas.onAccept[modelObject.actualizarPromosDisponibles()]
 	}
 	
 	def eliminarPizza() {

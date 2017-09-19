@@ -103,29 +103,29 @@ class PlatoTest
 	def test05Dado_Un_Plato_Con_Una_Pizza_Customizada_Grande_Y_Sin_Ingredientes_Extras_Si_le_Pido_El_Precio_Devuelve_70()
 	{
 		// Setup
-		when(unaCustomizada.precioBase)      .thenReturn(70)
+		when(unaCustomizada.precioBase)      .thenReturn(70.00)
 		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue)
 		
 		// Exercise
 		unPlato.cambiarPizza(unaCustomizada)	
 				
 		// Assertion
-		assertEquals(70, unPlato.calcularPrecio)
+		assertEquals(70.00, unPlato.calcularPrecio,0.00000011)
 	}
 	
 	@Test
 	def test06Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Que_Sale_85_De_Tamaño_Familiar_Y_Con_Jamon_Como_Ingrediente_Extra_Que_Vale_15_Si_le_Pido_El_Precio_Devuelve_100()
 	{
 		// Setup
-		when(unaDeMuzza.precioBase)        .thenReturn(85)
-		when(tamanioGrande.factorDeTamanio).thenReturn(1.doubleValue)
-		when(jamon.precio)                 .thenReturn(15)
+		when(unaDeMuzza.precioBase)        .thenReturn(85.00)
+		when(tamanioGrande.factorDeTamanio).thenReturn(1.00.doubleValue)
+		when(jamon.precio)                 .thenReturn(15.00)
 		
 		// Exercise
 		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Izquierda)	
 		
 		// Assertion
-		assertEquals(100, unPlato.calcularPrecio())
+		assertEquals(100, unPlato.calcularPrecio(),0.00000001)
 	}
 
 }

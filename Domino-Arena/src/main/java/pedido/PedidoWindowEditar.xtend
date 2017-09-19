@@ -16,7 +16,6 @@ import org.uqbar.arena.widgets.TextBox
 import estados.EstadoDePedido
 import plato.EditarPlatoWindow
 import plato.AgregarPlatoWindow
-import listadoDePedidos.PedidoAppModel
 import plato.PlatoAppModel
 import org.uqbar.arena.bindings.NotNullObservable
 

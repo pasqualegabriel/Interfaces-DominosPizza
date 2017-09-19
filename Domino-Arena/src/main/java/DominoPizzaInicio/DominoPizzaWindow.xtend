@@ -43,8 +43,6 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 		panelDeListaPedidos.layout = new HorizontalLayout
 
 		val tabla = new TablaPedido(panelDeListaPedidos)
-//		tabla.tablaPedidos(panelDeListaPedidos, "itemsPedidosAbiertos", "Monto", "precio", 
-//							"Hora", "fecha.toLocalTime", "Pedidos Abiertos")
 
 		var tablaPedidosAbiertos= tabla.tablaPedidos(panelDeListaPedidos,"itemsPedidosAbiertos", "Pedidos Abiertos")
 		tabla.columnaTablaPedidosSoloPrecio(tablaPedidosAbiertos,"Precio","precio")
@@ -87,7 +85,6 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */
 	def botonesAvanceRetroceso(Panel panelTablaDePedido) {
-//		val erro = new ErrorsPanel(panelTablaDePedido,"Amigo no podes ir para atras")
 		val unPedidoSeleccionado = new NotNullObservable("pedidoSelectItem")
 		var panelRetrocederAvanzar = new Panel(panelTablaDePedido)
 		panelRetrocederAvanzar.layout = new HorizontalLayout
@@ -124,8 +121,6 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 			caption = "Menú"
 			onClick [
 				new MenuDeDominoMainWindow(this, new MenuDeDominoAppModel).open
-			// Por que hay q pasarle el appModel de menu????
-			/*Hay que modificar esto el menu adentro intancia su modelo un appModel */
 			]
 		]
 

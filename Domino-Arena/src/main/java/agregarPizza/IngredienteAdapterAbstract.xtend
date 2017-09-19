@@ -29,11 +29,11 @@ abstract class IngredienteAdapterAbstract {
 	
 	def void agregarse()
 	
-	def int getGetPrecio(){
+	def Double getGetPrecio(){
 		if(estaActivadoEnCheckbox && distribucionSeleccionada != null){
 			return this.ingrediente.precio
 		}
-		0
+		0.00
 	}
 	
 }

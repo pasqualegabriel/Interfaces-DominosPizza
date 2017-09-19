@@ -14,7 +14,7 @@ class IngredientesTest
 	@Before
 	def void setUp()
 	{
-		muzzarella	= new Ingrediente("Muzzarella" , 20)
+		muzzarella	= new Ingrediente("Muzzarella" , 20.00)
 	}
 	
 	// Tests
@@ -23,17 +23,17 @@ class IngredientesTest
 	{
 		// Assertion
 		assertEquals("Muzzarella", muzzarella.nombre)
-		assertEquals(20, muzzarella.precio)			
+		assertEquals(20, muzzarella.precio, 0.00001)			
 	}
 	
 	@Test
 	def test02Dado_Un_Ingrediente_Si_Se_Cambia_El_Precio_Este_Lo_Actualiza()
 	{
 		// Exercise
-		muzzarella.cambiarPrecio(55)
+		muzzarella.cambiarPrecio(55.00)
 		
 		// Assertion
-		assertEquals(55, muzzarella.precio)	
+		assertEquals(55.00, muzzarella.precio, 0.00001)
 	}
 	
 	@Test

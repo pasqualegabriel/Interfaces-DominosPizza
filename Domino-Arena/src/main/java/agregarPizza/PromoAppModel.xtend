@@ -24,25 +24,27 @@ class PromoAppModel {
 	def getNombre(){
 		pizza.nombre
 	}
-	
-	def void setNombre(String unString){
-		pizza.nombre= unString
-	}
-	
+		
 	def getPrecioBase(){
 		pizza.precioBase
 	}
 	
-	def void setPrecioBase(Integer unint){
-		pizza.precioBase = unint
+	def void setPrecioBase(Double unNumero){
+		pizza.precioBase = unNumero
+	}
+
+	def void setNombre(String unString) {
+		pizza.nombre = unString
 	}
 	
 	def agregarIngredientes() {
 		pizza.distribucion= new Distribucion
-		// hacer esto con lambda
+
+// 		hacer esto con lambda
 //		for (IngredienteAdapterAbstract ingrediente: ingredientes){
 //			ingrediente.agregarse
 //		}
+
 		ingredientes.forEach[ i | i.agregarse]
 	
 	}
