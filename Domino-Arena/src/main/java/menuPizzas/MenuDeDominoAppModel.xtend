@@ -43,6 +43,11 @@ class MenuDeDominoAppModel {
 		promosDisponibles.remove(unaPizza)
 	}
 	
+	def void actualizarPromosDisponibles()
+	{
+		promosDisponibles = home.getPromocionesDisponibles
+	}
+	
 //		Deberia ser asi, pero no anda!
 //
 //	def getIngredientesDisponibles(){

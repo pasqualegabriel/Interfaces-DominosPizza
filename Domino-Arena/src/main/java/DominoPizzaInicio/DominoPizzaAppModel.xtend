@@ -56,7 +56,8 @@ class DominoPizzaAppModel {
 
 	/**cierra un pedido seleccionado */
 	@Dependencies("listaDePedidosAbiertos")
-	def void cerrarPedidoSeleccionado() {
+	def void cerrarPedidoSeleccionado() 
+	{
 		Home.instance.moverPedidoAPedidosCerrado(this.pedidoSelectItem)
 		itemsPedidosAbiertos.remove(pedidoSelectItem)
 		pedidoSelectItem = null

@@ -43,8 +43,12 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 		panelDeListaPedidos.layout = new HorizontalLayout
 
 		val tabla = new TablaPedido(panelDeListaPedidos)
-		tabla.tablaPedidos(panelDeListaPedidos, "itemsPedidosAbiertos", "Monto", "precio", 
-							"Hora", "fecha.toLocalTime", "Pedidos Abiertos")
+//		tabla.tablaPedidos(panelDeListaPedidos, "itemsPedidosAbiertos", "Monto", "precio", 
+//							"Hora", "fecha.toLocalTime", "Pedidos Abiertos")
+
+		var tablaPedidosAbiertos= tabla.tablaPedidos(panelDeListaPedidos,"itemsPedidosAbiertos", "Pedidos Abiertos")
+		tabla.columnaTablaPedidosSoloPrecio(tablaPedidosAbiertos,"Precio","precio")
+		tabla.columnaTablaPedidosSoloHora(tablaPedidosAbiertos,"Hora","fecha")
 
 		this.panelBotonesListaDePedidos(panelDeListaPedidos)
 	}
@@ -60,7 +64,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 		new Button(panelTablaDePedido) => [
 			caption = "Cancelar"
-			onClick [modelObject.cerrarPedidoSeleccionado()]
+			onClick [modelObject.cancelarPedidoSeleccionado()]
 			bindEnabled(unPedidoSeleccionado)
 		]
 
@@ -73,8 +77,11 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 	}
 	
 	def abrirDialogoDeEditarPedido() {
-		val dialog = new PedidoWindowEditar(this, modelObject.pedidoSelectItem, true)
-		dialog.onAccept[this.modelObject.pedidoSelectItem.setPrecio()]
+		val dialog = new PedidoWindowEditar(this, modelObject.pedidoSelectItem)
+		dialog.onAccept[
+						this.modelObject.pedidoSelectItem.setPrecio()
+						this.modelObject.getRepoDePedidosAbiertos()
+		]
 		dialog.open
 	}
 

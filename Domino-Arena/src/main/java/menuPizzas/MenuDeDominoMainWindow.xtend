@@ -74,7 +74,9 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 
 	
 	def editarPizza() {
-		new EditarPizzaWindow(this, new PromoAppModel(modelObject.pizzaSeleccionada)).open
+		var editorDePizzas = new EditarPizzaWindow(this, new PromoAppModel(modelObject.pizzaSeleccionada))
+		editorDePizzas.open
+		editorDePizzas.onAccept[modelObject.actualizarPromosDisponibles()]
 	}
 	
 	def eliminarPizza() {

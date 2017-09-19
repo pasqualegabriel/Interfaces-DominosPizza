@@ -8,9 +8,9 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
-import pedido.PedidoWindowEditar
 import DominoPizzaInicio.TablaPedido
 import DominoPizzaInicio.DominoPizzaAppModel
+import pedido.PedidoCerradoWindow
 
 class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel> 
 {
@@ -33,10 +33,10 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel>
 
 	def tablaDePedidosCerrados(Panel mainPanel)
 	{
-		
-		val tabla=new TablaPedido(mainPanel)
-		tabla.tablaPedidos(mainPanel,"itemsPedidosCerrados",
-		"Fecha","fecha","Espera","tiempoDeEspera","Pedidos Cerrados")
+		val tabla		= new TablaPedido(mainPanel)
+		var tablaPedidos= tabla.tablaPedidos(mainPanel,"itemsPedidosCerrados","Pedidos Cerrados")
+		tabla.columnaTablaPedidosSoloFecha(tablaPedidos,"Fecha","fecha")
+		tabla.columnaTablaPedidosSoloTiempoDeDemora(tablaPedidos,"Tiempo De Espera","tiempoDeEspera")
 	}
 	
 	def botonesInferiores(Panel mainPanel)
@@ -47,7 +47,7 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel>
 		
 		new Button(panelBotonesInferiores)=>[
 												caption = "Ver"
-												onClick [	new PedidoWindowEditar(this, modelObject.pedidoSelectItem,false).open	]
+												onClick [	new PedidoCerradoWindow(this, modelObject.pedidoSelectItem).open	]
 												bindEnabled(unPedidoCerradoSeleccionado)
 											]
 		

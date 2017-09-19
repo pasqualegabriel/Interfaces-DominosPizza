@@ -9,8 +9,8 @@ import java.util.List
 import persistencia.Home
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
-import agregarPizza.IngredienteAdapterAbstract
 import pizza.Distribucion
+import agregarPizza.IngredienteAdapterAbstract
 
 @Accessors
 @TransactionalAndObservable
@@ -28,12 +28,12 @@ class PlatoAppModel {
 
 	
 	new(Plato unPlato) {
-		plato = unPlato
-		pizzaSelect = plato.pizza
-		sizeSelect = plato.tamanio
-		setPrecio
 		coleccionPizzaItems
 		coleccionTamanioItems
+		plato 		= unPlato
+		pizzaSelect = plato.pizza
+		sizeSelect	= itemsSize.findFirst[ t | t.nombre.equalsIgnoreCase(unPlato.tamanio.nombre) ]
+		setPrecio
 	}
 
 	def coleccionTamanioItems() {
@@ -47,12 +47,12 @@ class PlatoAppModel {
 
 	def void setPizzaSelect(Pizza unaPizza) {
 		pizzaSelect = unaPizza
-
+		setPrecio
 	}
 
 	def void setSizeSelect(Tamanio unTamanio) {
 		sizeSelect = unTamanio
-
+		setPrecio
 
 	}
 
@@ -66,7 +66,7 @@ class PlatoAppModel {
 	
 	def agregaIngredienteExtra(Ingrediente ingrediente, DistribucionEnPizza distribucion) {
 		plato.agregarIngredienteExtra(ingrediente,distribucion)
-		
+		setPrecio
 	}
 	
 	def cambiarDistribucionDeIngredienteExtra(Ingrediente unIngrediente,DistribucionEnPizza unaDistribucion) {
@@ -79,6 +79,7 @@ class PlatoAppModel {
 		for (IngredienteAdapterAbstract ingrediente: ingredientesExtras){
 			ingrediente.agregarse
 		}
+		setPrecio
 	}
 	
 	

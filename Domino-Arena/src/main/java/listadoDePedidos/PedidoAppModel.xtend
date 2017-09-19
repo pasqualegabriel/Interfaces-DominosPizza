@@ -12,7 +12,6 @@ import persistencia.Home
 @TransactionalAndObservable
 class PedidoAppModel {
 	
-	Boolean pedidoCerrado
 	Pedido pedidoAdaptado
 	Integer nroPedido
 	String estadoActual
@@ -23,7 +22,7 @@ class PedidoAppModel {
 	int costoDeEnvio
 	int precio
 
-	new(Pedido unPedido, Boolean cerradoONo) {
+	new(Pedido unPedido) {
 		super()
 		pedidoAdaptado = unPedido
 		estadoActual = unPedido.estadoActual.nombre
@@ -31,8 +30,12 @@ class PedidoAppModel {
 		coleccionDeEstados
 		coleccionDePlatos
 		costoDeEnvio = pedidoAdaptado.formaDeRetiro.precioDeRetiro
-		pedidoCerrado = cerradoONo
 		setPrecio
+	}
+	
+	def noEstaCerrado() 
+	{
+		!(pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Cancelado") || pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
 	}
 
 	def void coleccionDePlatos() {

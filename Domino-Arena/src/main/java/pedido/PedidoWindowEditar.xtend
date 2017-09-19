@@ -18,21 +18,22 @@ import plato.EditarPlatoWindow
 import plato.AgregarPlatoWindow
 import listadoDePedidos.PedidoAppModel
 import plato.PlatoAppModel
+import org.uqbar.arena.bindings.NotNullObservable
 
 class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 	
 	
 	
-	new(WindowOwner owner, Pedido pedido, boolean b) {
+	new(WindowOwner owner, Pedido pedido) {
 		
-		super(owner, new PedidoAppModel(pedido,b))
+		super(owner, new PedidoAppModel(pedido))
 		
 		
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
 
-		this.title = "Editar un Pedido"
+		this.title = this.titulo
 
 		mainPanel.layout = new VerticalLayout()
 
@@ -53,7 +54,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Label(panelEstados).text = "Estado"
 
 		new Selector<EstadoDePedido>(panelEstados) => [
-			bindEnabledToProperty("pedidoCerrado")
+			bindEnabledToProperty("noEstaCerrado")
 			allowNull(false)
 			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
@@ -76,7 +77,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Label(panelTablaPlatos).text = "Platos"
 
 		val tablaPedidos = new Table(panelTablaPlatos, typeof(Plato)) => [
-			bindEnabledToProperty("pedidoCerrado")
+			bindEnabledToProperty("noEstaCerrado")
 			numberVisibleRows = 6
 			items <=> "itemsPlatos"
 			value <=> "platoSeleccionado"
@@ -97,11 +98,12 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 	}
 	/**Crea los botones que van a utilizar la tabla de plato  */
 	def botonesPlatos(Panel panelPlatos) {
+		val haySeleccion	= new NotNullObservable("platoSeleccionado")
 		var panelBotonesPlatos = new Panel(panelPlatos)
 		panelBotonesPlatos.layout = new VerticalLayout
 
 		new Button(panelBotonesPlatos) => [
-			bindEnabledToProperty("pedidoCerrado")
+			bindVisibleToProperty("noEstaCerrado")
 			caption = "Agregar"
 			onClick [
 						new AgregarPlatoWindow(this).open
@@ -109,7 +111,8 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		]
 
 		new Button(panelBotonesPlatos) => [
-			bindEnabledToProperty("pedidoCerrado")
+			bindEnabled(haySeleccion)
+			bindVisibleToProperty("noEstaCerrado")
 			caption = "Editar"
 			onClick [
 				new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open
@@ -117,7 +120,8 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		]
 
 		new Button(panelBotonesPlatos) => [
-			bindEnabledToProperty("pedidoCerrado")
+			bindEnabled(haySeleccion)
+			bindVisibleToProperty("noEstaCerrado")
 			caption = "Eliminar"
 			onClick [
 				modelObject.eliminarPlato()
@@ -130,7 +134,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Label(mainPanel).text = "Aclaraciones"
 
 		new TextBox(mainPanel) => [
-			bindEnabledToProperty("pedidoCerrado")
+			bindEnabledToProperty("noEstaCerrado")
 			width = 20
 			fontSize = 9
 			value <=> "pedidoAdaptado.aclaracion"
@@ -174,10 +178,15 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		]
 
 		new Button(panelUltimosBotonesPlatos) => [
+			bindVisibleToProperty("noEstaCerrado")
 			caption = "Cancelar"
 			onClick [close]
 		]
 	}
 
+	def titulo() 
+	{
+		'''Editar Pedido de «modelObject.pedidoAdaptado.miembro.nombre»'''.toString
+	}
 
 }
