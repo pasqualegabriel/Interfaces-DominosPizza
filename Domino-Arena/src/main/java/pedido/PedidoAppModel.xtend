@@ -21,7 +21,7 @@ class PedidoAppModel {
 	Plato platoSeleccionado
 	Double costoDeEnvio
 	Double precio
-	List<Plato> cancelar = newArrayList
+	List<Plato> pedidosAAgregar = newArrayList
 
 	new(Pedido unPedido) {
 		super()
@@ -48,9 +48,8 @@ class PedidoAppModel {
 	}
 
 	def void agregarPlatoAdapter(Plato unPlato) {
-		pedidoAdaptado.agregarPlato(unPlato)
 		itemsPlatos.add(unPlato)
-		cancelar.add(unPlato)
+		pedidosAAgregar.add(unPlato)
 	}
 
 	def void coleccionDeEstados() {
@@ -130,9 +129,10 @@ class PedidoAppModel {
 
 	}
 	
-	def cancelarCambios() {
-		for(Plato p: cancelar){
-			pedidoAdaptado.quitarPlato(p)
+	
+	def aceptarCambios() {
+		for (Plato unPlato: pedidosAAgregar){
+			pedidoAdaptado.agregarPlato(unPlato)
 		}
 	}
 

@@ -170,7 +170,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Aceptar"
 			onClick [
-				
+				modelObject.aceptarCambios
 				accept
 				disableOnError
 			]
@@ -180,11 +180,11 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			bindVisibleToProperty("noEstaCerrado")
 			caption = "Cancelar"
 			onClick [
-				modelObject.cancelarCambios
 				close
 			]
 		]
 	}
+
 
 	def titulo() 
 	{
