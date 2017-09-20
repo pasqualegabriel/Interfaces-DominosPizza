@@ -179,7 +179,10 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Button(panelUltimosBotonesPlatos) => [
 			bindVisibleToProperty("noEstaCerrado")
 			caption = "Cancelar"
-			onClick [close]
+			onClick [
+				modelObject.cancelarCambios
+				close
+			]
 		]
 	}
 
