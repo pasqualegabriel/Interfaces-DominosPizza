@@ -17,7 +17,7 @@ import estados.EstadoDePedido
 import plato.EditarPlatoWindow
 import plato.AgregarPlatoWindow
 import plato.PlatoAppModel
-import org.uqbar.arena.bindings.NotNullObservable
+
 
 class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 	
@@ -54,7 +54,6 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		new Selector<EstadoDePedido>(panelEstados) => [
 			bindEnabledToProperty("noEstaCerrado")
-			allowNull(false)
 			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
 			value <=> "cambioDeEstado"
 			onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") )
@@ -97,10 +96,9 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 	}
 	/**Crea los botones que van a utilizar la tabla de plato  */
 	def botonesPlatos(Panel panelPlatos) {
-		val haySeleccion	= new NotNullObservable("platoSeleccionado")
 		var panelBotonesPlatos = new Panel(panelPlatos)
 		panelBotonesPlatos.layout = new VerticalLayout
-
+		
 		new Button(panelBotonesPlatos) => [
 			bindVisibleToProperty("noEstaCerrado")
 			caption = "Agregar"
@@ -110,22 +108,26 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		]
 
 		new Button(panelBotonesPlatos) => [
-			bindEnabled(haySeleccion)
-			bindVisibleToProperty("noEstaCerrado")
 			caption = "Editar"
+			setAsDefault
 			onClick [
 				new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open
 			]
+			bindEnabledToProperty("sePuedeEditar")
+			
+			
 		]
 
 		new Button(panelBotonesPlatos) => [
-			bindEnabled(haySeleccion)
 			bindVisibleToProperty("noEstaCerrado")
 			caption = "Eliminar"
 			onClick [
-				modelObject.eliminarPlato()
+				modelObject.eliminarPlato
+				modelObject.calcularPrecio
 			]
+			bindEnabledToProperty("sePuedeEditar")
 		]
+		
 	}
 
 	def aclaracionesPlatos(Panel mainPanel) {

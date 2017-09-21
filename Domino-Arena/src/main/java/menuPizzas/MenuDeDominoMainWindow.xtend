@@ -13,6 +13,7 @@ import agregarPizza.PromoAppModel
 import pizza.Ingrediente
 import pizza.Pizza
 import pizza.Distribucion
+import org.uqbar.commons.model.exceptions.UserException
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	
@@ -63,7 +64,8 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 	
 	def eliminarIngrediente() {
-		modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)
+		try {modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)}
+		catch (NullPointerException e){ throw new UserException("No hay ingrediente seleccionado") }
 	}
 
 	def crearPizza() {

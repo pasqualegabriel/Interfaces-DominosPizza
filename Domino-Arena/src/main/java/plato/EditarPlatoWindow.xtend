@@ -8,7 +8,6 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Selector
-import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.Button
 import pizza.Pizza
 import pizza.Tamanio
@@ -38,14 +37,12 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		panelPizza.layout = new HorizontalLayout()
 
 		new Label(panelPizza).text = "Pizza"
-		val selectorNotNull = new NotNullObservable("pizzaSelect")
 
 		new Selector<PlatoAppModel>(panelPizza) => [
 			allowNull(false)
 			(items <=> "pizzaItems").adaptWith(typeof(Pizza), "nombre")
 			value <=> "pizzaSelect"
 
-			bindEnabled(selectorNotNull)
 		]
 	}
 
@@ -54,14 +51,12 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 		panelSize.layout = new HorizontalLayout()
 		
 		new Label(panelSize).text = "Medida"
-		val selectorNotNull = new NotNullObservable("sizeSelect")
 
 		new Selector<PlatoAppModel>(panelSize) => [
 			allowNull(false)
 			(items <=> "itemsSize").adaptWith(typeof(Tamanio), "nombre")
 			value <=> "sizeSelect"
 
-			bindEnabled(selectorNotNull)
 		]
 
 	}
@@ -69,15 +64,14 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 	def footButton(Panel mainPanel) {
 		var panelButton = new Panel(mainPanel)
 		panelButton.layout = new HorizontalLayout()
-		
 		new Button(panelButton) => [
 			caption = "Aceptar"
 			onClick [
-				mainWindow.modelObject.setPrecio
 				this.accept
 				setAsDefault
 				disableOnError
 			]
+			
 		]
 
 		new Button(panelButton) => [
@@ -114,6 +108,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 				setAsDefault
 				disableOnError
 			]
+			
 		]
 	
 	
@@ -143,7 +138,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate {
 	override accept() {
 		super.accept
 		unPlato.aceptarCambio
-		mainWindow.modelObject.setPrecio
+		mainWindow.modelObject.calcularPrecio
 		
 	}
 	

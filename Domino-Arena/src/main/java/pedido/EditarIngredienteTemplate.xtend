@@ -63,11 +63,12 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre
 		
 		new Selector(checkBoxDeIngrediente)=>[
+     		
      		allowNull(false)
-     	
 			items <=> "distribuciones"
 			value <=> "distribucionSeleccionada"
 		]
+		
 	}
 	
 	def void agregarAModelo(IngredienteAdapterAbstract abstract1)

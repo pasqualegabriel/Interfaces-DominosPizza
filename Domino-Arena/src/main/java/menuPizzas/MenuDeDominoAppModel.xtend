@@ -20,24 +20,30 @@ class MenuDeDominoAppModel {
 	
 	new(){
 		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
-		promosDisponibles = HomePizza.instance.promocionesDisponibles
+		promosDisponibles 		= HomePizza.instance.promocionesDisponibles
 	}
 	
 	def agregarIngrediente(Ingrediente unIngrediente){
 		HomeIngrediente.instance.agregarIngrediente(unIngrediente)
+		actualizarIngredientesDisponibles
 	  
 	}
 	
-		def eliminarIngrediente(Ingrediente unIngrediente) {
+	def eliminarIngrediente(Ingrediente unIngrediente) {
 		HomeIngrediente.instance.borrarIngrediente(unIngrediente)
+		//ingredienteSeleccionado=null
+		actualizarIngredientesDisponibles
 		
 	}
 	def agregarPromocion(Pizza unaPizza){
 		 HomePizza.instance.agregarPromocion(unaPizza)
+		 actualizarPromosDisponibles
 	 	
 	}
 	def eliminarPizza(Pizza unaPizza) {
 		 HomePizza.instance.borrarPromocion(unaPizza)
+		 //pizzaSeleccionada=null
+		 actualizarPromosDisponibles
 	}
 	
 	def void actualizarPromosDisponibles()
