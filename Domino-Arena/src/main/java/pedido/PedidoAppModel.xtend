@@ -144,6 +144,7 @@ class PedidoAppModel {
 	def getCostoDeEnvio()
 	{	'''$ «costoDeEnvio»'''	}
 
+	@Dependencies("precio")
 	def getPrecioMostrable()
 	{	'''$ «precio»'''	} 
 
