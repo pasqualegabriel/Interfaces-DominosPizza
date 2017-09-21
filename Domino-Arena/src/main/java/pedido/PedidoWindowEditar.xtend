@@ -22,12 +22,8 @@ import org.uqbar.arena.bindings.NotNullObservable
 class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 	
 	
-	
 	new(WindowOwner owner, Pedido pedido) {
-		
 		super(owner, new PedidoAppModel(pedido))
-		
-		
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -36,30 +32,37 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		mainPanel.layout = new VerticalLayout()
 
-		selectorEstado(mainPanel)
-
+		labelYSelectorEstado(mainPanel)
 		tablaPlato(mainPanel)
 		aclaracionesPlatos(mainPanel)
 		datosPlatos(mainPanel)
 		ultimosBotonesPlatos(mainPanel)
-
 	}
+	
+	def titulo() 
+	{	'''Editar Pedido de «modelObject.pedidoAdaptado.miembro.nombre»'''.toString	}
 
-	def selectorEstado(Panel mainPanel) {
+	def labelYSelectorEstado(Panel mainPanel) {
 
 		var panelEstados = new Panel(mainPanel)
 		panelEstados.layout = new HorizontalLayout
 
-		new Label(panelEstados).text = "Estado"
-
-		new Selector<EstadoDePedido>(panelEstados) => [
-			bindEnabledToProperty("noEstaCerrado")
-			allowNull(false)
-			(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
-			value <=> "cambioDeEstado"
-			onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") )
-		]
+		new Label(panelEstados).text = "Estado: "
+		selectorDeEstado(panelEstados)
 	}
+	
+	def void selectorDeEstado(Panel panelEstados) 
+	{
+		new Selector<EstadoDePedido>(panelEstados) => 
+				[
+					allowNull(false)
+					(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
+					value <=> "cambioDeEstado"
+					onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") )
+				]
+	}
+	
+	
 	/**Crea toda la estructura de la tabla para platos */
 	def tablaPlato(Panel mainPanel) {
 
@@ -84,7 +87,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		columnasDePlato(tablaPedidos,"Nombre","pizza.nombre")
 		columnasDePlato(tablaPedidos,"Tamaño","tamanio.nombre")
-		columnasDePlato(tablaPedidos,"Precio","calcularPrecio")
+		columnasDePlatoPrecio(tablaPedidos)
 
 
 	}
@@ -95,6 +98,14 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			bindContentsToProperty(value)
 		]
 	}
+	/**Crea la columna especifica de precio del plato*/
+	def columnasDePlatoPrecio(Table<Plato> tablaPedidos){
+		new Column(tablaPedidos) => [
+			title = "Precio"
+			bindContentsToProperty("calcularPrecio").transformer = [precio | '''$ «precio»''']
+		]
+	}
+	
 	/**Crea los botones que van a utilizar la tabla de plato  */
 	def botonesPlatos(Panel panelPlatos) {
 		val haySeleccion	= new NotNullObservable("platoSeleccionado")
@@ -130,18 +141,23 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 	def aclaracionesPlatos(Panel mainPanel) {
 
-		new Label(mainPanel).text = "Aclaraciones"
+		new Label(mainPanel).text = "Aclaraciones:"
 
-		new TextBox(mainPanel) => [
-			bindEnabledToProperty("noEstaCerrado")
-			width = 20
-			fontSize = 9
-			value <=> "pedidoAdaptado.aclaracion"
-		]
+		aclaracion(mainPanel)
+	}
+	
+	def void aclaracion(Panel mainPanel) 
+	{
+		new TextBox(mainPanel) => 
+				[
+					width = 20
+					fontSize = 9
+					value <=> "pedidoAdaptado.aclaracion"
+				]
 	}
 
-	def void datosPlatos(Panel mainPanel) {
-
+	def void datosPlatos(Panel mainPanel) 
+	{
 		var panelDatosPlatos = new Panel(mainPanel)
 		panelDatosPlatos.layout = new ColumnLayout(2)
 
@@ -151,11 +167,11 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
-		new Label(panelDatosPlatos).value <=> "costoDeEnvio"
+		new Label(panelDatosPlatos).value <=> "costoDeEnvio"  
 
 		new Label(panelDatosPlatos).text = "Monto total"
 	
-		new Label(panelDatosPlatos).value <=> "precio"
+		new Label(panelDatosPlatos).value <=> "precioMostrable"
 
 		new Label(panelDatosPlatos).text = "Hora"
 
@@ -170,25 +186,18 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Button(panelUltimosBotonesPlatos) => [
 			caption = "Aceptar"
 			onClick [
-				modelObject.aceptarCambios
-				accept
-				disableOnError
-			]
+						modelObject.aceptarCambios
+						accept
+						disableOnError
+					]
 		]
 
-		new Button(panelUltimosBotonesPlatos) => [
-			bindVisibleToProperty("noEstaCerrado")
-			caption = "Cancelar"
-			onClick [
-				close
+		new Button(panelUltimosBotonesPlatos) => 
+			[
+				bindVisibleToProperty("noEstaCerrado")
+				caption = "Cancelar"
+				onClick [	close	]
 			]
-		]
-	}
-
-
-	def titulo() 
-	{
-		'''Editar Pedido de «modelObject.pedidoAdaptado.miembro.nombre»'''.toString
 	}
 
 }

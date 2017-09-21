@@ -101,10 +101,9 @@ class PedidoAppModel {
 		pedidoAdaptado.estadoActual.nombre
 	}
 
-	def getPrecio() {
-		precio
-
-	}
+	def getPrecio()
+	{	precio	} 
+	
 	
 	def void setPrecio(){
 		precio= pedidoAdaptado.calcularPrecio
@@ -135,5 +134,11 @@ class PedidoAppModel {
 			pedidoAdaptado.agregarPlato(unPlato)
 		}
 	}
+
+	def getCostoDeEnvio()
+	{	'''$ «costoDeEnvio»'''	}
+
+	def getPrecioMostrable()
+	{	'''$ «precio»'''	} 
 
 }

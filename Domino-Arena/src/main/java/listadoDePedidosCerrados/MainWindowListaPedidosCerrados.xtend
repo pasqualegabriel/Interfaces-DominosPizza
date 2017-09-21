@@ -1,6 +1,5 @@
 package listadoDePedidosCerrados
 
-//import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
@@ -15,11 +14,11 @@ import pedido.PedidoCerradoWindow
 class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel> 
 {
 	
-	new(WindowOwner parent) {
-		super(parent, new DominoPizzaAppModel)
-	}
+	new(WindowOwner parent) 
+	{	super(parent, new DominoPizzaAppModel)	}
 	
-	override protected addActions(Panel actionsPanel){}
+	override protected addActions(Panel actionsPanel)
+	{/*Sin Uso*/}
 	
 	override protected createFormPanel(Panel mainPanel) 
 	{
@@ -55,7 +54,6 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel>
 												caption = "Volver"
 												onClick [	this.close	]
 											]
-	
 	}
 	
 }
