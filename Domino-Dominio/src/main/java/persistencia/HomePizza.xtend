@@ -36,9 +36,8 @@ class HomePizza {
 	 */
 	def borrarPromocion(Pizza unaPizza) 
 	{
-		if(promocionesDisponibles.contains(unaPizza)){promocionesDisponibles.remove(unaPizza)}
-				
-		else
-			throw new RuntimeException("No Esta La Pizza Promocion a sacar a sacar")
+		
+		//if(promocionesDisponibles.contains(unaPizza)){promocionesDisponibles.remove(unaPizza)}
+		promocionesDisponibles.remove(unaPizza)
 	}
 }

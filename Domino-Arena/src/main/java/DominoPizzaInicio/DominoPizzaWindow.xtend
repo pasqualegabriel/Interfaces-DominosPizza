@@ -68,8 +68,11 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 		new Button(panelTablaDePedido) => [
 			caption = "Editar"
-			onClick [this.abrirDialogoDeEditarPedido]
-			bindEnabled(unPedidoSeleccionado)
+			onClick [
+				bindEnabled(unPedidoSeleccionado)
+				this.abrirDialogoDeEditarPedido
+				
+			]
 		]
 
 	}

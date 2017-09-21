@@ -7,6 +7,7 @@ import estados.EstadoDePedido
 import java.util.List
 import pedido.Plato
 import persistencia.HomePedido
+import org.uqbar.commons.model.annotations.Dependencies
 
 @Accessors
 @TransactionalAndObservable
@@ -31,7 +32,9 @@ class PedidoAppModel {
 		coleccionDeEstados
 		coleccionDePlatos
 		costoDeEnvio = pedidoAdaptado.formaDeRetiro.precioDeRetiro
-		setPrecio
+		calcularPrecio
+		
+		
 	}
 	
 	def noEstaCerrado() 
@@ -39,6 +42,11 @@ class PedidoAppModel {
 		!(pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Cancelado") || pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
 	}
 
+	@Dependencies("platoSeleccionado")
+	def getSePuedeEditar(){
+		platoSeleccionado!=null
+	}
+	
 	def void coleccionDePlatos() {
 
 		for (Plato unPlato : pedidoAdaptado.platos) {
@@ -47,10 +55,6 @@ class PedidoAppModel {
 
 	}
 
-	def void agregarPlatoAdapter(Plato unPlato) {
-		itemsPlatos.add(unPlato)
-		pedidosAAgregar.add(unPlato)
-	}
 
 	def void coleccionDeEstados() {
 		this.estadosSelector = newArrayList
@@ -104,9 +108,9 @@ class PedidoAppModel {
 	def getPrecio()
 	{	precio	} 
 	
-	
-	def void setPrecio(){
-		precio= pedidoAdaptado.calcularPrecio
+	//@Dependencies("precio")
+	def void calcularPrecio(){
+		precio = itemsPlatos.stream.mapToDouble[it.calcularPrecio].sum + costoDeEnvio
 	}
 
 	def getFecha() {
@@ -119,20 +123,22 @@ class PedidoAppModel {
 		else
 			this.pedidoAdaptado.tiempoDeEspera.toString + " Minutos"
 	}
-
+	def void agregarPlatoAdapter(Plato unPlato) {
+		itemsPlatos.add(unPlato)
+		calcularPrecio
+	}
+	
+	//@Dependencies("precio")
 	def eliminarPlato() {
-		pedidoAdaptado.quitarPlato(platoSeleccionado)
 		itemsPlatos.remove(platoSeleccionado)
-		setPrecio
 		platoSeleccionado = null
+		calcularPrecio
 
 	}
 	
 	
 	def aceptarCambios() {
-		for (Plato unPlato: pedidosAAgregar){
-			pedidoAdaptado.agregarPlato(unPlato)
-		}
+		pedidoAdaptado.platos = itemsPlatos
 	}
 
 	def getCostoDeEnvio()

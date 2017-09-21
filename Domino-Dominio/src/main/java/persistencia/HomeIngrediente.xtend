@@ -33,9 +33,8 @@ class HomeIngrediente {
 	 */
 	def borrarIngrediente(Ingrediente unIngrediente) 
 	{
-		if (ingredientesDisponibles.contains(unIngrediente)){ingredientesDisponibles.remove(unIngrediente)}	
-		else
-			throw new RuntimeException("No Esta el ingrediente a sacar")
+		ingredientesDisponibles.remove(unIngrediente)	
+		
 	}
 	
 	

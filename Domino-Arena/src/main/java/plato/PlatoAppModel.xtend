@@ -16,6 +16,7 @@ import pizza.Grande
 import pizza.Familiar
 import persistencia.HomePizza
 
+
 @Accessors
 @TransactionalAndObservable
 class PlatoAppModel {
@@ -33,11 +34,18 @@ class PlatoAppModel {
 	new(Plato unPlato) {
 		coleccionPizzaItems
 		plato 			= unPlato
-		plato.pizza 	= HomePizza.instance.promocionesDisponibles.get(0)
+		asignarPizza
 		pizzaSelect		= plato.pizza
 		sizeSelect		= itemsSize.findFirst[ t | t.nombre.equals(unPlato.tamanio.nombre) ]
-		precio 			= plato.calcularPrecio
+		precio 			= 0
 		
+	}
+	
+	/**Asigna una pizza solamente cuando  el objeto adaptado<Plato> no tiene una pizza*/
+	def asignarPizza() {
+		if(plato.pizza==null){
+			plato.pizza 	= HomePizza.instance.promocionesDisponibles.get(0)
+		}
 	}
 
 

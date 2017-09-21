@@ -91,7 +91,7 @@ class Bootstrap {
 		var distribucion5 = new Distribucion
 		val pizzaMuzzaCerrada = new Pizza("Muzza", 15.00, new Distribucion)
 		val platoCerrado1 = new Plato(pizzaMuzzaCerrada, new Familiar, distribucion4)
-		val pedidoCerrado1 = new Pedido(new Miembro("Sr Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
+		val pedidoCerrado1 = new Pedido(new Miembro("Sr Juan", "Raquel1", "unPassword", "unMail", "unaDireccion"))
 		pedidoCerrado1.agregarPlato(platoCerrado1)
 		pedidoCerrado1.formaDeRetiro = new Local
 		pedidoCerrado1.estadoActual = new Entregado
