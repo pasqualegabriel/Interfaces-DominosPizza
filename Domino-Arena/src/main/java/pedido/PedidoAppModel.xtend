@@ -12,7 +12,7 @@ import org.uqbar.commons.model.annotations.Dependencies
 @Accessors
 @TransactionalAndObservable
 class PedidoAppModel {
-	
+
 	Pedido pedidoAdaptado
 	Integer nroPedido
 	String estadoActual
@@ -33,20 +33,19 @@ class PedidoAppModel {
 		coleccionDePlatos
 		costoDeEnvio = pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		calcularPrecio
-		
-		
+
 	}
-	
-	def noEstaCerrado() 
-	{
-		!(pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Cancelado") || pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
+
+	def noEstaCerrado() {
+		!(pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Cancelado") ||
+			pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
 	}
 
 	@Dependencies("platoSeleccionado")
-	def getSePuedeEditar(){
-		platoSeleccionado!=null
+	def getSePuedeEditar() {
+		platoSeleccionado != null
 	}
-	
+
 	def void coleccionDePlatos() {
 
 		for (Plato unPlato : pedidoAdaptado.platos) {
@@ -54,7 +53,6 @@ class PedidoAppModel {
 		}
 
 	}
-
 
 	def void coleccionDeEstados() {
 		this.estadosSelector = newArrayList
@@ -84,7 +82,7 @@ class PedidoAppModel {
 		this.pedidoAdaptado.estadoActual = this.cambioDeEstado
 		this.estadoActual = this.pedidoAdaptado.estadoActual.nombre
 
-		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado")){
+		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado")) {
 			pedidoAdaptado.calcularTiempoDeEntrega()
 			HomePedido.instance.moverPedidoAPedidosCerrado(pedidoAdaptado)
 		}
@@ -105,12 +103,16 @@ class PedidoAppModel {
 		pedidoAdaptado.estadoActual.nombre
 	}
 
-	def getPrecio()
-	{	precio	} 
-	
-	//@Dependencies("precio")
-	def void calcularPrecio(){
+	def getPrecio() { precio }
+
+	// @Dependencies("precio")
+	def void calcularPrecio() {
 		precio = itemsPlatos.stream.mapToDouble[it.calcularPrecio].sum + costoDeEnvio
+//		var newPrecio = 0.00
+//		for(Plato p: itemsPlatos){
+//			newPrecio = newPrecio + p.calcularPrecio
+//		}
+//		precio = newPrecio + costoDeEnvio
 	}
 
 	def getFecha() {
@@ -123,29 +125,32 @@ class PedidoAppModel {
 		else
 			this.pedidoAdaptado.tiempoDeEspera.toString + " Minutos"
 	}
+
 	def void agregarPlatoAdapter(Plato unPlato) {
 		itemsPlatos.add(unPlato)
 		calcularPrecio
 	}
-	
-	//@Dependencies("precio")
+
+	// @Dependencies("precio")
 	def eliminarPlato() {
 		itemsPlatos.remove(platoSeleccionado)
 		platoSeleccionado = null
 		calcularPrecio
 
 	}
-	
-	
+
 	def aceptarCambios() {
 		pedidoAdaptado.platos = itemsPlatos
 	}
 
-	def getCostoDeEnvio()
-	{	'''$ «costoDeEnvio»'''	}
+	@Dependencies("costoDeEnvio")
+	def getCostoDeEnvio() {
+		'''$ «costoDeEnvio»'''
+	}
 
 	@Dependencies("precio")
-	def getPrecioMostrable()
-	{	'''$ «precio»'''	} 
+	def getPrecioMostrable() {
+		'''$ «precio»'''
+	}
 
 }

@@ -31,7 +31,6 @@ class MenuDeDominoAppModel {
 	
 	def eliminarIngrediente(Ingrediente unIngrediente) {
 		HomeIngrediente.instance.borrarIngrediente(unIngrediente)
-		//ingredienteSeleccionado=null
 		actualizarIngredientesDisponibles
 		
 	}
@@ -42,7 +41,6 @@ class MenuDeDominoAppModel {
 	}
 	def eliminarPizza(Pizza unaPizza) {
 		 HomePizza.instance.borrarPromocion(unaPizza)
-		 //pizzaSeleccionada=null
 		 actualizarPromosDisponibles
 	}
 	

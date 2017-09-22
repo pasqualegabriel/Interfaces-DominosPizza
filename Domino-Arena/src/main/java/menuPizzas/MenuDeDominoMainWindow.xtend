@@ -64,8 +64,12 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 	
 	def eliminarIngrediente() {
-		try {modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)}
-		catch (NullPointerException e){ throw new UserException("No hay ingrediente seleccionado") }
+		if(modelObject.ingredientesDisponibles.size > 1){
+			modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)
+		}
+		else {
+			throw new UserException("No se puede eliminar el ultimo ingrediente")
+		}
 	}
 
 	def crearPizza() {
@@ -81,7 +85,12 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 	
 	def eliminarPizza() {
-		modelObject.eliminarPizza(modelObject.pizzaSeleccionada)
+		if(modelObject.promosDisponibles.size > 1){
+			modelObject.eliminarPizza(modelObject.pizzaSeleccionada)
+		}
+		else {
+			throw new UserException("No se puede eliminar la ultima promocion")
+		}
 	}
 	
 }

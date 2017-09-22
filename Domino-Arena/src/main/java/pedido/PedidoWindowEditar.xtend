@@ -78,7 +78,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		new Label(panelTablaPlatos).text = "Platos"
 
 		val tablaPedidos = new Table(panelTablaPlatos, typeof(Plato)) => [
-			bindEnabledToProperty("noEstaCerrado")
+			//bindEnabledToProperty("noEstaCerrado")
 			numberVisibleRows = 6
 			items <=> "itemsPlatos"
 			value <=> "platoSeleccionado"
@@ -125,7 +125,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 				new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open
 			]
 			bindEnabledToProperty("sePuedeEditar")
-			
+			bindVisibleToProperty("noEstaCerrado")
 			
 		]
 
@@ -152,9 +152,9 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 	{
 		new TextBox(mainPanel) => 
 				[
-					width = 20
+					width    = 20
 					fontSize = 9
-					value <=> "pedidoAdaptado.aclaracion"
+					value   <=> "pedidoAdaptado.aclaracion"
 				]
 	}
 
@@ -198,7 +198,9 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 			[
 				bindVisibleToProperty("noEstaCerrado")
 				caption = "Cancelar"
-				onClick [	close	]
+				onClick [	
+					close
+				]
 			]
 	}
 

@@ -1,6 +1,5 @@
 package DominoPizzaInicio
 
-
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
@@ -20,7 +19,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 	new(WindowOwner parent, DominoPizzaAppModel model) {
 		super(parent, model)
 	}
-	
+
 	new(DominosPizzaMainWindow window) {
 		super(window, new DominoPizzaAppModel)
 	}
@@ -28,7 +27,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 	override protected addActions(Panel actionsPanel) {}
 
 	override protected createFormPanel(Panel mainPanel) {
-		
+
 		this.title = "Domino pizza"
 		mainPanel.layout = new VerticalLayout
 
@@ -38,22 +37,22 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 	/**Define el panel donde se contendra la tabla de pedidos y los botones que interactuan con esta */
 	def panelDeListaPedidos(Panel mainPanel) {
-		
+
 		var panelDeListaPedidos = new Panel(mainPanel)
 		panelDeListaPedidos.layout = new HorizontalLayout
 
 		val tabla = new TablaPedido(panelDeListaPedidos)
 
-		var tablaPedidosAbiertos= tabla.tablaPedidos(panelDeListaPedidos,"itemsPedidosAbiertos", "Pedidos Abiertos")
-		tabla.columnaTablaPedidosSoloPrecio(tablaPedidosAbiertos,"Precio","precio")
-		tabla.columnaTablaPedidosSoloHora(tablaPedidosAbiertos,"Hora","fecha")
+		var tablaPedidosAbiertos = tabla.tablaPedidos(panelDeListaPedidos, "itemsPedidosAbiertos", "Pedidos Abiertos")
+		tabla.columnaTablaPedidosSoloPrecio(tablaPedidosAbiertos, "Precio", "precio")
+		tabla.columnaTablaPedidosSoloHora(tablaPedidosAbiertos, "Hora", "fecha")
 
 		this.panelBotonesListaDePedidos(panelDeListaPedidos)
 	}
 
 	/**Define Los botones que interactuan con la tabla de pedidos */
 	def panelBotonesListaDePedidos(Panel panelDeListaPedidos) {
-		
+
 		val unPedidoSeleccionado = new NotNullObservable("pedidoSelectItem")
 		var panelTablaDePedido = new Panel(panelDeListaPedidos)
 		panelTablaDePedido.layout = new VerticalLayout
@@ -62,27 +61,27 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 		new Button(panelTablaDePedido) => [
 			caption = "Cancelar"
-			onClick [modelObject.cancelarPedidoSeleccionado()]
+			onClick [modelObject.cancelarPedidoSeleccionado]
 			bindEnabled(unPedidoSeleccionado)
 		]
 
 		new Button(panelTablaDePedido) => [
 			caption = "Editar"
 			onClick [
-				
+
 				this.abrirDialogoDeEditarPedido
-				
+
 			]
 			bindEnabled(unPedidoSeleccionado)
 		]
 
 	}
-	
+
 	def abrirDialogoDeEditarPedido() {
 		val dialog = new PedidoWindowEditar(this, modelObject.pedidoSelectItem)
-		dialog.onAccept[
-						this.modelObject.pedidoSelectItem.setPrecio()
-						this.modelObject.getRepoDePedidosAbiertos()
+		dialog.onAccept [
+			this.modelObject.pedidoSelectItem.setPrecio
+			this.modelObject.getRepoDePedidosAbiertos
 		]
 		dialog.open
 	}
@@ -92,13 +91,14 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 		val unPedidoSeleccionado = new NotNullObservable("pedidoSelectItem")
 		var panelRetrocederAvanzar = new Panel(panelTablaDePedido)
 		panelRetrocederAvanzar.layout = new HorizontalLayout
-		
+
 		new Button(panelRetrocederAvanzar) => [
 			caption = "<<"
-			onClick [try{
-				modelObject.anteriorEstadoPedidoSeleccionado()
-				
-				}catch(StateException e){
+			onClick [
+				try {
+					modelObject.anteriorEstadoPedidoSeleccionado()
+
+				} catch (StateException e) {
 					throw new UserException("No se puede cambiar de estado")
 				}
 			]
@@ -108,19 +108,18 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 		new Button(panelRetrocederAvanzar) => [
 			caption = ">>"
 			onClick [
-				modelObject.siguienteEstadoPedidoSeleccionado()
+				modelObject.siguienteEstadoPedidoSeleccionado
 			]
 			bindEnabled(unPedidoSeleccionado)
 		]
 	}
-	
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */
 	def panelDeBotonesInferiores(Panel MainPanel) {
-		
+
 		var panelBotonesInferiores = new Panel(MainPanel)
 		panelBotonesInferiores.layout = new HorizontalLayout
-		
+
 		new Button(panelBotonesInferiores) => [
 			caption = "Menú"
 			onClick [
