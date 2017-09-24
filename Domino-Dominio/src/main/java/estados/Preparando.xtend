@@ -11,12 +11,16 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Preparando extends EstadoDePedido{
 
-	FormaDeRetiro unaFormaDeEnvio = new Local
-
+	FormaDeRetiro formaDeRetiro
+	
+	new(){
+		formaDeRetiro = new Local
+    }
+    
 	// Metodos
 	override siguiente(Pedido unPedido)
 	{
-		this.unaFormaDeEnvio = unPedido.formaDeRetiro
+		this.formaDeRetiro = unPedido.formaDeRetiro
 		unPedido.estadoActual = this.proximo
 	}
 	
@@ -26,7 +30,7 @@ class Preparando extends EstadoDePedido{
 	
 	override proximo() 
 	{
-		this.unaFormaDeEnvio.avanzarEstado
+		this.formaDeRetiro.avanzarEstado
 	}
 	
 	override nombre() {

@@ -14,47 +14,45 @@ class TestEstadoEntregado {
 
 	// Estructura
 	@Mock Miembro			unMiembroMock 
-		  Pedido 			unPedidoMock
-		  EstadoDePedido	unEstadoEntregadoTest
-		  EstadoDePedido  	otroEstadoEntregadoTest
+		  Pedido 			unPedido
+		  EstadoDePedido	unEstadoEntregado
 	
 	// Setup
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unPedidoMock                = new Pedido(unMiembroMock)
-		unEstadoEntregadoTest		= new Entregado
-		otroEstadoEntregadoTest		= new Entregado
+		unPedido                = new Pedido(unMiembroMock)
+		unEstadoEntregado		= new Entregado
 		
 	}
 	
 	// Tests
 	@Test
-	def test00cuandoElEstadoEntregadoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00ElSiguienteEstadoDeUnPedidoConEstadoActualEntregadoSigueSiendoEntregado(){
 		// Exercise
-		unPedidoMock.estadoActual = otroEstadoEntregadoTest
-		unEstadoEntregadoTest.siguiente(unPedidoMock)
+		unPedido.estadoActual = unEstadoEntregado
+		unPedido.siguiente
 		
 		// Assertion
-		assertEquals(unPedidoMock.estadoActual.nombre, "Entregado")
+		assertEquals(unPedido.estadoActual.nombre, "Entregado")
 	}
 	
 	@Test
-	def test01cuandoElEstadoEntregadoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test02ElEstadoAnteriorDeUnPedidoConEstadoActualEntregadoSigueSiendoEntregado(){
 		// Exercise
-		unPedidoMock.estadoActual = otroEstadoEntregadoTest
-		unEstadoEntregadoTest.anterior(unPedidoMock)
+		unPedido.estadoActual = unEstadoEntregado
+		unPedido.anterior
 		
 		// Assertion
-		assertEquals(unPedidoMock.estadoActual.nombre, "Entregado")
+		assertEquals(unPedido.estadoActual.nombre, "Entregado")
 	}
 	@Test
-	def test02cuandoElEstadoEntregaSeLePidePrevioYProximoDevuelveElEstadoEntregado(){
+	def test02cuandoElEstadoEntregaSeLePidePrevioYProximoDevuelveEstadoEntregado(){
 		// Exercise
 		var estadoRespuesta = new Entregado 
 		
 		// Assertion
-		assertEquals(unEstadoEntregadoTest.previo.class,estadoRespuesta.class)
-		assertEquals(unEstadoEntregadoTest.proximo.class,estadoRespuesta.class)
+		assertEquals(unEstadoEntregado.previo.class,  estadoRespuesta.class)
+		assertEquals(unEstadoEntregado.proximo.class, estadoRespuesta.class)
 	}
 }

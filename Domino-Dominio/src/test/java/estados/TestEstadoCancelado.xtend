@@ -4,7 +4,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import static org.mockito.Mockito.*
 import static org.junit.Assert.*
 import estados.EstadoDePedido
 import pedido.Pedido
@@ -14,8 +13,8 @@ import domino.Miembro
 class TestEstadoCancelado {
 	
 	// Estructura
-	Pedido 				unPedidoSpy
-	EstadoDePedido		unEstadoCanceladoTest
+	Pedido 				unPedido
+	EstadoDePedido		unEstadoCancelado
 	
 	@Mock Miembro		unMockMiembro
 	
@@ -23,37 +22,39 @@ class TestEstadoCancelado {
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unPedidoSpy					= spy(new Pedido(unMockMiembro))
-		unEstadoCanceladoTest		= new Cancelado
+		unPedido		  = new Pedido(unMockMiembro)
+		unEstadoCancelado = new Cancelado
 		
 	}
 	
 	// Tests
 	@Test
-	def test00cuandoElEstadoCanceladoLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00ElSiguienteEstadoDeUnPedidoConEstadoActualCanceladoSigueSiendoCancelado(){
 		// Exercise
-		unEstadoCanceladoTest		 .siguiente(unPedidoSpy)
+		unPedido.estadoActual = unEstadoCancelado
+		unPedido.siguiente
 		
 		// Assertion
-		verify(unPedidoSpy).estadoActual = unEstadoCanceladoTest.proximo
+		assertEquals(unPedido.estadoActual.nombre, "Cancelado")
 	}
 	
 	@Test
-	def test01cuandoElEstadoCanceladoLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test01ElEstadoAnteriorDeUnPedidoConEstadoActualCanceladoSigueSiendoCancelado(){
 		// Exercise
-		unEstadoCanceladoTest		 .anterior(unPedidoSpy)
+		unPedido.estadoActual = unEstadoCancelado
+		unPedido.anterior
 		
 		// Assertion
-		verify(unPedidoSpy).estadoActual = unEstadoCanceladoTest.previo
+		assertEquals(unPedido.estadoActual.nombre, "Cancelado")
 	}
 	
 	@Test
-	def test02cuandoElEstadoCanceladoSeLePidePrevioYEntregadoDevuelveElEstadoCancelado(){
+	def test02cuandoElEstadoCanceladoSeLePidePrevioYProximoDevuelveEstadoCancelado(){
 		// Setup
 		var estadoRespuesta = new Cancelado 
 		
 		// Assertion
-		assertEquals(unEstadoCanceladoTest.previo .class,estadoRespuesta.class)
-		assertEquals(unEstadoCanceladoTest.proximo.class,estadoRespuesta.class)
+		assertEquals(unEstadoCancelado.previo .class, estadoRespuesta.class)
+		assertEquals(unEstadoCancelado.proximo.class, estadoRespuesta.class)
 	}	
 }

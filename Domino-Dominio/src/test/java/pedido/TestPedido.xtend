@@ -13,8 +13,6 @@ import pedido.Plato
 import estados.Cancelado
 import pedido.Local
 import pedido.Delivery
-import estados.ListoParaEnviar
-import estados.Preparando
 
 class TestPedido {
 
@@ -131,7 +129,7 @@ class TestPedido {
 		var cancelado = new Cancelado
 
 		// Exercise
-		pedido.cancelar()
+		pedido.cancelar
 
 		// Assertion
 		assertEquals(pedido.estadoActual.class, cancelado.class)
@@ -169,23 +167,6 @@ class TestPedido {
 		assertEquals(pedido.platos.size, 1)
 		assertEquals(115,precioPedido,0.0000000001)
 	}
-	
-	@Test
-	def test013UnPedidoPuedepasarASuSiguienteEstado(){
-		var estadoRespuesta = new ListoParaEnviar
-		pedido.formaDeRetiro = new Delivery
-		pedido.siguiente
-		assertEquals(pedido.estadoActual.class,estadoRespuesta.class)
-		
-	}
-	
-	@Test
-	def test014UnPedidoPuedepasarASuAnteriorEstado(){
-		var estadoRespuesta = new Preparando
-		
-		pedido.anterior
-		assertEquals(pedido.estadoActual.class,estadoRespuesta.class)
-		
-	}
+
 }
 

@@ -4,46 +4,48 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import static org.mockito.Mockito.*
 import static org.junit.Assert.*
 import estados.EstadoDePedido
 import estados.ListoParaRetirar
 import pedido.Pedido
 import estados.Entregado
 import estados.Preparando
+import domino.Miembro
 
 class TestEstadoListoParaRetirar {
 	
 	// Estructura
-		  EstadoDePedido  unEstadoListoParaRetirarTest
-		  EstadoDePedido  otroEstadoListoParaRetirarTest
-	@Mock Pedido	 	  unPedidoMock
+	@Mock Miembro		    unMiembroMock
+		  EstadoDePedido	unEstadoListoParaRetirar
+		  Pedido 	        unPedido
 	
 	// Setup
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unEstadoListoParaRetirarTest	= spy(new ListoParaRetirar)
-		otroEstadoListoParaRetirarTest	= new ListoParaRetirar
+		unEstadoListoParaRetirar = new ListoParaRetirar
+		unPedido                 = new Pedido(unMiembroMock)
 	}
 	
 	// Tests
 	@Test
-	def test00cuandoElEstadoListoParaRetirarLeLLegaSiguienteSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00ElSiguienteEstadoDeUnPedidoConEstadoActualListoParaRetirarEsEstadoEntregado(){
 		// Exercise
-		unEstadoListoParaRetirarTest		.siguiente(unPedidoMock)
+		unPedido.estadoActual = unEstadoListoParaRetirar
+		unPedido.siguiente
 		
 		// Assertion
-		verify(unEstadoListoParaRetirarTest).siguiente(unPedidoMock)
+		assertEquals(unPedido.estadoActual.nombre, "Entregado")
 	}
 	
 	@Test
-	def test01cuandoElEstadoListoParaRetirarLeLLegaAnteriorSeVerificaQueRequestEstadoEntregaLlego(){
+	def test00ElEstadoAnteriorDeUnPedidoConEstadoActualListoParaRetirarEsEstadoPreparando(){
 		// Exercise
-		unEstadoListoParaRetirarTest		.anterior(unPedidoMock)
+		unPedido.estadoActual = unEstadoListoParaRetirar
+		unPedido.anterior
 		
 		// Assertion
-		verify(unEstadoListoParaRetirarTest).anterior(unPedidoMock)
+		assertEquals(unPedido.estadoActual.nombre, "Preparando")
 	}
 	
 	@Test
@@ -52,7 +54,7 @@ class TestEstadoListoParaRetirar {
 		var estadoRespuesta = new Preparando
 		
 		// Assertion
-		assertEquals(otroEstadoListoParaRetirarTest.previo.class,estadoRespuesta.class)
+		assertEquals(unEstadoListoParaRetirar.previo.class, estadoRespuesta.class)
 	}
 	
 	@Test
@@ -61,6 +63,6 @@ class TestEstadoListoParaRetirar {
 		var estadoRespuesta = new Entregado
 		
 		// Assertion
-		assertEquals(otroEstadoListoParaRetirarTest.proximo.class,estadoRespuesta.class)
+		assertEquals(unEstadoListoParaRetirar.proximo.class, estadoRespuesta.class)
 	}
 }
