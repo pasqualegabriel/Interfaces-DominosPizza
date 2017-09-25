@@ -11,9 +11,10 @@ import DominoPizzaInicio.TablaPedido
 import DominoPizzaInicio.DominoPizzaAppModel
 import pedido.PedidoCerradoWindow
 
+/**Clase que se encarga de visualizar una ventana donde se listan los pedidos cerrados. En esta ventana 
+ * se puede acceder a un pedido cerrado y ver su contenido(pero no se puede modificar)*/
 class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel> 
-{
-	
+{	
 	new(WindowOwner parent) 
 	{	super(parent, new DominoPizzaAppModel)	}
 	
@@ -26,10 +27,10 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel>
 		mainPanel.layout = new VerticalLayout
 		
 		this.tablaDePedidosCerrados(mainPanel)
-		
 		this.botonesInferiores(mainPanel)
 	}
 
+	/**Crea la tabla que lista los pedidos cerrados */
 	def tablaDePedidosCerrados(Panel mainPanel)
 	{
 		val tabla		= new TablaPedido(mainPanel)
@@ -38,6 +39,7 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel>
 		tabla.columnaTablaPedidosSoloTiempoDeDemora(tablaPedidos,"Tiempo De Espera","tiempoDeEspera")
 	}
 	
+	/**Crea Los botones para visualizar el pedido cerrado y el de cierre de ventana */
 	def botonesInferiores(Panel mainPanel)
 	{
 		val unPedidoCerradoSeleccionado	= new NotNullObservable("pedidoSelectItem")
@@ -47,7 +49,7 @@ class MainWindowListaPedidosCerrados extends SimpleWindow<DominoPizzaAppModel>
 		new Button(panelBotonesInferiores)=>[
 												caption = "Ver"
 												onClick [	new PedidoCerradoWindow(this, modelObject.pedidoSelectItem).open	]
-												bindEnabled(unPedidoCerradoSeleccionado)
+												bindEnabled(unPedidoCerradoSeleccionado)	//Habilita el Boton si hay un pedido seleccionado
 											]
 		
 		new Button(panelBotonesInferiores)=>[

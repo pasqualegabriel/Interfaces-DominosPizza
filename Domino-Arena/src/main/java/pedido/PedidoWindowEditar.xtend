@@ -18,16 +18,17 @@ import plato.EditarPlatoWindow
 import plato.AgregarPlatoWindow
 import plato.PlatoAppModel
 
+/** Clase que genera la ventana de edicion de un pedido*/
+class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> 
+{
+	new(WindowOwner owner, Pedido pedido) 
+	{	super(owner, new PedidoAppModel(pedido))	}
 
-class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
-	
-	
-	new(WindowOwner owner, Pedido pedido) {
-		super(owner, new PedidoAppModel(pedido))
-	}
-
-	override protected createFormPanel(Panel mainPanel) {
-
+	/**Se encarga de Crear el panel principal con el selector de estado, la tabla de pedidos, 
+	 * los botones que interactuan con la tabla de pedidos, los datos del pedido y los botones que
+	 * interactuan con la ventana pedido*/
+	override protected createFormPanel(Panel mainPanel) 
+	{
 		this.title = this.titulo
 
 		mainPanel.layout = new VerticalLayout()
@@ -39,115 +40,125 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 		ultimosBotonesPlatos(mainPanel)
 	}
 	
+	/** Define el titulo de la ventana*/
 	def titulo() 
 	{	'''Editar Pedido de «modelObject.pedidoAdaptado.miembro.nombre»'''.toString	}
 
-	def labelYSelectorEstado(Panel mainPanel) {
-
+	/** Define el label de estado y el selector de estados para el pedido */
+	def labelYSelectorEstado(Panel mainPanel) 
+	{
 		var panelEstados = new Panel(mainPanel)
 		panelEstados.layout = new HorizontalLayout
 
 		new Label(panelEstados).text = "Estado: "
 		selectorDeEstado(panelEstados)
 	}
-	
+
+	/**Define el selector de estados */	
 	def void selectorDeEstado(Panel panelEstados) 
 	{
 		new Selector<EstadoDePedido>(panelEstados) => 
 				[
-					(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre")
+					(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre") //El adapter hace que se muestre el nombre del estado
 					value <=> "cambioDeEstado"
-					onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") )
+					onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") ) //Al Aceptar hace que el pedido cambie al estado seleccionado
 				]
 	}
 	
 	
-	/**Crea toda la estructura de la tabla para platos */
-	def tablaPlato(Panel mainPanel) {
-
+	/**Crea toda la estructura de la tabla para platos con los botones que interactuan en esta */
+	def tablaPlato(Panel mainPanel) 
+	{
 		var panelPlatos = new Panel(mainPanel)
 		panelPlatos.layout = new ColumnLayout(2)
 		tabla(panelPlatos)
 		botonesPlatos(panelPlatos)
 	}
+	
 	/**Crea una tabla de platos */
-	def tabla(Panel panelPlatos) {
+	def tabla(Panel panelPlatos) 
+	{
 		var panelTablaPlatos = new Panel(panelPlatos)
 		panelTablaPlatos.layout = new VerticalLayout
 
 		new Label(panelTablaPlatos).text = "Platos"
 
-		val tablaPedidos = new Table(panelTablaPlatos, typeof(Plato)) => [
-			//bindEnabledToProperty("noEstaCerrado")
-			numberVisibleRows = 6
-			items <=> "itemsPlatos"
-			value <=> "platoSeleccionado"
-		]
+		val tablaPedidos = new Table(panelTablaPlatos, typeof(Plato)) => 
+									[
+										numberVisibleRows = 6
+										items <=> "itemsPlatos"
+										value <=> "platoSeleccionado"
+									]
 
 		columnasDePlato(tablaPedidos,"Nombre","pizza.nombre")
 		columnasDePlato(tablaPedidos,"Tamaño","tamanio.nombre")
 		columnasDePlatoPrecio(tablaPedidos)
-
-
-	}
-	/**Crea las columnas del plato */
-	def columnasDePlato(Table<Plato> tablaPedidos,String titulo,String value){
-		new Column(tablaPedidos) => [
-			title = titulo
-			bindContentsToProperty(value)
-		]
-	}
-	/**Crea la columna especifica de precio del plato*/
-	def columnasDePlatoPrecio(Table<Plato> tablaPedidos){
-		new Column(tablaPedidos) => [
-			title = "Precio"
-			bindContentsToProperty("calcularPrecio").transformer = [precio | '''$ «precio»''']
-		]
 	}
 	
-	/**Crea los botones que van a utilizar la tabla de plato  */
-	def botonesPlatos(Panel panelPlatos) {
+	/**Metodo generico para crear columnas, se le pasa la tabla a la que pertenecera, el titulo y el valor que mostrara */
+	def columnasDePlato(Table<Plato> tablaPedidos,String titulo,String value)
+	{
+		new Column(tablaPedidos) => 
+			[
+				title = titulo
+				bindContentsToProperty(value)
+			]
+	}
+	
+	/**Crea la columna especifica de precio del plato*/
+	def columnasDePlatoPrecio(Table<Plato> tablaPedidos)
+	{
+		new Column(tablaPedidos) => 
+			[
+				title = "Precio"
+				bindContentsToProperty("calcularPrecio").transformer = [	precio | '''$ «precio»'''	]
+				//El transformer acomoda la vista del precio para mostrarlo con el signo 
+			]
+	}
+	
+	/**Crea los botones que van a utilizar la tabla de plato */
+	def botonesPlatos(Panel panelPlatos) 
+	{
 		var panelBotonesPlatos = new Panel(panelPlatos)
 		panelBotonesPlatos.layout = new VerticalLayout
 		
-		new Button(panelBotonesPlatos) => [
-			bindVisibleToProperty("noEstaCerrado")
-			caption = "Agregar"
-			onClick [
-						new AgregarPlatoWindow(this).open
-					]
-		]
-
-		new Button(panelBotonesPlatos) => [
-			caption = "Editar"
-			setAsDefault
-			onClick [
-				new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open
+		new Button(panelBotonesPlatos) => 
+			[
+				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
+				caption = "Agregar"
+				onClick [	new AgregarPlatoWindow(this).open	] //Abre la ventana para agregar un nuevo plato
 			]
-			bindEnabledToProperty("sePuedeEditar")
-			bindVisibleToProperty("noEstaCerrado")
-			
-		]
 
-		new Button(panelBotonesPlatos) => [
-			bindVisibleToProperty("noEstaCerrado")
-			caption = "Eliminar"
-			onClick [
-				modelObject.eliminarPlato
-				modelObject.calcularPrecio
+		new Button(panelBotonesPlatos) => 
+			[
+				caption = "Editar"
+				setAsDefault
+				onClick [	new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open	] //Abre la ventana de edicion de un plato 
+				bindEnabledToProperty("sePuedeEditar")	//Se habilita al haber un pedido seleccionado
+				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
+				
 			]
-			bindEnabledToProperty("sePuedeEditar")
-		]
-		
+
+		new Button(panelBotonesPlatos) => 
+			[
+				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
+				caption = "Eliminar"
+				onClick [
+							modelObject.eliminarPlato
+							modelObject.calcularPrecio
+						]
+				bindEnabledToProperty("sePuedeEditar")	//Se habilita al haber un pedido seleccionado
+			]
 	}
 
-	def aclaracionesPlatos(Panel mainPanel) {
-
+	/**Metodo que crea el label y el textbox para las aclaraciones del pedido*/
+	def aclaracionesPlatos(Panel mainPanel) 
+	{
 		new Label(mainPanel).text = "Aclaraciones:"
-
 		aclaracion(mainPanel)
 	}
-	
+
+	/**Crea el textbox de las aclaraciones del pedido */	
 	def void aclaracion(Panel mainPanel) 
 	{
 		new TextBox(mainPanel) => 
@@ -158,6 +169,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 				]
 	}
 
+	/**Crea los labels que muestran los datos del pedido */
 	def void datosPlatos(Panel mainPanel) 
 	{
 		var panelDatosPlatos = new Panel(mainPanel)
@@ -169,38 +181,39 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
-		new Label(panelDatosPlatos).value <=> "costoDeEnvio"  
+		new Label(panelDatosPlatos).value <=> "costoDeEnvio"  //Metodo del appModel
 
 		new Label(panelDatosPlatos).text = "Monto total"
 	
-		new Label(panelDatosPlatos).value <=> "precioMostrable"
+		new Label(panelDatosPlatos).value <=> "precioMostrable" //Metodo del appModel
 
 		new Label(panelDatosPlatos).text = "Hora"
 
-		new Label(panelDatosPlatos).value <=> "hora"
+		new Label(panelDatosPlatos).value <=> "hora"	//Metodo del appModel
 	}
 
-	def ultimosBotonesPlatos(Panel mainPanel) {
+	/**Define los botones que interactuan con la ventana del pedido (Aceptar y Cancelar) */
+	def ultimosBotonesPlatos(Panel mainPanel) 
+	{
 
 		var panelUltimosBotonesPlatos = new Panel(mainPanel)
 		panelUltimosBotonesPlatos.layout = new HorizontalLayout
 
-		new Button(panelUltimosBotonesPlatos) => [
-			caption = "Aceptar"
-			onClick [
-						modelObject.aceptarCambios
-						accept
-						disableOnError
-					]
-		]
+		new Button(panelUltimosBotonesPlatos) => 
+			[
+				caption = "Aceptar"
+				onClick [
+							modelObject.aceptarCambios
+							accept
+							disableOnError
+						]
+			]
 
 		new Button(panelUltimosBotonesPlatos) => 
 			[
-				bindVisibleToProperty("noEstaCerrado")
+				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
 				caption = "Cancelar"
-				onClick [	
-					close
-				]
+				onClick [	close	]
 			]
 	}
 

@@ -11,20 +11,21 @@ import org.uqbar.commons.model.annotations.Dependencies
 
 @Accessors
 @TransactionalAndObservable
-class PedidoAppModel {
-
+class PedidoAppModel 
+{
 	Pedido pedidoAdaptado
 	Integer nroPedido
 	String estadoActual
 	EstadoDePedido cambioDeEstado
-	List<EstadoDePedido> estadosSelector = newArrayList
-	List<Plato> itemsPlatos = newArrayList
+	List<EstadoDePedido> estadosSelector= newArrayList
+	List<Plato> itemsPlatos 			= newArrayList
 	Plato platoSeleccionado
 	Double costoDeEnvio
 	Double precio
-	List<Plato> pedidosAAgregar = newArrayList
+	List<Plato> pedidosAAgregar 		= newArrayList
 
-	new(Pedido unPedido) {
+	new(Pedido unPedido) 
+	{
 		super()
 		pedidoAdaptado = unPedido
 		estadoActual = unPedido.estadoActual.nombre
@@ -33,40 +34,44 @@ class PedidoAppModel {
 		coleccionDePlatos
 		costoDeEnvio = pedidoAdaptado.formaDeRetiro.precioDeRetiro
 		calcularPrecio
-
 	}
 
-	def noEstaCerrado() {
+	/**Devuelve True si el pedido no esta cerrado (No es cancelado y no es entregado)*/
+	def noEstaCerrado() 
+	{
 		!(pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Cancelado") ||
 			pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado"))
 	}
 
+	/**Devuelve true si hay un plato seleccionado*/
 	@Dependencies("platoSeleccionado")
-	def getSePuedeEditar() {
-		platoSeleccionado != null
+	def getSePuedeEditar() 
+	{	platoSeleccionado != null	}
+
+	/**Devuelve una coleccion con todos los platos del pedido */
+	def void coleccionDePlatos() 
+	{
+		for (Plato unPlato : pedidoAdaptado.platos) 
+		{	itemsPlatos.add(unPlato)	}
 	}
 
-	def void coleccionDePlatos() {
-
-		for (Plato unPlato : pedidoAdaptado.platos) {
-			itemsPlatos.add(unPlato)
-		}
-
-	}
-
-	def void coleccionDeEstados() {
+	/**Devuelve una lista de los estados a los que puede pasar el pedido actual */
+	def void coleccionDeEstados() 
+	{
 		this.estadosSelector = newArrayList
+		/*Si el estado del pedido no es preparado o entregado  agrega el estado previo al actual*/
 		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Preparando") &&
-			!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado")) {
-			estadosSelector.add(pedidoAdaptado.estadoActual.previo)
-		}
+			!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado")) 
+		{	estadosSelector.add(pedidoAdaptado.estadoActual.previo)	}
 		estadosSelector.add(pedidoAdaptado.estadoActual)
-		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado")) {
-			estadosSelector.add(pedidoAdaptado.estadoActual.proximo)
-		}
+		/*Si el estado del pedido no es entregado agrega el estado proximo al actual*/
+		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado")) 
+		{	estadosSelector.add(pedidoAdaptado.estadoActual.proximo)	}
 	}
 
-	def void pasarASiguienteEstado() {
+	/**Hace que el pedido pase al estado que le sigue del estado actual*/
+	def void pasarASiguienteEstado() 
+	{
 		this.pedidoAdaptado.siguiente()
 		this.estadoActual = pedidoAdaptado.estadoActual.nombre
 		this.coleccionDeEstados // Refresca la lista del Selector
@@ -78,11 +83,16 @@ class PedidoAppModel {
 		this.coleccionDeEstados // Refresca la lista del Selector
 	}
 
-	def void cambiarAEstadoSeleccionado() {
+	/**Cambia el estado del pedido al estado que esta seleccionado */
+	def void cambiarAEstadoSeleccionado() 
+	{
 		this.pedidoAdaptado.estadoActual = this.cambioDeEstado
 		this.estadoActual = this.pedidoAdaptado.estadoActual.nombre
 
-		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado")) {
+		/*Se fija si el estado a cambiar es al estado entregado, 
+		 * si es asi lo mueve a la lista de pedidos cerrados y calcula el tiempo de entrega*/
+		if (this.cambioDeEstado.nombre.equalsIgnoreCase("Entregado")) 
+		{
 			pedidoAdaptado.calcularTiempoDeEntrega()
 			HomePedido.instance.moverPedidoAPedidosCerrado(pedidoAdaptado)
 		}
@@ -91,66 +101,66 @@ class PedidoAppModel {
 		this.cambioDeEstado = pedidoAdaptado.estadoActual
 	}
 
-	def void cancelar() {
-		this.pedidoAdaptado.cancelar
-	}
+	/**Da la orden de cancelar al pedido */
+	def void cancelar() 
+	{	this.pedidoAdaptado.cancelar	}
 
-	def getHora() {
-		pedidoAdaptado.fecha.toLocalTime.hour.toString + ":" + pedidoAdaptado.fecha.toLocalTime.minute.toString
-	}
+	/**Devuelve la hora del pedido en un formato que se pueda ver en la vista */
+	def getHora() 
+	{	'''«pedidoAdaptado.fecha.toLocalTime.hour»:«pedidoAdaptado.fecha.toLocalTime.minute»'''}
 
-	def getNombreDeEstado() {
-		pedidoAdaptado.estadoActual.nombre
-	}
+	/**Devuelve el nombre del estado actual del pedido */
+	def getNombreDeEstado() 
+	{	pedidoAdaptado.estadoActual.nombre	}
 
-	def getPrecio() { precio }
+	/**Devuelve el precio del pedido */
+	def getPrecio() 
+	{ precio }
 
-	// @Dependencies("precio")
-	def void calcularPrecio() {
-		precio = itemsPlatos.stream.mapToDouble[it.calcularPrecio].sum + costoDeEnvio
-//		var newPrecio = 0.00
-//		for(Plato p: itemsPlatos){
-//			newPrecio = newPrecio + p.calcularPrecio
-//		}
-//		precio = newPrecio + costoDeEnvio
-	}
+	/**Realiza el calculo de precio del pedido*/
+	def void calcularPrecio() 
+	{	precio = itemsPlatos.stream.mapToDouble[it.calcularPrecio].sum + costoDeEnvio	}
 
-	def getFecha() {
-		this.pedidoAdaptado.fecha.toLocalDate
-	}
+	/**Da la fecha del pedido en formato DD-MM-AAAA */
+	def getFecha() 
+	{	this.pedidoAdaptado.fecha.toLocalDate	}
 
-	def getTiempoDeEspera() {
+	/**Devuelve el tiempo de espera que tuvo un pedido desde que se creo hasta que se entrego.*/
+	def getTiempoDeEspera() 
+	{	
 		if (this.pedidoAdaptado.tiempoDeEspera == 0)
 			"-"
 		else
-			this.pedidoAdaptado.tiempoDeEspera.toString + " Minutos"
+			'''«this.pedidoAdaptado.tiempoDeEspera» Minutos"'''
 	}
 
-	def void agregarPlatoAdapter(Plato unPlato) {
+	/**Agrega un nuevo plato a la lista de platos */
+	def void agregarPlatoAdapter(Plato unPlato) 
+	{
 		itemsPlatos.add(unPlato)
 		calcularPrecio
 	}
 
-	// @Dependencies("precio")
-	def eliminarPlato() {
+	/**Elimina el plato seleccionado de la lista de platos */
+	def eliminarPlato() 
+	{
 		itemsPlatos.remove(platoSeleccionado)
 		platoSeleccionado = null
 		calcularPrecio
-
 	}
 
-	def aceptarCambios() {
-		pedidoAdaptado.platos = itemsPlatos
-	}
+	/**Al aceptar los cambios desde la ventana, guarda la lista de paltos en el pedido */
+	def aceptarCambios() 
+	{	pedidoAdaptado.platos = itemsPlatos	}
 
+	/**Da el costo de envio en un formato adaptador para la vista */
 	@Dependencies("costoDeEnvio")
-	def getCostoDeEnvio() {
-		'''$ «costoDeEnvio»'''
-	}
+	def getCostoDeEnvio() 
+	{	'''$ «costoDeEnvio»'''	}
 
+	/**Da elprecio en un formato adaptador para la vista */
 	@Dependencies("precio")
-	def getPrecioMostrable() {
-		'''$ «precio»'''
-	}
+	def getPrecioMostrable() 
+	{	'''$ «precio»'''	}
 
 }

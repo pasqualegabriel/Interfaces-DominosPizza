@@ -18,128 +18,132 @@ import agregarPizza.IngredienteAdapterAbstract
 import pizza.Ingrediente
 
 @Accessors
-class EditarPlatoWindow extends EditarIngredienteTemplate {
-	
+class EditarPlatoWindow extends EditarIngredienteTemplate 
+{
 	protected PedidoWindowEditar mainWindow
 	protected PlatoAppModel unPlato
 	
-	new(PedidoWindowEditar  owner, PlatoAppModel unModel) {
+	new(PedidoWindowEditar  owner, PlatoAppModel unModel) 
+	{
 		super(owner, unModel)
 		mainWindow = owner
 		unPlato= unModel 
 	}
 	
 
-
-	def selectorPizza(Panel mainPanel) {
-
+	/**Define el selector de promociones de pizza */
+	def selectorPizza(Panel mainPanel) 
+	{
 		var panelPizza = new Panel(mainPanel)
 		panelPizza.layout = new HorizontalLayout()
 
 		new Label(panelPizza).text = "Pizza"
 
-		new Selector<PlatoAppModel>(panelPizza) => [
-			allowNull(false)
-			(items <=> "pizzaItems").adaptWith(typeof(Pizza), "nombre")
-			value <=> "pizzaSelect"
-
-		]
+		new Selector<PlatoAppModel>(panelPizza) => 
+					[
+						allowNull(false)
+						(items <=> "pizzaItems").adaptWith(typeof(Pizza), "nombre") //El adapter hace que se muestre la pizza por el nombre
+						value <=> "pizzaSelect"
+					]
 	}
 
-	def selectorSizePizza(Panel mainPanel) {
+	/**Define el selector de tamaño de pizza */
+	def selectorSizePizza(Panel mainPanel) 
+	{
 		var panelSize = new Panel(mainPanel)
 		panelSize.layout = new HorizontalLayout()
 		
 		new Label(panelSize).text = "Medida"
 
-		new Selector<PlatoAppModel>(panelSize) => [
+		new Selector<PlatoAppModel>(panelSize) => 
+		[
 			allowNull(false)
-			(items <=> "itemsSize").adaptWith(typeof(Tamanio), "nombre")
+			(items <=> "itemsSize").adaptWith(typeof(Tamanio), "nombre") //El adapter hace que se muestre el tamaño por el nombre
 			value <=> "sizeSelect"
-
 		]
 
 	}
 
-	def footButton(Panel mainPanel) {
+	/**Define los botones inferiores de aceptar y cancelar*/
+	def footButton(Panel mainPanel) 
+	{
 		var panelButton = new Panel(mainPanel)
 		panelButton.layout = new HorizontalLayout()
-		new Button(panelButton) => [
-			caption = "Aceptar"
-			onClick [
-				this.accept
-				setAsDefault
-				disableOnError
-			]
-			
-		]
+		new Button(panelButton) => 
+					[
+						caption = "Aceptar"
+						onClick 
+						[
+							this.accept
+							setAsDefault
+							disableOnError
+						]
+						
+					]
 
-		new Button(panelButton) => [
-			caption = "Cancelar"
-			onClick [
-				close
-			]
-		]
+		new Button(panelButton) => 
+					[
+						caption = "Cancelar"
+						onClick [	close	]
+					]
 	}
-	
 
-
-	
-	override initHead(Panel mainPanel) {
+	/**Metodo donde se llaman los metodos de donde se definen los selectores de pizza y tamaño*/
+	override initHead(Panel mainPanel) 
+	{
 		selectorPizza(mainPanel)
 		selectorSizePizza(mainPanel)
 	}
 	
-	override initBottom(Panel mainPanel) {
+	/**Define los botones de calcular precio, el label de precio y los botones inferiores(Aceptar y cancelar)*/
+	override initBottom(Panel mainPanel) 
+	{
 		footButtonCalculate(mainPanel)
 		footLabel(mainPanel)
 		footButton(mainPanel)
 	}
 	
-	def footButtonCalculate(Panel mainPanel) {
+	/**Define el boton de calculo de precio del Plato */
+	def footButtonCalculate(Panel mainPanel) 
+	{
 		var panelButton 	= new Panel(mainPanel)
 		panelButton.layout 	= new HorizontalLayout()
 		
-		new Button(panelButton) => [
-			caption = "Calcular Precio"
-			onClick [
-				
-				unPlato.calcularPrecio
-				setAsDefault
-				disableOnError
-			]
-			
-		]
-	
-	
+		new Button(panelButton) => 
+					[
+						caption = "Calcular Precio"
+						onClick [
+									unPlato.calcularPrecio
+									setAsDefault
+									disableOnError
+								]
+					]
 	}
 	
-	def footLabel(Panel mainPanel) {
+	/**Define el label donde se meustra el precio del plato*/
+	def footLabel(Panel mainPanel) 
+	{
 		var panelLabel = new Panel(mainPanel)
 		panelLabel.layout = new HorizontalLayout()
 
 		new Label(panelLabel).text = "Precio"
-		new Label(panelLabel) => [
-			
-			value <=> "precio"
-		]
-
+		new Label(panelLabel) => [	value <=> "precio"	]
 	}
 	
+	/**Redefine el metodo y para agregar al medole un ingrediente adapter */
+	override agregarAModelo(IngredienteAdapterAbstract ingredienteAdapter) 
+	{	unPlato.ingredientesExtras.add(ingredienteAdapter)	}
 	
-	override agregarAModelo(IngredienteAdapterAbstract ingredienteAdapter) {
-			unPlato.ingredientesExtras.add(ingredienteAdapter)
-	}
+	/**Redefine el metodo y para agregar al medole un ingrediente adapter */
+	override getAdapter(Ingrediente unIngrediente) 
+	{	new IngredienteExtraAppModel(unPlato,unIngrediente)	}
 	
-	override getAdapter(Ingrediente unIngrediente) {
-		  new IngredienteExtraAppModel(unPlato,unIngrediente)
-	}
-	
-	override accept() {
+	/**Redefine el metodo y para realizar los cambios necesarios al momento de de aceptar en la ventana*/
+	override accept() 
+	{
 		super.accept
 		unPlato.aceptarCambio
 		mainWindow.modelObject.calcularPrecio
-		
 	}
 	
 }

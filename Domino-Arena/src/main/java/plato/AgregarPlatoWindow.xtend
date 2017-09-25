@@ -6,15 +6,14 @@ import pedido.PedidoWindowEditar
 import pedido.Plato
 
 @Accessors
-class AgregarPlatoWindow extends EditarPlatoWindow  {
+class AgregarPlatoWindow extends EditarPlatoWindow  
+{
+	new(PedidoWindowEditar  owner) 
+	{	super(owner, new PlatoAppModel(new Plato))	}
 	
-	new(PedidoWindowEditar  owner) {
-		
-		super(owner, new PlatoAppModel(new Plato))
-	
-	}
-	
-	override void accept(){
+	/**Redefine el metodo para que al aceptar se agregue el plato y calcule el precio*/
+	override void accept()
+	{
 		super.accept
 		mainWindow.modelObject.agregarPlatoAdapter(super.unPlato.plato)
 		mainWindow.modelObject.calcularPrecio

@@ -11,18 +11,15 @@ import listadoDePedidosCerrados.MainWindowListaPedidosCerrados
 import org.uqbar.arena.bindings.NotNullObservable
 import menuPizzas.MenuDeDominoAppModel
 import pedido.PedidoWindowEditar
-import runnable.DominosPizzaMainWindow
 import org.uqbar.commons.model.exceptions.UserException
 
-class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
-
-	new(WindowOwner parent, DominoPizzaAppModel model) {
-		super(parent, model)
-	}
-
-	new(DominosPizzaMainWindow window) {
-		super(window, new DominoPizzaAppModel)
-	}
+/**Clase que genera y muestra la ventana donde se muestran los Pedidos Abiertos. En esta ventana se puede
+ * hacer avanzar o retroceder el estado de un pedido, se lo puede cancelar y tambien se puede acceder a la 
+ * ventana de edicion de pedido. Y se puede acceder a la ventana de pedidos cerrados y la ventana del menu*/
+class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> 
+{
+	new(WindowOwner unaDominosPizzaMainWindow) 
+	{	super(unaDominosPizzaMainWindow, new DominoPizzaAppModel)	}
 
 	override protected addActions(Panel actionsPanel) {}
 
@@ -53,11 +50,12 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 	/**Define Los botones que interactuan con la tabla de pedidos */
 	def panelBotonesListaDePedidos(Panel panelDeListaPedidos) {
 
+		//Variable que habilita los botones dependiendo si hay un pedido seleccionado
 		val unPedidoSeleccionado = new NotNullObservable("pedidoSelectItem")
 		var panelTablaDePedido = new Panel(panelDeListaPedidos)
 		panelTablaDePedido.layout = new VerticalLayout
 
-		this.botonesAvanceRetroceso(panelTablaDePedido)
+		this.botonesAvanceRetroceso(panelTablaDePedido,unPedidoSeleccionado)
 
 		new Button(panelTablaDePedido) => [
 			caption = "Cancelar"
@@ -67,16 +65,13 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 		new Button(panelTablaDePedido) => [
 			caption = "Editar"
-			onClick [
-
-				this.abrirDialogoDeEditarPedido
-
-			]
+			onClick [	this.abrirDialogoDeEditarPedido	]
 			bindEnabled(unPedidoSeleccionado)
 		]
 
 	}
 
+	/**Abre la ventana para poder editar el pedido */
 	def abrirDialogoDeEditarPedido() {
 		val dialog = new PedidoWindowEditar(this, modelObject.pedidoSelectItem)
 		dialog.onAccept [
@@ -87,34 +82,29 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 	}
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */
-	def botonesAvanceRetroceso(Panel panelTablaDePedido) {
-		val unPedidoSeleccionado = new NotNullObservable("pedidoSelectItem")
+	def botonesAvanceRetroceso(Panel panelTablaDePedido, NotNullObservable verificadorDePedidoSeleccionado) {
 		var panelRetrocederAvanzar = new Panel(panelTablaDePedido)
 		panelRetrocederAvanzar.layout = new HorizontalLayout
 
 		new Button(panelRetrocederAvanzar) => [
 			caption = "<<"
 			onClick [
-				try {
-					modelObject.anteriorEstadoPedidoSeleccionado()
-
-				} catch (StateException e) {
-					throw new UserException("No se puede cambiar de estado")
-				}
+				try 
+				{	modelObject.anteriorEstadoPedidoSeleccionado()	}
+				catch (StateException e) 
+				{	throw new UserException("No se puede cambiar de estado")	}
 			]
-			bindEnabled(unPedidoSeleccionado)
+			bindEnabled(verificadorDePedidoSeleccionado)
 		]
 
 		new Button(panelRetrocederAvanzar) => [
 			caption = ">>"
-			onClick [
-				modelObject.siguienteEstadoPedidoSeleccionado
-			]
-			bindEnabled(unPedidoSeleccionado)
+			onClick [	modelObject.siguienteEstadoPedidoSeleccionado	]
+			bindEnabled(verificadorDePedidoSeleccionado)
 		]
 	}
 
-	/**Define los botones de avance y retroceso de estado de los pedidos */
+	/**Define los botones para ir al menu de domino's pizza, de la lista de pedidos cerrados y para salir de la ventana*/
 	def panelDeBotonesInferiores(Panel MainPanel) {
 
 		var panelBotonesInferiores = new Panel(MainPanel)
@@ -122,23 +112,17 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel> {
 
 		new Button(panelBotonesInferiores) => [
 			caption = "Menú"
-			onClick [
-				new MenuDeDominoMainWindow(this, new MenuDeDominoAppModel).open
-			]
+			onClick [	new MenuDeDominoMainWindow(this, new MenuDeDominoAppModel).open	]
 		]
 
 		new Button(panelBotonesInferiores) => [
 			caption = "Pedidos Cerrados"
-			onClick [
-				new MainWindowListaPedidosCerrados(this).open
-			]
+			onClick [	new MainWindowListaPedidosCerrados(this).open	]
 		]
 
 		new Button(panelBotonesInferiores) => [
 			caption = "Salir"
-			onClick [
-				this.close
-			]
+			onClick [	this.close	]
 		]
 	}
 
