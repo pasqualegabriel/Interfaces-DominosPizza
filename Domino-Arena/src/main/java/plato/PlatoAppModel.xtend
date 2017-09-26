@@ -20,13 +20,17 @@ import persistencia.HomePizza
 @Accessors
 @TransactionalAndObservable
 class PlatoAppModel 
-{
+{	
 	double precio
+		
 	Plato plato
+	
 	List<Pizza> pizzaItems			= newArrayList
 	Pizza pizzaSelect
+	
 	List<Tamanio> itemsSize 		= #[new Porcion, new Chica, new Grande, new Familiar]
 	Tamanio sizeSelect
+	
 	List<IngredienteAdapterAbstract> ingredientesExtras = newArrayList
     
 	

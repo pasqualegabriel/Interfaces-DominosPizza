@@ -130,11 +130,11 @@ class EditarPlatoWindow extends EditarIngredienteTemplate
 		new Label(panelLabel) => [	value <=> "precio"	]
 	}
 	
-	/**Redefine el metodo y para agregar al medole un ingrediente adapter */
+	/**Redefine el metodo y para agregar al modelo un ingrediente adapter */
 	override agregarAModelo(IngredienteAdapterAbstract ingredienteAdapter) 
 	{	unPlato.ingredientesExtras.add(ingredienteAdapter)	}
 	
-	/**Redefine el metodo y para agregar al medole un ingrediente adapter */
+	/**Redefine el metodo y para agregar al modelo un ingrediente adapter */
 	override getAdapter(Ingrediente unIngrediente) 
 	{	new IngredienteExtraAppModel(unPlato,unIngrediente)	}
 	

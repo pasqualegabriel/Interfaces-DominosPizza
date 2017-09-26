@@ -13,11 +13,8 @@ import menuPizzas.MenuDeDominoMainWindow
 
 class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 	
-	protected MenuDeDominoMainWindow mainWindow
-	
 	new(MenuDeDominoMainWindow aMainWindow, Ingrediente model) {
 		super(aMainWindow, model)
-		mainWindow = aMainWindow
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -38,10 +35,7 @@ class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 		]
 		new Button(mainPanel) => [
 			caption = "Aceptar"
-			onClick [|this.accept
-					   mainWindow.modelObject.actualizarIngredientesDisponibles
-				
-			]
+			onClick [|this.accept]
 			
 			disableOnError	
 		]

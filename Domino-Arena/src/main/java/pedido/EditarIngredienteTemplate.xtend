@@ -22,7 +22,7 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
 		
-		// Se declara en forma de Template Metod para hacer la extension mas comoda
+		/** Se declara en forma de Template Metod para hacer la extension mas comoda */
 		
 		this.initHead(mainPanel)
 		this.armarTablaDeIngredientes(mainPanel)
@@ -32,9 +32,10 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	def void initHead(Panel mainPanel)
 	
 	def void initBottom(Panel mainPanel)
-	
-
-
+ 
+ 
+ 	/** Se pide al repositorio de ingredientes los ingredientes disponibles y por cada uno 
+ 	 *  se crea una checkbox con selector */
 	def armarTablaDeIngredientes(Panel mainPanel) {
 		var tablaDeIngredientes = new Panel(mainPanel)
 		tablaDeIngredientes.layout= new VerticalLayout
@@ -47,7 +48,15 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		
 	}
 	
+	/** La checkbox con selector va a estar asociada a un ingrediente y a la distrubcion que este tiene en la pizza  */
+	
 	def createCheckBoxLabeledSeleccionable(Panel tablaDeIngredientes,Ingrediente unIngrediente){
+		
+		/** Como no se puede tocar el dominio,
+		 *  Se pide que se instancie un adapter que luego se agrega al modelo, y una vez aceptado el dialogo, el modelo
+		 *  se encarga de fijarse si debe guardar el ingrediente o no.
+		 */
+		 
 		val ingredienteAppModel = this.getAdapter(unIngrediente)
 		this.agregarAModelo(ingredienteAppModel)
 		

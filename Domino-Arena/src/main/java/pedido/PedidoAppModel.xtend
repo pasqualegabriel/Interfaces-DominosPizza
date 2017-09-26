@@ -8,9 +8,10 @@ import java.util.List
 import pedido.Plato
 import persistencia.HomePedido
 import org.uqbar.commons.model.annotations.Dependencies
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
-@TransactionalAndObservable
+@Observable
 class PedidoAppModel 
 {
 	Pedido pedidoAdaptado
@@ -22,7 +23,7 @@ class PedidoAppModel
 	Plato platoSeleccionado
 	Double costoDeEnvio
 	Double precio
-	List<Plato> pedidosAAgregar 		= newArrayList
+
 
 	new(Pedido unPedido) 
 	{
@@ -52,7 +53,9 @@ class PedidoAppModel
 	def void coleccionDePlatos() 
 	{
 		for (Plato unPlato : pedidoAdaptado.platos) 
-		{	itemsPlatos.add(unPlato)	}
+		{
+			itemsPlatos.add(unPlato)
+		}
 	}
 
 	/**Devuelve una lista de los estados a los que puede pasar el pedido actual */
@@ -159,7 +162,7 @@ class PedidoAppModel
 	{	'''$ «costoDeEnvio»'''	}
 
 	/**Da elprecio en un formato adaptador para la vista */
-	@Dependencies("precio")
+	@Dependencies("precio","itemsPlatos")
 	def getPrecioMostrable() 
 	{	'''$ «precio»'''	}
 

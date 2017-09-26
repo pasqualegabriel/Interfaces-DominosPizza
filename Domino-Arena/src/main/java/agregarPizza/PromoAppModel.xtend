@@ -39,12 +39,6 @@ class PromoAppModel {
 	
 	def agregarIngredientes() {
 		pizza.distribucion= new Distribucion
-
-// 		hacer esto con lambda
-//		for (IngredienteAdapterAbstract ingrediente: ingredientes){
-//			ingrediente.agregarse
-//		}
-
 		ingredientes.forEach[ i | i.agregarse]
 	
 	}

@@ -60,7 +60,10 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 	
 	def editarIngrediente() {
-		new EditarIngredientesWindow(this, modelObject.ingredienteSeleccionado).open
+		val	dialog = new EditarIngredientesWindow(this, modelObject.ingredienteSeleccionado)
+		dialog.onAccept[this.modelObject.actualizarIngredientesDisponibles]
+		dialog.open
+		
 	}
 	
 	def eliminarIngrediente() {

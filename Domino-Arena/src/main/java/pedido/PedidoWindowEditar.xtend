@@ -208,13 +208,14 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 							disableOnError
 						]
 			]
-
+		
 		new Button(panelUltimosBotonesPlatos) => 
 			[
 				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
 				caption = "Cancelar"
 				onClick [	close	]
 			]
+		
 	}
 
 }
