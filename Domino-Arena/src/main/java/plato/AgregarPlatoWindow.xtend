@@ -15,7 +15,7 @@ class AgregarPlatoWindow extends EditarPlatoWindow
 	override void accept()
 	{
 		super.accept
-		mainWindow.modelObject.agregarPlatoAdapter(super.unPlato.plato)
+		mainWindow.modelObject.agregarPlato(super.unPlato.plato)
 		mainWindow.modelObject.calcularPrecio
 	}
 }

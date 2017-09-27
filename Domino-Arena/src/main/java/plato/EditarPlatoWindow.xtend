@@ -13,9 +13,9 @@ import pizza.Pizza
 import pizza.Tamanio
 import org.eclipse.xtend.lib.annotations.Accessors
 import pedido.PedidoWindowEditar
-import pedido.EditarIngredienteTemplate
-import agregarPizza.IngredienteAdapterAbstract
+
 import pizza.Ingrediente
+import edicionDePromocion.IngredienteAdapterAbstract
 
 @Accessors
 class EditarPlatoWindow extends EditarIngredienteTemplate 

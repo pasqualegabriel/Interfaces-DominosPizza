@@ -98,5 +98,9 @@ class Pedido {
 		estadoActual.anterior(this)
 	}
 	
+	def agregarAlHistorial() {
+		miembro.agregarPedido(this)
+	}
+	
 }
 

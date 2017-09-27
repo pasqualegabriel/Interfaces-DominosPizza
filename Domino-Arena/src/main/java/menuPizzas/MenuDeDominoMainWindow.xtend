@@ -8,12 +8,14 @@ import org.uqbar.arena.widgets.Button
 
 import agregarIngrediente.EditarIngredientesWindow
 
-import agregarPizza.PromoAppModel
+
 import pizza.Ingrediente
 import pizza.Pizza
 import pizza.Distribucion
 import org.uqbar.commons.model.exceptions.UserException
-import agregarPizza.EditarPromocionWindow
+
+import edicionDePromocion.EditarPromocionWindow
+import edicionDePromocion.PromoAppModel
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>
 {

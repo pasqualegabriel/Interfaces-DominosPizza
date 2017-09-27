@@ -90,7 +90,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel>
 			caption = "<<"
 			onClick [
 				try 
-				{	modelObject.anteriorEstadoPedidoSeleccionado()	}
+				{	modelObject.anteriorEstadoPedidoSeleccionado	}
 				catch (StateException e) 
 				{	throw new UserException("No se puede cambiar de estado")	}
 			]

@@ -1,4 +1,4 @@
-package agregarPizza
+package edicionDePromocion
 
 import pizza.Ingrediente
 import org.eclipse.xtend.lib.annotations.Accessors

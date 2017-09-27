@@ -1,6 +1,7 @@
 package estados
 
 import pedido.Pedido
+import comunicables.ComunicadoParaViaje
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende de que este este listo para enviar
 //                  -Indicar cual es el siguiente o anterior estado que le sigue
@@ -11,6 +12,7 @@ class ListoParaEnviar extends EstadoDePedido
 	override void siguiente(Pedido unPedido)
 	{
 		super.siguiente(unPedido)
+		unPedido.miembro.comunicar(new ComunicadoParaViaje)
 	}
 	
 	override previo() {

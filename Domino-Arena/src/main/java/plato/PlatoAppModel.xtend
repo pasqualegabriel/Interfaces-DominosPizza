@@ -6,16 +6,13 @@ import pizza.Tamanio
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pizza.Pizza
 import java.util.List
-import pizza.Ingrediente
-import pizza.DistribucionEnPizza
 import pizza.Distribucion
-import agregarPizza.IngredienteAdapterAbstract
 import pizza.Porcion
 import pizza.Chica
 import pizza.Grande
 import pizza.Familiar
 import persistencia.HomePizza
-
+import edicionDePromocion.IngredienteAdapterAbstract
 
 @Accessors
 @TransactionalAndObservable
@@ -45,16 +42,11 @@ class PlatoAppModel
 	}
 	
 	/**Asigna una pizza solamente cuando  el objeto adaptado<Plato> no tiene una pizza*/
-	def asignarPizza() 
+	def void asignarPizza() 
 	{
 		if(plato.pizza==null)
-		{	plato.pizza 	= HomePizza.instance.promocionesDisponibles.get(0)	}
+		{	plato.pizza = HomePizza.instance.promocionesDisponibles.get(0)}
 	}
-
-
-	/**Carga todas las promoociones disponibles a la lista de pizzaItems*/
-	def coleccionPizzaItems() 
-	{	pizzaItems.addAll(HomePizza.instance.promocionesDisponibles)	}
 
 	def void setPizzaSelect(Pizza unaPizza) 
 	{	pizzaSelect = unaPizza	}
@@ -62,33 +54,29 @@ class PlatoAppModel
 	def void setSizeSelect(Tamanio unTamanio) 
 	{	sizeSelect = unTamanio	}
 	
-	/**Agrega al ingrediente con uan distribucion en pizza a la lista de ingredientes extras del plato */
-	def agregaIngredienteExtra(Ingrediente ingrediente, DistribucionEnPizza distribucion) 
-	{	plato.agregarIngredienteExtra(ingrediente,distribucion)	}
-	
-	/**Cambia la distribucion en pizza del ingrediente de la lista de ingredientes extras del plato*/
-	def cambiarDistribucionDeIngredienteExtra(Ingrediente unIngrediente,DistribucionEnPizza unaDistribucion) 
-	{	plato.cambiarDistribucionDeUnIngrediente(unIngrediente,unaDistribucion)	}
-	
-	/**Agrega todos los ingredientes extras de la lista ingredientesExtras, a la lista de ingredientes extras del plato*/
-	def agregarIngredientes() 
-	{
-		plato.ingredientesExtras= new Distribucion
-		for (IngredienteAdapterAbstract ingrediente: ingredientesExtras)
-		{	ingrediente.agregarse	}
+	/**Devuelve el precio total de los ingredientes extras elegidos */
+	def getPrecioDeIngredientesExtras() 
+	{	
+		ingredientesExtras.stream.mapToDouble[it.getPrecio].sum()
 	}
+	//calcular y precioIngredienteExtra testear 
 	
 	/**Calcula el precio del plato para poder mostrarlo */
 	def calcularPrecio() 
 	{	precio = (pizzaSelect.precioBase * sizeSelect.factorDeTamanio) + precioDeIngredientesExtras	}
+
+
+	/**Protocolo */
 	
-	/**Devuelve el precio total de los ingredientes extras elegidos */
-	def getPrecioDeIngredientesExtras() 
+	/**Carga todas las promoociones disponibles a la lista de pizzaItems*/
+	def coleccionPizzaItems() 
+	{	pizzaItems.addAll(HomePizza.instance.promocionesDisponibles)	}
+
+	/**Agrega todos los ingredientes extras de la lista ingredientesExtras, a la lista de ingredientes extras del plato*/
+	def agregarIngredientes() 
 	{
-		var double precioDeIngredientesExtras = 0.00
-		for(IngredienteAdapterAbstract i: ingredientesExtras)
-		{	precioDeIngredientesExtras += i.getPrecio	}
-		precioDeIngredientesExtras
+		plato.ingredientesExtras= new Distribucion
+		ingredientesExtras.forEach[it.agregarse]
 	}
 	
 	/**Agrega todos los ingredientes elegidos con su distribucion al plato*/

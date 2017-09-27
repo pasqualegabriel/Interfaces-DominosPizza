@@ -1,4 +1,4 @@
-package DominoPizzaInicio
+package testAppModels
 
 import org.junit.Test
 import pedido.Pedido
@@ -10,7 +10,7 @@ import persistencia.Bootstrap
 class DominoPizzaAppModelTest 
 {
 	Bootstrap elBootstrap
-	DominoPizzaAppModel unDominoPizzaAppModel
+	DominoPizzaInicio.DominoPizzaAppModel unDominoPizzaAppModel
 	Pedido unPedidoAbiertoSeleccionado
 	
 	
@@ -19,7 +19,7 @@ class DominoPizzaAppModelTest
 	{
 		elBootstrap 			= new Bootstrap
 		elBootstrap.run
-		unDominoPizzaAppModel 	= new DominoPizzaAppModel	
+		unDominoPizzaAppModel 	= new DominoPizzaInicio.DominoPizzaAppModel	
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ class DominoPizzaAppModelTest
 		assertTrue(unPedidoAbiertoSeleccionado.estadoActual.nombre.equalsIgnoreCase(estadoAnteriorEsperado))
 	}
 	
-	@Test(expected=typeof(StateException))
+	@Test(expected=typeof(DominoPizzaInicio.StateException))
 	def Un_Pedido_Seleccionado_Esta_En_Estado_Preparando_E_Intenta_Pasar_A_Un_Estado_Anterior_Levanta_Una_Excepcion()
 	{
 		//Setup
@@ -100,3 +100,4 @@ class DominoPizzaAppModelTest
 	}
 	
 }
+			

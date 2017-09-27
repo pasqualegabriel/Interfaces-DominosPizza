@@ -11,7 +11,7 @@ class ComunicadoParaViaje implements Comunicable {
 	}
 	
 	override cuerpoMensaje() {
-		"Su Pedido de ya esta en camino!"
+		"Su Pedido ya esta en camino!"
 	}
 	
 }

@@ -1,4 +1,4 @@
-package pedido
+package plato
 
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.windows.WindowOwner
@@ -8,10 +8,11 @@ import pizza.Ingrediente
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
-import agregarPizza.IngredienteAdapterAbstract
+
 import org.uqbar.arena.widgets.Selector
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import persistencia.HomeIngrediente
+import edicionDePromocion.IngredienteAdapterAbstract
 
 abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 	
@@ -62,7 +63,7 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
 		
 		
       	var checkBoxDeIngrediente = new Panel(tablaDeIngredientes, ingredienteAppModel)
-      	checkBoxDeIngrediente.setLayout = new HorizontalLayout	
+      	checkBoxDeIngrediente.layout = new HorizontalLayout	
       	
       
 		new CheckBox(checkBoxDeIngrediente)=>[

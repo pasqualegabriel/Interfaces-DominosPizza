@@ -147,7 +147,8 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 							modelObject.eliminarPlato
 							modelObject.calcularPrecio
 						]
-				bindEnabledToProperty("sePuedeEditar")	//Se habilita al haber un pedido seleccionado
+				bindEnabledToProperty("sePuedeEliminar")	//Se habilita al haber un pedido seleccionado
+				
 			]
 	}
 
@@ -185,8 +186,8 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 
 		new Label(panelDatosPlatos).text = "Monto total"
 	
-		new Label(panelDatosPlatos).value <=> "precioMostrable" //Metodo del appModel
-
+		new Label(panelDatosPlatos).value <=> "precioMostrable"
+		
 		new Label(panelDatosPlatos).text = "Hora"
 
 		new Label(panelDatosPlatos).value <=> "hora"	//Metodo del appModel

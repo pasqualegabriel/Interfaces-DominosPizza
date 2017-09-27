@@ -27,6 +27,7 @@ class DominoPizzaAppModel {
 
 	/** Cancela un pedido seleccinado y lo pasa a la lista de pedidos cerrados */
 	def void cancelarPedidoSeleccionado() {
+		pedidoSelectItem.agregarAlHistorial
 		pedidoSelectItem.cancelar()
 		this.cerrarPedidoSeleccionado
 	}
@@ -37,8 +38,11 @@ class DominoPizzaAppModel {
 		pedidoSelectItem.siguiente
 		/*verifica si el pedido pasa a un pedido entregado,
 		 *  si es asi lo cierra y lo envia a pedido cerrados*/
-		if (pedidoSelectItem.estadoActual.nombre.equalsIgnoreCase("Entregado"))
+		if (pedidoSelectItem.estadoActual.nombre.equalsIgnoreCase("Entregado")){
 			this.cerrarPedidoSeleccionado
+			
+			
+		}
 		else
 			this.repoDePedidosAbiertos
 	}
@@ -61,6 +65,7 @@ class DominoPizzaAppModel {
 	@Dependencies("listaDePedidosAbiertos")
 	def void cerrarPedidoSeleccionado() 
 	{
+		pedidoSelectItem.agregarAlHistorial
 		HomePedido.instance.moverPedidoAPedidosCerrado(this.pedidoSelectItem)
 		itemsPedidosAbiertos.remove(pedidoSelectItem)
 		pedidoSelectItem = null

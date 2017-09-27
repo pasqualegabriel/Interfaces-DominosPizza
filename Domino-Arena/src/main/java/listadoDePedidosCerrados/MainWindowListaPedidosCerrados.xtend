@@ -9,7 +9,7 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import DominoPizzaInicio.TablaPedido
 import DominoPizzaInicio.DominoPizzaAppModel
-import pedido.PedidoCerradoWindow
+
 
 /**Clase que se encarga de visualizar una ventana donde se listan los pedidos cerrados. En esta ventana 
  * se puede acceder a un pedido cerrado y ver su contenido(pero no se puede modificar)*/

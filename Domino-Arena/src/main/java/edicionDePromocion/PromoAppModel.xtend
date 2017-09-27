@@ -1,4 +1,4 @@
-package agregarPizza
+package edicionDePromocion
 
 import org.uqbar.commons.model.annotations.Transactional
 import org.eclipse.xtend.lib.annotations.Accessors

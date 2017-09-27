@@ -1,4 +1,4 @@
-package agregarPizza
+package edicionDePromocion
 
 import menuPizzas.MenuDeDominoMainWindow
 import org.uqbar.arena.widgets.Panel
@@ -7,8 +7,10 @@ import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import pizza.Ingrediente
 import org.uqbar.arena.widgets.Button
-import pedido.EditarIngredienteTemplate
+
 import org.eclipse.xtend.lib.annotations.Accessors
+import plato.EditarIngredienteTemplate
+import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 class EditarPromocionWindow extends EditarIngredienteTemplate{
@@ -69,8 +71,11 @@ class EditarPromocionWindow extends EditarIngredienteTemplate{
 	}
 	
 	override accept() {
-		super.accept
-		modelo.agregarIngredientes
+		if(modelo.pizza.nombre.length>0 && modelo.pizza.precioBase != null){
+			super.accept
+			modelo.agregarIngredientes
+		}
+		else throw new UserException ("Por favor Seleccione un nombre y precio antes de aceptar")
 	}
 	
 }

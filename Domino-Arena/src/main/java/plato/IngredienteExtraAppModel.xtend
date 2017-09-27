@@ -1,10 +1,10 @@
 package plato
 
-import agregarPizza.IngredienteAdapterAbstract
+
 import pizza.Ingrediente
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
-
+import edicionDePromocion.IngredienteAdapterAbstract
 
 @Accessors
 @TransactionalAndObservable

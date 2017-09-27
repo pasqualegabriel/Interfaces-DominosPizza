@@ -1,13 +1,13 @@
-package DominoPizzaInicio
+package testAppModels
 
 import org.junit.Before
 import org.junit.Test
 import static org.junit.Assert.*
-import agregarPizza.IngredienteAdapter
 import pizza.Ingrediente
 import pizza.Pizza
 import pizza.Distribucion
 import pizza.DistribucionEnPizza
+import edicionDePromocion.IngredienteAdapter
 
 class IngredienteAdapterTest {
 	
@@ -36,36 +36,40 @@ class IngredienteAdapterTest {
 	}
 	
 	@Test	
-	def unIngredienteAdapterSeInstanciaActivadoYConSuDistribucionSeleccionadaPorQueElIngredienteYaEstaEnLaPizza(){
+	def test00unIngredienteAdapterSeInstanciaActivadoYConSuDistribucionSeleccionadaPorQueElIngredienteYaEstaEnLaPizza(){
 		assertTrue(ingredienteAdapterSUT.getActivado)
 		assertNotNull(ingredienteAdapterSUT.distribucionSeleccionada)
 	}
 	
 	@Test	
-	def unIngredienteAdapterSeInstanciaDesactivadoYSinDistribucionSeleccionadaPorQueElIngredienteNoEstaEnLaPizza(){
+	def test01unIngredienteAdapterSeInstanciaDesactivadoYSinDistribucionSeleccionadaPorQueElIngredienteNoEstaEnLaPizza(){
 		assertFalse(ingredienteAdapterSUT2.getActivado)
-		assertNull(ingredienteAdapterSUT.distribucionSeleccionada)
+		assertNull(ingredienteAdapterSUT2.distribucionSeleccionada)
 	}
 	
 	@Test	
-	def unIngredienteAdapterSeAgregaALaPizzaExitosamentePorQueEstaActivadoYConDistribucionSeleccionada(){
+	def test02unIngredienteAdapterSeAgregaALaPizzaExitosamentePorQueEstaActivadoYConDistribucionSeleccionada(){
+		pizzaDOC.quitarIngrediente(ingredienteAdapterSUT.ingrediente)
 		ingredienteAdapterSUT.agregarse
 		
 		assertTrue(pizzaDOC.distribucion.tieneAlIngrediente(ingredienteAdapterSUT.ingrediente))
 	}
 	
 	@Test	
-	def unIngredienteAdapterNoSeAgregaALaPizzaPorQueSeDesactivo(){
+	def test03unIngredienteAdapterNoSeAgregaALaPizzaPorQueSeDesactivo(){
+		pizzaDOC.quitarIngrediente(ingredienteAdapterSUT.ingrediente)
 		ingredienteAdapterSUT.activado = false
 		ingredienteAdapterSUT.agregarse
 		
 		assertFalse(pizzaDOC.distribucion.tieneAlIngrediente(ingredienteAdapterSUT.ingrediente))	
 	}
 	@Test	
-	def unIngredienteAdapterNoSeAgregaALaPizzaPorQueSuEstaActivadoPeroSinDistribucionSeleccionada(){
+	def test04unIngredienteAdapterNoSeAgregaALaPizzaPorQueEstaActivadoPeroSinDistribucionSeleccionada(){
+		pizzaDOC.quitarIngrediente(ingredienteAdapterSUT.ingrediente)
 		ingredienteAdapterSUT.distribucionSeleccionada= null
 		ingredienteAdapterSUT.agregarse
 		
 		assertFalse(pizzaDOC.distribucion.tieneAlIngrediente(ingredienteAdapterSUT.ingrediente))
 	}
 }
+		
