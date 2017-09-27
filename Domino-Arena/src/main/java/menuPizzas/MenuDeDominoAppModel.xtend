@@ -10,47 +10,58 @@ import persistencia.HomeIngrediente
 
 @Observable
 @Accessors
-class MenuDeDominoAppModel {
-	
+class MenuDeDominoAppModel 
+{
 	Pizza pizzaSeleccionada
 	Ingrediente ingredienteSeleccionado	
 	List<Ingrediente> ingredientesDisponibles
 	List<Pizza> promosDisponibles
 	
 	
-	new(){
+	new()
+	{
 		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
 		promosDisponibles 		= HomePizza.instance.promocionesDisponibles
 	}
 	
-	def agregarIngrediente(Ingrediente unIngrediente){
+	/**Agrega un ingrediente al repositorio de ingredientes y actualiza la lista de ingredientes disponibles */
+	def agregarIngrediente(Ingrediente unIngrediente)
+	{
 		HomeIngrediente.instance.agregarIngrediente(unIngrediente)
 		actualizarIngredientesDisponibles
-	  
 	}
 	
-	def eliminarIngrediente(Ingrediente unIngrediente) {
+	/**Elimina un ingrediente del repositorio de ingredientes y actualiza la lista de ingredientes disponibles */
+	def eliminarIngrediente(Ingrediente unIngrediente) 
+	{
 		HomeIngrediente.instance.borrarIngrediente(unIngrediente)
 		actualizarIngredientesDisponibles
-		
 	}
-	def agregarPromocion(Pizza unaPizza){
+	
+	/**Agrega una pizza al repositorio de pizzas y actualiza la lista de promociones disponibles*/
+	def agregarPromocion(Pizza unaPizza)
+	{
 		 HomePizza.instance.agregarPromocion(unaPizza)
 		 actualizarPromosDisponibles
-	 	
 	}
-	def eliminarPizza(Pizza unaPizza) {
+	
+	/**Elimina una pizza del repositorio de pizzas y actualiza la lista de promociones disponibles*/
+	def eliminarPizza(Pizza unaPizza) 
+	{
 		 HomePizza.instance.borrarPromocion(unaPizza)
 		 actualizarPromosDisponibles
 	}
 	
+	/**Actualiza las promos disponibles con las promociones actuales */
 	def void actualizarPromosDisponibles()
 	{
 		promosDisponibles = null
 		promosDisponibles = HomePizza.instance.promocionesDisponibles
 	}
 	
-	def actualizarIngredientesDisponibles() {
+	/**Actualiza los ingredientes disponibles con los ingredientes actuales */
+	def actualizarIngredientesDisponibles() 
+	{
 		ingredientesDisponibles = null
 		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
 	}

@@ -2,7 +2,6 @@ package pedido
 
 import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import estados.EstadoDePedido
 import java.util.List
 import pedido.Plato
