@@ -47,7 +47,7 @@ class TablaPedido extends Panel {
 													[	
 														EstadoDePedido estadoDePedido | 
 														estadoDePedido.nombre
-													]
+													] //Transforma al estado para que muestre el nombre
 		]
 	}
 
@@ -69,7 +69,7 @@ class TablaPedido extends Panel {
 													[	
 														String nombreDelMiembroDelPedido | 
 														"Pedido de " + nombreDelMiembroDelPedido
-													]
+													] //Transforma el titulo para que muestre el con el nombre del cliente
 		]
 	}
 	
@@ -83,7 +83,7 @@ class TablaPedido extends Panel {
 													[ 
 														LocalDateTime fechaDePedido | 
 														fechaDePedido.toLocalDate.toString
-													]
+													] //Transforma la fecha del pedido para que se muestre solo  como dd-mm-aaaa
 		]
 	}
 	
@@ -97,7 +97,8 @@ class TablaPedido extends Panel {
 													[
 														Integer tiempoDeEspera | 
 														if (tiempoDeEspera == 0) "-" else '''«tiempoDeEspera» Min'''
-													]
+													] /*Transforma el tiempo de demora para que se muestre com "x Min" 
+													   * y en el caso que no tenga demora se meustre solo "-"*/
 		]
 	}
 	
@@ -107,7 +108,8 @@ class TablaPedido extends Panel {
 		new Column(tablaDePedidos) => 
 		[
 			title = unTitulo
-			bindContentsToProperty(propiedadABindear).transformer = [ Double precio | '''$«precio»''']
+			bindContentsToProperty(propiedadABindear).transformer = [ Double precio | '''$ «precio»''']
+													 //Transforma el Precio para que se muestre con el signo $
 		]
 	}
 	
@@ -121,7 +123,7 @@ class TablaPedido extends Panel {
 										[ 
 											LocalDateTime fechaDePedido | 
 											'''«fechaDePedido.toLocalTime.hour»:«fechaDePedido.toLocalTime.minute»''' 
-										]
+										] //Transforma la fecha para que solo se muestre la hora del pedido
 		]
 	}
 
