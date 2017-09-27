@@ -11,7 +11,7 @@ import pedido.EditarIngredienteTemplate
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class EditarPizzaWindow extends EditarIngredienteTemplate{
+class EditarPromocionWindow extends EditarIngredienteTemplate{
 	
 	protected MenuDeDominoMainWindow mainWindow
 	protected PromoAppModel modelo
@@ -21,6 +21,7 @@ class EditarPizzaWindow extends EditarIngredienteTemplate{
 		super(aMainWindow, unaPizza)
 		modelo = unaPizza
 		mainWindow = aMainWindow
+		this.title = "Editar Promocion"
 	}
 	
 	
@@ -61,6 +62,10 @@ class EditarPizzaWindow extends EditarIngredienteTemplate{
 	
 	override void agregarAModelo(IngredienteAdapterAbstract unIngredienteAdapter){
 		modelo.ingredientes.add(unIngredienteAdapter)
+	}
+	
+	def alternativeTitle() {
+		this.title = "Crear Promocion"
 	}
 	
 	override accept() {

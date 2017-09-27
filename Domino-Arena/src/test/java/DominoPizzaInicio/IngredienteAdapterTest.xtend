@@ -37,13 +37,13 @@ class IngredienteAdapterTest {
 	
 	@Test	
 	def unIngredienteAdapterSeInstanciaActivadoYConSuDistribucionSeleccionadaPorQueElIngredienteYaEstaEnLaPizza(){
-		assertTrue(ingredienteAdapterSUT.estaActivadoEnCheckbox)
+		assertTrue(ingredienteAdapterSUT.getActivado)
 		assertNotNull(ingredienteAdapterSUT.distribucionSeleccionada)
 	}
 	
 	@Test	
 	def unIngredienteAdapterSeInstanciaDesactivadoYSinDistribucionSeleccionadaPorQueElIngredienteNoEstaEnLaPizza(){
-		assertFalse(ingredienteAdapterSUT2.estaActivadoEnCheckbox)
+		assertFalse(ingredienteAdapterSUT2.getActivado)
 		assertNull(ingredienteAdapterSUT.distribucionSeleccionada)
 	}
 	
@@ -56,7 +56,7 @@ class IngredienteAdapterTest {
 	
 	@Test	
 	def unIngredienteAdapterNoSeAgregaALaPizzaPorQueSeDesactivo(){
-		ingredienteAdapterSUT.estaActivadoEnCheckbox = false
+		ingredienteAdapterSUT.activado = false
 		ingredienteAdapterSUT.agregarse
 		
 		assertFalse(pizzaDOC.distribucion.tieneAlIngrediente(ingredienteAdapterSUT.ingrediente))	

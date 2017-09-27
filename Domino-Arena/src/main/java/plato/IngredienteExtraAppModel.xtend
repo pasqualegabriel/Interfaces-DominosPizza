@@ -15,21 +15,15 @@ class IngredienteExtraAppModel extends IngredienteAdapterAbstract {
 	new(PlatoAppModel unPlato, Ingrediente unIngrediente) {
 		super(unIngrediente)
 		platoapp = unPlato
-		estaActivadoEnCheckbox = platoapp.plato.ingredientesExtras.tieneAlIngrediente(unIngrediente)
-		if (estaActivadoEnCheckbox) {
+		activado = platoapp.plato.ingredientesExtras.tieneAlIngrediente(unIngrediente)
+		if (activado) {
 			this.distribucionSeleccionada =  platoapp.plato.ingredientesExtras.posicionIngrediente(unIngrediente)
 		}
 		
 	}
 	
-	
-	// cuando le mandas calcularPrecio, lo que hace es hacer una distribucionTemporalNueva, 
-	// recorre todos los ingredientesExtrraAppModel, agrega a los locos que cumplen con la condicion
-	// de que estaactivadoEnCheckbox y distribucionSeleccionada diferente a null
-	// y los agrega a la distribuciontemportal
-	// calcula el precio con esa distro temporal.
 	override agregarse() {
-		if( estaActivadoEnCheckbox && distribucionSeleccionada != null){
+		if( activado && distribucionSeleccionada != null){
 			platoapp.plato.agregarIngredienteExtra(ingrediente,distribucionSeleccionada)
 
 		}

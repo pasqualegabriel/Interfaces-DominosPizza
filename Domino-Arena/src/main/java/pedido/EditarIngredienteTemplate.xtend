@@ -66,7 +66,7 @@ abstract class EditarIngredienteTemplate extends TransactionalDialog<Object>{
       	
       
 		new CheckBox(checkBoxDeIngrediente)=>[
-			value <=>"estaActivadoEnCheckbox"
+			value <=>"activado"
 		]
 	
 		new Label(checkBoxDeIngrediente).text= unIngrediente.nombre

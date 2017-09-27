@@ -15,12 +15,13 @@ class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 	
 	new(MenuDeDominoMainWindow aMainWindow, Ingrediente model) {
 		super(aMainWindow, model)
+		this.title = "Editar Ingrediente"
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
 		mainPanel.layout = new VerticalLayout
-		this.title = this.defaultTitle
+		
 	
 		new Label(mainPanel).text = "Nombre"
 		new TextBox(mainPanel) => [
@@ -47,8 +48,8 @@ class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 		]
 	}
 	
-	def defaultTitle() {
-		"Editar Ingrediente"
+	def alternativeTitle() {
+		this.title = "Crear Ingrediente"
 	}
 	
 	

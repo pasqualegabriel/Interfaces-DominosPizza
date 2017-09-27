@@ -14,7 +14,7 @@ abstract class IngredienteAdapterAbstract {
 	
 	protected Ingrediente ingrediente
 
-	protected Boolean estaActivadoEnCheckbox
+	protected Boolean activado
 
 	protected DistribucionEnPizza distribucionSeleccionada
 	
@@ -30,7 +30,7 @@ abstract class IngredienteAdapterAbstract {
 	def void agregarse()
 	
 	def Double getGetPrecio(){
-		if(estaActivadoEnCheckbox && distribucionSeleccionada != null){
+		if(activado && distribucionSeleccionada != null){
 			return this.ingrediente.precio
 		}
 		0.00

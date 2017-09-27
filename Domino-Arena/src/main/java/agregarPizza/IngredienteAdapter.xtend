@@ -17,15 +17,15 @@ class IngredienteAdapter extends IngredienteAdapterAbstract {
 	new(Ingrediente unIngrediente, Pizza unaPizza) {
 		super(unIngrediente)
 		pizza = unaPizza
-		estaActivadoEnCheckbox = pizza.distribucion.tieneAlIngrediente(unIngrediente)
-		if (estaActivadoEnCheckbox) {
+		activado = pizza.distribucion.tieneAlIngrediente(unIngrediente)
+		if (activado) {
 			this.distribucionSeleccionada = pizza.distribucion.posicionIngrediente(unIngrediente)
 		}
 		
 	}
 	
 	override agregarse() {
-		if(estaActivadoEnCheckbox && distribucionSeleccionada != null){
+		if(activado && distribucionSeleccionada != null){
 			pizza.distribucion.agregarIngrediente(ingrediente, distribucionSeleccionada)
 		}
 	}

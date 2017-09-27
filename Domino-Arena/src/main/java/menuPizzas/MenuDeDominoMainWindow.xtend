@@ -7,13 +7,13 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 
 import agregarIngrediente.EditarIngredientesWindow
-import agregarPizza.EditarPizzaWindow
 
 import agregarPizza.PromoAppModel
 import pizza.Ingrediente
 import pizza.Pizza
 import pizza.Distribucion
 import org.uqbar.commons.model.exceptions.UserException
+import agregarPizza.EditarPromocionWindow
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	
@@ -54,6 +54,7 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	
 	def crearIngrediente() {
 		val	dialog = new EditarIngredientesWindow(this, new Ingrediente("",0.00))
+		dialog.alternativeTitle
 		dialog.onAccept[this.modelObject.agregarIngrediente(dialog.modelObject)]
 		dialog.open
 		
@@ -76,14 +77,14 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>{
 	}
 
 	def crearPizza() {
-		val	dialog = new EditarPizzaWindow(this, new PromoAppModel(new Pizza("",0.00,new Distribucion)))
-		dialog.onAccept[this.modelObject.agregarPromocion(dialog.modelo.pizza)]
+		val	dialog = new EditarPromocionWindow(this, new PromoAppModel(new Pizza("",0.00,new Distribucion)))
+		dialog.alternativeTitle
 		dialog.open
 	}
 
 	
 	def editarPizza() {
-		var editorDePizzas = new EditarPizzaWindow(this, new PromoAppModel(modelObject.pizzaSeleccionada))
+		var editorDePizzas = new EditarPromocionWindow(this, new PromoAppModel(modelObject.pizzaSeleccionada))
 		editorDePizzas.open
 	}
 	
