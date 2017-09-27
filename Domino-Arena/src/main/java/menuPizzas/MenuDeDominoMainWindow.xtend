@@ -81,8 +81,9 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>
     /**Metodo que se encarga de abrir la ventana de crear una pizza nueva*/
 	def crearPizza() {
 		val	dialog = new EditarPromocionWindow(this, new PromoAppModel(new Pizza("",0.00,new Distribucion)))
-		//Al aceptar en la ventana, se guarda la nueva pizza en la lista de promos disponibles
 		dialog.alternativeTitle
+		//Al aceptar en la ventana, se guarda la nueva pizza en la lista de promos disponibles
+		dialog.onAccept[	this.modelObject.agregarPromocion(dialog.modelo.pizza)	]
 		dialog.open
 	}
 
