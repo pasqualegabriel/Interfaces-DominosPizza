@@ -64,14 +64,35 @@ class PedidoAppModelTest {
 		pedidoSut.calcularPrecio
 		assertEquals(pedidoSut.precio, 328.00, 0.0000000000000001)
 	}
-	
-//		@Test
-//	def test01coleccionDeEstados() {
-//		
-//		pedidoSut.coleccionDeEstados
-//		assertTrue(pedidoSut.estadosSelector.contains())
-//	}
 
+	@Test
+	def test01SeCalculaElPrecioDeUnPedidoAppModelTrasAgregarleUnNuevoPlato() 
+	{
+		//Setup
+		// Total $328 Antes de Agregar un nuevo plato		
+		var plato3 			= new Plato(pizza2, new Grande, new Distribucion)
+		
+		//Excercise
+		pedidoSut.agregarPlato(plato3)
+		
+		//Test
+		assertEquals(pedidoSut.precio, 528.00, 0.0000000000000001)
+	}
+	
+	@Test
+	def test02SeCalculaElPrecioDeUnPedidoAppModelTrasEliminarleUnPlato() 
+	{
+		//Setup
+		// Total $328 Antes de Agregar un nuevo plato
+		pedidoSut.platoSeleccionado = plato2		
+		
+		//Exercise
+		pedidoSut.eliminarPlato()
+		
+		//Test
+		assertEquals(pedidoSut.precio, 118.00, 0.0000000000000001)
+	}
+	
 }
 
 

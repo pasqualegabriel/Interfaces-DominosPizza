@@ -45,6 +45,7 @@ class PedidoAppModel {
 		platoSeleccionado != null
 	}
 
+	/**Devuelve true si el plato es eliminable*/
 	@Dependencies("platoSeleccionado","cantPlatos")
 	def getSePuedeEliminar() {
 		platoSeleccionado != null && cantPlatos > 1
@@ -101,10 +102,7 @@ class PedidoAppModel {
 			estadosSelector.add(pedidoAdaptado.estadoActual.previo)
 		}
 		estadosSelector.add(pedidoAdaptado.estadoActual)
-		/*Si el estado del pedido no es entregado agrega el estado proximo al actual*/
-//		if (!pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Entregado")) {
-			estadosSelector.add(pedidoAdaptado.estadoActual.proximo)
-//		}
+		estadosSelector.add(pedidoAdaptado.estadoActual.proximo)
 	}
 
 	/**Protocolo/
