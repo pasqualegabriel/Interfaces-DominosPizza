@@ -40,4 +40,11 @@ class HomePizza {
 		//if(promocionesDisponibles.contains(unaPizza)){promocionesDisponibles.remove(unaPizza)}
 		promocionesDisponibles.remove(unaPizza)
 	}
+	
+	def getTodasLasPromociones() {
+		val listaDePromociones = newArrayList
+		promocionesDisponibles.forEach[listaDePromociones.add(it)]
+		listaDePromociones
+	}
+	
 }

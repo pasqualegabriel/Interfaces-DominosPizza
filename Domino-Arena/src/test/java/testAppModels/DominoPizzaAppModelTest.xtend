@@ -6,13 +6,16 @@ import org.junit.Before
 import persistencia.HomePedido
 import static org.junit.Assert.*
 import persistencia.Bootstrap
+import formasDeComunicacion.ComunicacionPorMail
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 class DominoPizzaAppModelTest 
 {
 	Bootstrap elBootstrap
 	DominoPizzaInicio.DominoPizzaAppModel unDominoPizzaAppModel
 	Pedido unPedidoAbiertoSeleccionado
-	
+	@Mock ComunicacionPorMail comunicacionPorMailMock
 	
 	@Before
 	def void SetUp()
@@ -20,6 +23,7 @@ class DominoPizzaAppModelTest
 		elBootstrap 			= new Bootstrap
 		elBootstrap.run
 		unDominoPizzaAppModel 	= new DominoPizzaInicio.DominoPizzaAppModel	
+		MockitoAnnotations.initMocks(this)
 	}
 	
 	@Test
@@ -29,6 +33,7 @@ class DominoPizzaAppModelTest
 		unPedidoAbiertoSeleccionado	= HomePedido.instance.pedidosAbiertos.get(0)
 		unDominoPizzaAppModel.pedidoSelectItem = unPedidoAbiertoSeleccionado
 		//Exercise
+		unPedidoAbiertoSeleccionado.miembro.formaDeComunicacion = comunicacionPorMailMock
 		unDominoPizzaAppModel.cancelarPedidoSeleccionado
 		
 		//Test
@@ -47,6 +52,7 @@ class DominoPizzaAppModelTest
 		var estadoAntesDePasarAlSiguiente		= unPedidoAbiertoSeleccionado.estadoActual.nombre
 		var estadoSiguienteEsperado				= unPedidoAbiertoSeleccionado.estadoActual.proximo.nombre
 		//Exercise
+		unPedidoAbiertoSeleccionado.miembro.formaDeComunicacion = comunicacionPorMailMock
 		unDominoPizzaAppModel.siguienteEstadoPedidoSeleccionado
 		
 		//Test
@@ -64,7 +70,9 @@ class DominoPizzaAppModelTest
 		unDominoPizzaAppModel.pedidoSelectItem 	= unPedidoAbiertoSeleccionado
 		var estadoAntesDePasarAlSiguiente		= unPedidoAbiertoSeleccionado.estadoActual.nombre
 		//Exercise
+		unPedidoAbiertoSeleccionado.miembro.formaDeComunicacion = comunicacionPorMailMock
 		unDominoPizzaAppModel.siguienteEstadoPedidoSeleccionado
+		
 		
 		//Test
 		assertFalse(unPedidoAbiertoSeleccionado.estadoActual.nombre.equalsIgnoreCase(estadoAntesDePasarAlSiguiente))

@@ -37,5 +37,10 @@ class HomeIngrediente {
 		
 	}
 	
+	def todosLosIngredientes(){
+		val listaDeIngredientes = newArrayList
+		ingredientesDisponibles.forEach[listaDeIngredientes.add(it)]
+		listaDeIngredientes
+	}
 	
 }

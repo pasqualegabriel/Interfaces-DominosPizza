@@ -20,7 +20,7 @@ class MenuDeDominoAppModel
 	
 	new()
 	{
-		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
+		ingredientesDisponibles = HomeIngrediente.instance.todosLosIngredientes
 		promosDisponibles 		= HomePizza.instance.promocionesDisponibles
 	}
 	
@@ -55,15 +55,13 @@ class MenuDeDominoAppModel
 	/**Actualiza las promos disponibles con las promociones actuales */
 	def void actualizarPromosDisponibles()
 	{
-		promosDisponibles = null
-		promosDisponibles = HomePizza.instance.promocionesDisponibles
+		promosDisponibles = HomePizza.instance.todasLasPromociones
 	}
 	
 	/**Actualiza los ingredientes disponibles con los ingredientes actuales */
 	def actualizarIngredientesDisponibles() 
 	{
-		ingredientesDisponibles = null
-		ingredientesDisponibles = HomeIngrediente.instance.ingredientesDisponibles
+		ingredientesDisponibles = HomeIngrediente.instance.todosLosIngredientes
 	}
 	
 	
