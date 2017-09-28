@@ -102,7 +102,14 @@ class PedidoAppModel {
 			estadosSelector.add(pedidoAdaptado.estadoActual.previo)
 		}
 		estadosSelector.add(pedidoAdaptado.estadoActual)
-		estadosSelector.add(pedidoAdaptado.estadoActual.proximo)
+		if (pedidoAdaptado.estadoActual.nombre.equalsIgnoreCase("Preparando")) {
+			estadosSelector.add(pedidoAdaptado.formaDeRetiro.avanzarEstado)
+		}
+		else
+		{
+			estadosSelector.add(pedidoAdaptado.estadoActual.proximo)
+		}
+		
 	}
 
 	/**Protocolo/

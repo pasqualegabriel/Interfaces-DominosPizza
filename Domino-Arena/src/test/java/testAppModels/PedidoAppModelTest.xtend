@@ -13,6 +13,11 @@ import pizza.Distribucion
 import pizza.Ingrediente
 import pizza.Grande
 import pizza.DistribucionEnPizza
+import estados.Preparando
+import pedido.Local
+import estados.ListoParaRetirar
+import estados.ListoParaEnviar
+import estados.EnViaje
 
 class PedidoAppModelTest {
 	
@@ -93,6 +98,84 @@ class PedidoAppModelTest {
 		assertEquals(pedidoSut.precio, 118.00, 0.0000000000000001)
 	}
 	
+	@Test
+	def test02SiElPedidoTieneEstadoPreparandoYSuFormaDeRetirarEsLocalSuColeccionDeEstadosEsPreparandoYListoParaRetirar() 
+	{
+		//Setup
+		pedidoDoc.estadoActual	= new Preparando
+		pedidoDoc.formaDeRetiro = new Local		
+		
+		//Exercise
+		pedidoSut.coleccionDeEstados
+		
+		//Test
+		assertEquals(2,pedidoSut.estadosSelector.size)
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Preparando")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Listo Para Retirar")])
+	}
+	
+	@Test
+	def test03SiElPedidoTieneEstadoPreparandoYSuFormaDeRetirarEsDeliverySuColeccionDeEstadosEsPreparandoYListoParaEnviar() 
+	{
+		//Setup
+		pedidoDoc.estadoActual	= new Preparando
+		
+		//Exercise
+		pedidoSut.coleccionDeEstados
+		
+		//Test
+		assertEquals(2,pedidoSut.estadosSelector.size)
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Preparando")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Listo para enviar")])
+	}
+	
+	@Test
+	def test04SiElPedidoEstaListoParaRetirarSuColeccionDeEstadosEsPreparandoListoParaRetirarYEntregado() 
+	{
+		//Setup
+		pedidoDoc.estadoActual	= new ListoParaRetirar
+		
+		//Exercise
+		pedidoSut.coleccionDeEstados
+		
+		//Test
+		assertEquals(3,pedidoSut.estadosSelector.size)
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Preparando")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Listo para Retirar")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Entregado")])
+	}
+	
+	@Test
+	def test05SiElPedidoEstaListoParaEnviarSuColeccionDeEstadosEsPreparandoListoParaEnviarYEnViaje() 
+	{
+		//Setup
+		pedidoDoc.estadoActual	= new ListoParaEnviar
+		
+		//Exercise
+		pedidoSut.coleccionDeEstados
+		
+		//Test
+		assertEquals(3,pedidoSut.estadosSelector.size)
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Preparando")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Listo para Enviar")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("En Viaje")])
+	}
+
+	@Test
+	def test06SiElPedidoEstaEnViajeSuColeccionDeEstadosEsListoParaEnviarEnViajeyEntregado() 
+	{
+		//Setup
+		pedidoDoc.estadoActual	= new EnViaje
+		
+		//Exercise
+		pedidoSut.coleccionDeEstados
+		
+		//Test
+		assertEquals(3,pedidoSut.estadosSelector.size)
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Listo para Enviar")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("En Viaje")])
+		assertTrue(pedidoSut.estadosSelector.exists[ e | e.nombre.equalsIgnoreCase("Entregado")])
+	}
 }
 
 
