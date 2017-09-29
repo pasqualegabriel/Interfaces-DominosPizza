@@ -15,7 +15,6 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.TextBox
 import estados.EstadoDePedido
 import plato.EditarPlatoWindow
-import plato.AgregarPlatoWindow
 import plato.PlatoAppModel
 
 /** Clase que genera la ventana de edicion de un pedido*/
@@ -111,7 +110,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 		new Column(tablaPedidos) => 
 			[
 				title = "Precio"
-				bindContentsToProperty("calcularPrecio").transformer = [	precio | '''$ «precio»'''	]
+				bindContentsToProperty("precio").transformer = [	precio | '''$ «precio»'''	]
 				//El transformer acomoda la vista del precio para mostrarlo con el signo 
 			]
 	}
@@ -126,7 +125,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 			[
 				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
 				caption = "Agregar"
-				onClick [	new AgregarPlatoWindow(this).open	] //Abre la ventana para agregar un nuevo plato
+				onClick [	new EditarPlatoWindow(this, new PlatoAppModel(modelObject.nuevoPlato)).open	] //Abre la ventana para agregar un nuevo plato
 			]
 
 		new Button(panelBotonesPlatos) => 
@@ -145,7 +144,6 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 				caption = "Eliminar"
 				onClick [
 							modelObject.eliminarPlato
-							modelObject.calcularPrecio
 						]
 				bindEnabledToProperty("sePuedeEliminar")	//Se habilita al haber un pedido seleccionado
 				
@@ -182,15 +180,15 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
-		new Label(panelDatosPlatos).value <=> "costoDeEnvio"  //Metodo del appModel
+		new TextBox(panelDatosPlatos).value <=> "costoDeEnvio"  //Metodo del appModel
 
 		new Label(panelDatosPlatos).text = "Monto total"
 	
-		new Label(panelDatosPlatos).value <=> "precioMostrable"
+		new TextBox(panelDatosPlatos).value <=> "precio" // hacer un trasformer
 		
-		new Label(panelDatosPlatos).text = "Hora"
+		new Label(panelDatosPlatos).text = "Hora" //acá tambien
 
-		new Label(panelDatosPlatos).value <=> "hora"	//Metodo del appModel
+		new TextBox(panelDatosPlatos).value <=> "hora"	//Metodo del appModel
 	}
 
 	/**Define los botones que interactuan con la ventana del pedido (Aceptar y Cancelar) */

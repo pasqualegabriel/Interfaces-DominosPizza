@@ -37,4 +37,7 @@ class Preparando extends EstadoDePedido{
 		"Preparando"
 	}
 	
+	override estaPreparando()
+	{ true }
+	
 }

@@ -8,6 +8,7 @@ import pizza.Pizza
 import pizza.Distribucion
 import java.util.ArrayList
 
+
 @Observable
 @Accessors
 @Transactional
@@ -41,6 +42,13 @@ class PromoAppModel {
 		pizza.distribucion= new Distribucion
 		ingredientes.forEach[ i | i.agregarse]
 	
+	}
+	
+	def aceptarCambios(){
+		if(pizza.nombre.length>0 && pizza.precioBase != null){
+			agregarIngredientes
+		}
+		else throw new NombrePrecioException ("No hay nombre ni precio")
 	}
 	
 }

@@ -66,7 +66,6 @@ class PedidoAppModelTest {
 		// $3 del ingradiente de la primera pizza
 		// $10 del ingrediente de la segunda pizza
 		// Total $328
-		pedidoSut.calcularPrecio
 		assertEquals(pedidoSut.precio, 328.00, 0.0000000000000001)
 	}
 

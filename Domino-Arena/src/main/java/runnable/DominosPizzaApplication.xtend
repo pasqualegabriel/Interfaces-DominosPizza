@@ -10,7 +10,7 @@ class DominosPizzaApplication extends Application
 		// Se crea el bootstrap, el cual instancia los repos y les agrega unos pocos elementos para tener
 		// como contenido.
 		var buststrap =new Bootstrap
-		buststrap.run
+		buststrap.inicializar
 		new DominosPizzaApplication().start()
 	}
 	

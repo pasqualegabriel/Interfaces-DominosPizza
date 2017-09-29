@@ -21,4 +21,14 @@ class Entregado extends EstadoDePedido {
 		"Entregado"
 	}
 	
+	override estaCerrado()
+	{
+		true
+	}
+	
+	override estaEntregado()
+	{
+		true
+	}
+	
 }

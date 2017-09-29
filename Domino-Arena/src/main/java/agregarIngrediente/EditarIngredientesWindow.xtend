@@ -10,7 +10,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import menuPizzas.MenuDeDominoMainWindow
-import org.uqbar.commons.model.exceptions.UserException
+
 
 class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 	
@@ -51,13 +51,6 @@ class EditarIngredientesWindow extends TransactionalDialog<Ingrediente>{
 	
 	def alternativeTitle() {
 		this.title = "Crear Ingrediente"
-	}
-	
-	override accept(){
-		if(modelObject.nombre.length>0 && modelObject.precio != null)
-		super.accept
-		else
-		throw new UserException ("Por favor Seleccione un nombre y precio antes de aceptar")
 	}
 	
 }

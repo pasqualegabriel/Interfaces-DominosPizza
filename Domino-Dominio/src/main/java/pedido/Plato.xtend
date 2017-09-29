@@ -8,7 +8,7 @@ import pizza.DistribucionEnPizza
 import java.util.List
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pizza.Chica
-
+import persistencia.HomePizza
 
 /**
  * Clase que modela a un plato del dominio de domino's pizza. 
@@ -26,6 +26,7 @@ class Plato
 	
 	new(){
 		super()
+		pizza 				= HomePizza.instance.promocionesDisponibles.get(0)
 		tamanio 			= new Chica
 		ingredientesExtras 	= new Distribucion
 	}
@@ -87,7 +88,7 @@ class Plato
 	/**
 	 * Calcula el valor a pagar del plato. 
 	 */
-	def calcularPrecio() 
+	def getPrecio() 
 	{
 		(this.precioDePizza() * factorDeTamanio() + costoDeIngredientesExtras()).doubleValue()
 		

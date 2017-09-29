@@ -7,22 +7,21 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import java.util.Comparator
 import pedido.Pedido
 import persistencia.HomePedido
+import org.uqbar.commons.model.utils.ObservableUtils
 
 @TransactionalAndObservable
 @Accessors
 class DominoPizzaAppModel {
-	List<Pedido> itemsPedidosAbiertos = HomePedido.instance.pedidosAbiertos
 	Pedido pedidoSelectItem
-	List<Pedido> itemsPedidosCerrados = HomePedido.instance.pedidosCerrados
 
 	/**Trae la lista de pedidos abiertos ordenados por hora de pedido*/
-	def getRepoDePedidosAbiertos() {
-		this.itemsPedidosAbiertos = ordenarListaDePedidos(itemsPedidosAbiertos, new ComparatorHoraPedidosAscendente)
+	def getItemsPedidosAbiertos() {
+		ordenarListaDePedidos(HomePedido.instance.pedidosAbiertos, new ComparatorHoraPedidosAscendente)
 	}
 
 	/**Trae la lista de pedidos cerrados ordenados por fecha de pedido*/
-	def getRepoDePedidosCerrados() {
-		this.itemsPedidosCerrados = ordenarListaDePedidos(itemsPedidosCerrados, new ComparatorFechaPedidosDescendente)
+	def getItemsPedidosCerrados() {
+		ordenarListaDePedidos(HomePedido.instance.pedidosCerrados, new ComparatorFechaPedidosDescendente)
 	}
 
 	/** Cancela un pedido seleccinado y lo pasa a la lista de pedidos cerrados */
@@ -30,6 +29,7 @@ class DominoPizzaAppModel {
 		pedidoSelectItem.agregarAlHistorial
 		pedidoSelectItem.cancelar()
 		this.cerrarPedidoSeleccionado
+		ObservableUtils.firePropertyChanged(this, "itemsPedidosAbiertos")
 	}
 
 	/**Pasa el pedido al siguiente estado */
@@ -38,13 +38,11 @@ class DominoPizzaAppModel {
 		pedidoSelectItem.siguiente
 		/*verifica si el pedido pasa a un pedido entregado,
 		 *  si es asi lo cierra y lo envia a pedido cerrados*/
-		if (pedidoSelectItem.estadoActual.nombre.equalsIgnoreCase("Entregado")){
+		if (pedidoSelectItem.estaEntregado){ //corregido
 			this.cerrarPedidoSeleccionado
-			
+	
 			
 		}
-		else
-			this.repoDePedidosAbiertos
 	}
 
 	/**Pasa el pedido al anterior estado */
@@ -53,21 +51,20 @@ class DominoPizzaAppModel {
 		/*verifica si el pedido no es el estado preparando. Si
 		 * es asi pasa al estado anterior, sino levanta una excepcion avisando
 		 * que no se puede pasar*/		
-		if (!pedidoSelectItem.estadoActual.nombre.equals("Preparando")) {
+		if (!pedidoSelectItem.estaPreparando) { //Corregido
 			pedidoSelectItem.anterior
-			this.repoDePedidosAbiertos
+	
 		} else {
 			throw new StateException("No se puede ir a un estado atras estas en el inicial")
 		}
 	}
 
 	/**Cierra un pedido seleccionado */
-	@Dependencies("listaDePedidosAbiertos")
-	def void cerrarPedidoSeleccionado() 
-	{
-		pedidoSelectItem.agregarAlHistorial
-		HomePedido.instance.moverPedidoAPedidosCerrado(this.pedidoSelectItem)
-		itemsPedidosAbiertos.remove(pedidoSelectItem)
+	@Dependencies("itemsPedidosAbiertos")
+	def void cerrarPedidoSeleccionado(){ //Corregido
+	
+	
+		pedidoSelectItem.cerrarPedido	
 		pedidoSelectItem = null
 	}
 

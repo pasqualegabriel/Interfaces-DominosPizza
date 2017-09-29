@@ -1,68 +1,65 @@
 package menuPizzas
+
 import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import pizza.Pizza
 import pizza.Ingrediente
-import java.util.List
 import persistencia.HomePizza
 import persistencia.HomeIngrediente
-
+import org.uqbar.commons.model.exceptions.UserException
+import org.uqbar.commons.model.utils.ObservableUtils
 
 @Observable
 @Accessors
-class MenuDeDominoAppModel 
-{
+class MenuDeDominoAppModel {
 	Pizza pizzaSeleccionada
-	Ingrediente ingredienteSeleccionado	
-	List<Ingrediente> ingredientesDisponibles
-	List<Pizza> promosDisponibles
-	
-	
-	new()
-	{
-		ingredientesDisponibles = HomeIngrediente.instance.todosLosIngredientes
-		promosDisponibles 		= HomePizza.instance.promocionesDisponibles
-	}
-	
+	Ingrediente ingredienteSeleccionado
+
 	/**Agrega un ingrediente al repositorio de ingredientes y actualiza la lista de ingredientes disponibles */
-	def agregarIngrediente(Ingrediente unIngrediente)
-	{
+	def agregarIngrediente(Ingrediente unIngrediente) {
 		HomeIngrediente.instance.agregarIngrediente(unIngrediente)
-		actualizarIngredientesDisponibles
+		ObservableUtils.firePropertyChanged(this, "ingredientesDisponibles")
+
 	}
-	
+
 	/**Elimina un ingrediente del repositorio de ingredientes y actualiza la lista de ingredientes disponibles */
-	def eliminarIngrediente(Ingrediente unIngrediente) 
-	{
-		HomeIngrediente.instance.borrarIngrediente(unIngrediente)
-		actualizarIngredientesDisponibles
+	def eliminarIngrediente() {
+		if (this.getIngredientesDisponibles.size > 1) {
+			HomeIngrediente.instance.borrarIngrediente(ingredienteSeleccionado)
+			ingredienteSeleccionado = null
+			ObservableUtils.firePropertyChanged(this, "ingredientesDisponibles")
+
+		} else {
+			throw new UserException("No se puede eliminar el ultimo ingrediente")
+		}
+
 	}
-	
+
 	/**Agrega una pizza al repositorio de pizzas y actualiza la lista de promociones disponibles*/
-	def agregarPromocion(Pizza unaPizza)
-	{
-		 HomePizza.instance.agregarPromocion(unaPizza)
-		 actualizarPromosDisponibles
+	def agregarPromocion(Pizza unaPizza) {
+		HomePizza.instance.agregarPromocion(unaPizza)
+		ObservableUtils.firePropertyChanged(this, "promosDisponibles")
+
 	}
-	
+
 	/**Elimina una pizza del repositorio de pizzas y actualiza la lista de promociones disponibles*/
-	def eliminarPizza(Pizza unaPizza) 
-	{
-		 HomePizza.instance.borrarPromocion(unaPizza)
-		 actualizarPromosDisponibles
+	def eliminarPizza() {
+		if (this.getPromosDisponibles.size > 1) {
+			HomePizza.instance.borrarPromocion(pizzaSeleccionada)
+			pizzaSeleccionada = null
+			ObservableUtils.firePropertyChanged(this, "promosDisponibles")
+		} else {
+			throw new UserException("No se puede eliminar la ultima promocion")
+		}
+
 	}
-	
-	/**Actualiza las promos disponibles con las promociones actuales */
-	def void actualizarPromosDisponibles()
-	{
-		promosDisponibles = HomePizza.instance.todasLasPromociones
+
+	def getPromosDisponibles() {
+		HomePizza.instance.todasLasPromociones // CORREGIDO //faltan los firepropertychanged
 	}
-	
-	/**Actualiza los ingredientes disponibles con los ingredientes actuales */
-	def actualizarIngredientesDisponibles() 
-	{
-		ingredientesDisponibles = HomeIngrediente.instance.todosLosIngredientes
+
+	def getIngredientesDisponibles() {
+		HomeIngrediente.instance.todosLosIngredientes // CORREGIDO //faltan los firepropertychanged
 	}
-	
-	
+
 }

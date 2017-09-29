@@ -73,12 +73,7 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel>
 
 	/**Abre la ventana para poder editar el pedido */
 	def abrirDialogoDeEditarPedido() {
-		val dialog = new PedidoWindowEditar(this, modelObject.pedidoSelectItem)
-		dialog.onAccept [
-			this.modelObject.pedidoSelectItem.setPrecio
-			this.modelObject.getRepoDePedidosAbiertos
-		]
-		dialog.open
+		new PedidoWindowEditar(this, modelObject.pedidoSelectItem).open
 	}
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */

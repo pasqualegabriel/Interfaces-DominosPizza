@@ -115,7 +115,7 @@ class TestPedido {
 		pedido.agregarPlato(unPlato)
 		when(unPlato.calcularPrecio)          .thenReturn(100.00 /*pesos*/ )
 		when(unRetiroEnElLocal.precioDeRetiro).thenReturn(0.00   /*pesos*/ )
-		precioPedido = pedido.calcularPrecio
+		precioPedido = pedido.getPrecio
 		
 		// Assertion
 		assertEquals(pedido.platos.size, 1)
@@ -161,7 +161,7 @@ class TestPedido {
 		pedido.agregarPlato(unPlato)
 		when(unPlato.calcularPrecio)            .thenReturn(100.00 /*pesos*/ )
 		when(unRetiroConDelivery.precioDeRetiro).thenReturn(15.00 /*pesos*/ )
-		precioPedido = pedido.calcularPrecio
+		precioPedido = pedido.getPrecio
 		
 		// Assertion
 		assertEquals(pedido.platos.size, 1)

@@ -31,6 +31,21 @@ abstract class EstadoDePedido  {
 
 	}
 	
+	def estaCerrado()
+	{
+		false
+	}
+
+	def estaEntregado()
+	{
+		false
+	}
+	
+	def estaPreparando()
+	{
+		false
+	}
+	
 	def EstadoDePedido proximo()
 	def EstadoDePedido previo()
 	

@@ -31,12 +31,12 @@ class TestMiembro {
 	
 	// Tests
 	@Test
-	def test000UnUsuarioSeCreaSinPedidosEnSuHistorial() {
+	def testUnUsuarioSeCreaSinPedidosEnSuHistorial() {
 		assertTrue(usuarioPepita.historialDePedidos.isEmpty)
 	}
 
 	@Test
-	def test000SeAgregaUnPedidoAlHistorialDelUsuariol() {
+	def testSeAgregaUnPedidoAlHistorialDelUsuariol() {
 		// Exercise
 		usuarioPepita.agregarPedido(pedidoMock) 
 		
@@ -45,7 +45,7 @@ class TestMiembro {
 	}
 	
 	@Test
-	def test000SeEnviaUnMensajeAlUsuario() {
+	def testSeEnviaUnMensajeAlUsuario() {
 		// Exercise
 		usuarioPepita.formaDeComunicacion = comunicacionPorMailMock
 		usuarioPepita.comunicar(comunicableMock) 

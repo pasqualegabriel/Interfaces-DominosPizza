@@ -21,7 +21,7 @@ import estados.Cancelado
 import pizza.Grande
 
 class Bootstrap {
-	def	run(){
+	def	inicializar(){
 				// Creacion de Ingredientes
 		val anchoa = new Ingrediente("Anchoa", 3.00)
 		val morron = new Ingrediente("Morron", 10.00)
@@ -59,7 +59,7 @@ class Bootstrap {
 		var plato3 = new Plato(pizza3, tamanio3, distribucion3)
 
 		var pedido1 = new Pedido(new Miembro("Ivan", "nick1", 	"unpassword3", "dominikowivan@gmail.com", "unaDireccion1"))
-		var pedido2 = new Pedido(new Miembro("Victor", "nick2", "unPassword2", "n.autalan@gmail.com", "unaDireccion2"))
+		var pedido2 = new Pedido(new Miembro("Nahuel", "nick2", "unPassword2", "n.autalan@gmail.com", "unaDireccion2"))
 		var pedido3 = new Pedido(new Miembro("Gabriel", "nick3","unPassword3", "pasqualeunq@gmail.com", "unaDireccion3"))
 
 		// agregamos forma de retiro al pedido
@@ -92,7 +92,7 @@ class Bootstrap {
 		var distribucion5 = new Distribucion
 		val pizzaMuzzaCerrada = new Pizza("Muzza", 15.00, new Distribucion)
 		val platoCerrado1 = new Plato(pizzaMuzzaCerrada, new Grande, distribucion4)
-		val pedidoCerrado1 = new Pedido(new Miembro("Sr Juan", "Raquel1", "unPassword", "unMail", "unaDireccion"))
+		val pedidoCerrado1 = new Pedido(new Miembro("Victor", "Raquel1", "unPassword", "unMail", "unaDireccion"))
 		pedidoCerrado1.agregarPlato(platoCerrado1)
 		pedidoCerrado1.formaDeRetiro = new Local
 		pedidoCerrado1.estadoActual = new Entregado

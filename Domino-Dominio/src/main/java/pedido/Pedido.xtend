@@ -10,7 +10,8 @@ import estados.EstadoDePedido
 import estados.Cancelado
 import java.time.LocalTime
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
-
+import persistencia.HomePedido
+import org.uqbar.commons.model.annotations.Dependencies
 
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
@@ -31,7 +32,6 @@ class Pedido {
 	String 					aclaracion
 	FormaDeRetiro 			formaDeRetiro
 	Integer					tiempoDeEspera
-	Double 					precio
 	
 	// Constructor
 	new(Miembro unMiembro) {
@@ -44,35 +44,23 @@ class Pedido {
 		fecha        = LocalDateTime.now()
 		this.tiempoDeEspera = 0
 		//formaDeRetiro = new Delivery
-		setPrecio(calcularPrecio)
 		
 	}
 	
-	def void setPrecio(){
-			precio = calcularPrecio
-	}
 	
 	def cambiarAclaracion(String aclaracionNueva) {
 		aclaracion = aclaracionNueva
 	}
 	
 	// Precondicion: El plato tiene que ser un plato que no este ya en la lista de platos
-	def agregarPlato(Plato plato) {
+	def void agregarPlato(Plato plato) {
 		platos.add(plato)
-		setPrecio
 	}
 	
 	// Precondicion: El plato tiene que estar en la lista de platos
 	def quitarPlato(Plato plato) {
 		platos.remove(plato)
-	    setPrecio
-	}
-	def calcularPrecio() {
-		var precioPlatos = platos.stream.mapToDouble[it.calcularPrecio].sum()
-		if(formaDeRetiro==null){precioPlatos }else{
-			precioPlatos + formaDeRetiro.precioDeRetiro
-		}	
-	}
+	}	
 	
 	def cancelar() {
 		estadoActual= new Cancelado
@@ -101,6 +89,39 @@ class Pedido {
 	def agregarAlHistorial() {
 		miembro.agregarPedido(this)
 	}
+
+	def estaCerrado()
+	{
+		estadoActual.estaCerrado
+	}
 	
+	def estaPreparando()
+	{
+		estadoActual.estaPreparando
+	}
+	def estaEntregado(){
+		estadoActual.estaEntregado
+	}
+	
+	def cambiarAEstado(estados.EstadoDePedido pedido) {
+		/**Se fija si el estado a cambiar es al estado entregado, 
+		 * si es asi lo mueve a la lista de pedidos cerrados y calcula el tiempo de entrega*/
+		if (this.estadoActual.estaEntregado) {
+			this.calcularTiempoDeEntrega
+			this.agregarAlHistorial
+			HomePedido.instance.moverPedidoAPedidosCerrado(this)
+		}
+	}
+	
+	def cerrarPedido() {
+		agregarAlHistorial
+		HomePedido.instance.moverPedidoAPedidosCerrado(this)
+		
+	}
+	
+	@Dependencies("platos")
+	def getPrecio() {
+		platos.stream.mapToDouble[it.getPrecio].sum()
+	}
 }
 

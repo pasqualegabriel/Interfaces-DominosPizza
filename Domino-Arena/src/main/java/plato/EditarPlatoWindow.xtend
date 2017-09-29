@@ -18,7 +18,7 @@ import pizza.Ingrediente
 import edicionDePromocion.IngredienteAdapterAbstract
 
 @Accessors
-class EditarPlatoWindow extends EditarIngredienteTemplate 
+class EditarPlatoWindow extends EditarIngredienteTemplate //mandarle el tipo
 {
 	protected PedidoWindowEditar mainWindow
 	protected PlatoAppModel unPlato
@@ -114,6 +114,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate
 						caption = "Calcular Precio"
 						onClick [
 									unPlato.calcularPrecio
+								//	modelObject.calcularPrecio //no lo sabe porque le falta el tipo de dato correcto
 									setAsDefault
 									disableOnError
 								]
@@ -131,7 +132,7 @@ class EditarPlatoWindow extends EditarIngredienteTemplate
 	}
 	
 	/**Redefine el metodo y para agregar al modelo un ingrediente adapter */
-	override agregarAModelo(IngredienteAdapterAbstract ingredienteAdapter) 
+	override agregarAModelo(IngredienteAdapterAbstract ingredienteAdapter) //UNICA FORMA DE REALIZARLO; ES NECESARIO PARA ELCHECKBOX DE INGREDIENTES
 	{	unPlato.ingredientesExtras.add(ingredienteAdapter)	}
 	
 	/**Redefine el metodo y para agregar al modelo un ingrediente adapter */
@@ -143,7 +144,6 @@ class EditarPlatoWindow extends EditarIngredienteTemplate
 	{
 		super.accept
 		unPlato.aceptarCambio
-		mainWindow.modelObject.calcularPrecio
 	}
 	
 }

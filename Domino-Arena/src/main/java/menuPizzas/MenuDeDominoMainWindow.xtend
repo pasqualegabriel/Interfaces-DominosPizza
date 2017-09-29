@@ -12,7 +12,6 @@ import agregarIngrediente.EditarIngredientesWindow
 import pizza.Ingrediente
 import pizza.Pizza
 import pizza.Distribucion
-import org.uqbar.commons.model.exceptions.UserException
 
 import edicionDePromocion.EditarPromocionWindow
 import edicionDePromocion.PromoAppModel
@@ -58,26 +57,20 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>
 
 		dialog.alternativeTitle
 		//Al aceptar en la ventana, se guarda el ingrediente a la lista de ingredientes disponibles
-		dialog.onAccept[this.modelObject.agregarIngrediente(dialog.modelObject)]
+		dialog.onAccept[this.modelObject.agregarIngrediente(dialog.modelObject)] //cuando agregamos lo hacemos antes
 		dialog.open
 	}
 	
 	/**Metodo que se encarga de abrir la ventana de editar un ingrediente*/
 	def editarIngrediente() 
 	{
-		val	dialog = new EditarIngredientesWindow(this, modelObject.ingredienteSeleccionado)
-		//Al aceptar en la ventana, actualiza el ingrediente editado
-		dialog.onAccept[	this.modelObject.actualizarIngredientesDisponibles	]
-		dialog.open	
+		new EditarIngredientesWindow(this, modelObject.ingredienteSeleccionado).open
 	}
 	
 	/**Metodo que elimina al ingrediente seleccionado de la lista*/
-	def eliminarIngrediente() 
+	def eliminarIngrediente()
 	{
-		if(modelObject.ingredientesDisponibles.size > 1)
-		{	modelObject.eliminarIngrediente(modelObject.ingredienteSeleccionado)	}
-		else 
-		{	throw new UserException("No se puede eliminar el ultimo ingrediente")	}
+		modelObject.eliminarIngrediente()
 	}
 
     /**Metodo que se encarga de abrir la ventana de crear una pizza nueva*/
@@ -96,12 +89,9 @@ class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>
 	}
 	
 	/**Metodo que elimina a la pizza seleccionado de la lista*/
-	def eliminarPizza() 
+	def eliminarPizza()
 	{
-		if(modelObject.promosDisponibles.size > 1)
-		{	modelObject.eliminarPizza(modelObject.pizzaSeleccionada)	}
-		else 
-		{	throw new UserException("No se puede eliminar la ultima promocion")	}
+		modelObject.eliminarPizza()
 	}
 	
 }
