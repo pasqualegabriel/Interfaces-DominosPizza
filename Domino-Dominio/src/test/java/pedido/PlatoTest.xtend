@@ -110,7 +110,7 @@ class PlatoTest
 		unPlato.cambiarPizza(unaCustomizada)	
 				
 		// Assertion
-		assertEquals(70.00, unPlato.calcularPrecio,0.00000011)
+		assertEquals(70.00, unPlato.precio,0.00000011)
 	}
 	
 	@Test
@@ -125,7 +125,7 @@ class PlatoTest
 		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Izquierda)	
 		
 		// Assertion
-		assertEquals(100, unPlato.calcularPrecio(),0.00000001)
+		assertEquals(100, unPlato.precio,0.00000001)
 	}
 
 }

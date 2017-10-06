@@ -21,7 +21,7 @@ class DominoPizzaAppModelTest
 	def void SetUp()
 	{
 		elBootstrap 			= new Bootstrap
-		elBootstrap.run
+		elBootstrap.inicializar
 		unDominoPizzaAppModel 	= new DominoPizzaInicio.DominoPizzaAppModel	
 		MockitoAnnotations.initMocks(this)
 	}

@@ -113,7 +113,7 @@ class TestPedido {
 		// Exercise
 		pedido.formaDeRetiro = unRetiroEnElLocal
 		pedido.agregarPlato(unPlato)
-		when(unPlato.calcularPrecio)          .thenReturn(100.00 /*pesos*/ )
+		when(unPlato.precio)          .thenReturn(100.00 /*pesos*/ )
 		when(unRetiroEnElLocal.precioDeRetiro).thenReturn(0.00   /*pesos*/ )
 		precioPedido = pedido.getPrecio
 		
@@ -159,7 +159,7 @@ class TestPedido {
 		// Exercise
 		pedido.formaDeRetiro = unRetiroConDelivery
 		pedido.agregarPlato(unPlato)
-		when(unPlato.calcularPrecio)            .thenReturn(100.00 /*pesos*/ )
+		when(unPlato.precio)            .thenReturn(100.00 /*pesos*/ )
 		when(unRetiroConDelivery.precioDeRetiro).thenReturn(15.00 /*pesos*/ )
 		precioPedido = pedido.getPrecio
 		

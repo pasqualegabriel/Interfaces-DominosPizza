@@ -10,7 +10,6 @@ import org.uqbar.arena.widgets.Button
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import plato.EditarIngredienteTemplate
-import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 class EditarPromocionWindow extends EditarIngredienteTemplate {
@@ -47,13 +46,15 @@ class EditarPromocionWindow extends EditarIngredienteTemplate {
 	override initBottom(Panel mainPanel) {
 		new Button(mainPanel) => [
 			caption = "Aceptar"
-			onClick [|this.accept]
+			onClick [
+				this.accept
+			]
 
 			disableOnError
 		]
 		new Button(mainPanel) => [
 			caption = "Cancelar"
-			onClick [|
+			onClick [
 				this.cancel
 			]
 		]
