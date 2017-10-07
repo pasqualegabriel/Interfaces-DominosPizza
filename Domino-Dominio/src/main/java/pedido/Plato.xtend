@@ -1,7 +1,7 @@
 package pedido
 
 import org.eclipse.xtend.lib.annotations.Accessorsimport pizza.Pizza
-import pizza.Tamanio
+
 import pizza.Distribucion
 import pizza.Ingrediente
 import pizza.DistribucionEnPizza
@@ -9,6 +9,7 @@ import java.util.List
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pizza.Chica
 import persistencia.HomePizza
+import pizza.Tamanio2
 
 /**
  * Clase que modela a un plato del dominio de domino's pizza. 
@@ -21,7 +22,7 @@ class Plato
 {
 	//	Atributos
 	Pizza pizza
-	Tamanio tamanio
+	Tamanio2 tamanio
 	Distribucion ingredientesExtras
 	
 	new(){
@@ -31,7 +32,7 @@ class Plato
 		ingredientesExtras 	= new Distribucion
 	}
 	//	Constructores
-	new(Pizza unaPizza, Tamanio unTamanio, Distribucion unaDistribucion)
+	new(Pizza unaPizza, Tamanio2 unTamanio, Distribucion unaDistribucion)
 	{
 		this.pizza = unaPizza
 		this.tamanio = unTamanio
@@ -98,7 +99,7 @@ class Plato
 	 * Devuelve el factor de tamaño para poder calcular el precio base de la pizza en base a este.
 	 */
 	private def factorDeTamanio() {
-		this.tamanio.factorDeTamanio()
+		this.tamanio.factorDeTamanio
 	}
 	
 	/**

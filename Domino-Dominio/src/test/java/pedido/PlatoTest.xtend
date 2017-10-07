@@ -39,11 +39,11 @@ class PlatoTest
 	def test00Dado_Un_Plato_Recien_Creado_Este_Tiene_Una_Pizza_El_Tamaño_De_La_Pizza_Y_Una_Lista_Sin_Ingredientes_Extras()
 	{
 		// Setup
-		when(tamanioGrande.nombre()).thenReturn("Grande")
+		when(tamanioGrande.nombre).thenReturn("Grande")
 
 		// Assertion
 		assertEquals(unaDeMuzza,unPlato.pizza)
-		assertEquals("Grande",unPlato.tamanio.nombre())
+		assertEquals("Grande",unPlato.tamanio.nombre)
 		assertTrue  (unPlato.ingredientesExtras.tieneIngredientes)
 	}
 	
@@ -104,7 +104,7 @@ class PlatoTest
 	{
 		// Setup
 		when(unaCustomizada.precioBase)      .thenReturn(70.00)
-		when(tamanioGrande.factorDeTamanio()).thenReturn(1.doubleValue)
+		when(tamanioGrande.factorDeTamanio).thenReturn(1.doubleValue)
 		
 		// Exercise
 		unPlato.cambiarPizza(unaCustomizada)	

@@ -2,24 +2,29 @@ package pizza
 
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Transactional
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /* 
  * Implementa la representacion de un tamaño de pizza Chico con su respectivo coeficiente de precio
  */
 @Observable
 @Transactional
-class Familiar implements Tamanio 
+@Accessors
+class Familiar extends Tamanio2 
 {
-	override nombre() 
-	{
-		"Familiar"
+	
+	new(){
+		nombre			= "Familiar"
+		factorDeTamanio	= 1.25
+		
 	}
 	
-	/**
-	 * Retorna el factor a aplicarle a un precio.
-	 */
-	override factorDeTamanio() 
-	{
-		1.25
-	}	
+	override getNombre() {
+		nombre
+	}
+	
+	override getFactorDeTamanio() {
+		factorDeTamanio
+	}
+	
 }

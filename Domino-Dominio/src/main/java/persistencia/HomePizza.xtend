@@ -3,6 +3,7 @@ package persistencia
 import pizza.Pizza
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.apache.commons.lang.StringUtils
 
 @Accessors
 class HomePizza {
@@ -45,6 +46,14 @@ class HomePizza {
 		val listaDePromociones = newArrayList
 		promocionesDisponibles.forEach[listaDePromociones.add(it)]
 		listaDePromociones
+	}
+	
+	def searchPromos(String substring) {
+		if (StringUtils.isBlank(substring)) {
+			getTodasLasPromociones
+		} else {
+			getTodasLasPromociones.filter[ it.nombre.toLowerCase.contains(substring.toLowerCase)].toList			
+		}
 	}
 	
 }
