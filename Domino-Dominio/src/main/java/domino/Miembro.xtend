@@ -25,7 +25,7 @@ class Miembro extends Usuario {
 	String 				password
 	String				mail
 	String 				direccion
-	List<Pedido>    	historialDePedidos
+	List<Pedido>    	historialDePedidos = newArrayList
 	FormaDeComunicacion formaDeComunicacion
 	
 	// Constructores
@@ -36,7 +36,7 @@ class Miembro extends Usuario {
 	
 	new(String unNombre, String unNick, String unPassword, String unMail, String unaDireccion) {
 		
-		historialDePedidos  = new ArrayList<Pedido>
+		//historialDePedidos  = new ArrayList<Pedido>
 		nombre			    = unNombre
 		nick			    = unNick
 		password		    = unPassword
@@ -49,7 +49,7 @@ class Miembro extends Usuario {
 	// Metodos
 	def agregarPedido(Pedido unPedido) { 
 		
-		historialDePedidos.add(unPedido)
+		//historialDePedidos.add(unPedido)
 	}
 
 	override comunicar(Comunicable unComunicable) {

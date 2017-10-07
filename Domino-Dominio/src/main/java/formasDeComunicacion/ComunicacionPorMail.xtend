@@ -16,12 +16,12 @@ class ComunicacionPorMail implements FormaDeComunicacion {
 
 	// Constructor
 	new() {
-		gmailsender = GMailSender.config(new GMailSender("ciu.dominos.pizza@gmail.com", "interfaces2017"))
-
+		
 	}
 
 	// Metodos
 	override comunicarUsuario(Miembro unUsuario, Comunicable unComunicable) {
+		gmailsender = GMailSender.config(new GMailSender("ciu.dominos.pizza@gmail.com", "interfaces2017"))
 		var String mailDelUsuario = unUsuario.mail
 		var String titulo = unComunicable.tituloMensaje
 		var String cuerpo = unComunicable.cuerpoMensaje

@@ -57,10 +57,16 @@ class Bootstrap {
 		var plato1 = new Plato(pizza1, tamanio1, distribucion1)
 		var plato2 = new Plato(pizza2, tamanio2, distribucion2)
 		var plato3 = new Plato(pizza3, tamanio3, distribucion3)
-
-		var pedido1 = new Pedido(new Miembro("Ivan", "nick1", 	"unpassword3", "dominikowivan@gmail.com", "unaDireccion1"))
-		var pedido2 = new Pedido(new Miembro("Nahuel", "nick2", "unPassword2", "n.autalan@gmail.com", "unaDireccion2"))
-		var pedido3 = new Pedido(new Miembro("Gabriel", "nick3","unPassword3", "pasqualeunq@gmail.com", "unaDireccion3"))
+		
+		// Creacion de usuarios
+		var ivan    = new Miembro("Ivan", "nick1", 	"unpassword3", "dominikowivan@gmail.com", "unaDireccion1")
+		var nahuel  = new Miembro("Nahuel", "nick2", "unPassword2", "n.autalan@gmail.com", "unaDireccion2")
+		var gabriel = new Miembro("Gabriel", "nick3","unPassword3", "pasqualeunq@gmail.com", "unaDireccion3")
+		
+		// Creacion de pedidos
+		var pedido1 = new Pedido(ivan)
+		var pedido2 = new Pedido(nahuel)
+		var pedido3 = new Pedido(gabriel)
 
 		// agregamos forma de retiro al pedido
 		pedido1.formaDeRetiro = new Delivery
@@ -86,7 +92,12 @@ class Bootstrap {
 		HomePedido.instance.agregarPedido(pedido1)
 		HomePedido.instance.agregarPedido(pedido2)
 		HomePedido.instance.agregarPedido(pedido3)
-
+		
+		// Agregamos los usuarios
+		HomeMiembro.instance.registrarUsuario(ivan)
+		HomeMiembro.instance.registrarUsuario(gabriel)
+		HomeMiembro.instance.registrarUsuario(nahuel)
+	
 		/*Pedidos Cerrados*/
 		var distribucion4 = new Distribucion
 		var distribucion5 = new Distribucion
