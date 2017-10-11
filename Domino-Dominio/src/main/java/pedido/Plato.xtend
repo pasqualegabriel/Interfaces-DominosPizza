@@ -9,7 +9,7 @@ import java.util.List
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import pizza.Chica
 import persistencia.HomePizza
-import pizza.Tamanio2
+import pizza.Tamanio
 
 /**
  * Clase que modela a un plato del dominio de domino's pizza. 
@@ -22,7 +22,7 @@ class Plato
 {
 	//	Atributos
 	Pizza pizza
-	Tamanio2 tamanio
+	Tamanio tamanio
 	Distribucion ingredientesExtras
 	
 	new(){
@@ -32,7 +32,7 @@ class Plato
 		ingredientesExtras 	= new Distribucion
 	}
 	//	Constructores
-	new(Pizza unaPizza, Tamanio2 unTamanio, Distribucion unaDistribucion)
+	new(Pizza unaPizza, Tamanio unTamanio, Distribucion unaDistribucion)
 	{
 		this.pizza = unaPizza
 		this.tamanio = unTamanio

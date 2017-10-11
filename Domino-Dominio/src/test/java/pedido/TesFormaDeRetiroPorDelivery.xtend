@@ -17,7 +17,7 @@ class TesFormaDeRetiroPorDelivery {
 	// SetUp 
 	@Before
 	def void setUp(){
-		unRetiroPorDeliveryTest	= new Delivery
+		unRetiroPorDeliveryTest	= new Delivery ("No Necesita")
 		estadoResultado 		= new ListoParaEnviar 
 	}
 	

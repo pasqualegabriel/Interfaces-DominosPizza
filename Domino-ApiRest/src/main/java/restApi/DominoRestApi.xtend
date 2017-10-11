@@ -12,6 +12,9 @@ import domino.Miembro
 import org.uqbar.commons.model.exceptions.UserException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import persistencia.HomeMiembro
+import persistencia.HomeIngrediente
+import persistencia.HomePedido
+import apiRestAdapters.PedidoApiAdapter
 
 @Controller
 class DominoRestApi {
@@ -58,6 +61,21 @@ class DominoRestApi {
         } catch (UnrecognizedPropertyException exception) {
             badRequest(getErrorJson("El body debe ser un Usuario"))
         }
+    }
+    
+    @Get("/ingredientes")
+    def getIngredientes(String string)
+    {
+    	response.contentType = ContentType.APPLICATION_JSON
+        ok(HomeIngrediente.instance.searchIngrediente(string).toJson)
+    }
+    
+    @Get("/pedidos")
+    def getPedidoPorEstado(String estado)
+    {
+    	response.contentType = ContentType.APPLICATION_JSON
+    	var pedidoAMostrar	= HomePedido.instance.searchPedidoPorEstado(estado).map[ p | new PedidoApiAdapter(p) ].toArray
+        ok(pedidoAMostrar.toJson)
     }
 }
 

@@ -6,9 +6,12 @@ package pizza
  * Interfaz que representa un tamaño con un factor de precio en base al tamaño.
  */
 
-interface Tamanio 
+abstract class Tamanio 
 {
-	def String nombre()
+	protected String nombre;
+	protected Double factorDeTamanio;
+	
+	def String getNombre()
 
-	def double factorDeTamanio()	
+	def double getFactorDeTamanio()		
 }

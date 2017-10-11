@@ -29,7 +29,7 @@ class TestEstadoPreparado {
 		unEstadoPreparado           = new Preparando
 		unPedido                    = new Pedido(unMiembroMock)
 		unaFormaDeRetiroPorLocal    = new Local
-		unaFormadeRetiroPorDelivery = new Delivery
+		unaFormadeRetiroPorDelivery = new Delivery ("No necesita")
 	}
 
 	// Tests

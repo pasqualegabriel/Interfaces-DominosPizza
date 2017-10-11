@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Observable
 @Transactional
 @Accessors
-class Grande extends Tamanio2 
+class Grande extends Tamanio
 {
 	new(){
 		nombre			="Grande"

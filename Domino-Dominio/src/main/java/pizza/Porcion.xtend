@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Observable
 @Transactional
 @Accessors
-class Porcion extends Tamanio2 
+class Porcion extends Tamanio
 {
 	new(){
 		nombre			="Porcion"

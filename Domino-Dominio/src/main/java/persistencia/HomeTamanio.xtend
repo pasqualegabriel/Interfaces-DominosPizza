@@ -8,8 +8,7 @@ import pizza.Grande
 import pizza.Familiar
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
-import pizza.Tamanio2
-
+import pizza.Tamanio
 @Accessors
 class HomeTamanio {
 
@@ -23,14 +22,14 @@ class HomeTamanio {
 	}
 
 	// Estructura
-	List<Tamanio2> promocionesDisponibles = #[new Porcion, new Chica, new Grande, new Familiar]
+	List<Tamanio> tamaniosDisponibles = #[new Porcion, new Chica, new Grande, new Familiar]
 
 	def searchTamanios(String subString) {
 
 		if (StringUtils.isBlank(subString)) {
-			promocionesDisponibles
+			tamaniosDisponibles
 		} else {
-			promocionesDisponibles.filter[it.nombre.toLowerCase.contains(subString.toLowerCase)].toList
+			tamaniosDisponibles.filter[it.nombre.toLowerCase.contains(subString.toLowerCase)].toList
 		}
 	}
 

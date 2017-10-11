@@ -3,6 +3,7 @@ package persistencia
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import pedido.Pedido
+import org.apache.commons.lang.StringUtils
 
 @Accessors
 class HomePedido {
@@ -32,4 +33,13 @@ class HomePedido {
 		pedidosAbiertos.remove(unPedido)
 		pedidosCerrados.add(unPedido)
 	}
+	
+	def searchPedidoPorEstado(String nombreDeEstado) 
+	{
+		if (StringUtils.isBlank(nombreDeEstado)) 
+		{	this.pedidosAbiertos	}
+		else 
+		{	this.pedidosAbiertos.filter[it.estadoActual.nombre.toLowerCase.contains(nombreDeEstado.toLowerCase)].toList	}
+	}
+	
 }

@@ -1,7 +1,6 @@
 package domino
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.ArrayList
 import java.util.List
 import pedido.Pedido
 import comunicables.Comunicable

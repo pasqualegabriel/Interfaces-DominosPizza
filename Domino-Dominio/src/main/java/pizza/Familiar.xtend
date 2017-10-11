@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Observable
 @Transactional
 @Accessors
-class Familiar extends Tamanio2 
+class Familiar extends Tamanio
 {
 	
 	new(){

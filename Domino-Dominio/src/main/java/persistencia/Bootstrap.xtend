@@ -69,8 +69,8 @@ class Bootstrap {
 		var pedido3 = new Pedido(gabriel)
 
 		// agregamos forma de retiro al pedido
-		pedido1.formaDeRetiro = new Delivery
-		pedido2.formaDeRetiro = new Delivery
+		pedido1.formaDeRetiro = new Delivery ("Cerrado 128")
+		pedido2.formaDeRetiro = new Delivery ("Pepota 5")
 		pedido3.formaDeRetiro = new Local
 
 		// Agregamos estado de inicio al pedido

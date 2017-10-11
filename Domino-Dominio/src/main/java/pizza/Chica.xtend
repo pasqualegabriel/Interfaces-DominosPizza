@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Observable
 @Transactional
 @Accessors
-class Chica extends Tamanio2
+class Chica extends Tamanio
 {
 	new(){
 		nombre			= "Chica"

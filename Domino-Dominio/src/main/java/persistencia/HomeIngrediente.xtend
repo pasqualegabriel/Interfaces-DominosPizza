@@ -3,6 +3,7 @@ package persistencia
 import java.util.List
 import pizza.Ingrediente
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.apache.commons.lang.StringUtils
 
 @Accessors
 class HomeIngrediente {
@@ -41,6 +42,15 @@ class HomeIngrediente {
 		val listaDeIngredientes = newArrayList
 		ingredientesDisponibles.forEach[listaDeIngredientes.add(it)]
 		listaDeIngredientes
+	}
+	
+	def searchIngrediente(String subString) 
+	{
+		var ingredientes = this.todosLosIngredientes
+		if (StringUtils.isBlank(subString)) 
+		{	ingredientes	}
+		else 
+		{	ingredientes.filter[it.nombre.toLowerCase.contains(subString.toLowerCase)].toList	}
 	}
 	
 }
