@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import pedido.Pedido
 import org.apache.commons.lang.StringUtils
+import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 class HomePedido {
@@ -40,6 +41,17 @@ class HomePedido {
 		{	this.pedidosAbiertos	}
 		else 
 		{	this.pedidosAbiertos.filter[it.estadoActual.nombre.toLowerCase.contains(nombreDeEstado.toLowerCase)].toList	}
+	}
+	
+	def Pedido getPedido(Integer integer) {
+		pedidosAbiertos.findFirst[ it.id == id ]
+	}
+	
+	def searchPedidosPorNombreUsuario(String nombreDeUsuario) {
+		if (StringUtils.isBlank(nombreDeUsuario)) 
+		{	throw new UserException("el string no tiene que estar vacio")	}
+		else 
+		{	HomeMiembro.instance.getMiembro(nombreDeUsuario).getPedidos}
 	}
 	
 }

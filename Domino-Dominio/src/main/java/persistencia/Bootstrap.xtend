@@ -64,9 +64,9 @@ class Bootstrap {
 		var gabriel = new Miembro("Gabriel", "nick3","unPassword3", "pasqualeunq@gmail.com", "unaDireccion3")
 		
 		// Creacion de pedidos
-		var pedido1 = new Pedido(ivan)
-		var pedido2 = new Pedido(nahuel)
-		var pedido3 = new Pedido(gabriel)
+		var pedido1 = new Pedido(ivan)=>[id=3]
+		var pedido2 = new Pedido(nahuel)=>[id=2]
+		var pedido3 = new Pedido(gabriel)=>[id=1]
 
 		// agregamos forma de retiro al pedido
 		pedido1.formaDeRetiro = new Delivery ("Cerrado 128")

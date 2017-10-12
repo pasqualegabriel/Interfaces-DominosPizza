@@ -31,6 +31,16 @@ class HomeMiembro {
 		}
 	}
 	
+	def getMiembro (String nombreDeUsuario)
+	{
+		miembros.findFirst[it.nombre.equals(nombreDeUsuario)]
+	}
+	
+	def modificarMiembroPorEjemplo(Miembro miembroMuestra, Miembro miembroAModificar) {
+		miembroAModificar.nombre   =miembroMuestra.nombre
+		miembroAModificar.direccion=miembroMuestra.direccion
+		miembroAModificar.mail     =miembroMuestra.mail
+	}
 	
 	
 }

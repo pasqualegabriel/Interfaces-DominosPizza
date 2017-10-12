@@ -25,6 +25,8 @@ class Pedido {
 
 	// Estructura
 	
+	Integer					id
+	
 	EstadoDePedido 			estadoActual
 	Miembro 				miembro
 	List<Plato> 			platos 

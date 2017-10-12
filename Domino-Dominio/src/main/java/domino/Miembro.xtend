@@ -56,6 +56,11 @@ class Miembro extends Usuario {
 		formaDeComunicacion.comunicarUsuario(this, unComunicable)
 	}
 	
+	def getPedidos(){
+		val listaDePedidos = newArrayList
+		historialDePedidos.forEach[listaDePedidos.add(it)]
+		listaDePedidos
+	}
 	
 	
 }
