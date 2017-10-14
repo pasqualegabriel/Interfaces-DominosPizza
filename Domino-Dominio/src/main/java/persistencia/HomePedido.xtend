@@ -51,7 +51,7 @@ class HomePedido {
 		if (StringUtils.isBlank(nombreDeUsuario)) 
 		{	throw new UserException("el string no tiene que estar vacio")	}
 		else 
-		{	HomeMiembro.instance.getMiembro(nombreDeUsuario).getPedidos}
+		{	HomeMiembro.instance.getMiembro(nombreDeUsuario).listaHistorialDePedidos}
 	}
 	
 }

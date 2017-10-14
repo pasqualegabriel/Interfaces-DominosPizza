@@ -36,7 +36,7 @@ class PedidoAppModelTest {
 	def void SetUp() {
 		
 		pedidoDoc 		= new Pedido(new Miembro("Ivan", "nick1", "unpassword3", "pepita@gmail.com", "unaDireccion1"))
-		pedidoDoc.formaDeRetiro = new Delivery
+		pedidoDoc.formaDeRetiro = new Delivery ("No se Usa")
 		
 		anchoa 			= new Ingrediente("Anchoa", 3.00)
 		distribucion1 	= new Distribucion

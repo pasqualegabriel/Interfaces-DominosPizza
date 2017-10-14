@@ -45,7 +45,7 @@ class Pedido {
 		aclaracion   = ""
 		fecha        = LocalDateTime.now()
 		this.tiempoDeEspera = 0
-		//formaDeRetiro = new Delivery
+		formaDeRetiro = new Local
 		
 	}
 	
@@ -121,9 +121,14 @@ class Pedido {
 		
 	}
 	
-	@Dependencies("platos")
+	def costoDeRetiro()
+	{
+		this.formaDeRetiro.precioDeRetiro	
+	}
+	
+	@Dependencies("platos","formaDeRetiro")
 	def getPrecio() {
-		platos.stream.mapToDouble[it.getPrecio].sum()
+		platos.stream.mapToDouble[it.getPrecio].sum + this.formaDeRetiro.precioDeRetiro	
 	}
 }
 

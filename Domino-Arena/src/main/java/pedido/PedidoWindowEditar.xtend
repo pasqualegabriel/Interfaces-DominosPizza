@@ -14,8 +14,8 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.TextBox
 import estados.EstadoDePedido
-import plato.EditarPlatoWindow
-import plato.PlatoAppModel
+import plato.PlatoWindow
+import plato.AgregarPlatoWindow
 
 /** Clase que genera la ventana de edicion de un pedido*/
 class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> 
@@ -60,7 +60,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 				[
 					(items <=> "estadosSelector").adaptWith(typeof(EstadoDePedido), "nombre") //El adapter hace que se muestre el nombre del estado
 					value <=> "cambioDeEstado"
-					onAccept(execute(modelObject,"cambiarAEstadoSeleccionado") ) //Al Aceptar hace que el pedido cambie al estado seleccionado
+					onAccept[	this.modelObject.cambiarAEstadoSeleccionado	]
 				]
 	}
 	
@@ -125,28 +125,37 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 			[
 				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
 				caption = "Agregar"
-				onClick [	new EditarPlatoWindow(this, new PlatoAppModel(modelObject.nuevoPlato)).open	] //Abre la ventana para agregar un nuevo plato
+				onClick [	
+						new AgregarPlatoWindow(this, modelObject.nuevoPlato) => 
+											[	
+												open
+												this.modelObject.actualizar
+											]
+						] //Abre la ventana para agregar un nuevo plato
 			]
 
 		new Button(panelBotonesPlatos) => 
 			[
 				caption = "Editar"
-				setAsDefault
-				onClick [	new EditarPlatoWindow(this, new PlatoAppModel(modelObject.platoSeleccionado)).open	] //Abre la ventana de edicion de un plato 
+				onClick [	
+							new PlatoWindow(this, modelObject.platoSeleccionado) =>
+											[
+												open
+												this.modelObject.actualizar
+											]
+						]
 				bindEnabledToProperty("sePuedeEditar")	//Se habilita al haber un pedido seleccionado
 				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
-				
 			]
 
 		new Button(panelBotonesPlatos) => 
 			[
-				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
 				caption = "Eliminar"
 				onClick [
 							modelObject.eliminarPlato
 						]
+				bindVisibleToProperty("noEstaCerrado")	//Si el pedido esta cerrado no se muestra el boton
 				bindEnabledToProperty("sePuedeEliminar")	//Se habilita al haber un pedido seleccionado
-				
 			]
 	}
 
@@ -180,21 +189,20 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 
 		new Label(panelDatosPlatos).text = "Costo de envío"
 
-		new TextBox(panelDatosPlatos).value <=> "costoDeEnvio"  //Metodo del appModel
+		new Label(panelDatosPlatos).bindValueToProperty("pedidoAdaptado.costoDeRetiro").transformer = new PrecioTransformer
 
 		new Label(panelDatosPlatos).text = "Monto total"
 	
-		new TextBox(panelDatosPlatos).value <=> "precio" // hacer un trasformer
+		new Label(panelDatosPlatos).bindValueToProperty("precio").transformer = new PrecioTransformer
 		
-		new Label(panelDatosPlatos).text = "Hora" //acá tambien
+		new Label(panelDatosPlatos).text = "Hora"
 
-		new TextBox(panelDatosPlatos).value <=> "hora"	//Metodo del appModel
+		new Label(panelDatosPlatos).value <=> "hora"
 	}
 
 	/**Define los botones que interactuan con la ventana del pedido (Aceptar y Cancelar) */
 	def ultimosBotonesPlatos(Panel mainPanel) 
 	{
-
 		var panelUltimosBotonesPlatos = new Panel(mainPanel)
 		panelUltimosBotonesPlatos.layout = new HorizontalLayout
 
@@ -202,8 +210,7 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 			[
 				caption = "Aceptar"
 				onClick [
-							modelObject.aceptarCambios
-							accept
+							this.accept
 							disableOnError
 						]
 			]
@@ -216,5 +223,10 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 			]
 		
 	}
-
+	
+	override executeTask()
+	{
+		super.executeTask
+		modelObject.aceptarCambios
+	}
 }

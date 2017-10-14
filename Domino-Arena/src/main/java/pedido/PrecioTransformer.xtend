@@ -2,25 +2,17 @@ package pedido
 
 import org.uqbar.arena.bindings.ValueTransformer
 
-class PrecioTransformer implements ValueTransformer<Double, String>{
+class PrecioTransformer implements ValueTransformer<Double, String>
+{
+	override getModelType() 
+	{	}
 	
-	override getModelType() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+	override getViewType() 
+	{	}
 	
-	override getViewType() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+	override modelToView(Double valueFromModel) 
+	{	return '''$ «valueFromModel»'''	}
 	
-	override modelToView(Double valueFromModel) {
-		if (valueFromModel == null) {
-			return null;
-		}
-		return '''$ «valueFromModel»'''	
-	}
-	
-	override viewToModel(String valueFromView) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
+	override viewToModel(String valueFromView) 
+	{	}
 }

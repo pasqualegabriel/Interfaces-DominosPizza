@@ -1,22 +1,24 @@
 package pizza
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.HashMap
 import java.util.ArrayListimport java.util.List
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 /**
  * Se encarga de organizar y contener a los ingredientes que se quieren en una pizza con su respectiva distribucion.
  */
 @Accessors
+@TransactionalAndObservable
 class Distribucion 
 {
 	// Estructura
-	HashMap<Ingrediente, DistribucionEnPizza> ingredientes
+//	HashMap<Ingrediente, DistribucionEnPizza> ingredientes
+	List<PairIngredienteDistribucionPizza> ingredientes
 	
 	// Constructores
 	new()
 	{
-		this.ingredientes = new HashMap<Ingrediente, DistribucionEnPizza>() 
+		ingredientes = newArrayList
 	}
 
 	
@@ -29,7 +31,8 @@ class Distribucion
 	 */
 	def void agregarIngrediente(Ingrediente nuevoIngrediente, DistribucionEnPizza unaDistribucion) 
 	{
-		this.ingredientes.put(nuevoIngrediente,unaDistribucion)
+		var nuevoPar = new PairIngredienteDistribucionPizza(nuevoIngrediente,unaDistribucion)
+		this.ingredientes.add(nuevoPar)
 	}
 
 	/**
@@ -39,8 +42,13 @@ class Distribucion
 	 */
 	def void quitarIngrediente(Ingrediente unIngrediente) 
 	{
-		if (this.ingredientes.containsKey(unIngrediente))
-			this.ingredientes.remove(unIngrediente)
+		if (this.tieneAlIngrediente(unIngrediente))
+			this.ingredientes.remove(
+										this.ingredientes.findFirst[ 
+																	parID | 
+																	parID.esElIngrediente(unIngrediente)
+																   ]
+									)
 		else
 			throw new RuntimeException("No Esta el ingrediente a sacar")
 	}
@@ -52,19 +60,18 @@ class Distribucion
 	 * @param nuevaDistribucion	- El tipo de {@linkplain PosicionIngrediente} tipo de distribucion deseada "Toda" "Izquierda" o "Derecha"
 	 */
 	def void cambiarDistribucionDe(Ingrediente unIngrediente, DistribucionEnPizza nuevaDistribucion)
-	{
-		this.ingredientes.replace(unIngrediente,nuevaDistribucion)
-	}
+	{	this.ingredientes.findFirst[ parID | parID.esElIngrediente(unIngrediente)].cambiarDistribucion(nuevaDistribucion)	}
 
 	/**
 	 * Devuelve una ArrayList conteniendo a todos los ingredientes, esta lista no contiene la distribucion de los ingredientes. 
 	 */	
 	def listaDeIngredientes() 
 	{
-		var listaDeIngredientes	= new ArrayList<Ingrediente>()
-		listaDeIngredientes.addAll(this.ingredientes.keySet())
+		val listaDeIngredientes	= new ArrayList<Ingrediente>()
+		this.ingredientes.forEach[ parID | listaDeIngredientes.add(parID.ingrediente)]
 		listaDeIngredientes
 	}
+	
 	
 	/**
 	 * Devuelve un booleano en base a si tiene ingredientes o no. True en el caso que tenga al menos un ingrediente, False en caso contrario
@@ -80,7 +87,7 @@ class Distribucion
 	 */
 	def tieneAlIngrediente(Ingrediente unIngrediente) 
 	{		
-		this.ingredientes.containsKey(unIngrediente)
+		this.ingredientes.exists[parID | parID.esElIngrediente(unIngrediente)]
 	}
 	
 	/**
@@ -90,7 +97,7 @@ class Distribucion
 	 */
 	def posicionIngrediente(Ingrediente unIngrediente) 
 	{
-		this.ingredientes.get(unIngrediente)
+		this.ingredientes.findFirst[ parID | parID.esElIngrediente(unIngrediente)].distribucion
 	}
 	
 	/**
@@ -100,15 +107,22 @@ class Distribucion
 	 */
 	def void quitarIngredienteSInvalidos(List<Ingrediente> ingredientesInvalidos) 
 	{
-		ingredientesInvalidos.forEach[ ii | this.ingredientes.remove(ii)]
+		this.ingredientes.removeAll	(
+									this.ingredientes	.filter[
+																	parID | 
+																	ingredientesInvalidos.contains(parID.ingrediente)
+																]
+														.toList
+									)
 	}
 	
 	/*
 	 * Retorna la suma del costo de todos los ingredientes
 	 */
 	def costoDeIngredientes() 
-	{
-		this.ingredientes.keySet().stream().mapToDouble([ i | i.precio]).sum()	
-	}
+	{	this.ingredientes.stream().mapToDouble([ parID | parID.ingrediente.precio]).sum()	}
+	
+	def quitarIngredienteConDistribucion(PairIngredienteDistribucionPizza unIngredienteConDistribucion) 
+	{	this.ingredientes.remove(unIngredienteConDistribucion)	}
 	
 }

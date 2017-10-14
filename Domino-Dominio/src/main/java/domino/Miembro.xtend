@@ -7,6 +7,7 @@ import comunicables.Comunicable
 import formasDeComunicacion.ComunicacionPorMail
 import formasDeComunicacion.FormaDeComunicacion
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import java.util.ArrayList
 
 /**
  *  Responsabilidad: Representar al usuario cliente registrado en el sistema y manejar
@@ -35,7 +36,7 @@ class Miembro extends Usuario {
 	
 	new(String unNombre, String unNick, String unPassword, String unMail, String unaDireccion) {
 		
-		//historialDePedidos  = new ArrayList<Pedido>
+		historialDePedidos  = new ArrayList<Pedido>
 		nombre			    = unNombre
 		nick			    = unNick
 		password		    = unPassword
@@ -48,7 +49,7 @@ class Miembro extends Usuario {
 	// Metodos
 	def agregarPedido(Pedido unPedido) { 
 		
-		//historialDePedidos.add(unPedido)
+		historialDePedidos.add(unPedido)
 	}
 
 	override comunicar(Comunicable unComunicable) {
@@ -56,7 +57,7 @@ class Miembro extends Usuario {
 		formaDeComunicacion.comunicarUsuario(this, unComunicable)
 	}
 	
-	def getPedidos(){
+	def listaHistorialDePedidos(){
 		val listaDePedidos = newArrayList
 		historialDePedidos.forEach[listaDePedidos.add(it)]
 		listaDePedidos

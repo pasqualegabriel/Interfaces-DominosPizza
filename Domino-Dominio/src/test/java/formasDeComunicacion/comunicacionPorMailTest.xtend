@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations
 import comunicables.Comunicable
 import domino.Miembro
 import mailSender.GMailSender
+import org.mockito.Spy
 
 class comunicacionPorMailTest {
 	
@@ -16,7 +17,7 @@ class comunicacionPorMailTest {
 		  ComunicacionPorMail unaComunicacionPorMail
 	@Mock Miembro     		  mockMiembro 
 	@Mock Comunicable  		  mockComunicable 
-	@Mock GMailSender  		  gmailsenderMock
+	@Spy GMailSender  		  gmailsenderMock
 	
 	// SetUp
 	@Before
@@ -34,7 +35,7 @@ class comunicacionPorMailTest {
 		when(mockMiembro.mail).thenReturn("mail")
 		when(mockComunicable.tituloMensaje).thenReturn("Probando")
 		when(mockComunicable.cuerpoMensaje).thenReturn("ACaraDePerro")
-		
+		doNothing().when(gmailsenderMock).sendMail("mail", "Probando", "ACaraDePerro")
 		// Exercise
 		unaComunicacionPorMail.comunicarUsuario(mockMiembro, mockComunicable)
 		

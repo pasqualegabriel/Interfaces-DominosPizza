@@ -1,81 +1,161 @@
 package plato
 
 import pedido.Plato
-import org.eclipse.xtend.lib.annotations.Accessors
-import pizza.Tamanio
-import org.uqbar.commons.model.annotations.TransactionalAndObservable
-import pizza.Pizza
 import java.util.List
-import pizza.Distribucion
-import pizza.Porcion
-import pizza.Chica
-import pizza.Grande
-import pizza.Familiar
-import persistencia.HomePizza
-import edicionDePromocion.IngredienteAdapterAbstract
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import pizza.DistribucionEnPizza
+import org.uqbar.commons.model.annotations.Dependencies
+import persistencia.HomeIngrediente
+import pizza.Ingrediente
 import org.uqbar.commons.model.utils.ObservableUtils
+import pizza.Pizza
+import pizza.Tamanio
+import persistencia.HomePizza
+import persistencia.HomeTamanio
+import pizza.PairIngredienteDistribucionPizza
 
 @Accessors
 @TransactionalAndObservable
-class PlatoAppModel {
-	double precio
-
-	Plato plato
-
-	List<Pizza> pizzaItems = newArrayList
+class PlatoAppModel 
+{
+	Plato unPlato
+	
+	List<PairIngredienteDistribucionPizza> ingredientesElegidosItems	= newArrayList 
+	
+	Ingrediente ingredienteExtraSelect
+	PairIngredienteDistribucionPizza ingredienteElegidoSelect
+	DistribucionEnPizza distribucionSelect
+	DistribucionEnPizza distribucionElegidoSelect
+	
 	Pizza pizzaSelect
 	Tamanio sizeSelect
-
-	List<IngredienteAdapterAbstract> ingredientesExtras = newArrayList
-
-	new(Plato unPlato) {
-		coleccionPizzaItems
-		plato = unPlato
-		asignarPizza
-		pizzaSelect = plato.pizza
-		sizeSelect = itemsSize.findFirst[t|t.nombre.equals(unPlato.tamanio.nombre)]
-		precio = 0
+	
+	new (Plato platoDePrueba)
+	{
+		this.unPlato					= platoDePrueba
+		this.pizzaSelect				= HomePizza.instance.promocionesDisponibles.findFirst[p | p == platoDePrueba.pizza] 
+		this.sizeSelect					= HomeTamanio.instance.tamaniosDisponibles.findFirst[ t | t.esElTamanio(platoDePrueba.tamanio)]
+		this.ingredientesElegidosItems	= platoDePrueba.ingredientesExtras.ingredientes
+		this.ingredienteExtraSelect		= null
+		this.distribucionSelect			= null
+		this.ingredienteElegidoSelect	= null
+		this.distribucionElegidoSelect	= null
+		this.getPrecio
+	}
+	
+	def estaElIngredienteEnLaPizza(Ingrediente unIngrediente)
+	{	getIngredientesPizzaItems.exists[n | n.nombre == unIngrediente.nombre]	}
+	
+	def estaElIngredienteEnLosExtrasElegidos(Ingrediente unIngrediente)
+	{	ingredientesElegidosItems.exists[n | n.esElIngrediente(unIngrediente)]	}
+	
+	def void agregarIngredienteExtraSeleccionado()
+	{
+		ingredientesElegidosItems.add(new PairIngredienteDistribucionPizza(ingredienteExtraSelect,distribucionSelect))
+		this.ingredienteExtraSelect	= null
+		this.distribucionSelect		= null
+		ObservableUtils.firePropertyChanged(this,"precio")
+		ObservableUtils.firePropertyChanged(this,"ingredientesElegidosItems")
+		ObservableUtils.firePropertyChanged(this,"ingredientesExtrasItems")
+	}
+	
+	def void quitarIngredienteExtraSeleccionado()
+	{
+		this.ingredientesElegidosItems.remove(this.ingredienteElegidoSelect)
+		this.ingredienteElegidoSelect	= null
+		this.distribucionElegidoSelect	= null
+		ObservableUtils.firePropertyChanged(this,"ingredientesExtrasItems")
+		ObservableUtils.firePropertyChanged(this,"ingredientesElegidosItems")
+		ObservableUtils.firePropertyChanged(this,"precio")
+	}
+	
+	def void modificarDistribucionDeIngredienteExtraSeleccionado()
+	{
+		ingredienteElegidoSelect.distribucion = distribucionElegidoSelect
+		distribucionElegidoSelect= null
+	}
+	
+	def void aceptarCambios() 
+	{
+		unPlato.pizza							= this.pizzaSelect
+		unPlato.tamanio							= this.sizeSelect
+		unPlato.ingredientesExtras.ingredientes = this.ingredientesElegidosItems
+		ObservableUtils.firePropertyChanged(this,"precio")
+	}
+	
+	def costoDeIngredientesExtras()
+	{
+		if (ingredientesElegidosItems.isEmpty)
+			0
+		else
+			ingredientesElegidosItems.stream.mapToDouble[ parID | parID.ingrediente.precio].sum
 	}
 
-	def List<Tamanio> getItemsSize() {
-		#[new Porcion, new Chica, new Grande, new Familiar]
+	def getIngredientesExtrasItems()
+	{
+		HomeIngrediente.instance.ingredientesDisponibles.filter[ i | !(estaElIngredienteEnLaPizza(i) || estaElIngredienteEnLosExtrasElegidos(i))].toList
 	}
 
-	/**Asigna una pizza solamente cuando  el objeto adaptado<Plato> no tiene una pizza*/
-	def void asignarPizza() {
-		if (plato.pizza == null) {
-			plato.pizza = HomePizza.instance.promocionesDisponibles.get(0)
-		}
+	def getIngredientesPizzaItems()
+	{
+	 	pizzaSelect.listaDeIngredientes
 	}
+	
+	def getPizzaItems()
+	{	HomePizza.instance.promocionesDisponibles	}
+	
+	def getItemsSize()
+	{	HomeTamanio.instance.tamaniosDisponibles	}
 
-	def void setPizzaSelect(Pizza unaPizza) { pizzaSelect = unaPizza }
-
-	def void setSizeSelect(Tamanio unTamanio) { sizeSelect = unTamanio }
-
-	/**Devuelve el precio total de los ingredientes extras elegidos */
-	def getPrecioDeIngredientesExtras() {
-		ingredientesExtras.stream.mapToDouble[it.getPrecio].sum()
+	
+	def void setPizzaSelect(Pizza unaPizza)
+	{
+		pizzaSelect = unaPizza
+		actualizarIngredientesElegidos
+		ObservableUtils.firePropertyChanged(this,"ingredientesPizzaItems")
+		ObservableUtils.firePropertyChanged(this,"ingredientesExtrasItems")
+		ObservableUtils.firePropertyChanged(this,"ingredientesElegidosItems")
+		ObservableUtils.firePropertyChanged(this,"precio")
 	}
-
-	/**Calcula el precio del plato para poder mostrarlo */
-	def calcularPrecio() { precio = (pizzaSelect.precioBase * sizeSelect.factorDeTamanio) + precioDeIngredientesExtras }
-
-	/**Protocolo */
-	/**Carga todas las promoociones disponibles a la lista de pizzaItems*/
-	def coleccionPizzaItems() { pizzaItems.addAll(HomePizza.instance.promocionesDisponibles) }
-
-	/**Agrega todos los ingredientes extras de la lista ingredientesExtras, a la lista de ingredientes extras del plato*/
-	def agregarIngredientes() {
-		plato.ingredientesExtras = new Distribucion
-		ingredientesExtras.forEach[it.agregarse]
+	
+	def actualizarIngredientesElegidos() 
+	{
+		ingredientesElegidosItems = ingredientesElegidosItems.filter[ i | ingredientesPizzaItems.contains(i) ].toList
 	}
-
-	/**Agrega todos los ingredientes elegidos con su distribucion al plato*/
-	def void aceptarCambio() {
-		agregarIngredientes
-		plato.pizza = pizzaSelect
-		plato.tamanio = sizeSelect
-		ObservableUtils.firePropertyChanged(this, "calcularPrecio")
+	
+	def setSizeSelect(Tamanio unTamanio)
+	{
+		sizeSelect = unTamanio
+		ObservableUtils.firePropertyChanged(this,"precio")
 	}
+	
+	@Dependencies(#["pizzaSelect", "sizeSelect", "ingredientesElegidosItems"])
+	def getPrecio()
+	{	(pizzaSelect.precioBase * sizeSelect.factorDeTamanio + this.costoDeIngredientesExtras).doubleValue	}
+	
+	def getDistribucionesItems()
+	{
+		#[DistribucionEnPizza.Toda,DistribucionEnPizza.Izquierda,DistribucionEnPizza.Derecha]
+	}
+	
+	/*Habilitadores de Botones*/
+	@Dependencies(#["distribucionSelect", "ingredienteExtraSelect"])
+	def getPuedeAgregar()
+	{	distribucionSelect!=null && ingredienteExtraSelect!=null	}
+	
+	@Dependencies("ingredienteElegidoSelect")
+	def getHayIngredienteElegido()
+	{	ingredienteElegidoSelect!=null	}
+	
+	@Dependencies("ingredienteExtraSelect")
+	def getHayIngredienteExtra()
+	{	ingredienteExtraSelect!=null	}
+	
+	@Dependencies(#["distribucionElegidoSelect", "ingredienteElegidoSelect"])
+	def getPuedeModificar()
+	{	distribucionElegidoSelect!=null && ingredienteElegidoSelect!=null	}	
 
+	def getTieneIngredientes()
+	{	ingredientesPizzaItems.isEmpty()	}
 }

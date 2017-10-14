@@ -42,7 +42,7 @@ class DistribucionTest
 		// Assertion
 		assertTrue  (!unaDistribucion .ingredientes.isEmpty)
 		assertEquals(1,unaDistribucion.ingredientes.size)
-		assertTrue  (unaDistribucion  .ingredientes.containsKey(queso))
+		assertTrue  (unaDistribucion  .tieneAlIngrediente(queso))
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ class DistribucionTest
 		
 		// Assertion
 		assertTrue(!unaDistribucion.ingredientes.isEmpty())
-		assertEquals("Izquierda", unaDistribucion.ingredientes.get(queso).name)
+		assertEquals("Izquierda", unaDistribucion.posicionIngrediente(queso).name)
 	}
 	
 	@Test

@@ -89,10 +89,10 @@ class Plato
 	/**
 	 * Calcula el valor a pagar del plato. 
 	 */
+//	 @Dependencies("pizza","tamanio","ingredientesExtras")
 	def getPrecio() 
 	{
-		(this.precioDePizza() * factorDeTamanio() + costoDeIngredientesExtras()).doubleValue()
-		
+		this.precioDePizza() * factorDeTamanio() + costoDeIngredientesExtras()		
 	}
 	
 	/**

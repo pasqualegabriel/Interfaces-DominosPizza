@@ -13,5 +13,10 @@ abstract class Tamanio
 	
 	def String getNombre()
 
-	def double getFactorDeTamanio()		
+	def double getFactorDeTamanio()
+	
+	def esElTamanio(Tamanio unTamanio)
+	{
+		this.nombre.equalsIgnoreCase(unTamanio.nombre)
+	}		
 }

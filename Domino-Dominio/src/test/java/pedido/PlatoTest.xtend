@@ -7,7 +7,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import java.util.ArrayList
-import org.mockito.Spy
 import pizza.Distribucion
 import pedido.Plato
 import pizza.Pizza
@@ -19,7 +18,7 @@ class PlatoTest
 {
 	// Estructura
 		  Plato 		unPlato
-	@Spy  Distribucion  unaDistribucion
+	Distribucion  unaDistribucion
 	@Mock Pizza 		unaDeMuzza
 	@Mock Pizza 		unaCustomizada
 	@Mock Pizza 		unaDeJamon
@@ -31,7 +30,8 @@ class PlatoTest
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unPlato	= new Plato(unaDeMuzza,tamanioGrande,unaDistribucion)		
+		unPlato			= new Plato(unaDeMuzza,tamanioGrande,unaDistribucion)
+		unaDistribucion = new Distribucion		
 	}
 	
 	// Tests

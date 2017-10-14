@@ -6,10 +6,11 @@ import estados.EstadoDePedido
 import java.util.List
 import pedido.Plato
 import org.uqbar.commons.model.annotations.Dependencies
-import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import org.uqbar.commons.model.utils.ObservableUtils
 
 @Accessors
-@Observable
+@TransactionalAndObservable
 class PedidoAppModel {
 	
 	Pedido pedidoAdaptado
@@ -18,7 +19,6 @@ class PedidoAppModel {
 	List<EstadoDePedido> estadosSelector	= newArrayList
 	List<Plato> itemsPlatos 				= newArrayList
 	Plato platoSeleccionado
-	Double costoDeEnvio
 
 	new(Pedido unPedido) {
 		super()
@@ -26,7 +26,6 @@ class PedidoAppModel {
 		cambioDeEstado = unPedido.estadoActual
 		coleccionDeEstados
 		agregarPlatosAItems
-		costoDeEnvio = pedidoAdaptado.formaDeRetiro.precioDeRetiro
 	}
 
 	/**Devuelve True si el pedido no esta cerrado (No es cancelado y no es entregado)*/
@@ -46,7 +45,7 @@ class PedidoAppModel {
 		platoSeleccionado != null && itemsPlatos.size > 1
 
 	}
-
+	
 
 	def getItemsPlatos()
 	{
@@ -54,7 +53,7 @@ class PedidoAppModel {
 	}
 
 	/**Devuelve una coleccion con todos los platos del pedido */
-	def void agregarPlatosAItems() { //Corregido
+	def void agregarPlatosAItems() { 
 		pedidoAdaptado.platos.forEach[itemsPlatos.add(it)]
 	}
 
@@ -63,20 +62,13 @@ class PedidoAppModel {
 		pedidoAdaptado.fecha.toLocalTime
 	}
 
-	/**Realiza el calculo de precio del pedido*/
-	@Dependencies("itemsPlatos")
-	def getPrecio() {
-		itemsPlatos.stream.mapToDouble[it.getPrecio].sum + costoDeEnvio
-	}
-
 	/**Da la fecha del pedido en formato DD-MM-AAAA */
-	def getFecha() { this.pedidoAdaptado.fecha.toLocalDate }
-
+	def getFecha() 
+	{	this.pedidoAdaptado.fecha.toLocalDate }
 
 	/**Da el costo de envio en un formato adaptador para la vista */
-	def getCostoDeEnvio() { 
-		costoDeEnvio
-	}
+	def getCostoDeEnvio() 
+	{	pedidoAdaptado.costoDeRetiro	}
 
 	/**Devuelve una lista de los estados a los que puede pasar el pedido actual 
 	 * Precondicion: El estado actual nunca puede ser Entregado
@@ -84,11 +76,11 @@ class PedidoAppModel {
 	def void coleccionDeEstados() {
 		this.estadosSelector = newArrayList
 		/*Si el estado del pedido no es preparado o entregado  agrega el estado previo al actual*/
-		if (!pedidoAdaptado.estaPreparando) { //CORREGIDO
+		if (!pedidoAdaptado.estaPreparando) { 
 			estadosSelector.add(pedidoAdaptado.estadoActual.previo)
 		}
 		estadosSelector.add(pedidoAdaptado.estadoActual)
-		if (pedidoAdaptado.estaPreparando) { //CORREGIDO
+		if (pedidoAdaptado.estaPreparando) { 
 			estadosSelector.add(pedidoAdaptado.formaDeRetiro.avanzarEstado)
 		}
 		else
@@ -98,10 +90,17 @@ class PedidoAppModel {
 		
 	}
 
+	/**Realiza el calculo de precio del pedido*/
+	@Dependencies("itemsPlatos")
+	def getPrecio() 
+	{
+		itemsPlatos.stream.mapToDouble[it.getPrecio].sum + costoDeEnvio
+	}
+
 	/**Protocolo/
 
 	 /**Cambia el estado del pedido al estado que esta seleccionado */
-	def void cambiarAEstadoSeleccionado() { //CORREGIDO
+	def void cambiarAEstadoSeleccionado() {
 		pedidoAdaptado.cambiarAEstado(this.cambioDeEstado)
 	}
 
@@ -113,23 +112,39 @@ class PedidoAppModel {
 	/**Agrega un nuevo plato a la lista de platos */
 	def void agregarPlato(Plato unPlato) {
 		itemsPlatos.add(unPlato)
+		ObservableUtils.firePropertyChanged(this,"precio")
 	}
 
 	/**Elimina el plato seleccionado de la lista de platos */
 	def eliminarPlato() {
 		itemsPlatos.remove(platoSeleccionado)
 		platoSeleccionado = null
+		ObservableUtils.firePropertyChanged(pedidoAdaptado,"precio")
+		ObservableUtils.firePropertyChanged(this,"precio")
 	}
 
-	/**Al aceptar los cambios desde la ventana, guarda la lista de paltos en el pedido */
-	def aceptarCambios() {
+	/**Al aceptar los cambios desde la ventana, guarda la lista de platos en el pedido */
+//	@Dependencies("itemsPlatos")
+	def void aceptarCambios() 
+	{
 		pedidoAdaptado.platos = itemsPlatos
+//		ObservableUtils.firePropertyChanged(pedidoAdaptado,"platos")
+//		ObservableUtils.firePropertyChanged(pedidoAdaptado,"precio")
+	}
+	
+	def actualizar()
+	{
+//		platoSeleccionado = null
+		ObservableUtils.firePropertyChanged(this,"itemsPlatos")
+		ObservableUtils.firePropertyChanged(this,"precio")
+		ObservableUtils.firePropertyChanged(pedidoAdaptado,"platos")
+		ObservableUtils.firePropertyChanged(pedidoAdaptado,"precio")
 	}
 	
 	def getNuevoPlato()
 	{
 		var Plato nuevoPlato=new Plato()
-		itemsPlatos.add(nuevoPlato)
+		this.agregarPlato(nuevoPlato)
 		nuevoPlato
 	}
 	

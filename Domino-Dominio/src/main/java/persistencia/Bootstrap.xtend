@@ -54,9 +54,9 @@ class Bootstrap {
 		HomePizza.instance.agregarPromocion(pizza3)
 
 		// Creacion de platos
-		var plato1 = new Plato(pizza1, tamanio1, distribucion1)
-		var plato2 = new Plato(pizza2, tamanio2, distribucion2)
-		var plato3 = new Plato(pizza3, tamanio3, distribucion3)
+		var plato1 = new Plato(pizza1, tamanio1, new Distribucion)
+		var plato2 = new Plato(pizza2, tamanio2, new Distribucion)
+		var plato3 = new Plato(pizza3, tamanio3, new Distribucion)
 		
 		// Creacion de usuarios
 		var ivan    = new Miembro("Ivan", "nick1", 	"unpassword3", "dominikowivan@gmail.com", "unaDireccion1")
@@ -104,20 +104,20 @@ class Bootstrap {
 		val pizzaMuzzaCerrada = new Pizza("Muzza", 15.00, new Distribucion)
 		val platoCerrado1 = new Plato(pizzaMuzzaCerrada, new Grande, distribucion4)
 		val pedidoCerrado1 = new Pedido(new Miembro("Victor", "Raquel1", "unPassword", "unMail", "unaDireccion"))
-		pedidoCerrado1.agregarPlato(platoCerrado1)
 		pedidoCerrado1.formaDeRetiro = new Local
 		pedidoCerrado1.estadoActual = new Entregado
 		pedidoCerrado1.tiempoDeEspera = 60
 		pedidoCerrado1.fecha = LocalDateTime.of(2017, 9, 11, 19, 30)
+		pedidoCerrado1.agregarPlato(platoCerrado1)
 
 		val pizzaJamonCerrada = new Pizza("Jamon y Morron", 25.00, new Distribucion)
 		val platoCerrado2 = new Plato(pizzaJamonCerrada, new Grande, distribucion5)
 		val pedidoCerrado2 = new Pedido(new Miembro("Sr Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
-		pedidoCerrado2.agregarPlato(platoCerrado2)
 		pedidoCerrado2.formaDeRetiro = new Local
 		pedidoCerrado2.estadoActual = new Cancelado
 		pedidoCerrado2.tiempoDeEspera = 0
 		pedidoCerrado2.fecha = LocalDateTime.of(2017, 9, 10, 19, 30)
+		pedidoCerrado2.agregarPlato(platoCerrado2)
 
 		HomePedido.instance.pedidosCerrados.add(pedidoCerrado1)
 		HomePedido.instance.pedidosCerrados.add(pedidoCerrado2)

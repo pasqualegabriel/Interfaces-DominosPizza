@@ -14,7 +14,7 @@ class Pizza
 {
 	// Atributos
 	String 			nombre
-	Double 		precioBase
+	Double 			precioBase
 	Distribucion    distribucion
 	
 	// Constructor
