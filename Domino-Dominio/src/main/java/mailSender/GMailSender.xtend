@@ -9,9 +9,12 @@ import javax.mail.Session
 import javax.mail.Transport
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class GMailSender {
 
+	Integer                    id
 	UserPasswordAuthentication authentication
 
 	new(String username, String password) {
@@ -54,16 +57,20 @@ class GMailSender {
 	}
 }
 
+@Accessors
 class UserPasswordAuthentication extends Authenticator {
 
-	val String username
-	val String password
+	Integer id
+	String username
+	String password
 
 	new(String _username, String _password) {
 		username = _username
 		password = _password
 	}
 
-	override protected getPasswordAuthentication() { new PasswordAuthentication(username, password) }
+	override protected getPasswordAuthentication() { 
+		new PasswordAuthentication(username, password)
+	}
 
 }

@@ -8,23 +8,20 @@ import comunicables.ComunicadoParaEntregasTardias
 
 class EnViaje extends EstadoDePedido {
 	
-
 	new(){
 		super()
 	}
 	
-	
 	// Metodos
 	 override siguiente(Pedido unPedido)
 	 {
-		var estadoSiguiente = this.proximo()
+		var estadoSiguiente = this.proximo
 		unPedido.estadoActual = estadoSiguiente
 		
-		unPedido.calcularTiempoDeEntrega()
+		unPedido.calcularTiempoDeEntrega
 		if(unPedido.tardoMasDe30Minutos){
 			unPedido.miembro.comunicar(new ComunicadoParaEntregasTardias)
 		}
-		
 	}
 	
 	override proximo() {

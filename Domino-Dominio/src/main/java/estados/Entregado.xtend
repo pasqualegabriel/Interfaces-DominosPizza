@@ -6,29 +6,28 @@ import pedido.Pedido
 class Entregado extends EstadoDePedido {
 
 	// Metodos
-	override cancelar(Pedido unPedido)
-	{	}
-	
+	override cancelar(Pedido unPedido) {
+		
+	}
+
 	override proximo() {
 		this
 	}
-	
+
 	override previo() {
 		this
 	}
-	
+
 	override nombre() {
 		"Entregado"
 	}
-	
-	override estaCerrado()
-	{
+
+	override estaCerrado() {
 		true
 	}
-	
-	override estaEntregado()
-	{
+
+	override estaEntregado() {
 		true
 	}
-	
+
 }

@@ -9,10 +9,10 @@ class ListoParaRetirar extends EstadoDePedido {
 
 	// Metodos
 	override siguiente(Pedido unPedido) {
-		var estadoSiguiente = this.proximo()
+		var estadoSiguiente = this.proximo
 		unPedido.estadoActual = estadoSiguiente
-		unPedido.calcularTiempoDeEntrega()
-		if(unPedido.tardoMasDe30Minutos){
+		unPedido.calcularTiempoDeEntrega
+		if (unPedido.tardoMasDe30Minutos) {
 			unPedido.miembro.comunicar(new ComunicadoParaEntregasTardias)
 		}
 	}
@@ -25,7 +25,7 @@ class ListoParaRetirar extends EstadoDePedido {
 
 		new Preparando
 	}
-	
+
 	override nombre() {
 		"Listo para retirar"
 	}

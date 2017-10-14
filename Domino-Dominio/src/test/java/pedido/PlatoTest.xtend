@@ -17,8 +17,8 @@ import pizza.DistribucionEnPizza
 class PlatoTest 
 {
 	// Estructura
-		  Plato 		unPlato
-	Distribucion  unaDistribucion
+	Plato		 		unPlato
+	Distribucion  		unaDistribucion
 	@Mock Pizza 		unaDeMuzza
 	@Mock Pizza 		unaCustomizada
 	@Mock Pizza 		unaDeJamon
@@ -30,8 +30,8 @@ class PlatoTest
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unPlato			= new Plato(unaDeMuzza,tamanioGrande,unaDistribucion)
-		unaDistribucion = new Distribucion		
+		unaDistribucion = new Distribucion	
+		unPlato			= new Plato(unaDeMuzza,tamanioGrande,unaDistribucion)	
 	}
 	
 	// Tests
@@ -44,7 +44,7 @@ class PlatoTest
 		// Assertion
 		assertEquals(unaDeMuzza,unPlato.pizza)
 		assertEquals("Grande",unPlato.tamanio.nombre)
-		assertTrue  (unPlato.ingredientesExtras.tieneIngredientes)
+		assertFalse  (unPlato.ingredientesExtras.tieneIngredientes)
 	}
 	
 	@Test
@@ -55,15 +55,16 @@ class PlatoTest
 		unPlato.agregarIngredienteExtra(provolone, DistribucionEnPizza.Toda)
 		
 		// Assertion
-		assertTrue(!unPlato.ingredientesExtras.tieneIngredientes)
+		assertTrue(unPlato.ingredientesExtras.tieneIngredientes)
 		assertTrue( unPlato.ingredientesExtras.tieneAlIngrediente(provolone))
 	}
 	
-	@Test(expected=typeof(RuntimeException))
+	@Test(expected=RuntimeException)
 	def test02Dado_Un_Plato_Con_Un_Ingrediente_Extra_Si_Trato_De_Quitar_Un_Ingrediente_Que_No_Esta_La_Lista_Tira_Error()
 	{
 		// Setup
 		unPlato.agregarIngredienteExtra(provolone, DistribucionEnPizza.Toda)
+		when(jamon.nombre).thenReturn("jamon")
 		
 		// Exercise
 		unPlato.quitarIngredienteExtra(jamon)
@@ -87,7 +88,7 @@ class PlatoTest
 	def test04Dado_Un_Plato_Con_Una_Pizza_De_Muzzarella_Y_Jamon_Como_Ingrediente_Extra_Si_Se_Cambia_Por_Una_Pizza_De_Jamon_No_Hay_Ingredientes_Extras()
 	{
 		//Setup
-		var ingredientesInvalidos	=	new ArrayList<Ingrediente>()
+		var ingredientesInvalidos = new ArrayList<Ingrediente>()
 		ingredientesInvalidos.add(jamon)
 		when(unaDeJamon.listaDeIngredientes()).thenReturn(ingredientesInvalidos)
 		
@@ -96,14 +97,14 @@ class PlatoTest
 		unPlato.cambiarPizza(unaDeJamon)
 		
 		// Assertion
-		assertTrue(unPlato.ingredientesExtras.tieneIngredientes)
+		assertFalse(unPlato.ingredientesExtras.tieneIngredientes)
 	}
 	
 	@Test
 	def test05Dado_Un_Plato_Con_Una_Pizza_Customizada_Grande_Y_Sin_Ingredientes_Extras_Si_le_Pido_El_Precio_Devuelve_70()
 	{
 		// Setup
-		when(unaCustomizada.precioBase)      .thenReturn(70.00)
+		when(unaCustomizada.precioBase).thenReturn(70.00)
 		when(tamanioGrande.factorDeTamanio).thenReturn(1.doubleValue)
 		
 		// Exercise
@@ -122,7 +123,7 @@ class PlatoTest
 		when(jamon.precio)                 .thenReturn(15.00)
 		
 		// Exercise
-		unPlato.agregarIngredienteExtra(jamon,DistribucionEnPizza.Izquierda)	
+		unPlato.agregarIngredienteExtra(jamon, DistribucionEnPizza.Izquierda)	
 		
 		// Assertion
 		assertEquals(100, unPlato.precio,0.00000001)

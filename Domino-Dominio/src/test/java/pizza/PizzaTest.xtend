@@ -109,7 +109,7 @@ class PizzaTest
 		pizzaDePrueba.cambiarDistribucionDe(queso,DistribucionEnPizza.Izquierda)
 		
 		// Assertion
-		assertTrue(!pizzaDePrueba.distribucion.tieneIngredientes())
+		assertTrue(pizzaDePrueba.distribucion.tieneIngredientes())
 		assertEquals("Izquierda", pizzaDePrueba.distribucion.posicionIngrediente(queso).name)
 	}
 }

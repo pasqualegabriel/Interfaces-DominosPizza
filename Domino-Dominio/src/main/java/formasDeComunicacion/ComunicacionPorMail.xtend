@@ -12,10 +12,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class ComunicacionPorMail implements FormaDeComunicacion {
 
 	// Estructura
+	int         id
 	GMailSender gmailsender
 
 	// Constructor
 	new() {
+		super()
 		gmailsender = GMailSender.config(new GMailSender("ciu.dominos.pizza@gmail.com", "interfaces2017"))
 	}
 

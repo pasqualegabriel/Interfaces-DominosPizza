@@ -7,37 +7,35 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende de que este preparandose
 //                  -Indicar cual es el siguiente o anterior estado que le sigue
-
 @Accessors
-class Preparando extends EstadoDePedido{
+class Preparando extends EstadoDePedido {
 
 	FormaDeRetiro formaDeRetiro
-	
-	new(){
+
+	new() {
 		formaDeRetiro = new Local
-    }
-    
+	}
+
 	// Metodos
-	override siguiente(Pedido unPedido)
-	{
+	override siguiente(Pedido unPedido) {
 		this.formaDeRetiro = unPedido.formaDeRetiro
 		unPedido.estadoActual = this.proximo
 	}
-	
+
 	override previo() {
 		this
 	}
-	
-	override proximo() 
-	{
+
+	override proximo() {
 		this.formaDeRetiro.avanzarEstado
 	}
-	
+
 	override nombre() {
 		"Preparando"
 	}
-	
-	override estaPreparando()
-	{ true }
-	
+
+	override estaPreparando() { 
+		true
+	}
+
 }
