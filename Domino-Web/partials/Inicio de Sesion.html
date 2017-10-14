@@ -1,22 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="inicioSesion">
 
 	<head>
 		<meta charset="utf-8">
-		<title>Iniciar Sesion</title>		
+		<title>Iniciar Sesion</title>	
+
+  		<!-- JQUERY -->
+ 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+		<!-- BOOTSTRAP -->
+ 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+ 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+ 		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+ 		<!-- ANGULAR  -->
+		<script src="node_modules/angular/angular.min.js"></script>
+		<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+
 	</head>
 
-	<body>
-		<h1>Iniciar Sesion</h1>
-		<div>
-			<label>Usuario: </label> <input type="text" name="" placeholder="nombre de usuario">
+	<body data-ng-controller="SesionController as sesion">
+		<div class="container">
+			<div class= "panel-heading">
+				<h1 class="panel-title">Iniciar Sesion</h1>
+			</div>
+			<div  class="panel-body">
+				<div>
+					<label>Usuario: </label> <input ng-model="sesion.cargarUsuario" type="text" name="usuario" placeholder="nombre de usuario">
+				</div>
+				<div class="panel panel-default">
+					<label>Contraseña: </label>  <input ng-model="sesion.cargarUsuario" type="text" name="contraseña" placeholder="contraseña">
+				</div>
+				<div class="btn-group">
+					<button type="submit" name="Iniciar Sesion" ng-click="sesion.chequearEIniciarSesion">Iniciar Sesión</button>
+				</div>
+				<label data-ng="contacto in sesion.chequearEIniciarSesion">{{seCargoUsuario}}</label>
+				<label data-ng="contacto in sesion.chequearEIniciarSesion">{{seCargoContraseña}}</label>
+			</div>
 		</div>
-		<div>
-			<label>Contraseña: </label>  <input type="text" name="" placeholder="contraseña">
-		</div>
-		<div>
-			<button type="submit" name="Iniciar Sesion">Iniciar Sesión</button>
-		</div>
-	</body>
 
+	<!-- nuestro jscript -->
+	<script src="js/inicioSesion.js"></script>
+
+
+	</body>
 </html>
