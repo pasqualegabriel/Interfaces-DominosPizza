@@ -12,6 +12,10 @@ class PairIngredienteDistribucionPizza
 	Ingrediente			ingrediente
 	DistribucionEnPizza distribucion
 
+	new (){
+		
+	}
+	
 	new (Ingrediente unIngrediente, DistribucionEnPizza unaDistribucion)
 	{
 		ingrediente	= unIngrediente

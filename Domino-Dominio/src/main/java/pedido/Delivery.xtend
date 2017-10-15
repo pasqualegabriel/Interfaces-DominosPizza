@@ -5,9 +5,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende de que quiera retirar su pedido por delivery
 @Accessors
-class Delivery implements FormaDeRetiro{
+class Delivery extends FormaDeRetiro{
 	
-	String tipo
 	String direccion
 	
 	new(String unaDireccion) 

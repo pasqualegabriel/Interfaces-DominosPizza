@@ -16,6 +16,8 @@ class Ingrediente
 	Double precio
 	
 	// Constructor
+	new(){	}
+	
 	new(String unNombre, Double unPrecio) 
 	{
 		this.nombre = unNombre

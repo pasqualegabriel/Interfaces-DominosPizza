@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import domino.Miembro
 import java.util.List
 import org.apache.commons.lang.StringUtils
+import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 class HomeMiembro {
@@ -20,6 +21,7 @@ class HomeMiembro {
 	List<Miembro> miembros  = newArrayList
 	
 	def registrarUsuario(Miembro miembro) {
+		if ( miembros.stream.anyMatch[it.nick.equals(miembro.nick)] ) throw new UserException ("El usuario ya esta registrado") 
 		miembros.add(miembro)
 	}
 	
@@ -27,19 +29,16 @@ class HomeMiembro {
 		if (StringUtils.isBlank(subString)) {
 			miembros
 		} else {
-			miembros.filter[it.nombre.toLowerCase.contains(subString.toLowerCase)].toList
+			miembros.filter[it.nick.toLowerCase.contains(subString.toLowerCase)].toList
 		}
 	}
 	
-	def getMiembro (String nombreDeUsuario)
+	def getMiembro (String nickDeUsuario)
 	{
-		miembros.findFirst[it.nombre.equals(nombreDeUsuario)]
-	}
-	
-	def modificarMiembroPorEjemplo(Miembro miembroMuestra, Miembro miembroAModificar) {
-		miembroAModificar.nombre   =miembroMuestra.nombre
-		miembroAModificar.direccion=miembroMuestra.direccion
-		miembroAModificar.mail     =miembroMuestra.mail
+		var miembro = miembros.findFirst[it.nick.equals(nickDeUsuario)]
+		if (miembro == null)  throw new UserException ("El usuario no existe") 
+		
+		miembro
 	}
 	
 	

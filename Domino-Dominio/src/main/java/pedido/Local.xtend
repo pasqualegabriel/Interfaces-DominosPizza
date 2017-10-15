@@ -5,9 +5,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 // Responsabilidad: -Manejar comportamiento de pedido el cual depende de que quiera retirar su pedido por el local
 @Accessors
-class Local implements FormaDeRetiro {
+class Local  extends FormaDeRetiro{ 
 	
-	String tipo
 	
 	new() 
 	{	this.tipo = "Local"	}

@@ -8,17 +8,17 @@ import persistencia.HomePizza
 import persistencia.HomeTamanio
 import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Post
-import domino.Miembro
 import org.uqbar.commons.model.exceptions.UserException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import persistencia.HomeMiembro
 import persistencia.HomeIngrediente
 import persistencia.HomePedido
 import apiRestAdapters.PedidoApiAdapter
-import pedido.Pedido
 import domino.Login
 import persistencia.HomeLogin
 import org.uqbar.xtrest.api.annotation.Put
+import apiRestAdapters.MiembroApiAdapter
+import apiRestAdapters.EstadoDePedidoApiAdapter
 
 @Controller
 class DominoRestApi {
@@ -45,20 +45,18 @@ class DominoRestApi {
 	@Get("/usuarios")
 	def getUsuario(String string) {
 		response.contentType = ContentType.APPLICATION_JSON
-		// falta hacer un adapter, y contemplar si hace falta id
-		ok(HomeMiembro.instance.searchUsuario(string).toJson)
+		var miembros = HomeMiembro.instance.searchUsuario(string).map[m|new MiembroApiAdapter(m)].toArray
+		ok(miembros.toJson)
 	}
 
-	// los miembros no tienen id, asi que lo estoy buscnado por nombre, hay que contemplar si hace falta id
-	@Put("/usuarios/:nombre")
+	@Put("/usuarios/:nick")
 	def getUsuario(@Body String body) {
 		response.contentType = ContentType.APPLICATION_JSON
 		try {
-			var Miembro muestraDeUsuarioParaEditar = body.fromJson(Miembro)
+			var MiembroApiAdapter miembro = body.fromJson(MiembroApiAdapter)
 			try {
-				var user = HomeMiembro.instance.getMiembro(nombre)
-				// Preguntarse quien deberia tener esta responsabilidad
-				HomeMiembro.instance.modificarMiembroPorEjemplo(muestraDeUsuarioParaEditar, user)
+				miembro.nick= nick
+				miembro.realizarModificaciones
 				ok()
 			} catch (UserException exception) {
 				badRequest(getErrorJson(exception.message))
@@ -73,9 +71,10 @@ class DominoRestApi {
 	def createUsuario(@Body String body) {
 		response.contentType = ContentType.APPLICATION_JSON
 		try {
-			var Miembro user = body.fromJson(Miembro)
+			var MiembroApiAdapter miembroAdapter = body.fromJson(MiembroApiAdapter)
+			var miembro = miembroAdapter.convertir
 			try {
-				HomeMiembro.instance.registrarUsuario(user)
+				HomeMiembro.instance.registrarUsuario(miembro)
 				ok()
 			} catch (UserException exception) {
 				badRequest(getErrorJson(exception.message))
@@ -102,7 +101,7 @@ class DominoRestApi {
 	def getPedidoPorUsuario(String usuario) {
 		try {
 			response.contentType = ContentType.APPLICATION_JSON
-			var pedidosAMostrar = HomePedido.instance.searchPedidosPorNombreUsuario(usuario).map [ p |
+			var pedidosAMostrar = HomePedido.instance.searchPedidosPorNickUsuario(usuario).map [ p |
 				new PedidoApiAdapter(p)
 			].toArray
 			ok(pedidosAMostrar.toJson)
@@ -115,7 +114,8 @@ class DominoRestApi {
 	def createPedido(@Body String body) {
 		response.contentType = ContentType.APPLICATION_JSON
 		try {
-			var Pedido unPedido = body.fromJson(Pedido)
+			var PedidoApiAdapter unPedidoApiAdapter = body.fromJson(PedidoApiAdapter)
+			var unPedido = unPedidoApiAdapter.convertir
 			try {
 				HomePedido.instance.agregarPedido(unPedido)
 				ok()
@@ -127,11 +127,26 @@ class DominoRestApi {
 		}
 	}
 
-// preguntar   por este, en el tp dice que es un post, pero esta modificando un pedido, no seria un put?
-//     @Post("/pedidos/:id")
-//    def cambiarEstadoDePedido(@Body String body) {
-//       
-//    }
+    @Post("/pedidos/:id")
+    def cambiarEstadoDePedido(@Body String body) {
+       response.contentType = ContentType.APPLICATION_JSON
+      
+       try {
+    	   var EstadoDePedidoApiAdapter unEstadoAdapter = body.fromJson(EstadoDePedidoApiAdapter)
+      	   var unEstado = unEstadoAdapter.convertir 
+      	   if (unEstado == null) return badRequest(getErrorJson("No existe un estado con ese nombre"))
+	  	   
+		   val unPedido = HomePedido.instance.getPedido(Integer.valueOf(id))
+		   if (unPedido == null) return notFound(getErrorJson("No existe pedido con ese id"))
+		   unPedido.estadoActual = unEstado
+		   ok() 
+	   }
+	    catch (UnrecognizedPropertyException exception) {
+			badRequest(getErrorJson("El body debe ser un Estado"))
+		}
+    }
+    
+    
 	@Get("/pedidos/:id")
 	def getPedidoPorId() {
 		response.contentType = ContentType.APPLICATION_JSON
@@ -140,7 +155,8 @@ class DominoRestApi {
 			if (unPedido == null) {
 				return notFound(getErrorJson("No existe pedido con ese id"))
 			} else {
-				return ok(unPedido.toJson)
+				var pedidoAdaptado = new PedidoApiAdapter(unPedido)
+				return ok(pedidoAdaptado.toJson)
 			}
 		} catch (NumberFormatException exception) {
 			return badRequest(getErrorJson("El id debe ser un numero entero"))
@@ -155,7 +171,8 @@ class DominoRestApi {
 			if (unPedido == null) {
 				return notFound(getErrorJson("No existe pedido con ese id"))
 			} else {
-				return ok(unPedido.estadoActual.toJson)
+				var unEstadoAdaptado = new EstadoDePedidoApiAdapter(unPedido.estadoActual.nombre)
+				return ok(unEstadoAdaptado.toJson)
 			}
 		} catch (NumberFormatException exception) {
 			return badRequest(getErrorJson("El id debe ser un numero entero"))

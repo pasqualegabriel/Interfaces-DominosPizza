@@ -18,6 +18,8 @@ class Pizza
 	Distribucion    distribucion
 	
 	// Constructor
+	new(){}
+	
 	new(String unNombre, Double unPrecio, Distribucion unaDistribucion) 
 	{
 		this.nombre 		= unNombre	

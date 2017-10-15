@@ -23,9 +23,8 @@ class HomePedido {
 	List<Pedido> pedidosCerrados = newArrayList
 
 	// Precondicion: -El pedido no tiene que estar en la lista de pedidos cerrados
-	// -El pedido no puede ya estar en la lista de pedidos abiertos
 	def agregarPedido(Pedido unPedido) {
-
+		if (pedidosAbiertos.stream.anyMatch[it.id.equals(unPedido.id)]) throw new UserException("El Pedido Ya Existe")
 		pedidosAbiertos.add(unPedido)
 
 	}
@@ -40,18 +39,18 @@ class HomePedido {
 		if (StringUtils.isBlank(nombreDeEstado)) 
 		{	this.pedidosAbiertos	}
 		else 
-		{	this.pedidosAbiertos.filter[it.estadoActual.nombre.toLowerCase.contains(nombreDeEstado.toLowerCase)].toList	}
+		{	this.pedidosAbiertos.filter[it.estadoActual.nombre.toLowerCase.replaceAll(" ","").contains(nombreDeEstado.toLowerCase)].toList	}
 	}
 	
 	def Pedido getPedido(Integer integer) {
-		pedidosAbiertos.findFirst[ it.id == id ]
+		pedidosAbiertos.findFirst[ it.id.equals(integer) ]
 	}
 	
-	def searchPedidosPorNombreUsuario(String nombreDeUsuario) {
-		if (StringUtils.isBlank(nombreDeUsuario)) 
+	def searchPedidosPorNickUsuario(String nickDeUsuario) {
+		if (StringUtils.isBlank(nickDeUsuario)) 
 		{	throw new UserException("el string no tiene que estar vacio")	}
 		else 
-		{	HomeMiembro.instance.getMiembro(nombreDeUsuario).listaHistorialDePedidos}
+		{	HomeMiembro.instance.getMiembro(nickDeUsuario).listaHistorialDePedidos}
 	}
 	
 }
