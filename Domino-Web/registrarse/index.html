@@ -32,15 +32,15 @@
         </form>
 
         <div  class="panel-body">
-            <label>Usuario:</label> <input ng-model="usuario.userName" type="text" placeholder="nombre">
+            <label>Usuario:</label> <input ng-model="usuario.userName" type="text" placeholder="usuario">
         </div>
 
         <div  class="panel-body">
-            <label>Contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="nombre">
+            <label>Contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="contraseña">
         </div>
 
         <div  class="panel-body">
-            <label>Repita contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="nombre">
+            <label>Repita contraseña:</label> <input ng-model="usuario.repitaContrasenia" type="password" placeholder="contraseña">
         </div>
 
         <div  class="panel-body">
@@ -48,17 +48,17 @@
         </div>
 
         <div  class="panel-body">
-            <label>Mail:     </label> <input ng-model="usuario.mail" type="text" placeholder="nombre">
+            <label>Mail:     </label> <input ng-model="usuario.mail" type="text" placeholder="mail">
         </div>
 
         <div  class="panel-body">
-            <label>Direccion:</label> <input ng-model="usuario.direccion" type="text" placeholder="nombre">
+            <label>Direccion:</label> <input ng-model="usuario.direccion" type="text" placeholder="direccion">
         </div>
 
         <br/>
 
         <div class="btn-group">
-          <button type="button" class="btn btn-primary" ng-click="usuario.guardarCambios">
+          <button type="submit" class="btn btn-primary" ng-click="usuario.registrarse()">
             Registrarse
           </button>
         </div>
@@ -68,6 +68,28 @@
         <div>
           <p><a href="https://sites.google.com/site/programacionui/">O puedes ingresar como INVITADO</a></p>
         </div>
+
+
+          <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="user1 in usuario.listaDeUsuarios">
+              <td>{{user1.user}}</td>
+              <td>{{user1.mail}}</td>
+              <td>{{user1.nombre}}</td>
+              <td>{{user1.direccion}}</td>
+              <td>{{user1.contrasenia}}</td>
+            </tr>
+            </tbody>
+          </table>
 
       </div>
     </div>
