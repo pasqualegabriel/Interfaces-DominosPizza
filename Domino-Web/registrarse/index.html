@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" ng-app="editarUsuarioApp">
+<html lang="en" ng-app="registrarseApp">
 
   <head>
     <meta charset="utf-8">
-    <title>Editar Usuairo</title>
+    <title>Registrarse</title>
 
     <link rel="stylesheet" type="text/css" href="styles.css">
 
@@ -26,10 +26,22 @@
       <div class="well-lg">
 
         <form>
-          <div class="input-group" ng-data="usuario.nombre" type="text">
-            <h2>{{usuario.userName}}</h2>
+          <div>
+            <h2>Registrarse</h2>
           </div>
         </form>
+
+        <div  class="panel-body">
+            <label>Usuario:</label> <input ng-model="usuario.userName" type="text" placeholder="nombre">
+        </div>
+
+        <div  class="panel-body">
+            <label>Contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="nombre">
+        </div>
+
+        <div  class="panel-body">
+            <label>Repita contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="nombre">
+        </div>
 
         <div  class="panel-body">
             <label>Nombre:</label> <input ng-model="usuario.nombre" type="text" placeholder="nombre">
@@ -47,34 +59,15 @@
 
         <div class="btn-group">
           <button type="button" class="btn btn-primary" ng-click="usuario.guardarCambios">
-            Guardar
+            Registrarse
           </button>
         </div>
 
         <br/><br/>
 
-        <form>
-          <div class="input-group">
-            <h2>Pedidos Anteriores</h2>
-          </div>
-        </form>
-
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th>Pizzas</th>
-            <th>Direccion</th>
-            <th>Monto</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr data-ng-repeat="datosDePedido in usuario.datosDePedido">
-            <td>{{datosDePedido.pizza}}</td>
-            <td>{{datosDePedido.direccion}}</td>
-            <td>$ {{datosDePedido.monto}}</td>
-          </tr>
-          </tbody>
-        </table>
+        <div>
+          <p><a href="https://sites.google.com/site/programacionui/">O puedes ingresar como INVITADO</a></p>
+        </div>
 
       </div>
     </div>
