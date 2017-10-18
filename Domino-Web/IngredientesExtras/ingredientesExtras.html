@@ -23,36 +23,49 @@
 
 	<body data-ng-controller="PromoController as promos">
 
-		<div id="titulo" class="panel-body">
-            <label><h1>Napolitana</h1></label> 
-            <label id="gris">Grande</label>
-            <label><span class="badge">$ 7</span></label>
+		<div id="tamanioIngredientes">
+            <input id="inputPrincipal" placeholder="  Tamaño > Ingredientes"><br>
+        </div>
+
+		<div id="titulo">
+			<div id="tituloIzq">
+	            <label><h1>Napolitana</h1></label> 
+	        </div>
+	        <div id="tituloCenter">
+	            <label><h3>Grande</h3></label>
+	        </div>
+	        <div id="tituloDer">
+	        	<label><h3><span class="label label-primary">$ 7</span></h3></label>
+	        </div>
 		</div>
 
 			<div id="gral">
 
 				<ul data-ng-repeat="pizza in promos.listaDePromos">
-				  <div id="ingredienteExtra">
-					<a href="#"">
+				  
+					<a id="ingredienteExtra" href="#" class="list-group-item list-group-item-info">
+						<label id="begin">
+							<h2>x</h2>
+						</label>
 						<label id="first">
-							<h2>{{pizza.name}}</h2>
+							<h3>{{pizza.name}}</h3>
 						</label>
 						<label id="second"> 
-							<input type="radio" name="vehicle" value="Bike"> {{pizza.nombre}}<br>
-							<input type="radio" name="vehicle" value="Bike"> {{pizza.descripcion}}<br>
-							<input type="radio" name="vehicle" value="Bike"> {{pizza.precio}}<br>
+							<input type="radio" name="nombre" value="pizza.nombre"> {{pizza.nombre}}<br>
+							<input type="radio" name="desc"   value="pizza.descripcion"> {{pizza.descripcion}}<br>
+							<input type="radio" name="precio" value="pizza.precio"> {{pizza.precio}}<br>
 						</label>
 		
 					</a>
-				  </div>
+				  
 				</ul>	
 
 		</div>
 
 		<div id="extras">
-			<div id="extras2">
-			   <h3>Extras</h3>
-		    </div>
+			
+			<h3 id="extrasTitle">Extras</h3>
+		    
 			</br>
 			<ul data-ng-repeat="ingrediente in promos.listaDeIngredientes">
 				<p><a href="https://sites.google.com/site/programacionui/"> + {{ingrediente.nombre}}   (+{{ingrediente.precio}})</a></p>
