@@ -1,0 +1,71 @@
+*{
+	margin:  0px;
+	padding: 0px;
+}
+
+div#titulo{
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	color: darkgreen;
+	//background-color: lightblue;
+}
+
+div#gral{
+	margin:auto;
+	width: 850px;
+	height: 700px;
+	//background-color: lightblue;
+	float:left;
+}
+
+div#extras{
+	margin:auto;
+	width: 500px;
+	height: 600px;
+	//background-color: yellow;
+	float:left;
+}
+
+div#extras2{
+	text-align: left;
+	color: darkgreen;
+}
+
+div#ingredienteExtra{
+	margin:auto;
+	margin-top: 20px;
+	padding: 5px;
+	align-self: center;
+	width: 620px;
+	height: 90px;
+	background-color: yellow;
+}
+
+label#first {
+	color: darkblue; 
+	align-self: center;
+	float: left;
+	width: 300px;
+	height: 80px;
+	text-align: center;
+	// background-color: brown;
+}
+
+label#second {
+	color: darkblue; 
+	float: right;
+	width: 300px;
+	height: 80px;
+	text-align: left;
+	// background-color: red;
+}
+
+label#gris {
+	color: gray; 
+}
+
+a {
+    text-align: left;
+}
+

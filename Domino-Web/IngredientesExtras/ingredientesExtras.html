@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="listaPromos">
+
+	<head>
+		<meta charset="utf-8">
+		<title>ingredientesExtras</title>	
+
+		<link rel="stylesheet" type="text/css" href="styles.css">
+
+  		<!-- JQUERY -->
+ 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+		<!-- BOOTSTRAP -->
+ 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+ 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+ 		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+ 		<!-- ANGULAR  -->
+		<script src="node_modules/angular/angular.min.js"></script>
+		<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+
+	</head>
+
+	<body data-ng-controller="PromoController as promos">
+
+		<div id="titulo" class="panel-body">
+            <label><h1>Napolitana</h1></label> 
+            <label id="gris">Grande</label>
+            <label><span class="badge">$ 7</span></label>
+		</div>
+
+			<div id="gral">
+
+				<ul data-ng-repeat="pizza in promos.listaDePromos">
+				  <div id="ingredienteExtra">
+					<a href="#"">
+						<label id="first">
+							<h2>{{pizza.name}}</h2>
+						</label>
+						<label id="second"> 
+							<input type="radio" name="vehicle" value="Bike"> {{pizza.nombre}}<br>
+							<input type="radio" name="vehicle" value="Bike"> {{pizza.descripcion}}<br>
+							<input type="radio" name="vehicle" value="Bike"> {{pizza.precio}}<br>
+						</label>
+		
+					</a>
+				  </div>
+				</ul>	
+
+		</div>
+
+		<div id="extras">
+			<div id="extras2">
+			   <h3>Extras</h3>
+		    </div>
+			</br>
+			<ul data-ng-repeat="ingrediente in promos.listaDeIngredientes">
+				<p><a href="https://sites.google.com/site/programacionui/"> + {{ingrediente.nombre}}   (+{{ingrediente.precio}})</a></p>
+			</ul>
+			</br>
+			<div class="btn-group">
+          <button type="submit" class="btn btn-primary" ng-click="promos.continuar()">
+            Continuar
+          </button>
+          </div>
+		</div>
+
+
+		<!-- nuestro jscript -->
+		<script src="js/listaPromos.js"></script>
+
+	</body>
+</html>
