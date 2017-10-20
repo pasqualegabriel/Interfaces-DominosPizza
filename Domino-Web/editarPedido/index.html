@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" ng-app="agregarPedidosApp">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Confirmar Pedido</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <!-- JQUERY -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- ANGULAR  -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+
+  </head>
+
+
+  <body data-ng-controller="pedidosCtrl as pedidos">
+
+    <div class = "container">
+      <header class="page-header">
+        <h1>Pedido</h1> 
+        <h3>Pizzas</h3>
+      </header> 
+
+      <div>
+
+        <ul data-ng-repeat="promo in pedidos.listaDePromos">
+         <li>
+              <div class="contenedorDePizzas">
+                  <div class="contenedorDeNombreEIngredientes">
+                    <h5>{{promo.name}}</h5>
+                    <h6>{{promo.ingredientes}}</h6>
+                 </div>
+                 <div class="contenedorDePrecioYBoton">
+                     <input class="zurdo"type="button" ng-click="pedidos.eliminarPiza(promo)" value="X"> <div style="float:right;"> <h3><span class="label label-primary">$ {{promo.precio}}</span></h3></div>
+                  </div>  
+             </div>
+          </li>
+        </ul>
+
+      </div>
+
+      <div>
+
+        <a href="url">Agregar otra Pizza</a>
+      
+        <hr>
+      
+        <h3>Aclaraciones</h3><br>
+        <input size="150" ng-model="pedidos.aclaraciones" type="text" name="aclaraciones" placeholder="Escriba aqui su aclaracion" >
+        <hr>
+      </div>        
+      
+      <div>
+      <h3>Envio </h3><br>
+      <form>
+        <input  style="float:left;" type="radio" name="formaDeEnvio" value="porLocal" checked><p>Por Local</p><br>
+        <form> 
+          <input  style="float:left;" type="radio" name="formaDeEnvio" value="delivery"><p  style="float:left;" > Delivery</p> 
+          <p style="float:left; margin-left: 10px">200$</p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion">       
+        </form>
+      </form>
+     </div>
+      <br>
+      <hr>
+      <div>
+       <h3 style="float:left;"> Total A Pagar<h3> <h4 style="float:left; margin-left: 10px">500$<h4> <input style=" margin-left: 10px" type="button" onclick="alert('Hello World!')" value="Confirmar Pedido"> 
+      </div>
+    </div>
+
+    <!-- nuestro jscript -->
+    <script src="app.js"></script>
+
+  </body>
+</html>
+
