@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" ng-app="inicioSesion">
+
+<head>
+    <meta charset="utf-8">
+    <title>Domino Pizzas</title>
+
+    <!-- JQUERY -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- ANGULAR  -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!-- UNDERSCORE -->
+    <script src="node_modules/underscore/underscore-min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1>
+            Domino
+            <small>Pizzas</small>
+        </h1>
+    </div>
+
+    <div class="well-lg">
+        <div ui-view></div>
+    </div>
+
+</div>
+
+<!-- nuestra aplicacion js -->
+<script src="js/iniciarSesion.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/registrarseApp.js"></script>
+<script src="js/editarPizza1.js"></script>
+</body>
+</html>
+

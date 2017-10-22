@@ -1,0 +1,78 @@
+<head>
+  <meta charset="utf-8">
+  <title>Domino Pizzas: Registrarse</title>
+  <link rel="stylesheet" type="text/css" href="../css/registrarseStyles.css">
+
+
+  <!-- JQUERY -->
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- ANGULAR  -->
+  <script src="../node_modules/angular/angular.min.js"></script>
+  <script src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+  <!-- UNDERSCORE -->
+  <script src="../node_modules/underscore/underscore-min.js"></script>
+</head>
+
+<div ng-app="registrarseApp">
+  <div ng-controller="UsuarioCtrl as usuario">
+
+    <div class="container">
+
+      <div class="well-lg">
+
+        <form>
+          <div>
+            <h2>Registrarse</h2>
+          </div>
+        </form>
+
+        <div  class="panel-body">
+            <label>Usuario:</label> <input ng-model="usuario.userName" type="text" placeholder="usuario">
+        </div>
+
+        <div  class="panel-body">
+            <label>Contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="contraseña">
+        </div>
+
+        <div  class="panel-body">
+            <label>Repita contraseña:</label> <input ng-model="usuario.repitaContrasenia" type="password" placeholder="contraseña">
+        </div>
+
+        <div  class="panel-body">
+            <label>Nombre:</label> <input ng-model="usuario.nombre" type="text" placeholder="nombre">
+        </div>
+
+        <div  class="panel-body">
+            <label>Mail:     </label> <input ng-model="usuario.mail" type="text" placeholder="mail">
+        </div>
+
+        <div  class="panel-body">
+            <label>Direccion:</label> <input ng-model="usuario.direccion" type="text" placeholder="direccion">
+        </div>
+
+        <br/>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary" ng-click="usuario.registrarse()">
+            Registrarse
+          </button>
+        </div>
+
+        <br/><br/>
+
+        <div>
+          <p><a href="https://cdn.meme.am/images/10432150.jpg">O puedes ingresar como INVITADO</a></p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
