@@ -1,28 +1,33 @@
-inicioSesion.config(function ($stateProvider, $urlRouterProvider) {
+'use strict';
+
+dominoApp.config(function ($stateProvider, $urlRouterProvider) {
 
 
-  $stateProvider
+    $stateProvider
 
-      .state('iniciarSesion',{
-        url:"/ini",
-        templateUrl: "../partials/iniciarSesion.html"
+        .state('iniciarSesion',{
+            url:"/ini",
+            templateUrl: "../partials/iniciarSesion.html",
+            controller: "SesionCrl as sesion"
+        })
 
-      })
+        .state('registrarse', {
+            url: "/reg",
+            templateUrl: "../partials/registrarse.html",
+            controller: "RegistrarseCrl as usuario"
+        })
 
-      .state('registrarse', {
-      url: "/a",
-      templateUrl: "../partials/registrarse.html"
-    })
+        .state('seleccionDePizza', {
+            url: "/ed/seleccionPizza",
+            templateUrl: "../partials/selectorDePizza.html",
+            controller: "SelectorPizzaCrl as selectCrl"
+        })
 
-      .state('editarPizza1', {
-      url: "/EditorPizza",
-      templateUrl: "../partials/editarPizza1.html"
-    })
-
-    .state('editarPizza2', {
-        url: "/EditorPizza/two",
-        templateUrl: "../partials/editarPizza2.html"
-    });
+        .state('seleccionDeTamanio', {
+            url: "/ed/seleccionTamanio",
+            templateUrl: "../partials/selectorDeTamanio.html",
+            controller: "SeleccionDeTamañoCrl as selectCrl"
+        });
 
     $urlRouterProvider.otherwise("/ini");
 

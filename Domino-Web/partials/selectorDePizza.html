@@ -18,15 +18,15 @@
 
 </head>
 
-<div data-ng-controller="PromoController as promos">
+<div>
 
 		<div align="center">
 		  <label>
 			<h1>Elige tu Pizza ideal</h1>
 		  </label>
-				<ul data-ng-repeat="pizza in promos.listaDePromos">
+				<ul data-ng-repeat="pizza in selectCrl.listaDePromos">
 			
-					<button id="boton" type="submit" class="btn btn-default" ng-click="promos.seleccionar({pizza})">
+					<button id="boton" type="submit" class="btn btn-default" ng-click="selectCrl.seleccionar({pizza})">
 						
 						<label class="block" >
 							<div id="datos">
@@ -49,9 +49,6 @@
 				</ul>	
 		</div>
 
-
-		<!-- nuestro jscript -->
-		<script src="../js/editarPizza1.js"></script>
 
 </div>
 

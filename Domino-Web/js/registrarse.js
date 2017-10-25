@@ -1,8 +1,6 @@
 'use strict';
 
-var registrarseApp = angular.module('registrarseApp', ['ui.router']);
-
-registrarseApp.controller('UsuarioCtrl', function ( $state) {
+dominoApp.controller('RegistrarseCrl', function ( $state) {
 
     this.userName = 'UsuarioGoku';
 
@@ -15,6 +13,9 @@ registrarseApp.controller('UsuarioCtrl', function ( $state) {
     this.direccion = 'vegita 123456';
 
     this.nombre = 'Goku';
+
+
+
 
     this.listaDeUsuarios = [];
 

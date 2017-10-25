@@ -1,66 +1,41 @@
-'use strict';
 
-/* Controllers */
+dominoApp.controller('SesionCrl', function( $state, UsuarioService) {
+    return new SesionModel( $state, UsuarioService);
+});
 
-var inicioSesion = angular.module('inicioSesion', ['registrarseApp','editarPizza1', 'ui.router']);
+function SesionModel( $state, UsuarioService) {
 
-inicioSesion.controller('SesionController', function( $state) {
-		/* scope */
+    /* Atributos */
 
-		this.name = '';
-		this.pass = '';
+    this.nick = '';
+    this.pass = '';
 
-		//this.inicio = '';
 
-		this.listaDeUsuarios =
-		[
-			{
-		    	"nick" : "g",
-		    	"password" : "1"
-		    }
-		];
-/*
-		this.verificarUsuario = function(unElemnto)
-        {
-            var nameR=this.name;
-            var passR=this.pass;
-            var contiene =false;
+    this.chequear = function() {
 
-                if(nameR===unElemnto.nick && unElemnto.password===passR){
-                    contiene=true;
+        var unUsuario = UsuarioService.getUsuarioByNick(this.nick);
 
-                }
-            return contiene;
-
-        };
-*/
-		this.chequear = function() {
-
-            var nameR=this.name;
-            var passR=this.pass;
-            var contiene =false;
-            angular.forEach(this.listaDeUsuarios, function (element) {
-                if(nameR===element.nick && element.password===passR){
-                    contiene=true;
-
-                }
-            });
-
-		    if(contiene)
-            {
-                $state.go("editarPizza1");
-
-                //return;
+        if(unUsuario === undefined){
+            alert("!El usuario no esta registrado¡");
+        }else if(unUsuario.password !== this.pass){
+            alert("!El password no es correcto¡");
+            }else{
+                $state.go("seleccionDePizza");
             }
-		};
 
-    	this.irARegistrarse = function() {
-            $state.go("registrarse");
-            //return;
+/*        if(unUsuario !== undefined && unUsuario.password===this.pass)
+        {
+            $state.go("seleccionDePizza");
+        }*/
+
+
+
 
     };
 
+    this.irARegistrarse = function() {
+        $state.go("registrarse");
 
-});
+    };
 
-
+}
