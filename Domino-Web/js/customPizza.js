@@ -1,76 +1,54 @@
 'use strict';
 
-dominoApp.controller('pizzaSelectorCrl', function($state){
+dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService){
+
+    return new PizzaModel($state, pizzaService);
+
+});
+
+function PizzaModel($state, pizzaService) {
+
+    this.listaDePromos = pizzaService.getPizzas();
+
+    this.precioBase = function () {
+        return pizzaService.precioBase;
+    };
+    
+    this.armaTuPizza   = function () {
+        $state.go("seleccionDeTamanio");
+
+    };
 
 
-        /* scope */
+    this.seleccionar = function(unaPizza)
+    {
+        $state.go("seleccionDeTamanio", {nombre: unaPizza.nombre} );
 
-        /* no pude hacer q utilize las pizzas del servicePizza FIJARSE*/
-        this.listaDePromos =
-            [
-                {
-                    "nombre" : "Jamon",
-                    "descripcion" : "muzzarela con jamon",
-                    "precio" : 723.00
-                },
-                {
-                    "nombre" : "Muzza",
-                    "descripcion" : "muzzarela",
-                    "precio" : 352.00
-                },
-                {
-                    "nombre" : "Morron",
-                    "descripcion" : "morrones",
-                    "precio" : 132.00
-                },
-                {
-                    "nombre" : "Anchoa",
-                    "descripcion" : "anchoas",
-                    "precio" : 722.00
-                }
-            ];
+    };
+
+}
 
 
-        this.seleccionar = function()
-        {
-
-            $state.go("seleccionDeTamanio");
-
-        };
-
-    }
-);
-
-dominoApp.controller('sizeSelectorCrl', function (pizzaService) {
+dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService,pizzaService) {
 
 
-    return new SizeModel(pizzaService);
+    return new SizeModel($stateParams, $state, tamanioService,pizzaService);
 
 
 });
 
-function SizeModel(pizzaService ){
-        var aPrice= pizzaService.getPizzaByName("Muzza");
-/*    if(aPrice===undefined){
-        alert("Cagamos")
-    }*/
+function SizeModel($stateParams, $state, tamanioService,pizzaService){
 
-    var x=aPrice.precio;
+    this.pizzaSeleccionada = pizzaService.getPizzaByName($stateParams.nombre);
 
-    this.tamanios=[
-        new Tamanio("Porcion",x,0.125),
-        new Tamanio("Chica",x,0.50),
-        new Tamanio("Grande",x,1.00),
-        new Tamanio("Familiar",x,1.25)
-    ];
+    this.tamanios = tamanioService.getAll();
 
-}
+    this.getTamanio = function () {
+        return tamanioCrl.factorDeTamanio();
+    };
 
-function Tamanio(aName,aPrice,aMultiplier){
-    this.nombre=aName;
-    this.precio= (aPrice * aMultiplier);
-
+    this.getDistribucion = function () {
+        return tamanioCrl.distribucion();
+    };
 
 }
-
-

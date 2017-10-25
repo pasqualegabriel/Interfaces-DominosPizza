@@ -15,10 +15,10 @@
         <!--Preguntar sobre manejo de errores-->
         <div  class="panel-body" name="panelForm">
             <form name="form1">
-                <label>Usuario: </label> <input ng-model="logIn.nick" type="text" name="nick" placeholder="nombre de usuario" required>
+                <label>Usuario: </label> <input ng-focus="form3.$submitted= false" ng-model="logIn.nick" type="text" name="nick" placeholder="nombre de usuario" required>
             </form>
             <form class="panel panel-default" name="form2">
-                <label>Contraseña: </label>  <input ng-model="logIn.pass" type="password" name="password" placeholder="contraseña" required>
+                <label>Contraseña: </label>  <input ng-focus="form3.$submitted= false" ng-model="logIn.pass" type="password" name="password" placeholder="contraseña" required>
             </form>
             <form class="btn-group" name="form3">
                 <button type="submit" name="iniciarSesion" class="btn btn-primary" ng-click="logIn.chequear()" ng-disabled="form1.nick.$invalid || form2.password.$invalid" >Iniciar Sesión</button> <br>

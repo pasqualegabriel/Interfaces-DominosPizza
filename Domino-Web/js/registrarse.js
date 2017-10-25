@@ -7,36 +7,47 @@ dominoApp.controller('RegisterCrl', function ($state, userService) {
 
 function RegisterModel($state, userService) {
 
-    this.nick = 'goku';
+    this.nick              = "";
 
-    this.contrasenia = 'persistencia';
+    this.contrasenia       = "";
 
-    this.repitaContrasenia = 'persistencia';
+    this.repitaContrasenia = "";
 
-    this.mail = 'kakaroto@gmail.com';
+    this.mail              = "";
 
-    this.direccion = 'vegita 123456';
+    this.direccion         = "";
 
-    this.nombre = 'Kakaroto';
+    this.nombre            = "";
 
+    this.selectedUserbyNick = undefined;
+    this.selectedUserbyMail = undefined;
 
     this.register = function() {
-        var aUser    = userService.getUserByNick(this.nick);
-        var otherUser= userService.getUserByMail(this.mail);
+        this.selectedUserbyNick    = userService.getUserByNick(this.nick);
+        this.selectedUserbyMail    = userService.getUserByMail(this.mail);
 
-        /*es villero pero wuacho vamos hacerla corta, ¡PERDON!*/
-
-        if(aUser !==undefined){
-            alert("El nick seleccionado ya esta siendo usado por otro usuario")
-        }else if(otherUser !==undefined){
-            alert("El mail seleccionado ya esta siendo usado por otro usuario")
-        } else if(this.contrasenia !== this.repitaContrasenia){
-            alert("Las contraseña no coiciden")
-        }else{
+        if(this.esValidoParaRegistrarse()){
             userService.newUser(this.nombre,this.nick,this.contrasenia,this.mail,this.direccion);
             $state.go("logIn");
         }
     };
+
+    this.esValidoParaRegistrarse = function() {
+        return !this.elNickYaEstaRegistrado() && !this.elMailYaEstaRegistrado() && this.laContraseniaCoincide()
+    };
+
+    this.elNickYaEstaRegistrado = function() {
+        return this.selectedUserbyNick !== undefined;
+    };
+
+    this.elMailYaEstaRegistrado = function() {
+        return this.selectedUserbyMail !== undefined;
+    };
+
+    this.laContraseniaCoincide = function(){
+        return this.contrasenia === this.repitaContrasenia
+    }
+
 }
 
 

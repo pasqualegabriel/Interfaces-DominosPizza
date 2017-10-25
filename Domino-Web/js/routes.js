@@ -24,7 +24,7 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
         })
 
         .state('seleccionDeTamanio', {
-            url: "/ed/seleccionTamanio",
+            url: "/ed/seleccionTamanio/:nombre",
             templateUrl: "../partials/selectorDeTamanio.html",
             controller: "sizeSelectorCrl as customSize"
         });

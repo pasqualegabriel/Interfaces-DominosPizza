@@ -1,9 +1,9 @@
 
-dominoApp.controller('SessionCrl', function($state, userService) {
-    return new SessionModel( $state, userService);
+dominoApp.controller('SessionCrl', function($state, userService, sesionService) {
+    return new SessionModel( $state, userService, sesionService);
 });
 
-function SessionModel($state, userService) {
+function SessionModel($state, userService, sesionService) {
 
     /* Atributos */
 
@@ -16,8 +16,8 @@ function SessionModel($state, userService) {
         this.selectedUser= userService.getUserByNick(this.nick);
 
         if((this.validUserCredentials()) ){
-           // this.registrarInicio();
-            $state.go("pizzaSelector");
+                this.registrarInicio();
+                $state.go("pizzaSelector");
         }
     };
 
@@ -25,9 +25,10 @@ function SessionModel($state, userService) {
         return !this.userNotFound() && !this.incorrectPassword()
     };
 
-   // this.registrarInicio = function () {
-   //     inicioSesionService.addLogginForUser(this.selectedUser)
-   // };
+
+    this.registrarInicio = function () {
+        sesionService.newSesion(this.selectedUser)
+    };
 
     this.userNotFound = function() {
       return this.selectedUser === undefined

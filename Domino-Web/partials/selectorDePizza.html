@@ -26,7 +26,7 @@
 		  </label>
 				<ul data-ng-repeat="pizza in customPizza.listaDePromos">
 			
-					<button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.seleccionar()">
+					<button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.seleccionar(pizza)">
 						
 						<label class="block" >
 							<div id="datos">
@@ -46,7 +46,28 @@
 						</label>	
 					</button>
 
-				</ul>	
+				</ul>
+
+
+            <button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.armaTuPizza()">
+
+                <label class="block" >
+                    <div id="datos">
+                        <h2>Arma tu pizza</h2>
+                        <h4>Con los ingredientes que mas te guste</h4>
+                    </div>
+                </label>
+                <label>
+                    <div id="precio">
+                        <h3><span class="label label-primary">$ {{customPizza.precioBase()}}</span></h3>
+                    </div>
+                </label>
+                <label>
+                    <div id="imagen" >
+                        <img src="../imagenes/flechita.png" width="38" height="80">
+                    </div>
+                </label>
+            </button>
 		</div>
 
 

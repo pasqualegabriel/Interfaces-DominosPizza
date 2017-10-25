@@ -10,6 +10,7 @@
         <label>
             <h1>Elige el tamanio de tu pizza</h1>
         </label>
+
         <ul data-ng-repeat="tamanio in customSize.tamanios">
 
             <button id="boton" type="submit" class="btn btn-default" ng-click="">
@@ -22,7 +23,7 @@
                 </label>
                 <label>
                     <div id="precio">
-                        <h3><span class="label label-primary">$ {{tamanio.precio}}</span></h3>
+                        <h3><span class="label label-primary">$ {{tamanio.factorDeTamanio}}</span></h3>
                     </div>
                 </label>
                 <label>

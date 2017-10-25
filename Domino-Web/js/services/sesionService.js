@@ -1,0 +1,41 @@
+'use strict';
+dominoApp.service("sesionService", function () {
+
+    this.sesiones =   [
+    ];
+
+
+
+
+    this.newSesion = function (aUser) {
+        var aSesion =  this.getSesionByNick(aUser.nick);
+        if (aSesion === undefined){
+            var aNewSesion = new Sesion(aUser);
+            this.addSesion(aNewSesion);
+            return aNewSesion;
+        }
+        else {
+            return aSesion
+        }
+    };
+
+    this.addSesion = function (aSesion) {
+        this.sesiones.push(aSesion);
+    };
+
+    this.getSesionByNick = function (aNick) {
+
+        return _.find(this.sesiones, function (aSesion) {
+            return aSesion.nick === aNick;
+        })
+    };
+
+});
+
+function Sesion(aUser) {
+
+    this.nick = aUser.nick;
+    this.password = aUser.password;
+
+
+}
