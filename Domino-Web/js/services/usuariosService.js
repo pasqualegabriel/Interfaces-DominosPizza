@@ -1,36 +1,47 @@
 'use strict';
-
-dominoApp.service("UsuarioService", function () {
+dominoApp.service("userService", function () {
 
     this.usuarios =   [
-        new Usuario("pepita","g","1","pepita@gmail.com","callefalsa123"),
-        new Usuario("dionisia","golondrinaVieja","23asdfasdas","dionisia@gmail.com","callefalsa123")
+        new User("pepita","g","1","pepita@gmail.com","callefalsa123"),
+        new User("dionisia","golondrinaVieja","23asdfasdas","dionisia@gmail.com","callefalsa123")
     ];
 
-    this.crearUsuario = function (nombre,nick, password,mail,direccion) {
-        var unUsuario = new Usuario(nombre,nick,password,mail,direccion);
-        return usuario;
+
+
+
+    this.newUser = function (aName, aNick, aPassword, aMail, aDir) {
+
+        var aNewUser = new User(aName,aNick,aPassword,aMail,aDir);
+        this.addUser(aNewUser);
+        return aNewUser;
     };
 
-    this.agregarUsuario = function (unUsuario) {
-        this.usuarios.push(unUsuario);
+    this.addUser = function (aUser) {
+
+        this.usuarios.push(aUser);
     };
 
-    this.getUsuarioByNick = function (unNick) {
-        return _.find(this.usuarios, function (unUsuario) {
-            return unUsuario.nick === unNick;
+    this.getUserByNick = function (aNick) {
+
+        return _.find(this.usuarios, function (aUser) {
+            return aUser.nick === aNick;
         })
     };
+    this.getUserByMail=function(aMail){
+        return _.find(this.usuarios,function (aUser) {
+            return aUser.mail===aMail;
+        })
+    }
 
 });
 
-function Usuario(unNombre, unNick, unPassword, unMail, unaDireccion) {
+function User(aName, aNick, aPassword, aMail, aDir) {
 
-    this.nombre= unNombre;
-    this.nick = unNick;
-    this.password = unPassword;
-    this.mail = unMail;
-    this.direccion = unaDireccion;
+    this.nombre= aName;
+    this.nick = aNick;
+    this.password = aPassword;
+    this.mail = aMail;
+    this.direccion = aDir;
     this.historialDePedidos = [];
 
 }

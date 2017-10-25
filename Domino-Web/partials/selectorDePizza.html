@@ -1,6 +1,6 @@
 <head>
 		<meta charset="utf-8">
-		<title>Editar Pizza</title>
+		<title>Seleccionador de Pizza</title>
 
 		<link rel="stylesheet" type="text/css" href="../css/editarPizza1styles.css">
 
@@ -22,11 +22,11 @@
 
 		<div align="center">
 		  <label>
-			<h1>Elige tu Pizza ideal</h1>
+			<h1>Elige tu pizza ideal</h1>
 		  </label>
-				<ul data-ng-repeat="pizza in selectCrl.listaDePromos">
+				<ul data-ng-repeat="pizza in customPizza.listaDePromos">
 			
-					<button id="boton" type="submit" class="btn btn-default" ng-click="selectCrl.seleccionar({pizza})">
+					<button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.seleccionar()">
 						
 						<label class="block" >
 							<div id="datos">

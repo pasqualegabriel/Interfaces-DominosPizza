@@ -1,9 +1,11 @@
 'use strict';
 
-dominoApp.controller('SelectorPizzaCrl', function($stateParams,$state){
+dominoApp.controller('pizzaSelectorCrl', function($state){
 
 
         /* scope */
+
+        /* no pude hacer q utilize las pizzas del servicePizza FIJARSE*/
         this.listaDePromos =
             [
                 {
@@ -32,27 +34,43 @@ dominoApp.controller('SelectorPizzaCrl', function($stateParams,$state){
         this.seleccionar = function()
         {
 
-            $state.go("editarPizza2");
-
-
+            $state.go("seleccionDeTamanio");
 
         };
 
     }
 );
 
-dominoApp.controller('SeleccionDeTamañoCrl', function ($stateParams, $state) {
+dominoApp.controller('sizeSelectorCrl', function (pizzaService) {
 
-    this.tamanios=[
-        {"nombre":"porcion","precio": $stateParams.precio},
-        {"nombre":"chica","precio":  $stateParams.precio * 0.50},
-        {"nombre":"grande","precio":  $stateParams.precio * 1.00},
-        {"nombre":"familiar","precio":  $stateParams.precio * 1.25}
 
-    ];
-
+    return new SizeModel(pizzaService);
 
 
 });
+
+function SizeModel(pizzaService ){
+        var aPrice= pizzaService.getPizzaByName("Muzza");
+/*    if(aPrice===undefined){
+        alert("Cagamos")
+    }*/
+
+    var x=aPrice.precio;
+
+    this.tamanios=[
+        new Tamanio("Porcion",x,0.125),
+        new Tamanio("Chica",x,0.50),
+        new Tamanio("Grande",x,1.00),
+        new Tamanio("Familiar",x,1.25)
+    ];
+
+}
+
+function Tamanio(aName,aPrice,aMultiplier){
+    this.nombre=aName;
+    this.precio= (aPrice * aMultiplier);
+
+
+}
 
 

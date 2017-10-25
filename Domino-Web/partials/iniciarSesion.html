@@ -15,15 +15,15 @@
         <!--Preguntar sobre manejo de errores-->
         <div  class="panel-body">
             <div>
-                <label>Usuario: </label> <input ng-model="sesion.nick" type="text" name="nick" placeholder="nombre de usuario">
+                <label>Usuario: </label> <input ng-model="logIn.nick" type="text" name="nick" placeholder="nombre de usuario">
             </div>
             <div class="panel panel-default">
-                <label>Contraseña: </label>  <input ng-model="sesion.pass" type="password" name="password" placeholder="contraseña">
+                <label>Contraseña: </label>  <input ng-model="logIn.pass" type="password" name="password" placeholder="contraseña">
             </div>
             <form class="btn-group">
-                <button type="submit" name="iniciarSesion" class="btn btn-primary" ng-click="sesion.chequear()" >Iniciar Sesión</button> <br>
+                <button type="submit" name="iniciarSesion" class="btn btn-primary" ng-click="logIn.chequear()" >Iniciar Sesión</button> <br>
                 <br>
-                <button type="submit" name="Registrarse" class="btn btn-primary" ng-click="sesion.irARegistrarse()">registrarse</button>
+                <button type="submit" name="Registrarse" class="btn btn-primary" ng-click="logIn.goRegister()">registrarse</button>
             </form>
 
 

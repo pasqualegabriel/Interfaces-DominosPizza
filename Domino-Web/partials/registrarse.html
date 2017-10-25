@@ -16,33 +16,33 @@
         </form>
 
         <div  class="panel-body">
-            <label>Usuario:</label> <input ng-model="usuario.userName" type="text" placeholder="usuario">
+            <label>Usuario:</label> <input ng-model="newUser.nick" type="text" placeholder="usuario">
         </div>
 
         <div  class="panel-body">
-            <label>Contraseña:</label> <input ng-model="usuario.contrasenia" type="password" placeholder="contraseña">
+            <label>Contraseña:</label> <input ng-model="newUser.contrasenia" type="password" placeholder="contraseña">
         </div>
 
         <div  class="panel-body">
-            <label>Repita contraseña:</label> <input ng-model="usuario.repitaContrasenia" type="password" placeholder="contraseña">
+            <label>Repita contraseña:</label> <input ng-model="newUser.repitaContrasenia" type="password" placeholder="contraseña">
         </div>
 
         <div  class="panel-body">
-            <label>Nombre:</label> <input ng-model="usuario.nombre" type="text" placeholder="nombre">
+            <label>Nombre:</label> <input ng-model="newUser.nombre" type="text" placeholder="nombre">
         </div>
 
         <div  class="panel-body">
-            <label>Mail:     </label> <input ng-model="usuario.mail" type="text" placeholder="mail">
+            <label>Mail:     </label> <input ng-model="newUser.mail" type="text" placeholder="mail">
         </div>
 
         <div  class="panel-body">
-            <label>Direccion:</label> <input ng-model="usuario.direccion" type="text" placeholder="direccion">
+            <label>Direccion:</label> <input ng-model="newUser.direccion" type="text" placeholder="direccion">
         </div>
 
         <br/>
 
         <div class="btn-group">
-          <button type="submit" class="btn btn-primary" ng-click="usuario.registrarse()">
+          <button type="submit" class="btn btn-primary" ng-click="newUser.register()">
             Registrarse
           </button>
         </div>

@@ -5,28 +5,28 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 
-        .state('iniciarSesion',{
+        .state('logIn',{
             url:"/ini",
             templateUrl: "../partials/iniciarSesion.html",
-            controller: "SesionCrl as sesion"
+            controller: "SessionCrl as logIn"
         })
 
-        .state('registrarse', {
+        .state('register', {
             url: "/reg",
             templateUrl: "../partials/registrarse.html",
-            controller: "RegistrarseCrl as usuario"
+            controller: "RegisterCrl as newUser"
         })
 
-        .state('seleccionDePizza', {
+        .state('pizzaSelector', {
             url: "/ed/seleccionPizza",
             templateUrl: "../partials/selectorDePizza.html",
-            controller: "SelectorPizzaCrl as selectCrl"
+            controller: "pizzaSelectorCrl as customPizza"
         })
 
         .state('seleccionDeTamanio', {
             url: "/ed/seleccionTamanio",
             templateUrl: "../partials/selectorDeTamanio.html",
-            controller: "SeleccionDeTamañoCrl as selectCrl"
+            controller: "sizeSelectorCrl as customSize"
         });
 
     $urlRouterProvider.otherwise("/ini");

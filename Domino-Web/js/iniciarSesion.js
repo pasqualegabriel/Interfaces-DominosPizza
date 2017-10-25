@@ -1,40 +1,31 @@
 
-dominoApp.controller('SesionCrl', function( $state, UsuarioService) {
-    return new SesionModel( $state, UsuarioService);
+dominoApp.controller('SessionCrl', function($state, userService) {
+    return new SessionModel( $state, userService);
 });
 
-function SesionModel( $state, UsuarioService) {
+function SessionModel($state, userService) {
 
     /* Atributos */
 
     this.nick = '';
     this.pass = '';
 
-
+    /*Protocolo */
     this.chequear = function() {
 
-        var unUsuario = UsuarioService.getUsuarioByNick(this.nick);
+        var aUser = userService.getUserByNick(this.nick);
 
-        if(unUsuario === undefined){
+        if(aUser === undefined){
             alert("!El usuario no esta registrado¡");
-        }else if(unUsuario.password !== this.pass){
+        }else if(aUser.password !== this.pass){
             alert("!El password no es correcto¡");
             }else{
-                $state.go("seleccionDePizza");
+                $state.go("pizzaSelector");
             }
-
-/*        if(unUsuario !== undefined && unUsuario.password===this.pass)
-        {
-            $state.go("seleccionDePizza");
-        }*/
-
-
-
-
     };
 
-    this.irARegistrarse = function() {
-        $state.go("registrarse");
+    this.goRegister = function() {
+        $state.go("register");
 
     };
 
