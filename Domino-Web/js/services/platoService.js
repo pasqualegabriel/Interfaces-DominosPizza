@@ -18,8 +18,3 @@ function PlatoRepo(){
     };
 }
 
-function Plato(unaPizza){
-    this.pizza               = unaPizza;
-    this.tamanio             = "";
-    this.ingredientesExtras  = new DistribucionEnPizza();
-}

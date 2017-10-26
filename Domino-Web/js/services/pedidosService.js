@@ -27,21 +27,3 @@ function PedidoRepo(){
     };
 
 }
-
-function Pedido(unId, unMiembro){
-    this.id             = unId;
-    this.estadoActual   = "";
-    this.miembro        = unMiembro;
-    this.platos         = [];
-    this.fecha          = "";
-    this.aclaracion     = "";
-    this.formaDeRetiro  = "";
-    this.monto          = "";
-    this.tiempoDeEspera = "";
-}
-
-
-function FormaDeRetiro(unTipo, unaDireccion){
-    this.tipo             = unTipo;
-    this.direccion        = unaDireccion;
-}

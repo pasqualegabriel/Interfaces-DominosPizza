@@ -25,10 +25,5 @@ dominoApp.controller('listaPromosCrl', function($stateParams, pizzaService){
 	}
 );
 
-function Ingrediente(aName, aPrecio) {
-    this.nombre     = aName;
-    this.precio     = aPrecio;
-
-}
   
   

@@ -33,7 +33,3 @@ function SessionRepo(){
 
 }
 
-function Sesion(aUser) {
-    this.nick = aUser.nick;
-    this.password = aUser.password;
-}

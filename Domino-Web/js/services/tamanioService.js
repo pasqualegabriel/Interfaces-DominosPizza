@@ -17,8 +17,3 @@ function TamanioRepo(){
 }
 
 
-function Tamanio(aName, aFactor) {
-    this.nombre             = aName;
-    this.factorDeTamanio    = aFactor;
-
-}

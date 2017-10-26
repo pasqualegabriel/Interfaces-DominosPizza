@@ -15,8 +15,3 @@ function IngredienteRepo(){
         return this.ingredientes
     }
 }
-
-function Ingrediente(aName, aPrice) {
-    this.nombre= aName;
-    this.precio = aPrice;
-}

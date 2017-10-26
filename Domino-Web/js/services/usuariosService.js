@@ -35,14 +35,3 @@ function UsuarioRepo(){
     }
 }
 
-
-function User(aName, aNick, aPassword, aMail, aDir) {
-
-    this.nombre= aName;
-    this.nick = aNick;
-    this.password = aPassword;
-    this.mail = aMail;
-    this.direccion = aDir;
-    this.historialDePedidos = [];
-
-}
