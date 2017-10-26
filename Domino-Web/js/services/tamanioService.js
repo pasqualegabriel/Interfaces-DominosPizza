@@ -1,6 +1,10 @@
 'use strict';
 
-dominoApp.service('tamanioService', function($state) {
+dominoApp.service('tamanioService', function() {
+    return new TamanioRepo();
+});
+
+function TamanioRepo(){
 
     this.tamanios =
         [   new Tamanio("Porcion",0.125 ), new Tamanio("Chica",0.50),
@@ -10,13 +14,10 @@ dominoApp.service('tamanioService', function($state) {
     this.getAll = function () {
         return this.tamanios;
     }
-});
-
-
+}
 
 
 function Tamanio(aName, aFactor) {
-
     this.nombre             = aName;
     this.factorDeTamanio    = aFactor;
 

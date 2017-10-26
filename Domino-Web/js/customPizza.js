@@ -54,9 +54,8 @@ function SizeModel($stateParams, $state, tamanioService, pizzaService){
 
     this.armarPizza = function(unaPizza, unTamanio)
     {
-        unaPizza.setTamanio(unTamanio);
+       //Las pizzas no tienen tamanio, los platos tienen tamanio!! unaPizza.setTamanio(unTamanio);
         $state.go("ingredientesExtras", {nombre: unaPizza.nombre});
-
     };
 
 }

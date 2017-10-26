@@ -1,13 +1,14 @@
 'use strict';
 dominoApp.service("userService", function () {
+    return new UsuarioRepo();
+});
+
+function UsuarioRepo(){
 
     this.usuarios =   [
         new User("pepita","g","1","pepita@gmail.com","callefalsa123"),
         new User("dionisia","golondrinaVieja","23asdfasdas","dionisia@gmail.com","callefalsa123")
     ];
-
-
-
 
     this.newUser = function (aName, aNick, aPassword, aMail, aDir) {
 
@@ -32,8 +33,8 @@ dominoApp.service("userService", function () {
             return aUser.mail===aMail;
         })
     }
+}
 
-});
 
 function User(aName, aNick, aPassword, aMail, aDir) {
 

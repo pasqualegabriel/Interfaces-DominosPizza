@@ -33,6 +33,12 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
             url: "/ed/seleccionTamanio/:nombre/tamanio",
             templateUrl: "../partials/ingredientesExtras.html",
             controller: "listaPromosCrl as promos"
+        })
+
+        .state('confirmarPedido', {
+            url: "/ed/confirmarPedido/",
+            templateUrl: "../partials/confirmarPedido.html",
+            controller: "pedidosCtrl as pedido"
         });
 
     $urlRouterProvider.otherwise("/ini");

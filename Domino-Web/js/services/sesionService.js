@@ -1,11 +1,12 @@
 'use strict';
 dominoApp.service("sesionService", function () {
+    return new SessionRepo();
+});
+
+function SessionRepo(){
 
     this.sesiones =   [
     ];
-
-
-
 
     this.newSesion = function (aUser) {
         var aSesion =  this.getSesionByNick(aUser.nick);
@@ -30,12 +31,9 @@ dominoApp.service("sesionService", function () {
         })
     };
 
-});
+}
 
 function Sesion(aUser) {
-
     this.nick = aUser.nick;
     this.password = aUser.password;
-
-
 }
