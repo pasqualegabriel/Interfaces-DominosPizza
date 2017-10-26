@@ -20,8 +20,18 @@
       <file leaf-file-name="customPizza.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/customPizza.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+            <state relative-caret-position="339">
+              <caret line="38" column="71" lean-forward="true" selection-start-line="38" selection-start-column="71" selection-end-line="38" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registrarse.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/partials/registrarse.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="660">
+              <caret line="44" column="86" lean-forward="false" selection-start-line="44" selection-start-column="75" selection-end-line="44" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -30,8 +40,8 @@
       <file leaf-file-name="pizzaService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/services/pizzaService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="53" selection-end-column="1" />
+            <state relative-caret-position="690">
+              <caret line="46" column="91" lean-forward="false" selection-start-line="46" selection-start-column="73" selection-end-line="46" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -40,8 +50,8 @@
       <file leaf-file-name="tamanioService.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/services/tamanioService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="30">
+              <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -50,18 +60,38 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="3" lean-forward="true" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
+            <state relative-caret-position="420">
+              <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="selectorDeTamanio.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/partials/selectorDeTamanio.html">
+      <file leaf-file-name="selectorDePizza.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/partials/selectorDePizza.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+            <state relative-caret-position="195">
+              <caret line="28" column="105" lean-forward="true" selection-start-line="28" selection-start-column="105" selection-end-line="28" selection-end-column="105" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ingredientesExtras.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/partials/ingredientesExtras.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="609">
+              <caret line="50" column="119" lean-forward="false" selection-start-line="50" selection-start-column="119" selection-end-line="50" selection-end-column="119" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registrarse.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/registrarse.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -120,13 +150,16 @@
         <option value="$PROJECT_DIR$/js/registrarse.js" />
         <option value="$PROJECT_DIR$/partials/registrarse.html" />
         <option value="$PROJECT_DIR$/js/iniciarSesion.js" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/js/services/pizzaService.js" />
         <option value="$PROJECT_DIR$/partials/selectorDePizza.html" />
+        <option value="$PROJECT_DIR$/js/services/tamanioService.js" />
+        <option value="$PROJECT_DIR$/IngredientesExtras/ingredientesExtras.html" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/partials/selectorDeTamanio.html" />
         <option value="$PROJECT_DIR$/js/routes.js" />
         <option value="$PROJECT_DIR$/js/customPizza.js" />
-        <option value="$PROJECT_DIR$/partials/selectorDeTamanio.html" />
-        <option value="$PROJECT_DIR$/js/services/tamanioService.js" />
+        <option value="$PROJECT_DIR$/js/services/pizzaService.js" />
+        <option value="$PROJECT_DIR$/partials/ingredientesExtras.html" />
+        <option value="$PROJECT_DIR$/js/listaPromos.js" />
       </list>
     </option>
   </component>
@@ -138,7 +171,6 @@
   </component>
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/Elegir Pizza/node_modules" />
-    <handled-path value="$PROJECT_DIR$/IngredientesExtras/node_modules" />
     <handled-path value="$PROJECT_DIR$/editarUsuarioVerPedidosAnteriores/node_modules" />
     <handled-path value="$PROJECT_DIR$/iniciarSesion/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
@@ -216,11 +248,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
+      <recent name="$PROJECT_DIR$/css" />
+      <recent name="$PROJECT_DIR$/partials" />
       <recent name="$PROJECT_DIR$/www" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/www/libs" />
-      <recent name="$PROJECT_DIR$/www/css" />
-      <recent name="$PROJECT_DIR$/www/modules/iniciarSesion" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -251,12 +283,12 @@
       <workItem from="1508883306029" duration="8848000" />
       <workItem from="1508899253060" duration="11976000" />
       <workItem from="1508949967852" duration="4349000" />
-      <workItem from="1508960024638" duration="13539000" />
+      <workItem from="1508960024638" duration="20717000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77387000" />
+    <option name="totallyTimeSpent" value="84565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1442" height="860" extended-state="6" />
@@ -294,8 +326,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/index.html" />
-    <entry file="file://$PROJECT_DIR$/www/dominoApp.js" />
     <entry file="file://$PROJECT_DIR$/www/routes.js" />
     <entry file="file://$PROJECT_DIR$/www/modules/iniciarSesion/iniciarSesion.html" />
     <entry file="file://$PROJECT_DIR$/www/villa.html" />
@@ -345,7 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/dominoApp.js" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -361,50 +390,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/services/sesionService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/partials/iniciarSesion.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/services/usuariosService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/partials/registrarse.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="44" column="86" lean-forward="false" selection-start-line="44" selection-start-column="75" selection-end-line="44" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/registrarse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="42" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/tarea.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -417,66 +406,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/iniciarSesion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="24" column="47" lean-forward="false" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="52" column="39" lean-forward="false" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="39" />
+        <state relative-caret-position="468">
+          <caret line="49" column="23" lean-forward="false" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/partials/selectorDePizza.html">
+    <entry file="file://$PROJECT_DIR$/js/services/sesionService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="28" column="49" lean-forward="true" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
+        <state relative-caret-position="165">
+          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/routes.js">
+    <entry file="file://$PROJECT_DIR$/js/services/usuariosService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="3" lean-forward="true" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/customPizza.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/partials/selectorDeTamanio.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        <state relative-caret-position="195">
+          <caret line="13" column="52" lean-forward="true" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/registrarse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/tarea.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/iniciarSesion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="47" lean-forward="false" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/dominoApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partials/registrarse.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="44" column="86" lean-forward="false" selection-start-line="44" selection-start-column="75" selection-end-line="44" selection-end-column="86" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/services/pizzaService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="53" selection-end-column="1" />
+        <state relative-caret-position="690">
+          <caret line="46" column="91" lean-forward="false" selection-start-line="46" selection-start-column="73" selection-end-line="46" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/listaPromos.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partials/ingredientesExtras.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="50" column="119" lean-forward="false" selection-start-line="50" selection-start-column="119" selection-end-line="50" selection-end-column="119" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partials/selectorDePizza.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="28" column="105" lean-forward="true" selection-start-line="28" selection-start-column="105" selection-end-line="28" selection-end-column="105" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/customPizza.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="38" column="71" lean-forward="true" selection-start-line="38" selection-start-column="71" selection-end-line="38" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/services/tamanioService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
           <folding />
         </state>
       </provider>

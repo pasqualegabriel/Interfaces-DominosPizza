@@ -19,7 +19,6 @@ function PizzaModel($state, pizzaService) {
 
     };
 
-
     this.seleccionar = function(unaPizza)
     {
         $state.go("seleccionDeTamanio", {nombre: unaPizza.nombre} );
@@ -29,7 +28,7 @@ function PizzaModel($state, pizzaService) {
 }
 
 
-dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService,pizzaService) {
+dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService, pizzaService) {
 
 
     return new SizeModel($stateParams, $state, tamanioService,pizzaService);
@@ -37,9 +36,11 @@ dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioS
 
 });
 
-function SizeModel($stateParams, $state, tamanioService,pizzaService){
+function SizeModel($stateParams, $state, tamanioService, pizzaService){
 
     this.pizzaSeleccionada = pizzaService.getPizzaByName($stateParams.nombre);
+
+    this.listaDePromos = pizzaService.getPizzas();
 
     this.tamanios = tamanioService.getAll();
 
@@ -49,6 +50,13 @@ function SizeModel($stateParams, $state, tamanioService,pizzaService){
 
     this.getDistribucion = function () {
         return tamanioCrl.distribucion();
+    };
+
+    this.armarPizza = function(unaPizza, unTamanio)
+    {
+        unaPizza.setTamanio(unTamanio);
+        $state.go("ingredientesExtras", {nombre: unaPizza.nombre});
+
     };
 
 }

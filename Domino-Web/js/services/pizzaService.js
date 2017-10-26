@@ -43,7 +43,20 @@ function Pizza(aName, aDescription, aPrecio) {
     this.nombre         = aName;
     this.descripcion    = aDescription;
     this.precio         = aPrecio;
-    this.distribucion   = [];
+
+    this.distribucion   = [new PairIngredienteDistribucionPizza("Jamon", new Distribucion()),
+                           new PairIngredienteDistribucionPizza("Queso", new Distribucion())
+    ];
+    this.tamanio;
+
+    this.setTamanio = function (aTamanio) {
+        this.tamanio = aTamanio;
+
+    };
+
+    this.getDistribuciones = function() {
+        return this.distribucion;
+    }
 /*
     this.descripcion = function () {
         return this.nombre + this.distribucion.forEach(function (t) {
@@ -56,5 +69,12 @@ function Pizza(aName, aDescription, aPrecio) {
 function PairIngredienteDistribucionPizza(aIng, aDir) {
     this.ingrediente     = aIng;
     this.distribucion    = aDir;
+
+}
+
+function Distribucion() {
+    this.d1    = "Toda";
+    this.d2    = "Izquierda";
+    this.d3    = "Derecha";
 
 }

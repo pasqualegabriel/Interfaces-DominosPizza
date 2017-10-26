@@ -27,6 +27,12 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
             url: "/ed/seleccionTamanio/:nombre",
             templateUrl: "../partials/selectorDeTamanio.html",
             controller: "sizeSelectorCrl as customSize"
+        })
+
+        .state('ingredientesExtras', {
+            url: "/ed/seleccionTamanio/:nombre/tamanio",
+            templateUrl: "../partials/ingredientesExtras.html",
+            controller: "listaPromosCrl as promos"
         });
 
     $urlRouterProvider.otherwise("/ini");
