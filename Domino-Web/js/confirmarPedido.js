@@ -8,8 +8,6 @@ dominoApp.controller('pedidosCtrl', function () {
 
 function ConfirmarPedidoModel() {
 
-    this.pepita = "golondrina";
-
     this.listaDePromos =
         [
             {
@@ -37,13 +35,18 @@ function ConfirmarPedidoModel() {
 
     this.totalAPagar= 0;
 
-    this.formaDeEnvio= null;
+    this.tipoDeFormaDeEnvio = "";
 
-    this.retirarPorLocal = function() {
-
+    this.quitarDireccion = function () {
+        this.direccion= "";
     };
 
-    this.retirarPorDelivery = function() {
-
+    this.hayPizzas = function () {
+       return this.listaDePromos.length > 0
     };
+
+    this.hayFormaDeEnvio = function () {
+        return this.tipoDeFormaDeEnvio !== ""
+    };
+
 }

@@ -35,13 +35,13 @@ function Pedido(unId, unMiembro){
     this.platos         = [];
     this.fecha          = "";
     this.aclaracion     = "";
-    this.formaDeRetiro  = new FormaDeRetiro();
+    this.formaDeRetiro  = "";
     this.monto          = "";
     this.tiempoDeEspera = "";
 }
 
 
-function FormaDeRetiro(){
-    this.tipo             = "";
-    this.direccion        = null;
+function FormaDeRetiro(unTipo, unaDireccion){
+    this.tipo             = unTipo;
+    this.direccion        = unaDireccion;
 }

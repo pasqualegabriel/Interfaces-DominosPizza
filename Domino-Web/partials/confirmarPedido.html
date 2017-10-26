@@ -13,8 +13,6 @@
 
     <div>
 
-        {{pedido.pepita}}
-
         <ul data-ng-repeat="pizza in pedido.listaDePromos">
 
             <button id="boton" type="submit" class="btn btn-default" ng-click="">
@@ -31,8 +29,8 @@
                     </div>
                 </label>
                 <label>
-                    <div id="imagen" >
-                        <img src="../imagenes/flechita.png" width="38" height="80">
+                    <div >
+                        <h2>X</h2>
                     </div>
                 </label>
             </button>
@@ -51,20 +49,18 @@
         <hr>
     </div>
 
-    <div>
+    <div name = "contenedorRadioSelectors">
         <h3>Envio </h3><br>
-        <form>
-            <input  style="float:left;" type="radio" ng-model="pedido.formaDeEnvio" name="formaDeEnvio" ng-value="pedido.retirarPorLocal()" checked><p>Por Local</p><br>
-            <form>
-                <input  style="float:left;" type="radio" ng-model="pedido.formaDeEnvio" name="formaDeEnvio" ng-value="pedido.retirarPorDelivery()"><p  style="float:left;" > Delivery</p>
-                <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.direccion" ng-disabled="">
+        <form name= "radioSelectors">
+            <input  style="float:left;" type="radio" ng-model="pedido.tipoDeFormaDeEnvio" ng-focus="pedido.quitarDireccion()" value="Local" name="formaDeEnvio" ><p>Por Local</p><br>
+
+                <input  style="float:left;" type="radio" name="formaDeEnvio" ng-model="pedido.tipoDeFormaDeEnvio" value="Delivery"><p  style="float:left;" > Delivery</p>
+                <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.direccion" ng-disabled="pedido.tipoDeFormaDeEnvio !== 'Delivery'">
             </form>
-        </form>
-        {{pedido.formaDeEnvio}}
     </div>
     <br>
     <hr>
     <div>
-        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.totalAPagar}} </h4> <input style=" margin-left: 10px" type="button" onclick="alert('Hello World!')" value="Confirmar Pedido">
+        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.totalAPagar}} </h4> <input style=" margin-left: 10px" type="button" onclick="alert('Hello World!')" value="Confirmar Pedido" ng-disabled="!pedido.hayPizzas() || !pedido.hayFormaDeEnvio() ">
     </div>
 </div>
