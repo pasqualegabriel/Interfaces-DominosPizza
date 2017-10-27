@@ -1,0 +1,66 @@
+<head>
+    <meta charset="utf-8">
+    <title>Confirmar Pedido</title>
+    <link rel="stylesheet" type="text/css" href="../css/confirmarPedido.css">
+</head>
+
+
+<div class = "container">
+    <header class="page-header">
+        <h1>Pedido</h1>
+        <h3>Pizzas</h3>
+    </header>
+
+    <div>
+
+        <ul data-ng-repeat="pizza in pedido.listaDePromos">
+
+            <button id="boton" type="submit" class="btn btn-default" ng-click="">
+
+                <label class="block" >
+                    <div id="datos">
+                        <h2>{{pizza.name}}</h2>
+                        <h4>{{pizza.ingredientes}}</h4>
+                    </div>
+                </label>
+                <label>
+                    <div id="precio">
+                        <h3><span class="label label-primary">$ {{pizza.precio}}</span></h3>
+                    </div>
+                </label>
+                <label>
+                    <div >
+                        <h2>X</h2>
+                    </div>
+                </label>
+            </button>
+
+        </ul>
+    </div>
+
+    <div>
+
+        <a href="url">Agregar otra Pizza</a>
+
+        <hr>
+
+        <h3>Aclaraciones</h3><br>
+        <input size="150" ng-model="pedido.aclaraciones" type="text" name="aclaraciones" placeholder="Escriba aqui su aclaracion" >
+        <hr>
+    </div>
+
+    <div name = "contenedorRadioSelectors">
+        <h3>Envio </h3><br>
+        <form name= "radioSelectors">
+            <input  style="float:left;" type="radio" ng-model="pedido.tipoDeFormaDeEnvio" ng-focus="pedido.quitarDireccion()" value="Local" name="formaDeEnvio" ><p>Por Local</p><br>
+
+                <input  style="float:left;" type="radio" name="formaDeEnvio" ng-model="pedido.tipoDeFormaDeEnvio" value="Delivery"><p  style="float:left;" > Delivery</p>
+                <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.direccion" ng-disabled="pedido.tipoDeFormaDeEnvio !== 'Delivery'">
+            </form>
+    </div>
+    <br>
+    <hr>
+    <div>
+        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.totalAPagar}} </h4> <input style=" margin-left: 10px" type="button" onclick="alert('Hello World!')" value="Confirmar Pedido" ng-disabled="!pedido.hayPizzas() || !pedido.hayFormaDeEnvio() ">
+    </div>
+</div>

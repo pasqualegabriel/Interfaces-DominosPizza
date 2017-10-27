@@ -1,0 +1,138 @@
+*{
+	margin:  0px;
+	padding: 0px;
+}
+
+input#inputPrincipal{
+	type: "text";
+	name: "fname" ;
+	width: 85%;
+	height: 40px ;
+	size: 100% ;
+	class: "inputstyle";
+}
+
+div#tamanioIngredientes{
+	width: 100%;
+	height: 60px;
+	margin-top: 20px;
+	text-align: center;
+	//color: darkgreen;
+	//background-color: yellow;
+}
+
+div#titulo{
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	color: darkgreen;
+	background-color: #E2E5C5;
+}
+
+div#tituloIzq{
+	width: 35%;
+	//height: 70px;
+	text-align: center;
+	color: darkgreen;
+	//background-color: #DAE0AE;
+	float:left;
+}
+
+div#tituloCenter{
+	width: 25%;
+	//height: 70px;
+	text-align: left;
+	margin-top: 10px;
+	color: gray;
+	//background-color: #DAE0AE;
+	float:left;
+}
+
+div#tituloDer{
+	width: 10%;
+	//height: 70px;
+	text-align: center;
+	//margin-top: 11px;
+	color: red;
+	//background-color: #DAE0AE;
+	float:left;
+}
+
+div#gral{
+	margin:auto;
+	width: 750px;
+	//height: 700px;
+	//background-color: lightblue;
+	float:left;
+}
+
+div#extras{
+	margin:auto;
+	text-align: center;
+	width: 300px;
+	margin-top: 10px;
+	//height: 600px;
+	background-color: #F7F2AE;
+	float:left;
+}
+
+div#extras2{
+	text-align: left;
+	color: darkgreen;
+}
+
+a#ingredienteExtra{
+	margin:auto;
+	margin-top: 10px;
+	padding: 5px;
+	//align-self: center;
+	width: 620px;
+	height: 90px;
+	//background-color: yellow;
+}
+
+label#begin {
+	color: darkblue; 
+	align-self: center;
+	padding: 2px;
+	float: left;
+	width: 50px;
+	//height: 80px;
+	text-align: center;
+	//background-color: blue;
+}
+
+label#first {
+	color: darkblue; 
+	align-self: center;
+	padding: 5px;
+	float: left;
+	width: 250px;
+	//height: 80px;
+	text-align: left;
+	//background-color: brown;
+}
+
+label#second {
+	color: darkblue; 
+	float: right;
+	width: 300px;
+	//height: 80px;
+	text-align: left;
+	//background-color: red;
+}
+
+label#gris {
+	color: gray; 
+}
+
+a {
+    text-align: left;
+}
+
+h3#extrasTitle {
+	color: darkgreen; 
+}
+
+
+

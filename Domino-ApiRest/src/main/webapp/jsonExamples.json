@@ -1,0 +1,172 @@
+[
+
+// Usuario
+  {
+    "nombre": "Ivan",
+    "nick": "nick1",
+    "password": "unpassword3",
+    "mail": "dominikowivan@gmail.com",
+    "direccion": "unaDireccion1",
+    "historialDePedidos": []
+  },
+
+
+// Tamanio
+
+ {
+    "nombre": "Porcion",
+    "factorDeTamanio": 0.125
+ },
+
+
+// Ingrediente
+
+{
+        "nombre": "Anchoa",
+        "precio": 3
+},
+
+
+// Distribucion/ IngredientesExtra
+
+{
+    "ingredientes": [
+                            {
+                                "ingrediente": {
+                                    "nombre": "Jamon",
+                                    "precio": 7
+                                },
+                                "distribucion": "Izquierda"
+                            },
+                            {
+                                "ingrediente": {
+                                    "nombre": "Morron",
+                                    "precio": 10
+                                },
+                                "distribucion": "Derecha"
+                            }
+    ]
+},
+
+// Pizza
+{
+  "nombre": "Jamon y morron",
+  "precioBase": 140,
+  "distribucion": {
+    "ingredientes": [
+      {
+        "ingrediente": {
+          "nombre": "Jamon",
+          "precio": 7
+        },
+        "distribucion": "Izquierda"
+      },
+      {
+        "ingrediente": {
+          "nombre": "Morron",
+          "precio": 10
+        },
+        "distribucion": "Derecha"
+      }
+    ]
+  }
+},
+
+
+// Plato
+
+{
+                "pizza": {
+                    "nombre": "Muzzarela",
+                    "precioBase": 100,
+                    "distribucion": {
+                        "ingredientes": []
+                    }
+                },
+                "tamanio": "Chica",
+                "ingredientesExtras": {
+                    "ingredientes": []
+                }
+},
+
+
+// Pedido por Delivery
+
+  {
+        "id": 3,
+        "estadoActual": "Listo para enviar",
+        "miembro": "nick1",
+        "platos": [
+            {
+                "pizza": {
+                    "nombre": "Muzzarela",
+                    "precioBase": 100,
+                    "distribucion": {
+                        "ingredientes": []
+                    }
+                },
+                "tamanio": "Chica",
+                "ingredientesExtras": {
+                    "ingredientes": []
+                }
+            }
+        ],
+        "fecha": "2017-09-10",
+        "aclaracion": "",
+        "formaDeRetiro": {
+            "tipo": "Delivery",
+            "direccion": "Cerrado 128"
+        },
+        "monto": 65,
+        "tiempoDeEspera": 0
+    },
+
+// Pedido por Local
+
+  {
+        "id": 1,
+        "estadoActual": "Listo para retirar",
+        "miembro": "nick3",
+        "platos": [
+            {
+                "pizza": {
+                    "nombre": "Jamon y morron",
+                    "precioBase": 140,
+                    "distribucion": {
+                        "ingredientes": [
+                            {
+                                "ingrediente": {
+                                    "nombre": "Jamon",
+                                    "precio": 7
+                                },
+                                "distribucion": "Izquierda"
+                            },
+                            {
+                                "ingrediente": {
+                                    "nombre": "Morron",
+                                    "precio": 10
+                                },
+                                "distribucion": "Derecha"
+                            }
+                        ]
+                    }
+                },
+                "tamanio": "Porcion",
+                "ingredientesExtras": {
+                    "ingredientes": []
+                }
+            }
+        ],
+        "fecha": "2017-09-10",
+        "aclaracion": "",
+        "formaDeRetiro": {
+            "tipo": "Local",
+            "direccion": null
+        },
+        "monto": 17.5,
+        "tiempoDeEspera": 0
+    }
+
+
+
+]
