@@ -1,11 +1,16 @@
 package domino
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Login {
-	String usuario
-	Integer password 
+	String nick
+	String password 
 	
-	new(String unUsuario, Integer unPassword){
-		usuario= unUsuario
+	new(){}
+	
+	new(String unUsuario, String unPassword){
+		nick= unUsuario
 		password= unPassword
 	}
 }

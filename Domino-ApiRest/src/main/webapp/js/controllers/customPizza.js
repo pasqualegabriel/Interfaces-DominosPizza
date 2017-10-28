@@ -1,14 +1,33 @@
 'use strict';
 
-dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService){
+dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService,$stateParams,pedidosService,platoService){
 
-    return new PizzaModel($state, pizzaService);
+    return new PizzaModel($state, pizzaService,$stateParams,pedidosService,platoService);
 
 });
 
-function PizzaModel($state, pizzaService) {
+function PizzaModel($state, pizzaService,$stateParams,pedidosService,platoService) {
+    'use strict';
+    var self= this;
 
-    this.listaDePromos = pizzaService.getPizzas();
+    self.listaDePromos = [];
+
+    self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
+
+    this.getPromos = function () {
+
+        var errorHandler = function (error) {
+            alert(error.error)
+        };
+
+        pizzaService.getPizzas().then(function (listadDePizzaAdaptadas) {
+            self.listaDePromos  = listadDePizzaAdaptadas;
+        }).catch(errorHandler)
+    };
+
+    this.getPromos();
+
+
 
     this.precioBase = function () {
         return pizzaService.precioBase;
@@ -22,41 +41,54 @@ function PizzaModel($state, pizzaService) {
 
     this.seleccionar = function(unaPizza)
     {
-        $state.go("seleccionDeTamanio", {nombre: unaPizza.nombre} );
+        var plato = platoService.newPlato(unaPizza);
+        self.pedido.addPlato(plato);
+        self.pedido.setIdPizzaActual(unaPizza.nombre);
+
+        $state.go("seleccionDeTamanio",{id: $stateParams.id});
 
     };
 
 }
 
 
-dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService, pizzaService) {
+dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService,pizzaService,pedidosService) {
 
 
-    return new SizeModel($stateParams, $state, tamanioService,pizzaService);
+    return new SizeModel($stateParams, $state, tamanioService,pizzaService,pedidosService);
 
 
 });
 
-function SizeModel($stateParams, $state, tamanioService, pizzaService){
+function SizeModel($stateParams, $state, tamanioService,pizzaService,pedidosService){
 
-    this.pizzaSeleccionada = pizzaService.getPizzaByName($stateParams.nombre);
+    var self= this;
 
-    this.listaDePromos = pizzaService.getPizzas();
+    self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
 
-    this.tamanios = tamanioService.getAll();
+    self.idPizzaActual     = self.pedido.idPizzaActual;
+    self.pizzaSeleccionada = self.pedido.searchPizza(self.idPizzaActual).pizza;
 
 
-    this.precioSegunTamanio= function (unTamanio) {
-        return unTamanio.factorDeTamanio * this.pizzaSeleccionada.precioBase;
+    self.tamanios = [];
+
+    this.getSize=function () {
+        var errorHandler = function (error) {
+            alert(error.error)
+        };
+
+        var updateMoney= function (aSize) {
+            aSize.calcularPrecio(self.pizzaSeleccionada.precioBase);
+            return aSize;
+        };
+
+        tamanioService.getTamanio().then(function (listSize) {
+            self.tamanios  = listSize.map(updateMoney);
+        }).catch(errorHandler)
     };
 
-    this.getTamanio = function () {
-        return tamanioCrl.factorDeTamanio();
-    };
+    this.getSize();
 
-    this.getDistribucion = function () {
-        return tamanioCrl.distribucion();
-    };
 
     this.armarPizza = function(unaPizza, unTamanio)
     {

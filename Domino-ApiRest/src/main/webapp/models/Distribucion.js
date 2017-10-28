@@ -1,0 +1,3 @@
+function Distribucion() {
+    this.distribucion    = "";
+}

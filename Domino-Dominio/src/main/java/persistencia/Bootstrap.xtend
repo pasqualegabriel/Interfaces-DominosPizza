@@ -62,6 +62,7 @@ class Bootstrap {
 		var ivan    = new Miembro("Ivan", "nick1", 	"unpassword3", "dominikowivan@gmail.com", "unaDireccion1")
 		var nahuel  = new Miembro("Nahuel", "nick2", "unPassword2", "n.autalan@gmail.com", "unaDireccion2")
 		var gabriel = new Miembro("Gabriel", "nick3","unPassword3", "pasqualeunq@gmail.com", "unaDireccion3")
+		var g1 = new Miembro("goku", "g","1", "goku@gmail.com", "Av.SiempreViva")
 		
 		// Creacion de pedidos
 		var pedido1 = new Pedido(ivan)=>[id=3]
@@ -97,6 +98,7 @@ class Bootstrap {
 		HomeMiembro.instance.registrarUsuario(ivan)
 		HomeMiembro.instance.registrarUsuario(gabriel)
 		HomeMiembro.instance.registrarUsuario(nahuel)
+		HomeMiembro.instance.registrarUsuario(g1)
 	
 		/*Pedidos Cerrados*/
 		var distribucion4 = new Distribucion

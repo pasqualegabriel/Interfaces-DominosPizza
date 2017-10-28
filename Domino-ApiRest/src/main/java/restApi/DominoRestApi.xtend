@@ -19,6 +19,7 @@ import persistencia.HomeLogin
 import org.uqbar.xtrest.api.annotation.Put
 import apiRestAdapters.MiembroApiAdapter
 import apiRestAdapters.EstadoDePedidoApiAdapter
+import apiRestAdapters.PizzaApiAddapter
 
 @Controller
 class DominoRestApi {
@@ -28,7 +29,8 @@ class DominoRestApi {
 	@Get("/pizzas")
 	def getPizzas(String string) {
 		response.contentType = ContentType.APPLICATION_JSON
-		ok(HomePizza.instance.searchPromos(string).toJson)
+		var pizzas = HomePizza.instance.searchPromos(string).map[m|new PizzaApiAddapter(m)].toArray
+		ok(pizzas.toJson)
 	}
 
 	@Get("/tamanios")
@@ -48,6 +50,14 @@ class DominoRestApi {
 		var miembros = HomeMiembro.instance.searchUsuario(string).map[m|new MiembroApiAdapter(m)].toArray
 		ok(miembros.toJson)
 	}
+	
+	@Get("/usuarios/:nick")
+	def getUsuariobyNick() {
+		response.contentType = ContentType.APPLICATION_JSON
+		var miembro = new MiembroApiAdapter(HomeMiembro.instance.getMiembro(nick))
+		ok(miembro.toJson)
+	}
+	
 
 	@Put("/usuarios/:nick")
 	def getUsuario(@Body String body) {
@@ -185,8 +195,9 @@ class DominoRestApi {
 		try {
 			var Login unLogin = body.fromJson(Login)
 			try {
-				HomeLogin.instance.registrarLogin(unLogin)
-				ok()
+//				HomeLogin.instance.registrarLogin(unLogin)
+				var MiembroApiAdapter usuario =  new MiembroApiAdapter(HomeLogin.instance.verificarLogin(unLogin))
+				ok(usuario.toJson)
 			} catch (UserException exception) {
 				badRequest(getErrorJson(exception.message))
 			}
@@ -194,5 +205,6 @@ class DominoRestApi {
 			badRequest(getErrorJson("El body debe ser un Login"))
 		}
 	}
+
 
 }

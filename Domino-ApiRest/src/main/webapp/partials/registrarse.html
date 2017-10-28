@@ -16,49 +16,38 @@
         </form>
 
         <form  class="panel-body" name="form1">
-            <label>Usuario:</label> <input ng-focus="form7.$submitted= false" ng-model="newUser.nick" type="text" placeholder="usuario" name="usuario" required>
+            <label>Usuario:</label> <input  ng-model="newUser.nick" type="text" placeholder="usuario" name="usuario" required>
         </form>
 
         <form  class="panel-body" name="form2">
-            <label>Contraseña:</label> <input ng-focus="form7.$submitted= false" ng-model="newUser.contrasenia" type="password" placeholder="contrasenia" name="contrasenia" required>
+            <label>Contraseña:</label> <input  ng-model="newUser.contrasenia" type="password" placeholder="contrasenia" name="contrasenia" required>
         </form>
 
         <form  class="panel-body" name="form3">
-            <label>Repita contraseña:</label> <input ng-focus="form7.$submitted= false" ng-model="newUser.repitaContrasenia" type="password" placeholder="contraseña" name="contraseniarepetir" required>
+            <label>Repita contraseña:</label> <input  ng-model="newUser.repitaContrasenia" type="password" placeholder="contraseña" name="contraseniarepetir" required>
         </form>
 
         <form  class="panel-body" name="form4">
-            <label>Nombre:</label> <input ng-focus="form7.$submitted= false" ng-model="newUser.nombre" type="text" placeholder="nombre" name="nombre" required>
+            <label>Nombre:</label> <input  ng-model="newUser.nombre" type="text" placeholder="nombre" name="nombre" required>
         </form>
 
         <form  class="panel-body" name="form5">
-            <label>Mail:     </label> <input ng-focus="form7.$submitted= false" ng-model="newUser.mail" type="email" placeholder="mail" name="mail" required>
+            <label>Mail:     </label> <input  ng-model="newUser.mail" type="email" placeholder="mail" name="mail" required>
         </form>
 
         <form  class="panel-body" name="form6">
-            <label>Direccion:</label> <input ng-focus="form7.$submitted= false" ng-model="newUser.direccion" type="text" placeholder="direccion" name="direccion" required>
+            <label>Direccion:</label> <input  ng-model="newUser.direccion" type="text" placeholder="direccion" name="direccion" required>
         </form>
 
         <br/>
 
         <form class="btn-group" name="form7">
           <button type="submit" name="registrarse" class="btn btn-primary" ng-click="newUser.register()" ng-disabled="form1.usuario.$invalid || form2.contrasenia.$invalid || form3.contraseniarepetir.$invalid ||
-                                                                                                   form4.nombre.$invalid  || form5.mail.$invalid        || form6.direccion.$invalid           ">
+                                                                                                 form4.nombre.$invalid  || form5.mail.$invalid        || form6.direccion.$invalid           ">
           Registrarse
           </button>
         </form>
-        <div name="Errores">
-          <div class="alert alert-danger" ng-show="newUser.elNickYaEstaRegistrado() && form7.$submitted">
-            <p> El Nick de usuario ya se encuentra registrado!</p>
-          </div>
-          <div class="alert alert-danger" ng-show="newUser.elMailYaEstaRegistrado() && form7.$submitted && !newUser.elNickYaEstaRegistrado() ">
-            <p> El Mail de usuario ya se encuentra registrado!</p>
-          </div>
-          <div class="alert alert-danger" ng-show="!newUser.laContraseniaCoincide() && form7.$submitted && !newUser.elNickYaEstaRegistrado() && !newUser.elMailYaEstaRegistrado()">
-            <p> Por favor Haga coincidir los Passwords!</p>
-          </div>
-        </div>
-        <br/><br/>
+
 
         <div>
           <p><a href="https://cdn.meme.am/images/10432150.jpg">O puedes ingresar como INVITADO</a></p>

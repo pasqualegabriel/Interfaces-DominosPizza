@@ -1,18 +1,22 @@
 'use strict';
 
-dominoApp.service('tamanioService', function() {
-    return new TamanioRepo();
+dominoApp.service('tamanioService', function($http) {
+    return new TamanioRepo($http);
 });
 
-function TamanioRepo(){
+function TamanioRepo($http){
 
-    this.tamanios =
-        [   new Tamanio("Porcion",0.125 ), new Tamanio("Chica",0.50),
-            new Tamanio("Grande",1.00), new Tamanio("Familiar",1.25)
-        ];
+    var transformSize       = function (json)       {return new Tamanio(json)};
+    var getData             = function(response)    {return response.data};
 
-    this.getAll = function () {
-        return this.tamanios;
+    return{
+        getTamanio: function () {
+            return $http.get("/tamanios").then(getData).then(function (listJson) {
+                    return listJson.map(transformSize)
+                }
+
+            )
+        }
     }
 }
 

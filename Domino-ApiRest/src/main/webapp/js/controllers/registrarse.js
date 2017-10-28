@@ -19,34 +19,42 @@ function RegisterModel($state, userService) {
 
     this.nombre            = "";
 
-    this.selectedUserbyNick = undefined;
-    this.selectedUserbyMail = undefined;
-
-    this.register = function() {
-        this.selectedUserbyNick    = userService.getUserByNick(this.nick);
-        this.selectedUserbyMail    = userService.getUserByMail(this.mail);
-
-        if(this.esValidoParaRegistrarse()){
-            userService.newUser(this.nombre,this.nick,this.contrasenia,this.mail,this.direccion);
-            $state.go("logIn");
-        }
-    };
-
-    this.esValidoParaRegistrarse = function() {
-        return !this.elNickYaEstaRegistrado() && !this.elMailYaEstaRegistrado() && this.laContraseniaCoincide()
-    };
-
-    this.elNickYaEstaRegistrado = function() {
-        return this.selectedUserbyNick !== undefined;
-    };
-
-    this.elMailYaEstaRegistrado = function() {
-        return this.selectedUserbyMail !== undefined;
-    };
 
     this.laContraseniaCoincide = function(){
         return this.contrasenia === this.repitaContrasenia
-    }
+    };
+
+
+    this.register = function() {
+
+        if( this.contrasenia !== this.repitaContrasenia){
+            alert("Las contraseñas no son iguales")
+        }
+        var newUser={
+            "nombre": this.nombre ,
+            "nick": this.nick,
+            "password": this.contrasenia,
+            "mail": this.mail,
+            "direccion": this.direccion,
+            "historialDePedidos": []
+
+        };
+
+        var cbValidation = function(response) {
+            $state.go("logIn");
+        };
+
+        var errorHandler = function (error) {
+
+            alert(error.data.error)
+        };
+
+
+        userService.validate(newUser,cbValidation,errorHandler);
+
+    };
+
+
 
 }
 

@@ -21,7 +21,7 @@ class HomeMiembro {
 	List<Miembro> miembros  = newArrayList
 	
 	def registrarUsuario(Miembro miembro) {
-		if ( miembros.stream.anyMatch[it.nick.equals(miembro.nick)] ) throw new UserException ("El usuario ya esta registrado") 
+		if ( miembros.stream.anyMatch[it.nick.equals(miembro.nick)|| it.mail.equals(miembro.mail)] )  throw new UserException ("El usuario o el mail ya estan en uso") 
 		miembros.add(miembro)
 	}
 	

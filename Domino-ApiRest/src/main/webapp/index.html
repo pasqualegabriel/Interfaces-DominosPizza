@@ -5,23 +5,38 @@
     <meta charset="utf-8">
     <title>Domino Pizzas</title>
 
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+
+
     <!-- JQUERY -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-
-
-    <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- ANGULAR  -->
+    <!-- ANGULAR -->
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+
+    <!-- BOOTBOX (dialogos de confirmacion) http://bootboxjs.com/ -->
+    <script src="node_modules/bootbox/bootbox.min.js"></script>
+
+    <!-- ANGULAR  -->
+    <script src="node_modules/angular-animate/angular-animate.js"></script>
+
+    <!-- LOADING BAR -->
+    <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+    <link rel="stylesheet" href="node_modules/angular-loading-bar/build/loading-bar.min.css"/>
 
     <!-- UNDERSCORE -->
     <script src="node_modules/underscore/underscore-min.js"></script>
+
 
 </head>
 
@@ -29,10 +44,7 @@
 
 <div class="container">
     <div class="page-header">
-        <h1>
-            Domino
-            <small>Pizzas</small>
-        </h1>
+        <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
     </div>
 
     <div class="well-lg">
@@ -42,6 +54,20 @@
 </div>
 
 <!-- nuestra aplicacion js -->
+
+
+<script src="models/Distribucion.js"></script>
+<script src="models/DistribucionEnPizza.js"></script>
+<script src="models/FormaDeRetiro.js"></script>
+<script src="models/Ingrediente.js"></script>
+<script src="models/PairIngredienteDistribucionPizza.js"></script>
+<script src="models/Pedido.js"></script>
+<script src="models/Pizza.js"></script>
+<script src="models/Plato.js"></script>
+<script src="models/Sesion.js"></script>
+<script src="models/Tamanio.js"></script>
+<script src="models/User.js"></script>
+
 <script src="js/dominoApp.js"></script>
 <script src="js/routes.js"></script>
 <script src="js/controllers/iniciarSesion.js"></script>
@@ -49,7 +75,7 @@
 <script src="js/controllers/customPizza.js"></script>
 <script src="js/controllers/listaPromos.js"></script>
 <script src="js/controllers/confirmarPedido.js"></script>
-<script src="js/services/usuariosService.js"></script>
+<script src="js/services/UserService.js"></script>
 <script src="js/services/sesionService.js"></script>
 <script src="js/services/pizzaService.js"></script>
 <script src="js/services/tamanioService.js"></script>

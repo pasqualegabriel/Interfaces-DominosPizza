@@ -1,42 +1,41 @@
 
-dominoApp.controller('SessionCrl', function($state, userService, sesionService) {
-    return new SessionModel( $state, userService, sesionService);
+dominoApp.controller('SessionCrl', function($state, sesionService,pedidosService) {
+    return new SessionModel( $state, sesionService,pedidosService);
 });
 
-function SessionModel($state, userService, sesionService,pedidosService) {
+function SessionModel($state, sesionService,pedidosService) {
 
     /* Atributos */
+    var self = this;
 
-    this.nick = '';
-    this.pass = '';
-    this.selectedUser= undefined;
+    self.nick = '';
+    self.pass = '';
+    self.selectedUser= undefined;
+    self.user= undefined;
+
 
     /*Protocolo */
-    this.chequear = function() {
-        this.selectedUser= userService.getUserByNick(this.nick);
-
-        if((this.validUserCredentials()) ){
-                this.registrarInicio();
-                $state.go("pizzaSelector", {id:pedidosService.newPedido().id});
-
-        }
-    };
 
     this.validUserCredentials = function () {
-        return !this.userNotFound() && !this.incorrectPassword()
-    };
 
+        var login = {
+            "nick" :  self.nick,
+            "password" : self.pass
+        };
 
-    this.registrarInicio = function () {
-        sesionService.newSesion(this.selectedUser)
-    };
+        //new Sesion(self.nick, self.password);
 
-    this.userNotFound = function() {
-      return this.selectedUser === undefined
-    };
+        var cbValidation = function(data) {
+            pedidosService.newPedido(data.nick);
+            $state.go("pizzaSelector", { id: data.nick});
+        };
 
-    this.incorrectPassword = function(){
-        return this.selectedUser.password !== this.pass
+        var errorHandler = function (error) {
+
+            alert(error.error)
+        };
+
+        return sesionService.validation(login,cbValidation,errorHandler)
     };
 
     this.goRegister = function() {

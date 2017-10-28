@@ -22,7 +22,7 @@ class Miembro extends Usuario {
 	
 	String 				nombre
 	String 				nick
-	String 				password
+	public String 				password
 	String				mail
 	String 				direccion
 	List<Pedido>    	historialDePedidos = newArrayList

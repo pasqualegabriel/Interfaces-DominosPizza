@@ -5,25 +5,23 @@ dominoApp.service("pedidosService", function () {
 
 
 function PedidoRepo(){
-    this.lastId= 0; //debe pedir al repo cual es el ultimo.
 
-    this.pedidosLocales =   [
-    ];
-
-    this.newPedido = function (unMiembro) {
-        var unNuevoPedido = new Pedido(this.lastId, unMiembro);
-        this.addPedidoEnContruccion(unNuevoPedido);
-        this.lastId= this.lastId+1;
-        return unNuevoPedido;
-    };
+    this.pedidosLocales =[];
 
     this.addPedidoEnContruccion = function (unPedido) {
         this.pedidosLocales.push(unPedido);
     };
 
+    this.newPedido = function (aIdMiembro) {
+        var unNuevoPedido = new Pedido(aIdMiembro);
+        this.addPedidoEnContruccion(unNuevoPedido);
+    };
+
+
+
     this.getPedidoEnContruccionById = function (aId) {
         return _.find(this.pedidosLocales, function (unPedido) {
-            return unPedido.id === aId;
+            return unPedido.idMiembro === aId;
         })
     };
 
