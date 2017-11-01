@@ -3,17 +3,11 @@
 		<title>ingredientesExtras</title>	
 
 		<link rel="stylesheet" type="text/css" href="../css/ingredientesExtrasStyles.css">
-
-  		<!-- JQUERY -->
- 		<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-
-		<!-- BOOTSTRAP -->
+<!--
+		&lt;!&ndash; BOOTSTRAP &ndash;&gt;
  		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
  		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
- 		<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
- 		<!-- ANGULAR  -->
-		<script src="../node_modules/angular/angular.min.js"></script>
+ 		<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
 
 	</head>
 
@@ -25,16 +19,17 @@
 
 		<div id="titulo">
 			<div id="tituloIzq">
-	            <label><h1>Napolitana</h1></label>
+				<label>{{promos.pepita()}}</label>
+	          <label>{{promos.nombreDePizza}}</label>
 	        </div>
 	        <div id="tituloCenter">
-	            <label><h3>Grande</h3></label>
+				  <label><h3>{{promos.tamanioDePlato}}</h3></label>   </div>
 	        </div>
 	        <div id="tituloDer">
-	        	<label><h3><span class="label label-primary">$ 7</span></h3></label>
+	        	<label><h3><span class="label label-primary">{{promos.precioTotalDelPlato}}</span></h3></label>
 	        </div>
 		</div>
-
+<!--
 			<div id="gral">
 
 				<ul data-ng-repeat="distribucion in promos.listaDeDistribuciones">
@@ -56,7 +51,8 @@
 				  
 				</ul>	
 
-		</div>
+		</div>-->
+<!--
 
 		<div id="extras">
 			
@@ -73,6 +69,7 @@
           </button>
           </div>
 		</div>
+-->
 
 
 	</body>

@@ -16,26 +16,24 @@ function SessionModel($state, sesionService,pedidosService) {
 
     /*Protocolo */
 
+
+    this.errorHandler = function (error) {
+
+        alert(error.data.error)
+    };
+
     this.validUserCredentials = function () {
 
-        var login = {
-            "nick" :  self.nick,
-            "password" : self.pass
-        };
+        var login = new Login(self.nick, self.pass) ;
 
-        //new Sesion(self.nick, self.password);
-
-        var cbValidation = function(data) {
+        var goToPizza = function(data) {
             pedidosService.newPedido(data.nick);
             $state.go("pizzaSelector", { id: data.nick});
         };
 
-        var errorHandler = function (error) {
+        return sesionService.validate(login).then(goToPizza).catch(this.errorHandler);
 
-            alert(error.error)
-        };
 
-        return sesionService.validation(login,cbValidation,errorHandler)
     };
 
     this.goRegister = function() {

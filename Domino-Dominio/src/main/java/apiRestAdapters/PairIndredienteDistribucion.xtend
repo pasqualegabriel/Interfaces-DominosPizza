@@ -1,15 +1,16 @@
 package apiRestAdapters
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import pizza.Ingrediente
 
 @Accessors
 class PairIndredienteDistribucion {
-	String nombre
-	String distribucion
+	Ingrediente ingrediente
+	String 		distribucion
 	new(){}
 	
-	new(String aNombre, String aDistribucion){
-		nombre			=	aNombre
+	new(Ingrediente aIngrediente, String aDistribucion){
+		ingrediente		= aIngrediente
 		distribucion	= aDistribucion
 	}
 }

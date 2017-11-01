@@ -14,86 +14,53 @@ function PizzaModel($state, pizzaService,$stateParams,pedidosService,platoServic
 
     self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
 
-    this.getPromos = function () {
+    self.precioBase = 0;
 
-        var errorHandler = function (error) {
-            alert(error.error)
-        };
+    this.errorHandler = function (error) {
+        alert(error.data.error)
+    };
+
+    this.getPromos = function () {
 
         pizzaService.getPizzas().then(function (listadDePizzaAdaptadas) {
             self.listaDePromos  = listadDePizzaAdaptadas;
-        }).catch(errorHandler)
+        }).catch(this.errorHandler)
+    };
+
+    this.getPrecioBase = function () {
+        pizzaService.getPrecioBase().then(function (precioBase) {
+              self.precioBase  = precioBase
+        }).catch(this.errorHandler)
     };
 
     this.getPromos();
+    this.getPrecioBase();
 
 
 
-    this.precioBase = function () {
-        return pizzaService.precioBase;
-    };
-    
     this.armaTuPizza   = function () {
 
-        $state.go("seleccionDeTamanio",{nombre:pizzaService.newPizza()});
+        /* pensar si es responsabilidad del controller o del service*/
+
+        var pizza = new Pizza("Customizada",self.precioBase);
+
+        var plato = platoService.newPlato(pizza);
+        self.pedido.addPlatoEnConstruccion(plato);
+        self.pedido.setIdPlatoActual(plato.id);
+        $state.go("seleccionDeTamanio",{id: $stateParams.id});
+
 
     };
 
     this.seleccionar = function(unaPizza)
     {
-        var plato = platoService.newPlato(unaPizza);
-        self.pedido.addPlato(plato);
-        self.pedido.setIdPizzaActual(unaPizza.nombre);
+        /* pensar si es responsabilidad del controller o del service*/
 
+        var plato = platoService.newPlato(unaPizza);
+        self.pedido.addPlatoEnConstruccion(plato);
+        self.pedido.setIdPlatoActual(plato.id);
         $state.go("seleccionDeTamanio",{id: $stateParams.id});
 
-    };
-
-}
-
-
-dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService,pizzaService,pedidosService) {
-
-
-    return new SizeModel($stateParams, $state, tamanioService,pizzaService,pedidosService);
-
-
-});
-
-function SizeModel($stateParams, $state, tamanioService,pizzaService,pedidosService){
-
-    var self= this;
-
-    self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
-
-    self.idPizzaActual     = self.pedido.idPizzaActual;
-    self.pizzaSeleccionada = self.pedido.searchPizza(self.idPizzaActual).pizza;
-
-
-    self.tamanios = [];
-
-    this.getSize=function () {
-        var errorHandler = function (error) {
-            alert(error.error)
-        };
-
-        var updateMoney= function (aSize) {
-            aSize.calcularPrecio(self.pizzaSeleccionada.precioBase);
-            return aSize;
-        };
-
-        tamanioService.getTamanio().then(function (listSize) {
-            self.tamanios  = listSize.map(updateMoney);
-        }).catch(errorHandler)
-    };
-
-    this.getSize();
-
-
-    this.armarPizza = function(unaPizza, unTamanio)
-    {
-       //Las pizzas no tienen tamanio, los platos tienen tamanio!! unaPizza.setTamanio(unTamanio);
-        $state.go("ingredientesExtras", {nombre: unaPizza.nombre});
     };
 
 }

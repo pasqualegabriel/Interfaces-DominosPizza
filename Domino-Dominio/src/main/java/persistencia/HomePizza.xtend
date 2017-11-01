@@ -7,7 +7,8 @@ import org.apache.commons.lang.StringUtils
 
 @Accessors
 class HomePizza {
-	static HomePizza instance
+	static 	HomePizza instance
+	private	Double	  precioBase; 
 
 	static def getInstance() {
 		if (instance == null) {

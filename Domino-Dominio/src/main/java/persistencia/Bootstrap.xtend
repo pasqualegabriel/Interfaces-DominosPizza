@@ -22,7 +22,9 @@ import pizza.Grande
 
 class Bootstrap {
 	def	inicializar(){
-				// Creacion de Ingredientes
+		
+		
+		// Creacion de Ingredientes
 		val anchoa = new Ingrediente("Anchoa", 3.00)
 		val morron = new Ingrediente("Morron", 10.00)
 		val jamon = new Ingrediente("Jamon", 7.00)
@@ -52,6 +54,9 @@ class Bootstrap {
 		HomePizza.instance.agregarPromocion(pizza1)
 		HomePizza.instance.agregarPromocion(pizza2)
 		HomePizza.instance.agregarPromocion(pizza3)
+		
+		//Le damos un precio base a pizza
+		HomePizza.instance.precioBase = 70.00
 
 		// Creacion de platos
 		var plato1 = new Plato(pizza1, tamanio1, new Distribucion)

@@ -16,6 +16,8 @@ class PizzaApiAddapter {
 	new(Pizza aPizza){
 		nombre			= aPizza.nombre
 		precio			= aPizza.precioBase
-		aPizza.distribucion.ingredientes.forEach[ n| ingredientes.add(new PairIndredienteDistribucion(n.ingrediente.nombre,n.distribucion.toString))]
+		aPizza.distribucion.ingredientes.forEach[ 
+			n| ingredientes.add(new PairIndredienteDistribucion(n.ingrediente,n.distribucion.toString))
+		]
 	}
 }

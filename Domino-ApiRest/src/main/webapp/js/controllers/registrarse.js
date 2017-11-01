@@ -24,33 +24,26 @@ function RegisterModel($state, userService) {
         return this.contrasenia === this.repitaContrasenia
     };
 
+    this.goToLogin = function() {
+        $state.go("logIn");
+    };
+
+    this.errorHandler = function (error) {
+        alert(error.data.error)
+    };
+
 
     this.register = function() {
 
-        if( this.contrasenia !== this.repitaContrasenia){
+        if (! this.laContraseniaCoincide()){
             alert("Las contraseñas no son iguales")
+        }else{
+            var newUser = new Miembro(this.nombre, this.nick, this.contrasenia, this.mail, this.direccion);
+
+            userService.validate(newUser).then(this.goToLogin).catch(this.errorHandler);
         }
-        var newUser={
-            "nombre": this.nombre ,
-            "nick": this.nick,
-            "password": this.contrasenia,
-            "mail": this.mail,
-            "direccion": this.direccion,
-            "historialDePedidos": []
-
-        };
-
-        var cbValidation = function(response) {
-            $state.go("logIn");
-        };
-
-        var errorHandler = function (error) {
-
-            alert(error.data.error)
-        };
 
 
-        userService.validate(newUser,cbValidation,errorHandler);
 
     };
 

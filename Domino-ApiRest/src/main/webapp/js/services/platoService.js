@@ -5,16 +5,24 @@ dominoApp.service("platoService", function () {
 
 
 function PlatoRepo(){
-    this.platos =   [
-    ];
+    var self = this;
+    self.platosEnConstruccion = [];
+    self.lastId = 0 ;
+
+    this.nextId=function () {
+        self.lastId ++
+    };
 
     this.newPlato = function (unaPizza) {
-        var newPlato = new Plato(unaPizza);
-        return newPlato;
+        var nuevoPLato= new Plato(unaPizza,self.lastId);
+        this.nextId();
+        return nuevoPLato;
     };
 
-    this.addPlato = function (unPlato) {
-        this.platos.push(unPlato);
+    this.addPlatoEnConstruccion = function (unPlato) {
+        self.platosEnConstruccion.push(unPlato);
     };
+
+
 }
 

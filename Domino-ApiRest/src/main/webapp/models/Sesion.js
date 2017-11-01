@@ -1,4 +1,4 @@
-function Sesion(nick, password) {
+function Login(nick, password) {
     this.nick = nick;
     this.password = password;
 }

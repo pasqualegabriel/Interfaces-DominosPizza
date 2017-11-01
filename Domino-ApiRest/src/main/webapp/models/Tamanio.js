@@ -6,7 +6,7 @@ function Tamanio(json) {
     self.factorDeTamanio    = json.factorDeTamanio;
     self.precio             = "";
 
-    this.calcularPrecio             = function (precio) {
+    this.aplicarFactorDeTamanio             = function (precio) {
 
         self.precio =   precio * self.factorDeTamanio;
     }

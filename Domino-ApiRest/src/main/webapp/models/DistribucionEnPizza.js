@@ -1,16 +1,15 @@
 function DistribucionEnPizza(listIngredientes) {
 
-    self = this;
+    var self = this;
     self.listaLocal= [];
 
-/*    this.addIngrediente = function (ingrediente) {
-        this.ingredientes.push(new PairIngredienteDistribucionPizza(ingrediente.nombre,ingrediente.distribucion))
-    };*/
 
     var list = function (listIngredientes) {
-        //listIngredientes.map(this.addIngrediente)
-        angular.forEach(listIngredientes,function (ingrediente) {
-            self.listaLocal.push(new PairIngredienteDistribucionPizza(ingrediente.nombre,ingrediente.distribucion))
+
+        angular.forEach(listIngredientes,function (lisDistribucion) {
+            var nombreIng= lisDistribucion.ingrediente.nombre;
+            var precioIng= lisDistribucion.ingrediente.precio;
+            self.listaLocal.push(new PairIngredienteDistribucionPizza(new Ingrediente(nombreIng,precioIng),lisDistribucion.distribucion))
         });
         return self.listaLocal
     };

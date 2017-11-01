@@ -2,34 +2,28 @@ function Pedido(aIdMiembro){
 
     var self=this;
 
-    self.idMiembro      = aIdMiembro;
-    self.platos         = [];
-    self.aclaracion     = "";
-    self.formaDeRetiro  = new FormaDeRetiro("","");
-    self.monto          = "";
-    self.idPizzaActual  = "";
+    self.idMiembro           = aIdMiembro;
+    self.platosEnConstruccion              = [];
+    self.platosConfirmados   = [];
+    self.aclaracion          = "";
+    self.formaDeRetiro       = new FormaDeRetiro("","");
+    self.monto               = "";
+    self.idPlatoActual       = "";
 
-    this.addPlato = function (aPlato) {
-        self.platos.push(aPlato);
-
+    this.addPlatoEnConstruccion = function (aPlato) {
+        self.platosEnConstruccion.push(aPlato);
     };
 
-    this.setIdPizzaActual= function (aId) {
-        self.idPizzaActual=aId;
+    this.setIdPlatoActual= function (aId) {
+        self.idPlatoActual=aId;
     };
 
-    this.searchPizza = function (aId) {
-        return _.find(self.platos,function (plato){
-            return angular.equals(plato.pizza.nombre,aId);/* === aId;*/
+
+    this.searchPlato= function (aId) {
+        return _.find(self.platosEnConstruccion,function (plato){
+            return angular.equals(plato.id,aId);/* === aId;*/
         });
     };
-
-    this.searchTamanio =function (aTamanio) {
-        return _.find(self.platos,function (aPlato) {
-            return aPlato.tamanio === aTamanio;
-        })
-
-    }
 
 }
 

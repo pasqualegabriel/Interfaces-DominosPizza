@@ -1,6 +1,6 @@
 [
 
-// Usuario
+// Miembro
   {
     "nombre": "Ivan",
     "nick": "nick1",
@@ -48,7 +48,7 @@
     ]
 },
 
-// Pizza
+// PizzaDTO
 {
   "nombre": "Jamon y morron",
   "precioBase": 140,
@@ -96,7 +96,7 @@
         "id": 3,
         "estadoActual": "Listo para enviar",
         "miembro": "nick1",
-        "platos": [
+        "platosEnConstruccion": [
             {
                 "pizza": {
                     "nombre": "Muzzarela",
@@ -127,7 +127,7 @@
         "id": 1,
         "estadoActual": "Listo para retirar",
         "miembro": "nick3",
-        "platos": [
+        "platosEnConstruccion": [
             {
                 "pizza": {
                     "nombre": "Jamon y morron",

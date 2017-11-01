@@ -19,9 +19,10 @@
             <h1>Elige el tamanio de tu pizza</h1>
         </label>
 
+
         <ul data-ng-repeat="tamanio in customSize.tamanios">
 
-            <button id="boton" type="submit" class="btn btn-default" ng-click="customSize.armarPizza(customSize.pizzaSeleccionada, tamanio)">
+            <button id="boton" type="submit" class="btn btn-default" ng-click="customSize.armarPizza(tamanio)">
 
                 <label class="block">
                     <div id="datos">

@@ -1,4 +1,4 @@
-function User(json) {
+function MiembroDTO(json) {
 
 
     this.nombre= json.nombre;
@@ -8,14 +8,16 @@ function User(json) {
     this.direccion = json.direccion;
     this.historialDePedidos = json.historialDePedidos;
 
+}
+
+function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion) {
 
 
+    this.nombre= unNombre;
+    this.nick = unNick;
+    this.password = unPassword;
+    this.mail = unMail;
+    this.direccion = unaDireccion;
+    this.historialDePedidos = [];
 
-    //
-    // "nombre": "goku",
-    //     "nick": "g",
-    //     "password": "1",
-    //     "mail": "goku@gmail.com",
-    //     "direccion": "Av.SiempreViva",
-    //     "historialDePedidos": []
 }

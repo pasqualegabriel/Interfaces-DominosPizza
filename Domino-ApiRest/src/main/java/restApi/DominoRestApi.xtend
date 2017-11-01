@@ -32,6 +32,13 @@ class DominoRestApi {
 		var pizzas = HomePizza.instance.searchPromos(string).map[m|new PizzaApiAddapter(m)].toArray
 		ok(pizzas.toJson)
 	}
+	
+	@Get("/precioBase")
+	def getPrecio(){
+		response.contentType = ContentType.APPLICATION_JSON
+		var precio = HomePizza.instance.precioBase
+		ok(precio.toJson)
+	}
 
 	@Get("/tamanios")
 	def getTamanios(String string) {
