@@ -3,8 +3,12 @@ function Pedido(aIdMiembro){
     var self=this;
 
     self.idMiembro           = aIdMiembro;
+
+    // esto deberia estar en un service
     self.platosEnConstruccion              = [];
     self.platosConfirmados   = [];
+
+
     self.aclaracion          = "";
     self.formaDeRetiro       = new FormaDeRetiro("","");
     self.monto               = "";

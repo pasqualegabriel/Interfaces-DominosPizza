@@ -12,7 +12,19 @@ function Plato(unaPizza,aID){
         return this.pizza.precioBase
     };
 
-    this.getPrecioTotal =function(){
+    this.calcularPrecioDeIngredientesAAgregar = function(listaIngAAgregar) {
+        if(listaIngAAgregar.length === 0 ){
+            return  0
+        }else{
+            var lista = [];
+            listaIngAAgregar.copyWithin(lista);
+            var x = lista.shift().precio();
+            alert(x);
+            return  x + this.calcularPrecioDeIngredientesAAgregar(lista);
+        }
+    };
+
+    this.getCalcularPrecioConIngredientes =function(listaIngAAgregar){
         return this.tamanio.precio+ this.precioDeIngredientesExtra()
     };
 

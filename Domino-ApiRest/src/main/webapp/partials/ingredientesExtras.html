@@ -19,7 +19,6 @@
 
 		<div id="titulo">
 			<div id="tituloIzq">
-				<label>{{promos.pepita()}}</label>
 	          <label>{{promos.nombreDePizza}}</label>
 	        </div>
 	        <div id="tituloCenter">
@@ -29,47 +28,60 @@
 	        	<label><h3><span class="label label-primary">{{promos.precioTotalDelPlato}}</span></h3></label>
 	        </div>
 		</div>
-<!--
+
 			<div id="gral">
 
-				<ul data-ng-repeat="distribucion in promos.listaDeDistribuciones">
-				  
-					<a id="ingredienteExtra" href="#" class="list-group-item list-group-item-info">
-						<label id="begin">
-							<h2>x</h2>
-						</label>
-						<label id="first">
-							<h3>{{distribucion.ingrediente}}</h3>
-						</label>
-						<label id="second"> 
-							<input type="radio" name="nombre" value="pizza.nombre"> {{distribucion.distribucion.d1}}<br>
-							<input type="radio" name="desc"   value="pizza.descripcion"> {{distribucion.distribucion.d2}}<br>
-							<input type="radio" name="precio" value="pizza.precio"> {{distribucion.distribucion.d3}}<br>
-						</label>
-		
-					</a>
+				<ul data-ng-repeat="pairIng in promos.ingredientesDeLaPizza">
+
+					<div>
+						<div>
+							<h1> {{pairIng.ingrediente.nombre}}</h1>
+							<h1> {{pairIng.ingrediente.precio}}</h1>
+						</div>
+						<form>
+							<input type="radio" name="distribucion" value="Mitad Izquierda"  ng-disabled="true" ng-checked="promos.estaEnDistribucion(pairIng,'Izquierda')"> Mitad Izquierda <br>
+							<input type="radio" name="distribucion" value="Toda la Pizza" ng-disabled="true" ng-checked="promos.estaEnDistribucion(pairIng,'Toda')"> Toda la Pizza<br>
+							<input type="radio" name="distribucion" value="Mitad Derecha" ng-disabled="true" ng-checked="promos.estaEnDistribucion(pairIng,'Derecha')"> Mitad Derecha <br>
+						</form>
+
+					</div>
 				  
 				</ul>	
 
-		</div>-->
-<!--
+		</div>
+
+
+
 
 		<div id="extras">
-			
+
 			<h3 id="extrasTitle">Extras</h3>
-		    
-			</br>
-			<ul data-ng-repeat="ingrediente in promos.listaDeIngredientes">
-				<p><a href="https://sites.google.com/site/programacionui/"> + {{ingrediente.nombre}}   (+{{ingrediente.precio}})</a></p>
+			<ul data-ng-repeat="ing in promos.ingredientesExtra">
+
+					<h1>{{ ing.nombre}}</h1>
+				<button type="submit" name="agregarIngrediente" class="btn btn-primary" ng-click="promos.agregarIngredienteExtra(ing)">
+					Agregar
+				</button>
+
 			</ul>
-			</br>
-			<div class="btn-group">
-          <button type="submit" class="btn btn-primary" ng-click="promos.continuar()">
-            Continuar
-          </button>
-          </div>
 		</div>
--->
+	<div style="float:left ">
+		<ul data-ng-repeat="ing in promos.ingredientesAAgregar">
+
+			<h1>{{ ing.ingrediente.nombre}}</h1>
+			<h1>{{ ing.ingrediente.precio}}</h1>
+			<h1>{{ ing.distribucion}}</h1>
+			<form>
+				<input type="radio" name="distribucion" value="Izquierda" 	ng-model="ing.distribucion"> Mitad Izquierda <br>
+				<input type="radio" name="distribucion" value="Toda"  		ng-model="ing.distribucion"> Toda la Pizza   <br>
+				<input type="radio" name="distribucion" value="Derecha" 	ng-model="ing.distribucion"> Mitad Derecha   <br>
+			</form>
+
+			<button type="submit" name="quitarIngrediente" class="btn btn-primary" ng-click="promos.quitarIngredienteExtra(ing)" >
+				quitar
+			</button>
+		</ul>
+	</div>
 
 
 	</body>

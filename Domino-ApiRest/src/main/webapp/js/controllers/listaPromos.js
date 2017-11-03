@@ -10,41 +10,80 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
     var self = this;
 
-    this.pepita =function() {
-        return $stateParams.id
-    };
-
     self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
     self.platoEnConstruccion = self.pedido.searchPlato(self.pedido.idPlatoActual);
 
-    this.pizza= self.platoEnConstruccion.pizza;
-    this.nombreDePizza= this.pizza.nombre;
+    self.pizza= self.platoEnConstruccion.pizza;
+    self.nombreDePizza= self.pizza.nombre;
 
-    this.tamanioDePlato= this.platoEnConstruccion.tamanio.nombre;
-
-
-    this.precioTotalDelPlato= this.platoEnConstruccion.getPrecioTotal();
-    /*
-              this.ingredientesDeLaPizza = this.pizza.distribucion.ingredientes;
-
-              // esto es una lista de ingredientes, nada mas.
-              this.ingredientesDisponibles= ingredientesService.getAllIngredientes();
+    self.tamanioDePlato= self.platoEnConstruccion.tamanio.nombre;
 
 
-              this.ingredientesAAgregar= function(){
-                return  self.platoEnConstruccion.ingredientesExtras
-              };
+    self.precioTotalDelPlato     = undefined;
+
+    self.ingredientesAAgregar    = self.platoEnConstruccion.ingredientesExtras.ingredientes;
+    self.ingredientesDeLaPizza   = self.pizza.distribucion.ingredientes;
+    self.ingredientesDisponibles = undefined;
+    self.ingredientesExtra       = undefined;
+
+    this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
+        //hacerle una funcion a pairDeIngrediente
+        return unaLista.some(function(pairDeIngEnPizza){ return angular.equals( pairDeIngEnPizza.ingrediente.nombre, unIngrediente.nombre) } )
+    };
+
+    this.ingredientesExtraAAgregar = function(unaListaDeIngredientes) {
+
+        //Elegir buenos nombres
+        var xx     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente)};
+        var xy     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente)};
+
+        var retorno = unaListaDeIngredientes.filter(xx);
+        self.ingredientesExtra = retorno.filter(xy);
+    };
+
+    this.calcularPrecio = function () {
+
+        self.precioTotalDelPlato=self.platoEnConstruccion.calcularPrecioDeIngredientesAAgregar(self.ingredientesAAgregar);
+        alert(self.precioTotalDelPlato);
+    };
 
 
-              this.ingredientesExtra= function() {
-                 var retorno= _.filter(this.ingredientesDisponibles, function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente); });
-                 return _.filter(retorno, function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente); })
-              };
+    // Por ahora lo dejamos que lo setee a los ingredientes disponibles aca, despues vemos si lo reutilizamos
+    this.todosLosIngredientes = function(){
+        ingredienteService.getAllIngredientes().then(function (listaDeIngredientes) {
+                self.ingredientesDisponibles= listaDeIngredientes;
+                return listaDeIngredientes;
+            }).then(self.ingredientesExtraAAgregar)
+    };
 
-              this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
-                    return _.some(unaLista, function(pairingrediente){ return pairingrediente.ingrediente === unIngrediente.nombre; } );
-              };
-      */
+
+
+
+    this.agregarIngredienteExtra= function(unIngrediente){
+        self.ingredientesAAgregar.push( new PairIngredienteDistribucionPizza(unIngrediente,""));
+        self.ingredientesExtra.filter(function(ingredienteExtra) {
+            return angular.equals(ingredienteExtra.nombre, unIngrediente.nombre)
+        });
+
+        this.ingredientesExtraAAgregar(self.ingredientesDisponibles);
+        this.calcularPrecio();
+    };
+
+    this.estaEnDistribucion= function(pairIng, distribucionNombre){
+        return pairIng.tieneComoDistribucion(distribucionNombre)
+    };
+
+
+    this.quitarIngredienteExtra = function(unPairIngrediente){
+        self.ingredientesExtra.push(unPairIngrediente.ingrediente);
+        self.ingredientesAAgregar = self.ingredientesAAgregar.filter(function(otroPairIngrediente) {
+            return !angular.equals(unPairIngrediente.ingrediente.nombre, otroPairIngrediente.ingrediente.nombre)
+        });
+        this.ingredientesExtraAAgregar(self.ingredientesDisponibles);
+    };
+
+    this.calcularPrecio();
+    this.todosLosIngredientes();
 
     /*this.seleccionar = function()
     {
@@ -66,7 +105,7 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
     //this.tamanioDePlato= this.platoEnConstruccion.tamanio;
 
 /*
-    this.precioTotalDelPlato= this.platoEnConstruccion.getPrecioTotal();
+    this.precioTotalDelPlato= this.platoEnConstruccion.getCalcularPrecioConIngredientes();
 
     this.ingredientesDeLaPizza = this.pizza.distribucion.ingredientes;
 

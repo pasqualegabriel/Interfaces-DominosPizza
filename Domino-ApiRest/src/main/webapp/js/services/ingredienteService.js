@@ -12,8 +12,9 @@ function IngredienteRepo($http){
         getAllIngredientes: function() {
             return $http.get("/ingredientes").then(getData).then(function(listJson){
                 return listJson.map(transformIngredientes)
-            })}
+            })
         }
+    }
 }
 
 
