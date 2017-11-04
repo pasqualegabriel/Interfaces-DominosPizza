@@ -21,17 +21,17 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
     self.precioTotalDelPlato     = undefined;
 
-    self.ingredientesAAgregar    = self.platoEnConstruccion.ingredientesExtras.ingredientes;
+    //self.ingredientesAAgregar    = self.platoEnConstruccion.ingredientesExtras.ingredientes;
     self.ingredientesDeLaPizza   = self.platoEnConstruccion.pizza.distribucion.ingredientes;
     self.ingredientesDisponibles = undefined;
     self.ingredientesExtra       = undefined;
 
     this.nombreDePizza = function(){
-        return self.platoEnConstruccion.pizza.nombre;
+        return self.platoEnConstruccion.nombreDePizza();
     };
 
     this.nombreDeTamanio = function(){
-        return self.platoEnConstruccion.tamanio.nombre;
+        return self.platoEnConstruccion.nombreTamanio();
     };
 
     this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
@@ -42,7 +42,8 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
     this.ingredientesExtraAAgregar = function(unaListaDeIngredientes) {
 
-        var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente)};
+        //var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente)};
+        var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.platoEnConstruccion.ingredientesExtraConDist(), ingrediente)};
         //Elegir buenos nombres
         /*var xx     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente)};
         var xy     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente)};
@@ -53,8 +54,10 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
     };
 
     this.calcularPrecio = function () {
-
-        self.precioTotalDelPlato=self.platoEnConstruccion.calcularPrecioDeIngredientesAAgregar(self.ingredientesAAgregar);
+        return self.platoEnConstruccion.getCalcularPrecioConIngredientes();
+        //self.precioTotalDelPlato=self.platoEnConstruccion.getCalcularPrecioConIngredientes();
+        //self.precioTotalDelPlato=self.platoEnConstruccion.calcularPrecioDeIngredientesAAgregar();
+        //self.precioTotalDelPlato=self.platoEnConstruccion.calcularPrecioDeIngredientesAAgregar(self.ingredientesAAgregar);
 
     };
 
@@ -71,7 +74,8 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
 
     this.agregarIngredienteExtra= function(unIngrediente){
-        self.ingredientesAAgregar.push( new PairIngredienteDistribucionPizza(unIngrediente,""));
+        self.platoEnConstruccion.agregarIngredienteExtra(new PairIngredienteDistribucionPizza(unIngrediente,""));
+        //self.ingredientesAAgregar.push( new PairIngredienteDistribucionPizza(unIngrediente,""));
         self.ingredientesExtra = self.ingredientesExtra.filter(function(ingredienteExtra) {
             return angular.equals(ingredienteExtra.nombre, unIngrediente.nombre)
         });
@@ -86,10 +90,11 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
 
     this.quitarIngredienteExtra = function(unPairIngrediente){
-        self.ingredientesExtra.push(unPairIngrediente.ingrediente);
-        self.ingredientesAAgregar = self.ingredientesAAgregar.filter(function(otroPairIngrediente) {
-            return !angular.equals(unPairIngrediente.ingrediente.nombre, otroPairIngrediente.ingrediente.nombre)
-        });
+        self.platoEnConstruccion.quitarIngredienteExtra(unPairIngrediente);
+        //self.ingredientesExtra.push(unPairIngrediente.ingrediente);
+        //self.ingredientesAAgregar = self.ingredientesAAgregar.filter(function(otroPairIngrediente) {
+        //    return !angular.equals(unPairIngrediente.ingrediente.nombre, otroPairIngrediente.ingrediente.nombre)
+        //});
         this.ingredientesExtraAAgregar(self.ingredientesDisponibles);
         this.calcularPrecio();
     };

@@ -9,7 +9,7 @@ function PairIngredienteDistribucionPizza(aIng, aDir) {
 
     this.precio= function () {
         return self.ingrediente.precio;
-    }
+    };
 
     this.esElIngrediente = function(unIngrediente){
         return angular.equals( self.ingrediente.nombre, unIngrediente.nombre);

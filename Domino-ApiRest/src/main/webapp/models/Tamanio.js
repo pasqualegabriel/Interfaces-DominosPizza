@@ -6,9 +6,14 @@ function Tamanio(json) {
     self.factorDeTamanio    = json.factorDeTamanio;
     self.precio             = "";
 
-    this.aplicarFactorDeTamanio             = function (precio) {
+//    this.aplicarFactorDeTamanio= function (precio) {
+//
+//        self.precio =   precio * self.factorDeTamanio;
+//    };
 
-        self.precio =   precio * self.factorDeTamanio;
-    }
+    this.calcularPrecioPorTamanio= function (precio)
+    {
+        return precio * self.factorDeTamanio;
+    };
 
 }

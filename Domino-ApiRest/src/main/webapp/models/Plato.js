@@ -12,11 +12,11 @@ function Plato(unaPizza,aID){
         return this.pizza.precioBase
     };
 
-    this.calcularPrecioDeIngredientesAAgregar = function(listaIngAAgregar) {
-        if(listaIngAAgregar.length === 0 ){
+    this.calcularPrecioDeIngredientesAAgregar = function() {
+        if(self.ingredientesExtraConDist().length === 0 ){
             return 0;
         }else {
-            return listaIngAAgregar.map(function (parIngDist) {
+            return self.ingredientesExtraConDist().map(function (parIngDist) {
                 return parIngDist.precio()}).reduce(function (total, numero) {
                 return total + numero;
             })
@@ -30,8 +30,16 @@ function Plato(unaPizza,aID){
         }*/
     };
 
-    this.getCalcularPrecioConIngredientes =function(listaIngAAgregar){
-        return this.tamanio.precio+ this.precioDeIngredientesExtra()
+    this.agregarIngredienteExtra = function(unParIngDist) {
+        self.ingredientesExtras.agregarParIngDist(unParIngDist);
+    };
+
+    this.quitarIngredienteExtra = function(unParIngDist) {
+        self.ingredientesExtras.quitarParIngDist(unParIngDist);
+    };
+
+    this.getCalcularPrecioConIngredientes =function(){
+        return self.tamanio.calcularPrecioPorTamanio(self.pizza.precioBase) + self.calcularPrecioDeIngredientesAAgregar();
     };
 
     this.precioDeIngredientesExtra =function(){
@@ -44,12 +52,14 @@ function Plato(unaPizza,aID){
             contador +=precio;
         });
         return contador;
-    }
+    };
 
     this.nombreDePizza = function()
     {   return self.pizza.nombre;   };
 
     this.nombreTamanio = function()
-    {   return self.tamanio.nombre;   }
+    {   return self.tamanio.nombre;   };
 
+    this.ingredientesExtraConDist = function()
+    {   return self.ingredientesExtras.ingredientes;   };
 }

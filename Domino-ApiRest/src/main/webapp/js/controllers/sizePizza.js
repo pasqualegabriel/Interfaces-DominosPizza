@@ -26,9 +26,15 @@ function SizeModel($stateParams, $state, tamanioService,pedidosService){
         return aSize;
     };
 
+    this.aplicarFactorDeTamanioAlPrecioBase = function (aSize) {
+        return aSize.calcularPrecioPorTamanio(self.platoEnConstruccion.precioBaseDePizza());
+    };
+
+
     this.getSize=function () {
         tamanioService.getTamanio().then(function (listSize) {
-            self.tamanios  = listSize.map(self.updateMoney);
+            //self.tamanios  = listSize.map(self.updateMoney);
+            self.tamanios  = listSize;
         }).catch(this.errorHandler)
     };
 
