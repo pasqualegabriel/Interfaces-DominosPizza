@@ -19,16 +19,15 @@
 
 		<div id="titulo">
 			<div id="tituloIzq">
-	          <label>{{promos.nombreDePizza}}</label>
+	          <label>{{promos.nombreDePizza()}}</label>
 	        </div>
 	        <div id="tituloCenter">
-				  <label><h3>{{promos.tamanioDePlato}}</h3></label>   </div>
+				  <label><h3>{{promos.nombreDeTamanio()}}</h3></label>   </div>
 	        </div>
 	        <div id="tituloDer">
 	        	<label><h3><span class="label label-primary">{{promos.precioTotalDelPlato}}</span></h3></label>
 	        </div>
 		</div>
-
 			<div id="gral">
 
 				<ul data-ng-repeat="pairIng in promos.ingredientesDeLaPizza">

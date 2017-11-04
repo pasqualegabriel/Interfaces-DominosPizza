@@ -13,38 +13,49 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
     self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
     self.platoEnConstruccion = self.pedido.searchPlato(self.pedido.idPlatoActual);
 
-    self.pizza= self.platoEnConstruccion.pizza;
+    /*self.pizza= self.platoEnConstruccion.pizza;
     self.nombreDePizza= self.pizza.nombre;
 
-    self.tamanioDePlato= self.platoEnConstruccion.tamanio.nombre;
+    self.tamanioDePlato= self.platoEnConstruccion.tamanio.nombre;*/
 
 
     self.precioTotalDelPlato     = undefined;
 
     self.ingredientesAAgregar    = self.platoEnConstruccion.ingredientesExtras.ingredientes;
-    self.ingredientesDeLaPizza   = self.pizza.distribucion.ingredientes;
+    self.ingredientesDeLaPizza   = self.platoEnConstruccion.pizza.distribucion.ingredientes;
     self.ingredientesDisponibles = undefined;
     self.ingredientesExtra       = undefined;
 
+    this.nombreDePizza = function(){
+        return self.platoEnConstruccion.pizza.nombre;
+    };
+
+    this.nombreDeTamanio = function(){
+        return self.platoEnConstruccion.tamanio.nombre;
+    };
+
     this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
-        //hacerle una funcion a pairDeIngrediente
-        return unaLista.some(function(pairDeIngEnPizza){ return angular.equals( pairDeIngEnPizza.ingrediente.nombre, unIngrediente.nombre) } )
+        return unaLista.some(function(pairDeIngEnPizza){ return pairDeIngEnPizza.esElIngrediente(unIngrediente)});
+        //hacerle una funcion a
+        //return unaLista.some(function(pairDeIngEnPizza){ return angular.equals( pairDeIngEnPizza.ingrediente.nombre, unIngrediente.nombre) } )
     };
 
     this.ingredientesExtraAAgregar = function(unaListaDeIngredientes) {
 
+        var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente)};
         //Elegir buenos nombres
-        var xx     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente)};
+        /*var xx     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente)};
         var xy     = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesAAgregar, ingrediente)};
 
         var retorno = unaListaDeIngredientes.filter(xx);
-        self.ingredientesExtra = retorno.filter(xy);
+        self.ingredientesExtra = retorno.filter(xy);*/
+        self.ingredientesExtra = unaListaDeIngredientes.filter(funcionDeFiltrado);
     };
 
     this.calcularPrecio = function () {
 
         self.precioTotalDelPlato=self.platoEnConstruccion.calcularPrecioDeIngredientesAAgregar(self.ingredientesAAgregar);
-        alert(self.precioTotalDelPlato);
+
     };
 
 
@@ -61,7 +72,7 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
     this.agregarIngredienteExtra= function(unIngrediente){
         self.ingredientesAAgregar.push( new PairIngredienteDistribucionPizza(unIngrediente,""));
-        self.ingredientesExtra.filter(function(ingredienteExtra) {
+        self.ingredientesExtra = self.ingredientesExtra.filter(function(ingredienteExtra) {
             return angular.equals(ingredienteExtra.nombre, unIngrediente.nombre)
         });
 
@@ -80,6 +91,7 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
             return !angular.equals(unPairIngrediente.ingrediente.nombre, otroPairIngrediente.ingrediente.nombre)
         });
         this.ingredientesExtraAAgregar(self.ingredientesDisponibles);
+        this.calcularPrecio();
     };
 
     this.calcularPrecio();
