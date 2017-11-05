@@ -1,9 +1,9 @@
 
-dominoApp.controller('SessionCrl', function($state, sesionService,pedidosService) {
-    return new SessionModel( $state, sesionService,pedidosService);
+dominoApp.controller('SessionCrl', function($state, sesionService,pedidosService,userService) {
+    return new SessionModel( $state, sesionService,pedidosService,userService);
 });
 
-function SessionModel($state, sesionService,pedidosService) {
+function SessionModel($state, sesionService,pedidosService,userService) {
 
     /* Atributos */
     var self = this;
@@ -28,7 +28,8 @@ function SessionModel($state, sesionService,pedidosService) {
 
         var goToPizza = function(data) {
             pedidosService.newPedido(data.nick);
-            $state.go("pizzaSelector", { id: data.nick});
+            userService.setUserLoggin(data);
+            $state.go("pizzaSelector");
         };
 
         return sesionService.validate(login).then(goToPizza).catch(this.errorHandler);

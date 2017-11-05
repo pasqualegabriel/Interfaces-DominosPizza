@@ -25,4 +25,10 @@ function PedidoRepo(){
         })
     };
 
+    return {
+        confirmarPedido:  function (unPedido) {
+            return $http.post("/pedidos", unPedido);
+        }
+    }
+
 }

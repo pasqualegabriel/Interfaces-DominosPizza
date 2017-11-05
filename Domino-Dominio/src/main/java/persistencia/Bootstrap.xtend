@@ -28,18 +28,25 @@ class Bootstrap {
 		val anchoa = new Ingrediente("Anchoa", 3.00)
 		val morron = new Ingrediente("Morron", 10.00)
 		val jamon = new Ingrediente("Jamon", 7.00)
+		val palmito= new Ingrediente("Palmito con salsa Golf",10.00)
 		HomeIngrediente.instance.agregarIngrediente(anchoa)
 		HomeIngrediente.instance.agregarIngrediente(morron)
 		HomeIngrediente.instance.agregarIngrediente(jamon)
-
+		HomeIngrediente.instance.agregarIngrediente(palmito)
 		// creacion de Distribuciones
 		var distribucion1 = new Distribucion
 		var distribucion2 = new Distribucion
 		var distribucion3 = new Distribucion
+		var distribucionEspecial = new Distribucion
 		distribucion2.agregarIngrediente(anchoa, DistribucionEnPizza.Toda)
 		distribucion3.agregarIngrediente(jamon, DistribucionEnPizza.Izquierda)
 		distribucion3.agregarIngrediente(morron, DistribucionEnPizza.Derecha)
-
+		
+		distribucionEspecial.agregarIngrediente(anchoa, DistribucionEnPizza.Toda)
+		distribucionEspecial.agregarIngrediente(jamon, DistribucionEnPizza.Izquierda)
+		distribucionEspecial.agregarIngrediente(morron, DistribucionEnPizza.Derecha)
+		distribucionEspecial.agregarIngrediente(palmito, DistribucionEnPizza.Derecha)
+		
 		// Creacion de Tamanio		
 		var tamanio1 = new Chica
 		var tamanio2 = new Familiar
@@ -49,11 +56,13 @@ class Bootstrap {
 		var pizza1 = new Pizza("Muzzarela", 100.00, distribucion1)
 		var pizza2 = new Pizza("Muzza + Anchoas", 120.00, distribucion2)
 		var pizza3 = new Pizza("Jamon y morron", 140.00, distribucion3)
+		var pizza4 = new Pizza("Especial de la casa",200.00,distribucionEspecial)
 
 		// Agregamos a promos
 		HomePizza.instance.agregarPromocion(pizza1)
 		HomePizza.instance.agregarPromocion(pizza2)
 		HomePizza.instance.agregarPromocion(pizza3)
+		HomePizza.instance.agregarPromocion(pizza4)
 		
 		//Le damos un precio base a pizza
 		HomePizza.instance.precioBase = 70.00

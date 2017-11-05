@@ -13,19 +13,19 @@
 
     <div>
 
-        <ul data-ng-repeat="pizza in pedido.listaDePromos">
+        <ul data-ng-repeat="plato in pedido.getCollecionDePlatos()">
 
-            <button id="boton" type="submit" class="btn btn-default" ng-click="">
+            <button id="boton" type="submit" class="btn btn-default" ng-click="pedido.cancelarPlato(plato)">
 
                 <label class="block" >
                     <div id="datos">
-                        <h2>{{pizza.name}}</h2>
-                        <h4>{{pizza.ingredientes}}</h4>
+                        <h2>{{plato.nombreDePizza()}}</h2>
+                        <h4>{{plato.nombreDeIngredientes()}}</h4>
                     </div>
                 </label>
                 <label>
                     <div id="precio">
-                        <h3><span class="label label-primary">$ {{pizza.precio}}</span></h3>
+                        <h3><span class="label label-primary">$ {{plato.getCalcularPrecioConIngredientes()}}</span></h3>
                     </div>
                 </label>
                 <label>
@@ -40,27 +40,27 @@
 
     <div>
 
-        <a href="url">Agregar otra Pizza</a>
+        <a ui-sref="pizzaSelector">Agregar otra Pizza</a>
 
         <hr>
 
         <h3>Aclaraciones</h3><br>
-        <input size="150" ng-model="pedido.aclaraciones" type="text" name="aclaraciones" placeholder="Escriba aqui su aclaracion" >
+        <input size="150" ng-model="pedido.pedido.aclaracion" type="text" name="aclaraciones" placeholder="Escriba aqui su aclaracion" >
         <hr>
     </div>
 
     <div name = "contenedorRadioSelectors">
         <h3>Envio </h3><br>
         <form name= "radioSelectors">
-            <input  style="float:left;" type="radio" ng-model="pedido.tipoDeFormaDeEnvio" ng-focus="pedido.quitarDireccion()" value="Local" name="formaDeEnvio" ><p>Por Local</p><br>
+            <input  style="float:left;" type="radio" ng-model="pedido.nombreDeRetiro" value="Local" name="formaDeEnvio" ng-click="pedido.crearFormaDeRetiro()" ><p>Por Local</p><br>
 
-                <input  style="float:left;" type="radio" name="formaDeEnvio" ng-model="pedido.tipoDeFormaDeEnvio" value="Delivery"><p  style="float:left;" > Delivery</p>
-                <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.direccion" ng-disabled="pedido.tipoDeFormaDeEnvio !== 'Delivery'">
-            </form>
+            <input  style="float:left;" type="radio" name="formaDeEnvio" ng-model="pedido.nombreDeRetiro" value="Delivery" ng-click="pedido.crearFormaDeRetiro()"><p  style="float:left;" > Delivery</p>
+            <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.tipoDeFormaDeEnvio.direccion" ng-disabled="pedido.isNotDelivery()">
+        </form>
     </div>
     <br>
     <hr>
     <div>
-        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.totalAPagar}} </h4> <input style=" margin-left: 10px" type="button" onclick="alert('Hello World!')" value="Confirmar Pedido" ng-disabled="!pedido.hayPizzas() || !pedido.hayFormaDeEnvio() ">
+        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.costoTotalAPagar()}} </h4> <input style=" margin-left: 10px" type="button" ng-click="pedido.confirmarPedido()" value="Confirmar Pedido" ng-disabled="pedido.noHayPlatosNiFormaDeEnvio()">
     </div>
 </div>

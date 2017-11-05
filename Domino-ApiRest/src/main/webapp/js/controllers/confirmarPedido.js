@@ -3,47 +3,78 @@
 dominoApp.controller('pedidosCtrl', ConfirmarPedidoModel);
 
 
-function ConfirmarPedidoModel() {
+function ConfirmarPedidoModel($stateParams,pedidosService) {
 
-    this.listaDePromos =
-        [
-            {
-                "name" : "Napolitana",
-                "ingredientes" : "Queso, Jamon, Muzarella",
-                "precio" : 300
-            },
-            {
-                "name" : "Con Morrones",
-                "ingredientes" : "Morron, Muzarella",
-                "precio" : 100
-            },
-            {
-                "name" : "A La Cancha",
-                "ingredientes" : "Morron, Salsa de tomates",
-                "precio" : 550
-            }
-        ];
+    var self= this;
+    self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
 
-    this.aclaraciones = "";
+    self.totalAPagar= 0;
+    self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
+    self.nombreDeRetiro= "";
+  //  self.direccion= "";
 
-    this.precioDeEnvio= 15;
 
-    this.direccion= "";
+    this.cancelarPlato = function(plato){
+        self.pedido.eliminarPlato(plato);
+    };
 
-    this.totalAPagar= 0;
 
-    this.tipoDeFormaDeEnvio = "";
+    this.getCollecionDePlatos = function () {
+        return self.pedido.platosConfirmados
+    };
 
+    this.hayPlato = function () {
+        return self.getCollecionDePlatos().length > 0
+    };
+
+/*
     this.quitarDireccion = function () {
-        this.direccion= "";
+        self.direccion= "";
     };
-
-    this.hayPizzas = function () {
-       return this.listaDePromos.length > 0
-    };
-
+*/
     this.hayFormaDeEnvio = function () {
-        return this.tipoDeFormaDeEnvio !== ""
+        return this.tipoDeFormaDeEnvio.tipo !== ""
     };
+    this.isNotDelivery=function () {
+         return ! angular.equals(self.tipoDeFormaDeEnvio,'Delivery')
+    };
+
+    this.noHayPlatosNiFormaDeEnvio = function(){
+        return !(self.hayPlato() && self.hayFormaDeEnvio())
+    };
+
+
+    this.costoTotalAPagar = function(){
+        return self.tipoDeFormaDeEnvio.precio + self.pedido.costoTotalDelPedido();
+    };
+
+    this.crearFormaDeRetiro = function(){
+        if(EnumFormaDeEnvio.Delivery === self.nombreDeRetiro)
+        {
+            self.tipoDeFormaDeEnvio= new FormaDeRetiro(EnumFormaDeEnvio.Delivery, "", 15);
+        }
+        else
+        {   self.tipoDeFormaDeEnvio= new FormaDeRetiro(EnumFormaDeEnvio.Local, "", 0); }
+        self.costoTotalAPagar()
+    };
+
+
+
+    this.errorHandler = function (error) {
+
+        alert(error.data.error)
+    };
+
+    this.alert= function (json) {
+        alert(json.alerta)
+    };
+
+
+    this.confirmarPedido = function(){
+
+        self.pedido.asignarFormaDeRetiro(self.tipoDeFormaDeEnvio);
+        pedidosService.confirmarPedido(self.pedido).then(self.alert).catch(self.errorHandler);
+
+    }
 
 }

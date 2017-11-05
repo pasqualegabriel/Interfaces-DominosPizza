@@ -13,7 +13,10 @@ function PairIngredienteDistribucionPizza(aIng, aDir) {
 
     this.esElIngrediente = function(unIngrediente){
         return angular.equals( self.ingrediente.nombre, unIngrediente.nombre);
-    }
+    };
 
+    this.nombreDeIngrediente = function(){
+        return self.ingrediente.nombre;
+    }
 
 }

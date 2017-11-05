@@ -1,15 +1,15 @@
-dominoApp.service("userService", function ($http) {
-    return new UsuarioRepo($http);
+dominoApp.service("userService", function () {
+    return new UserRepo();
 });
 
 
-function UsuarioRepo($http) {
+function UserRepo() {
+    var self= this;
+    self.userLoggin=undefined;
+
+    this.setUserLoggin = function (aUser) {
+        self.userLoggin= aUser;
+    };
 
 
-
-    return {
-        validate: function(registro) {
-                return $http.post("/usuarios", registro)
-        }
-    }
 }

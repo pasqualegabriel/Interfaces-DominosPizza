@@ -18,7 +18,7 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
         })
 
         .state('pizzaSelector', {
-            url: "/ed/seleccionPizza/:id",
+            url: "/ed/seleccionPizza",
             templateUrl: "../partials/selectorDePizza.html",
             controller: "pizzaSelectorCrl as customPizza"
         })
@@ -36,9 +36,10 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
         })
 
         .state('confirmarPedido', {
-            url: "/ed/confirmarPedido/",
+            url: "/ed/confirmarPedido/:id",
             templateUrl: "../partials/confirmarPedido.html",
             controller: "pedidosCtrl as pedido"
+
         });
 
     $urlRouterProvider.otherwise("/ini");

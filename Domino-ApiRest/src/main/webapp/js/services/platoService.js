@@ -19,7 +19,7 @@ function PlatoRepo(){
         return nuevoPLato;
     };
 
-    this.addPlatoEnConstruccion = function (unPlato) {
+    this.setPlatoEnConstruccion = function (unPlato) {
         self.platosEnConstruccion.push(unPlato);
     };
 

@@ -12,22 +12,21 @@ function Plato(unaPizza,aID){
         return this.pizza.precioBase
     };
 
+    this.getCalcularPrecioConIngredientes =function(){
+        return self.tamanio.calcularPrecioPorTamanio(self.pizza.precioBase) + self.calcularPrecioDeIngredientesAAgregar();
+    };
     this.calcularPrecioDeIngredientesAAgregar = function() {
         if(self.ingredientesExtraConDist().length === 0 ){
             return 0;
         }else {
-            return self.ingredientesExtraConDist().map(function (parIngDist) {
-                return parIngDist.precio()}).reduce(function (total, numero) {
-                return total + numero;
-            })
+            return self .ingredientesExtraConDist()
+                        .map(function (parIngDist)
+                            { return parIngDist.precio() }
+                            )
+                         .reduce(function (total, numero)
+                                { return total + numero; }
+                                )// Es como el sum de java
         }
-        /*if(listaIngAAgregar.length === 0 ){
-            return  0
-        }else{
-            var lista = listaIngAAgregar.copyWithin(lista);
-            var x = lista.shift().precio();
-            return  x + this.calcularPrecioDeIngredientesAAgregar(lista);
-        }*/
     };
 
     this.agregarIngredienteExtra = function(unParIngDist) {
@@ -38,22 +37,6 @@ function Plato(unaPizza,aID){
         self.ingredientesExtras.quitarParIngDist(unParIngDist);
     };
 
-    this.getCalcularPrecioConIngredientes =function(){
-        return self.tamanio.calcularPrecioPorTamanio(self.pizza.precioBase) + self.calcularPrecioDeIngredientesAAgregar();
-    };
-
-    this.precioDeIngredientesExtra =function(){
-        var precios =  self.ingredientesExtras.ingredientes.map( function(unPairDeIngredientes){
-            return unPairDeIngredientes.precio
-        });
-
-       var contador = 0;
-        angular.forEach(precios, function (precio) {
-            contador +=precio;
-        });
-        return contador;
-    };
-
     this.nombreDePizza = function()
     {   return self.pizza.nombre;   };
 
@@ -62,4 +45,20 @@ function Plato(unaPizza,aID){
 
     this.ingredientesExtraConDist = function()
     {   return self.ingredientesExtras.ingredientes;   };
+
+    this.ingredientePizza = function () {
+        return self.pizza.listaDeNombresIngredientes();
+    };
+
+    this.nombreDeIngredientes = function(){
+
+        var listaDeNombres = self.pizza.distribucion.listarNombreIngrediente().concat(self.ingredientesExtras.listarNombreIngrediente());
+        if ( listaDeNombres.length > 1  ) {
+            var ultimoElemento = listaDeNombres.pop();
+
+            return listaDeNombres.join(", ") + " y " + ultimoElemento
+        }else{
+            return listaDeNombres.toString()
+        }
+    }
 }

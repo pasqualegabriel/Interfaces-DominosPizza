@@ -1,12 +1,16 @@
 function MiembroDTO(json) {
 
+    var self = this;
+    self.nombre= json.nombre;
+    self.nick = json.nick;
+    self.password = json.password;
+    self.mail = json.mail;
+    self.direccion = json.direccion;
+    self.historialDePedidos = json.historialDePedidos;
 
-    this.nombre= json.nombre;
-    this.nick = json.nick;
-    this.password = json.password;
-    this.mail = json.mail;
-    this.direccion = json.direccion;
-    this.historialDePedidos = json.historialDePedidos;
+    this.getNick = function () {
+        return self.nick;
+    }
 
 }
 
