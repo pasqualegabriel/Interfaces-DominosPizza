@@ -24,11 +24,11 @@ function PedidoRepo(){
             return unPedido.idMiembro === aId;
         })
     };
-
+/* Hay que resolver como utilizarlo, dejar el return suelto te inhabilita los mensajes del service.
     return {
         confirmarPedido:  function (unPedido) {
             return $http.post("/pedidos", unPedido);
         }
     }
-
+*/
 }

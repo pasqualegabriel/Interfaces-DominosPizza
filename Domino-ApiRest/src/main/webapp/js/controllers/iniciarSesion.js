@@ -42,7 +42,6 @@ function SessionModel($state, sesionService,pedidosService,userService) {
 
     };
 
-
     <!-- Esto esta para probar la ventana, retirar luego -->
     this.confirmarPedido= function() {
         $state.go("confirmarPedido");

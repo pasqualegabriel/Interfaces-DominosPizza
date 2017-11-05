@@ -38,9 +38,9 @@ function Pedido(aIdMiembro){
         self.platosConfirmados.splice(self.platosConfirmados.indexOf(plato), 1);
     };
 
-/*    this.setFormaDeEnvio = function (aFormaDeEnvio) {
+    this.setFormaDeEnvio = function (aFormaDeEnvio) {
         self.formaDeRetiro= aFormaDeEnvio;
-    };*/
+    };
 
     this.costoTotalDelPedido = function(){
 

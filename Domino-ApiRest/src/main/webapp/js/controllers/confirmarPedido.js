@@ -11,8 +11,6 @@ function ConfirmarPedidoModel($stateParams,pedidosService) {
     self.totalAPagar= 0;
     self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
     self.nombreDeRetiro= "";
-  //  self.direccion= "";
-
 
     this.cancelarPlato = function(plato){
         self.pedido.eliminarPlato(plato);
@@ -27,16 +25,11 @@ function ConfirmarPedidoModel($stateParams,pedidosService) {
         return self.getCollecionDePlatos().length > 0
     };
 
-/*
-    this.quitarDireccion = function () {
-        self.direccion= "";
-    };
-*/
     this.hayFormaDeEnvio = function () {
         return this.tipoDeFormaDeEnvio.tipo !== ""
     };
     this.isNotDelivery=function () {
-         return ! angular.equals(self.tipoDeFormaDeEnvio,'Delivery')
+         return ! angular.equals(self.tipoDeFormaDeEnvio.tipo,'Delivery')
     };
 
     this.noHayPlatosNiFormaDeEnvio = function(){
@@ -58,8 +51,6 @@ function ConfirmarPedidoModel($stateParams,pedidosService) {
         self.costoTotalAPagar()
     };
 
-
-
     this.errorHandler = function (error) {
 
         alert(error.data.error)
@@ -72,7 +63,7 @@ function ConfirmarPedidoModel($stateParams,pedidosService) {
 
     this.confirmarPedido = function(){
 
-        self.pedido.asignarFormaDeRetiro(self.tipoDeFormaDeEnvio);
+        self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
         pedidosService.confirmarPedido(self.pedido).then(self.alert).catch(self.errorHandler);
 
     }
