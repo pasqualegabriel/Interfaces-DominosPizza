@@ -15,7 +15,7 @@ function ControllerListaPromo(pedidosService, $state, $stateParams, ingredienteS
 
     /* Protocolo */
     self.pedido                  = pedidosService.getPedidoEnContruccionById($stateParams.id);
-    self.platoEnConstruccion     = self.pedido.platoEnContruccion;
+    self.platoEnConstruccion     = self.pedido.platoEnConstruccion;
 
     //cambio:
     // Antes ->
@@ -98,8 +98,16 @@ function ControllerListaPromo(pedidosService, $state, $stateParams, ingredienteS
     };
 
     this.finalizarPlato= function () {
-        self.pedido.confirmarPLato();
-        $state.go("confirmarPedido",{id: $stateParams.id});
+       try {
+           self.pedido.confirmarPLato();
+           $state.go("confirmarPedido",{id: $stateParams.id});
+       }
+       catch (e){
+           var error =  {
+             error: "Por favor seleccione la distribucion de todos los ingredientes Extra"
+           };
+           this.errorHandler(error)
+       }
     };
 
     this.calcularPrecio();

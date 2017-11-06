@@ -1,12 +1,10 @@
 'use strict';
-dominoApp.service("pedidosService", function () {
-    return new PedidoRepo();
-});
+dominoApp.service("pedidosService", PedidoRepo);
 
-
-function PedidoRepo(){
+function PedidoRepo($http){
 
     this.pedidosLocales =[];
+    this.confirmador = new ConfirmadorDePedidos($http);
 
     this.addPedidoEnContruccion = function (unPedido) {
         this.pedidosLocales.push(unPedido);
@@ -24,11 +22,19 @@ function PedidoRepo(){
         })
     };
 
-/* Hay que resolver como utilizarlo, dejar el return suelto te inhabilita los mensajes del service.
+    this.confirmarPedido = function(unPedido){
+        return this.confirmador.confirmar(unPedido);
+    };
+
+}
+
+function ConfirmadorDePedidos($http) {
+
+    var transformPedido = function(pedido) { return new PedidoDTO(pedido)};
     return {
-        confirmarPedido:  function (unPedido) {
-            return $http.post("/pedidos", unPedido);
+        confirmar:  function (unPedido) {
+            return $http.post("/pedidos", transformPedido(unPedido));
         }
     }
-*/
+
 }

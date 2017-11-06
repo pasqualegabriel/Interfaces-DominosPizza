@@ -5,7 +5,7 @@ dominoApp.controller('pedidosCtrl', ConfirmarPedidoController);
 /* Responsabilidad */
 // Conectar la vista de ConfirmarPedido con el modelo
 
-function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroService) {
+function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroService, $state) {
 
     var self= this;
     /* Atributos */
@@ -96,16 +96,13 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
         alert(error.error)
     };
 
-    this.alert= function (json) {
-        alert(json.alerta)
+    this.confirmarPedido = function(){
+        self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
+        return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza()).catch(function(response){ self.errorHandler(response.data)});
     };
 
-
-    this.confirmarPedido = function(){
-
-        self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
-        pedidosService.confirmarPedido(self.pedido).then(self.alert).catch(function(response){ self.errorHandler(response.data)});
-
-    }
-
+    this.goToPizza = function() {
+        pedidosService.newPedido($stateParams.id);
+        $state.go("pizzaSelector");
+    };
 }

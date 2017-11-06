@@ -9,27 +9,32 @@ function Pedido(aIdMiembro){
     self.formaDeRetiro          = undefined;
     self.monto                  = "";
 
-    self.platoEnContruccion     = undefined;
+    self.platoEnConstruccion     = undefined;
 
     self.platosConfirmados      = [];
 
 
     this.setPlatoEnConstruccion = function (aPlato) {
-        self.platoEnContruccion=aPlato;
+        self.platoEnConstruccion=aPlato;
     };
 
-
-    this.belongsPlato= function (aId) {
-        return _.some(self.platosConfirmados,function (plato){
-            return angular.equals(plato.id,aId);
-        });
+    this.platoEsValido = function (plato) {
+      return plato.todosLosIngredientesCompletos();
     };
 
+    //Cambio
+    // Antes se fijaba que no estaba el plato ya en la lista de pedidos a confirmar
+    // Pero no va a llegar nunca a estar ahi sin que se confirme el plato
+    // Cambie la confirmacion a Plato es valido, que se fija si si todos los ingredientes estan completos
+    // y si no lo estan, levanta una excepcion.
 
     this.confirmarPLato = function () {
 
-        if(! self.belongsPlato(self.platoEnContruccion.id)){
-            self.platosConfirmados.push(self.platoEnContruccion)
+        if(self.platoEsValido(self.platoEnConstruccion)){
+            self.platosConfirmados.push(self.platoEnConstruccion)
+        }
+        else{
+            throw "Faltan Completar Ingredientes"
         }
     };
 
@@ -61,3 +66,20 @@ function Pedido(aIdMiembro){
 }
 
 
+function PedidoDTO(unPedido){
+    var self=this;
+
+
+    // Hacer que el api Setee el id del otro lado.
+    self.id                     = 0;
+    self.estadoActual           = "Preparando";
+    self.miembro                = unPedido.idMiembro;
+    self.platosEnConstruccion   = unPedido.platosConfirmados ;
+    //Cambiar Fecha.
+    self.fecha                  = "2017-09-10";
+    self.aclaracion             = unPedido.aclaracion;
+    self.formaDeRetiro          = unPedido.formaDeRetiro;
+    self.monto                  = unPedido.monto;
+    self.tiempoDeEspera         = 0;
+
+}

@@ -142,6 +142,9 @@ class DominoRestApi {
 		} catch (UnrecognizedPropertyException exception) {
 			badRequest(getErrorJson("El body debe ser un Pedido"))
 		}
+		catch (UserException exception) {
+			badRequest(getErrorJson("El body debe ser un Pedido"))
+		}
 	}
 
     @Post("/pedidos/:id")

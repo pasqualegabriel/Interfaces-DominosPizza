@@ -68,5 +68,10 @@ function Plato(unaPizza,aID){
         }else{
             return listaDeNombres.toString()
         }
+    };
+
+    this.todosLosIngredientesCompletos= function(){
+      return  this.ingredientesExtras.todosLosIngredientesCompletos()
     }
+
 }

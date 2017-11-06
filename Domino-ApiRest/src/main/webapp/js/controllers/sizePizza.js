@@ -19,7 +19,7 @@ function SizeController($stateParams, $state, tamanioService, pedidosService){
     /* Atributos */
 
     self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
-    self.platoEnConstruccion = self.pedido.platoEnContruccion;
+    self.platoEnConstruccion = self.pedido.platoEnConstruccion;
     self.tamanios = [];
 
     this.errorHandler = function (error) {

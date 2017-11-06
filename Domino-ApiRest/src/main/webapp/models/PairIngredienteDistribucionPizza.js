@@ -17,6 +17,9 @@ function PairIngredienteDistribucionPizza(aIng, aDir) {
 
     this.nombreDeIngrediente = function(){
         return self.ingrediente.nombre;
-    }
+    };
 
+    this.tieneDistribucion = function(){
+      return !angular.equals(this.distribucion, "")
+    }
 }

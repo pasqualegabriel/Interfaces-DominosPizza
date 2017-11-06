@@ -32,5 +32,10 @@ function DistribucionEnPizza(listIngredientes) {
 
     this.tamanio=function () {
         return self.ingredientes.length
+    };
+
+    this.todosLosIngredientesCompletos =function(){
+        return self.ingredientes.every(function(pairIngDist){ return pairIngDist.tieneDistribucion()})
     }
+
 }
