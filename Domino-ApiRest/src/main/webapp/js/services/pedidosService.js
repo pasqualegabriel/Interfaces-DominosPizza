@@ -18,12 +18,12 @@ function PedidoRepo(){
     };
 
 
-
     this.getPedidoEnContruccionById = function (aId) {
         return _.find(this.pedidosLocales, function (unPedido) {
             return unPedido.idMiembro === aId;
         })
     };
+
 /* Hay que resolver como utilizarlo, dejar el return suelto te inhabilita los mensajes del service.
     return {
         confirmarPedido:  function (unPedido) {

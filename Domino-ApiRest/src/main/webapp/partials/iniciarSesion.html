@@ -12,25 +12,24 @@
             </div>
         </form>
 
-        <!--Preguntar sobre manejo de errores-->
+
         <div  class="panel-body">
+
             <form name="form1">
                 <label>Usuario: </label> <input  ng-model="logIn.nick" type="text" name="nick" placeholder="nombre de usuario" required>
             </form>
+
             <form class="panel panel-default" name="form2">
                 <label>Contraseña: </label>  <input  ng-model="logIn.pass" type="password" name="password" placeholder="contraseña" required>
             </form>
+
             <form class="btn-group" name="form3">
-                <button type="submit" name="iniciarSesion" class="btn btn-primary" ng-click="logIn.validUserCredentials()" >Iniciar Sesión</button> <br>
+                <button type="submit" name="iniciarSesion" class="btn btn-primary" ng-click="logIn.validUserCredentials()" ng-disabled="form1.nick.$invalid || form2.password.$invalid" >Iniciar Sesión</button> <br>
             </form>
+
             <form>
                 <br>
                 <button type="submit" name="Registrarse" class="btn btn-primary" ng-click="logIn.goRegister()">registrarse</button>
-            </form>
-
-            <!-- Esto esta para probar la ventana, retirar luego -->
-            <form class="btn-group" name="prueba">
-                <button type="submit" name="botonPrueba" class="btn btn-primary" ng-click="logIn.confirmarPedido()"> Confirmar Pedido </button> <br>
             </form>
 
         </div>

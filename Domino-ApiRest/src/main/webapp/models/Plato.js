@@ -8,6 +8,14 @@ function Plato(unaPizza,aID){
     self.ingredientesExtras  = new DistribucionEnPizza();
 
 
+    this.getIngredientesDePizza = function (){
+        return self.pizza.getIngredientes()
+    };
+
+    this.calcularPrecioConTamanio = function (aSize) {
+        return aSize.calcularPrecioPorTamanio(self.precioBaseDePizza());
+    };
+
     this.precioBaseDePizza = function(){
         return this.pizza.precioBase
     };

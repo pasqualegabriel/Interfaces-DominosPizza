@@ -42,7 +42,7 @@ function Pedido(aIdMiembro){
         self.formaDeRetiro= aFormaDeEnvio;
     };
 
-    this.costoTotalDelPedido = function(){
+    this.costoTotalDelPedido = function(tipoDeFormaDeEnvio){
 
         if(self.platosConfirmados.length === 0 ){
             return 0;
@@ -53,7 +53,8 @@ function Pedido(aIdMiembro){
                 )
                 .reduce(function (total, numero)
                     { return total + numero; }
-                )// Es como el sum de java
+                )
+                    + tipoDeFormaDeEnvio.precio
         }
     };
 

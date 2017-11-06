@@ -11,5 +11,7 @@ function UserRepo() {
         self.userLoggin= aUser;
     };
 
-
+    this.getLoggedUserNick = function () {
+      return self.userLoggin.getNick()
+    };
 }

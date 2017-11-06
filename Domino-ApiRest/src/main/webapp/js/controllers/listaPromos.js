@@ -1,23 +1,34 @@
 'use strict';
 
 dominoApp.controller('ListaPromosCrl',function(pedidosService, $state,$stateParams,ingredienteService) {
-    return new ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
+    return new ControllerListaPromo(pedidosService, $state,$stateParams,ingredienteService)
 
 });
 
+/* Responsabilidad */
+// Conectar la vista de ingredientesExtra con el modelo
 
-function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService) {
+function ControllerListaPromo(pedidosService, $state, $stateParams, ingredienteService) {
 
     var self                     = this;
+    /* Atributos */
 
+    /* Protocolo */
     self.pedido                  = pedidosService.getPedidoEnContruccionById($stateParams.id);
     self.platoEnConstruccion     = self.pedido.platoEnContruccion;
-    self.ingredientesDeLaPizza   = self.platoEnConstruccion.pizza.distribucion.ingredientes;
+
+    //cambio:
+    // Antes ->
+    //self.ingredientesDeLaPizza   = self.platoEnConstruccion.pizza.distribucion.ingredientes;
+
+    // Ahora ->
+    self.ingredientesDeLaPizza   = self.platoEnConstruccion.getIngredientesDePizza();
+
     self.ingredientesDisponibles = undefined;
     self.ingredientesExtra       = undefined;
 
     this.errorHandler = function (error) {
-        alert(error.data.error)
+        alert(error.error)
     };
 
     this.nombreDePizza = function(){
@@ -28,13 +39,24 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
         return self.platoEnConstruccion.nombreTamanio();
     };
 
-    this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
-        return unaLista.some(function(pairDeIngEnPizza){ return pairDeIngEnPizza.esElIngrediente(unIngrediente)});
-    };
+    //cambio:
+
+    // Logica muy fuerte para un controller. Que un ingrediente sepa el mismo si esta en una lista.
+
+    //antes ->
+
+    // this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
+    //    return unaLista.some(function(pairDeIngEnPizza){ return pairDeIngEnPizza.esElIngrediente(unIngrediente)});
+    //};
+
+    //  var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.platoEnConstruccion.ingredientesExtraConDist(), ingrediente)};
+
+    //ahora ->
 
     this.ingredientesExtraAAgregar = function(unaListaDeIngredientes) {
 
-        var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.platoEnConstruccion.ingredientesExtraConDist(), ingrediente)};
+       var funcionDeFiltrado = function(ingrediente){ return !ingrediente.estaEnLista(self.ingredientesDeLaPizza) && !ingrediente.estaEnLista(self.platoEnConstruccion.ingredientesExtraConDist())};
+
         self.ingredientesExtra = unaListaDeIngredientes.filter(funcionDeFiltrado);
     };
 
@@ -48,12 +70,14 @@ function ModelListaPromo(pedidosService, $state,$stateParams,ingredienteService)
         ingredienteService.getAllIngredientes().then(function (listaDeIngredientes) {
                 self.ingredientesDisponibles= listaDeIngredientes;
                 return listaDeIngredientes;
-            }).then(self.ingredientesExtraAAgregar).catch(self.errorHandler)
+            }).then(self.ingredientesExtraAAgregar).catch(function(response){ self.errorHandler(response.data)})
     };
 
 
     this.agregarIngredienteExtra= function(unIngrediente){
+
         self.platoEnConstruccion.agregarIngredienteExtra(new PairIngredienteDistribucionPizza(unIngrediente,""));
+
         self.ingredientesExtra = self.ingredientesExtra.filter(function(ingredienteExtra) {
             return angular.equals(ingredienteExtra.nombre, unIngrediente.nombre)
         });

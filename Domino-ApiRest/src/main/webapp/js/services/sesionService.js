@@ -1,18 +1,18 @@
 'use strict';
 dominoApp.service("sesionService", function ($http) {
-    return new SessionRepo($http);
+    return new SesionRepo($http);
 
 
 });
 
-function SessionRepo($http) {
+function SesionRepo($http) {
 
     var getData = function(response) { return new MiembroDTO(response.data)};
-
+    var createLogin = function(nick,pass) { return new Login(nick, pass)};
 
     return {
-        validate:  function (login) {
-        return $http.post("/login", login).then(getData);
+        validate:  function (nick, pass) {
+        return $http.post("/login", createLogin(nick,pass)).then(getData);
          }
     }
 

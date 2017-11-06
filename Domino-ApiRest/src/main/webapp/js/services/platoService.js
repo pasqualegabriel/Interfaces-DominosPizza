@@ -13,6 +13,10 @@ function PlatoRepo(){
         self.lastId ++
     };
 
+
+    // Deberia el Cliente tener la responsabilidad de setear el id de un plato?
+    // No deberia ser el servidor quien lo haga?
+    // MMMMMMMMMMMmm, fijarse si hay alternativa despues cuando ande todo.
     this.newPlato = function (unaPizza) {
         var nuevoPLato= new Plato(unaPizza,self.lastId);
         this.nextId();

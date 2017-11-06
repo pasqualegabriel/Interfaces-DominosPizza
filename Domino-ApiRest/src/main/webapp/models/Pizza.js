@@ -1,14 +1,21 @@
+// Cambio
+// El mismo problema que tenia userDTO. Toda la logica de modelo en el DTO
+
 
 function PizzaDTO(json) {
+    return new Pizza(json.nombre, json.precio, json.ingredientes)
+}
 
+function Pizza(nombre, precio, ingredientes) {
     var self = this;
-    self.nombre         = json.nombre;
-    self.precioBase     = json.precio;
-    self.distribucion   = new DistribucionEnPizza(json.ingredientes);
+
+    self.nombre         = nombre;
+    self.precioBase     = precio;
+    self.distribucion   = new DistribucionEnPizza(ingredientes);
 
     this.listaDeNombresIngredientes = function(){
         if(angular.equals(self.nombre.toLocaleLowerCase(),"customizada"))
-        {return "Con los ingredientes que más te guste."}
+        {return "Los ingredientes que más te gustan!"}
 
         var listaDeNombres = self.distribucion.listarNombreIngrediente();
         if ( self.distribucion.tamanio() > 1  ) {
@@ -18,17 +25,10 @@ function PizzaDTO(json) {
         }else{
             return listaDeNombres.toString()
         }
+    };
+
+    this.getIngredientes= function(){
+        return self.distribucion.ingredientes
     }
+
 }
-
-
-
-/*
-function Pizza(nombre,precio) {
-
-    this.nombre         = nombre;
-    this.precioBase     = precio;
-    this.distribucion    = new DistribucionEnPizza([]);
-
-
-}*/

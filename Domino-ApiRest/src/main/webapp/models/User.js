@@ -1,5 +1,12 @@
+
 function MiembroDTO(json) {
 
+    // Cambio:
+    // El miembroDTO es solo un DTO. Estaba remplazando el lugar de miembro.
+
+    //Antes ->
+
+    /*
     var self = this;
     self.nombre= json.nombre;
     self.nick = json.nick;
@@ -11,10 +18,15 @@ function MiembroDTO(json) {
     this.getNick = function () {
         return self.nick;
     }
+    */
+
+    //Ahora ->
+    return new Miembro(json.nombre, json.nick, json.password, json.mail, json.direccion, json.historialDePedidos);
+
 
 }
 
-function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion) {
+function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion, unHistorialDePedidos) {
 
 
     this.nombre= unNombre;
@@ -22,6 +34,9 @@ function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion) {
     this.password = unPassword;
     this.mail = unMail;
     this.direccion = unaDireccion;
-    this.historialDePedidos = [];
+    this.historialDePedidos = unHistorialDePedidos;
 
+    this.getNick = function () {
+        return this.nick;
+    };
 }
