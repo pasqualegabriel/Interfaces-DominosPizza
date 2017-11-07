@@ -84,8 +84,8 @@ function Plato(unaPizza,aID){
 
 function PlatoDTO(aPlato){
 
-    self.pizza               = aPlato.pizza;
-    self.tamanio             = aPlato.tamanio;
-    self.ingredientesExtras  = aPlato.ingredientesExtras;
+    this.pizza               = new PizzaDTO(aPlato.pizza);
+    this.tamanio             = aPlato.tamanio.nombre;
+    this.ingredientesExtras  = aPlato.ingredientesExtras;
 }
 

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import java.time.LocalDate
 import persistencia.HomePedido
+import estados.Preparando
 
 @Accessors
 class PedidoApiAdapter 
@@ -60,18 +61,19 @@ class PedidoApiAdapter
 		// Se crea el pedido y se lo transforma
 		val unPedido = new Pedido(unMiembro,HomePedido.instance.newId)
 		
-				unPedido.id			    = this.id
+				//unPedido.id			    = this.id
 				unPedido.aclaracion     = this.aclaracion
 				unPedido.tiempoDeEspera = this.tiempoDeEspera
 				
 				//Se recrea el estado actual
-				unPedido.estadoActual   = (new EstadoDePedidoApiAdapter(this.estadoActual)).convertir()
+				unPedido.estadoActual   = new Preparando()//(new EstadoDePedidoApiAdapter(this.estadoActual)).convertir()
 				
 				//Se recrean los platos
 				this.platos.forEach[unPedido.platos.add(it.convertir)]
 				
 				//Se convierte la fecha de string a localDateTime
-				unPedido.fecha 		    = convertirFecha(this.fecha)
+				/*No Es Necesaria por que se instancia la fecha cuando se crea el pedido en el dominio
+				unPedido.fecha 		    = convertirFecha(this.fecha)*/
 				
 				//Se recrea la forma de retiro
 				unPedido.formaDeRetiro  = this.formaDeRetiro.convertir

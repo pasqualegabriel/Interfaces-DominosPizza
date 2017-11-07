@@ -48,7 +48,7 @@
     ]
 },
 
-// PizzaDTO
+// PizzaDeAPI
 {
   "nombre": "Jamon y morron",
   "precioBase": 140,

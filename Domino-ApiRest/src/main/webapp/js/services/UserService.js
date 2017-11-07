@@ -17,5 +17,5 @@ function UserRepo() {
 
     this.hayUsuarioLogeado = function(){
         return self.userLoggin !== undefined
-    }
+    };
 }

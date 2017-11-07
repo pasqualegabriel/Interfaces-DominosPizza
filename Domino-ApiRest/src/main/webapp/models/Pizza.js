@@ -2,8 +2,14 @@
 // El mismo problema que tenia userDTO. Toda la logica de modelo en el DTO
 
 
-function PizzaDTO(json) {
+function PizzaDeAPI(json) {
     return new Pizza(json.nombre, json.precio, json.ingredientes)
+}
+
+function PizzaDTO(unaPizza) {
+    this.nombre         = unaPizza.nombre;
+    this.precioBase     = unaPizza.precioBase;
+    this.distribucion   = unaPizza.distribucion
 }
 
 function Pizza(nombre, precio, ingredientes) {

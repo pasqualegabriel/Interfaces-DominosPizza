@@ -6,7 +6,20 @@ function FormaDeRetiro(unTipo, unaDireccion, unPrecio){
     self.precio     = unPrecio;
 
     this.esDelivery = function () {
-        return angular.equals(self.tipo, EnumFormaDeEnvio.Delivery);
+        return angular.equals(this.tipo, "Delivery")
+        //return angular.equals(self.tipo, EnumFormaDeEnvio.Delivery);
+    };
+
+    this.esLocal = function () {
+        return angular.equals(this.tipo, "Local")
+    };
+
+    this.direccionValida = function()
+    {
+        if(this.esLocal())
+        {   return true }
+        else
+        {   return !angular.equals(this.direccion,""); }
     };
 
     this.tieneDireccion = function() {

@@ -15,9 +15,9 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
 
     /* Protocolo */
 
-    self.totalAPagar= 0;
-    self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
-    self.nombreDeRetiro=  this.tipoDeFormaDeEnvio.direccion;
+    //self.totalAPagar= 0;
+    //self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
+    self.nombreDeRetiro=  "";
 
     this.cancelarPlato = function(plato){
         self.pedido.eliminarPlato(plato);
@@ -32,28 +32,31 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
     };
 
     this.hayFormaDeEnvio = function () {
-        return this.tipoDeFormaDeEnvio.tipo !== ""
+        return self.pedido.hayFormaDeEnvio()
+        //return this.tipoDeFormaDeEnvio.tipo !== ""
     };
 
     this.isNotDelivery=function () {
-         return !self.tipoDeFormaDeEnvio.esDelivery();
+        return !self.pedido.formaDeRetiro.esDelivery();
     };
 
-    this.validar = function(){
-        return !(self.hayPlato() && self.hayFormaDeEnvio() && self.tipoDeFormaDeEnvio.tieneDireccion())
+    this.estaListoParaConfirmar = function(){
+        return self.hayPlato() && self.hayFormaDeEnvio() && self.direccionValida()
+        //return !(self.hayPlato() && self.hayFormaDeEnvio() && self.tipoDeFormaDeEnvio.tieneDireccion())
     };
 
 
 
     this.costoTotalAPagar = function(){
-        return self.pedido.costoTotalDelPedido(self.tipoDeFormaDeEnvio);
+        return self.pedido.costoTotalDelPedido();
+        //return self.pedido.costoTotalDelPedido(self.tipoDeFormaDeEnvio);
     };
 
     this.setFormaDeRetiro = function(){
-        self.tipoDeFormaDeEnvio= formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro);
+        //self.tipoDeFormaDeEnvio= formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro);
+        self.pedido.setFormaDeEnvio( formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro));
         self.costoTotalAPagar()
     };
-
 
     this.errorHandler = function (error) {
 
@@ -61,12 +64,32 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
     };
 
     this.confirmarPedido = function(){
-        self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
-        return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza).catch(function(response){ self.errorHandler(response.data)});
+        if(self.estaListoParaConfirmar())
+        {
+            return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza()).catch(function(response){ self.errorHandler(response.data)});
+        }
+        else{
+            var error =  { error: "No puede continuar. Revise: Que haya platos agregados, que elegio el tipo de envio y si eligio delivery, que haya completado la direccion." };
+            this.errorHandler(error)
+        }
+        //self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
+        //return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza).catch(function(response){ self.errorHandler(response.data)});
     };
 
     this.goToPizza = function() {
         pedidosService.newPedido($stateParams.id);
         $state.go("pizzaSelector");
     };
+
+    this.direccionValida = function(){
+        return self.pedido.formaDeRetiro.direccionValida()
+    };
+
+    this.recargoPorEnvio = function(){
+        return self.pedido.formaDeRetiro.precio
+    };
+
+    this.formaDeRetiro = function(){
+        return self.pedido.formaDeRetiro
+    }
 }

@@ -6,7 +6,8 @@ function Pedido(aIdMiembro){
 
     self.idMiembro              = aIdMiembro;
     self.aclaracion             = "";
-    self.formaDeRetiro          = undefined;
+    self.formaDeRetiro          = new FormaDeRetiro("", "", 0);
+    //self.formaDeRetiro          = undefined;
     self.monto                  = "";
 
     self.platoEnConstruccion     = undefined;
@@ -59,10 +60,14 @@ function Pedido(aIdMiembro){
                 .reduce(function (total, numero)
                     { return total + numero; }
                 )
-                    + tipoDeFormaDeEnvio.precio
+                    + self.formaDeRetiro.precio
+                    //+ tipoDeFormaDeEnvio.precio
         }
     };
 
+    this.hayFormaDeEnvio = function(){
+        return self.formaDeRetiro.esLocal() || self.formaDeRetiro.esDelivery()
+    };
 }
 
 
@@ -70,13 +75,10 @@ function PedidoDTO(unPedido){
 
     var self=this;
 
-
-
-    self.id             = unPedido.idMiembro;
+    self.miembro        = unPedido.idMiembro;
     self.platos         = unPedido.platosConfirmados.map(function (t) { return new PlatoDTO(t)});
     self.aclaracion     = unPedido.aclaracion;
     self.formaDeRetiro  = unPedido.formaDeRetiro;
-
 
 /*
     this.tranformPLatoDTO=function (aPLato){
@@ -93,7 +95,7 @@ function PedidoDeApi(json){
 
 
     self.miembro                = json.id;
-    self.platosEnConstruccion   = json.platos.map(function (t) { return new Plato(new PizzaDTO(t.pizza),self.miembro).tranform(t)});
+    self.platosEnConstruccion   = json.platos.map(function (t) { return new Plato(new PizzaDeAPI(t.pizza),self.miembro).tranform(t)});
     self.aclaracion             = json.aclaracion;
     self.formaDeRetiro          = new FormaDeRetiro("","",0).transformar(json.formaDeRetiro);
 

@@ -49,7 +49,7 @@
         <ul data-ng-repeat="ing in promos.platoEnConstruccion.ingredientesExtraConDist()">
             <h1>{{ ing.ingrediente.nombre}}</h1>
             <h1>{{ ing.ingrediente.precio}}</h1>
-            <h1>{{ ing.distribucion}}</h1>
+            <!--<h1>{{ ing.distribucion}}</h1>-->
             <form>
                 <input type="radio" name="distribucion" value="Izquierda" 	ng-model="ing.distribucion"> Mitad Izquierda <br>
                 <input type="radio" name="distribucion" value="Toda"  		ng-model="ing.distribucion"> Toda la Pizza   <br>
