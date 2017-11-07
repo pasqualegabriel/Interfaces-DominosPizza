@@ -30,11 +30,13 @@ class Pedido {
 	String 			aclaracion
 	FormaDeRetiro 	formaDeRetiro
 	Integer 		tiempoDeEspera
-
+	
+	new (){}
 	// Constructor
-	new(Miembro unMiembro) {
+	new(Miembro unMiembro,Integer aId) {
 
 		super()
+		id				= aId;
 		estadoActual 	= new Preparando
 		miembro 		= unMiembro
 		platos 			= new ArrayList<Plato>

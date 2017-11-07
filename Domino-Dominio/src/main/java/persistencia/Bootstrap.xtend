@@ -23,7 +23,7 @@ import pizza.Grande
 class Bootstrap {
 	def	inicializar(){
 		
-		
+		HomePedido.instance.id = 0
 		// Creacion de Ingredientes
 		val anchoa = new Ingrediente("Anchoa", 3.00)
 		val morron = new Ingrediente("Morron", 10.00)
@@ -79,9 +79,16 @@ class Bootstrap {
 		var g1 = new Miembro("goku", "g","1", "goku@gmail.com", "Av.SiempreViva")
 		
 		// Creacion de pedidos
-		var pedido1 = new Pedido(ivan)=>[id=3]
-		var pedido2 = new Pedido(nahuel)=>[id=2]
-		var pedido3 = new Pedido(gabriel)=>[id=1]
+		var pedido1 = new Pedido(ivan,HomePedido.instance.newId)
+		var pedido2 = new Pedido(nahuel,HomePedido.instance.newId)
+		var pedido3 = new Pedido(gabriel,HomePedido.instance.newId)
+		
+		// Agrega un pedido al usurio
+		var pedidoG1 = new Pedido(g1,HomePedido.instance.newId)
+		var plato    = new Plato(pizza4,tamanio1,new Distribucion)
+		pedidoG1.agregarPlato(plato)
+		g1.agregarPedido(pedidoG1)
+
 
 		// agregamos forma de retiro al pedido
 		pedido1.formaDeRetiro = new Delivery ("Cerrado 128")
@@ -107,6 +114,7 @@ class Bootstrap {
 		HomePedido.instance.agregarPedido(pedido1)
 		HomePedido.instance.agregarPedido(pedido2)
 		HomePedido.instance.agregarPedido(pedido3)
+		HomePedido.instance.agregarPedido(pedidoG1)
 		
 		// Agregamos los usuarios
 		HomeMiembro.instance.registrarUsuario(ivan)
@@ -119,7 +127,7 @@ class Bootstrap {
 		var distribucion5 = new Distribucion
 		val pizzaMuzzaCerrada = new Pizza("Muzza", 15.00, new Distribucion)
 		val platoCerrado1 = new Plato(pizzaMuzzaCerrada, new Grande, distribucion4)
-		val pedidoCerrado1 = new Pedido(new Miembro("Victor", "Raquel1", "unPassword", "unMail", "unaDireccion"))
+		val pedidoCerrado1 = new Pedido(new Miembro("Victor", "Raquel1", "unPassword", "unMail", "unaDireccion"),HomePedido.instance.newId)
 		pedidoCerrado1.formaDeRetiro = new Local
 		pedidoCerrado1.estadoActual = new Entregado
 		pedidoCerrado1.tiempoDeEspera = 60
@@ -128,7 +136,7 @@ class Bootstrap {
 
 		val pizzaJamonCerrada = new Pizza("Jamon y Morron", 25.00, new Distribucion)
 		val platoCerrado2 = new Plato(pizzaJamonCerrada, new Grande, distribucion5)
-		val pedidoCerrado2 = new Pedido(new Miembro("Sr Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"))
+		val pedidoCerrado2 = new Pedido(new Miembro("Sr Lili", "Raquel1", "unPassword", "unMail", "unaDireccion"), HomePedido.instance.newId)
 		pedidoCerrado2.formaDeRetiro = new Local
 		pedidoCerrado2.estadoActual = new Cancelado
 		pedidoCerrado2.tiempoDeEspera = 0

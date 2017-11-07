@@ -17,7 +17,7 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
 
     self.totalAPagar= 0;
     self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
-    self.nombreDeRetiro= "";
+    self.nombreDeRetiro=  this.tipoDeFormaDeEnvio.direccion;
 
     this.cancelarPlato = function(plato){
         self.pedido.eliminarPlato(plato);
@@ -35,55 +35,19 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
         return this.tipoDeFormaDeEnvio.tipo !== ""
     };
 
-    //Cambio
-    // Mejor que la propia forma de envio sepa saber si es delivery o no.
-
-    //Antes ->
-    // angular.equals(self.tipoDeFormaDeEnvio.tipo,'Delivery')
-
-    //Ahora ->
-
     this.isNotDelivery=function () {
          return !self.tipoDeFormaDeEnvio.esDelivery();
     };
 
-    this.noHayPlatosNiFormaDeEnvio = function(){
-        return !(self.hayPlato() && self.hayFormaDeEnvio())
+    this.validar = function(){
+        return !(self.hayPlato() && self.hayFormaDeEnvio() && self.tipoDeFormaDeEnvio.tieneDireccion())
     };
 
 
-    // Cambio:
-    // Re boludo, pero es los calculos son logica de negocio en el controller.
-
-    // Antes->
-
-    // this.costoTotalAPagar = function(){
-    //     return self.tipoDeFormaDeEnvio.precio + self.pedido.costoTotalDelPedido();
-    //};
-
-    // Ahora ->
 
     this.costoTotalAPagar = function(){
         return self.pedido.costoTotalDelPedido(self.tipoDeFormaDeEnvio);
     };
-
-    // Cambio
-    // Se crean objetos de negocio en el controller. Aca falta un service.
-
-    /* Antes ->
-
-
-    this.crearFormaDeRetiro = function(){
-        if(EnumFormaDeEnvio.Delivery === self.nombreDeRetiro)
-        {
-            self.tipoDeFormaDeEnvio= new FormaDeRetiro(EnumFormaDeEnvio.Delivery, "", 15);
-        }
-        else
-        {   self.tipoDeFormaDeEnvio= new FormaDeRetiro(EnumFormaDeEnvio.Local, "", 0); }
-        self.costoTotalAPagar()
-    };
-    */
-    // Ahora ->
 
     this.setFormaDeRetiro = function(){
         self.tipoDeFormaDeEnvio= formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro);
@@ -98,7 +62,7 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
 
     this.confirmarPedido = function(){
         self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
-        return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza()).catch(function(response){ self.errorHandler(response.data)});
+        return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza).catch(function(response){ self.errorHandler(response.data)});
     };
 
     this.goToPizza = function() {

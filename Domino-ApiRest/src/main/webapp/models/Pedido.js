@@ -67,19 +67,59 @@ function Pedido(aIdMiembro){
 
 
 function PedidoDTO(unPedido){
+
     var self=this;
 
 
-    // Hacer que el api Setee el id del otro lado.
-    self.id                     = 0;
-    self.estadoActual           = "Preparando";
-    self.miembro                = unPedido.idMiembro;
-    self.platosEnConstruccion   = unPedido.platosConfirmados ;
-    //Cambiar Fecha.
-    self.fecha                  = "2017-09-10";
-    self.aclaracion             = unPedido.aclaracion;
-    self.formaDeRetiro          = unPedido.formaDeRetiro;
-    self.monto                  = unPedido.monto;
-    self.tiempoDeEspera         = 0;
+
+    self.id             = unPedido.idMiembro;
+    self.platos         = unPedido.platosConfirmados.map(function (t) { return new PlatoDTO(t)});
+    self.aclaracion     = unPedido.aclaracion;
+    self.formaDeRetiro  = unPedido.formaDeRetiro;
+
+
+/*
+    this.tranformPLatoDTO=function (aPLato){
+        return new PlatoDTO(aPLato);
+    }
+*/
+
+}
+
+function PedidoDeApi(json){
+
+    var self=this;
+
+
+
+    self.miembro                = json.id;
+    self.platosEnConstruccion   = json.platos.map(function (t) { return new Plato(new PizzaDTO(t.pizza),self.miembro).tranform(t)});
+    self.aclaracion             = json.aclaracion;
+    self.formaDeRetiro          = new FormaDeRetiro("","",0).transformar(json.formaDeRetiro);
+
+    self.monto                  = json.monto;
+
+    this.direccion = function () {
+        return  self.formaDeRetiro.direccion
+    };
+
+    this.pizza  =function () {
+
+        var listaDeNombres = self.platosEnConstruccion.map(function (t) { return t.nombreDePizza()});
+
+        if ( self.platosEnConstruccion.lenght > 1  ) {
+            var ultimoElemento = listaDeNombres.pop();
+
+            return listaDeNombres.join(", ") + " y " + ultimoElemento
+        }else{
+            return listaDeNombres.toString()
+        }
+
+    }
+    /*
+        this.tranformPLatoDTO=function (aPLato){
+            return new PlatoDTO(aPLato);
+        }
+    */
 
 }

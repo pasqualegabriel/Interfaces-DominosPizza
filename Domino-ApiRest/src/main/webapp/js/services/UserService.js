@@ -14,4 +14,8 @@ function UserRepo() {
     this.getLoggedUserNick = function () {
       return self.userLoggin.getNick()
     };
+
+    this.hayUsuarioLogeado = function(){
+        return self.userLoggin !== undefined
+    }
 }

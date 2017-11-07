@@ -11,6 +11,7 @@ class HomePedido {
 
 	static HomePedido instance
 
+
 	static def getInstance() {
 		if (instance == null) {
 			instance = new HomePedido
@@ -21,6 +22,7 @@ class HomePedido {
 	// Estructura
 	List<Pedido> pedidosAbiertos = newArrayList
 	List<Pedido> pedidosCerrados = newArrayList
+	Integer	id					 = 0;
 
 	// Precondicion: -El pedido no tiene que estar en la lista de pedidos cerrados
 	def agregarPedido(Pedido unPedido) {
@@ -51,6 +53,13 @@ class HomePedido {
 		{	throw new UserException("el string no tiene que estar vacio")	}
 		else 
 		{	HomeMiembro.instance.getMiembro(nickDeUsuario).listaHistorialDePedidos}
+	}
+	
+	def newId(){
+		var retornarId = id
+		id++
+		
+		retornarId;
 	}
 	
 }

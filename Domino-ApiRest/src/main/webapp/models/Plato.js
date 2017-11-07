@@ -72,6 +72,20 @@ function Plato(unaPizza,aID){
 
     this.todosLosIngredientesCompletos= function(){
       return  this.ingredientesExtras.todosLosIngredientesCompletos()
+    };
+
+    this.tranform =function (json) {
+        self.tamanio             = json.tamanio;
+        self.ingredientesExtras  = new DistribucionEnPizza(json.ingredientesExtras.ingredientes);
+        return self;
     }
 
 }
+
+function PlatoDTO(aPlato){
+
+    self.pizza               = aPlato.pizza;
+    self.tamanio             = aPlato.tamanio;
+    self.ingredientesExtras  = aPlato.ingredientesExtras;
+}
+

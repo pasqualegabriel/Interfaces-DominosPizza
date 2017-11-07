@@ -45,6 +45,10 @@
 <div class="container">
     <div class="page-header">
         <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
+        <div ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
+            <a ui-sref="perfilUsuario">PerfilUsuario</a>
+            <a ui-sref="pizzaSelector">Menu</a>
+        </div>
     </div>
 
     <div class="well-lg">
@@ -71,6 +75,7 @@
 <script src="js/routes.js"></script>
 
 <script src="js/controllers/iniciarSesion.js"></script>
+<script src="js/controllers/perfilUsuario.js"></script>
 <script src="js/controllers/registrarse.js"></script>
 <script src="js/controllers/customPizza.js"></script>
 <script src="js/controllers/sizePizza.js"></script>

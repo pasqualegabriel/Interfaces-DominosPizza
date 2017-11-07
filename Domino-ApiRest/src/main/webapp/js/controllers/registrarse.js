@@ -59,13 +59,9 @@ function RegisterController($state, userService) {
             this.errorHandler(error);
         }else{
             var newUser = new Miembro(this.nombre, this.nick, this.contrasenia, this.mail, this.direccion,[] );
+            /**Hacer que la api guarde al usuario creado*/
 
-            // Cambio:
-            // No anda por que volaron el .validate de userService. Hay que rehacerlo.
-
-            // OJO ACA! HAY QUE HACERLO
-
-            userService.validate(newUser).then(this.goToLogin).catch(function(response){ self.errorHandler(response.data)});
+            //userService.validate(newUser).then(this.goToLogin).catch(function(response){ self.errorHandler(response.data)});
         }
 
 

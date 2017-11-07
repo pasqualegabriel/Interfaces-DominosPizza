@@ -6,6 +6,7 @@
 
 
 <div class = "container">
+
     <header class="page-header">
         <h1>Pedido</h1>
         <h3>Pizzas</h3>
@@ -55,12 +56,12 @@
             <input  style="float:left;" type="radio" ng-model="pedido.nombreDeRetiro" value="Local" name="formaDeEnvio" ng-click="pedido.setFormaDeRetiro()" ><p>Por Local</p><br>
 
             <input  style="float:left;" type="radio" name="formaDeEnvio" ng-model="pedido.nombreDeRetiro" value="Delivery" ng-click="pedido.setFormaDeRetiro()"><p  style="float:left;" > Delivery</p>
-            <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.tipoDeFormaDeEnvio.direccion" ng-disabled="pedido.isNotDelivery()">
+            <p style="float:left; margin-left: 10px">$ {{pedido.precioDeEnvio}} </p>  <input style=" margin-left: 10px" type="text" name="direccionDeDelivery" placeholder="Escriba aqui su direccion" ng-model="pedido.tipoDeFormaDeEnvio.direccion" ng-disabled="pedido.isNotDelivery()" required>
         </form>
     </div>
     <br>
     <hr>
     <div>
-        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.costoTotalAPagar()}} </h4> <input style=" margin-left: 10px" type="button" ng-click="pedido.confirmarPedido()" value="Confirmar Pedido" ng-disabled="pedido.noHayPlatosNiFormaDeEnvio()">
+        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.costoTotalAPagar()}} </h4> <input style=" margin-left: 10px" type="button" ng-click="pedido.confirmarPedido()" value="Confirmar Pedido" ng-disabled="pedido.validar()">
     </div>
 </div>

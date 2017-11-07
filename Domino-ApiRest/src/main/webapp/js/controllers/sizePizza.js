@@ -1,6 +1,3 @@
-//cambio
-// Nombre del controller. De SizeController -> SizeController
-
 dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService,pedidosService) {
 
 
@@ -25,18 +22,6 @@ function SizeController($stateParams, $state, tamanioService, pedidosService){
     this.errorHandler = function (error) {
         alert(error.error)
     };
-
-    //Cambio:
-    // Operacion de negocio demaciado inteligente para un controller.
-    // Mejor que sea bobo y le pregunte al plato que se calcule solo con un tamaño.
-
-    // antes -->
-
-    //this.aplicarFactorDeTamanioAlPrecioBase = function (aSize) {
-    //    return aSize.calcularPrecioPorTamanio(self.platoEnConstruccion.precioBaseDePizza());
-    //};
-
-    // ahora -->
 
     this.aplicarFactorDeTamanioAlPrecioBase = function (aSize) {
         return self.platoEnConstruccion.calcularPrecioConTamanio(aSize);

@@ -11,6 +11,12 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
             controller: "SessionCrl as logIn"
         })
 
+        .state('perfilUsuario',{
+            url:"/Perfil",
+            templateUrl: "../partials/perfilUsuario.html",
+            controller: "UsuarioCtrl as usuario"
+        })
+
         .state('register', {
             url: "/reg",
             templateUrl: "../partials/registrarse.html",

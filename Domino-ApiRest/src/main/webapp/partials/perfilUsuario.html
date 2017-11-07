@@ -1,25 +1,3 @@
-<!doctype html>
-<html lang="en" ng-app="editarUsuarioApp">
-
-  <head>
-    <meta charset="utf-8">
-    <title>Editar Usuairo</title>
-
-    <link rel="stylesheet" type="text/css" href="styles.css">
-
-    <!-- JQUERY -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-
-    <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-
-    <!-- ANGULAR  -->
-    <script src="node_modules/angular/angular.min.js"></script>
-  </head>
-
-
-  <body ng-controller="UsuarioCtrl as usuario">
 
     <div class="container">
 
@@ -65,23 +43,21 @@
             <th>Pizzas</th>
             <th>Direccion</th>
             <th>Monto</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
           <tr data-ng-repeat="datosDePedido in usuario.datosDePedido">
-            <td>{{datosDePedido.pizza}}</td>
-            <td>{{datosDePedido.direccion}}</td>
+            <td>{{datosDePedido.pizza()}}</td>
+            <td>{{datosDePedido.direccion()}}</td>
             <td>$ {{datosDePedido.monto}}</td>
+            <td><button type="submit" name="repetir" class="btn btn-primary" ng-click="usuario.repetirPedido(datosDePedido)">
+              Repetir
+            </button></td>
           </tr>
           </tbody>
         </table>
 
       </div>
     </div>
-
-    <!-- JS -->
-    <script src="app.js"></script>
-
-  </body>
-</html>
 

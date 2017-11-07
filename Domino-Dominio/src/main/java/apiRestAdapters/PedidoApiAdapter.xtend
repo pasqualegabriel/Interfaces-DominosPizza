@@ -7,6 +7,7 @@ import persistencia.HomeMiembro
 import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import java.time.LocalDate
+import persistencia.HomePedido
 
 @Accessors
 class PedidoApiAdapter 
@@ -57,7 +58,7 @@ class PedidoApiAdapter
 		// Se va a buscar al miembro
 		var unMiembro = HomeMiembro.instance.getMiembro(this.miembro)
 		// Se crea el pedido y se lo transforma
-		val unPedido = new Pedido(unMiembro)
+		val unPedido = new Pedido(unMiembro,HomePedido.instance.newId)
 		
 				unPedido.id			    = this.id
 				unPedido.aclaracion     = this.aclaracion

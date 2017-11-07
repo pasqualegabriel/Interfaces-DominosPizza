@@ -24,13 +24,6 @@ function PizzaController($state, pizzaService, pedidosService, platoService, use
 
     self.listaDePromos = [];
 
-    // Cambio:
-    // Conocimiento de mas.
-
-    // antes -->
-    // ... (userService.userLoggin.getNick());
-
-    // ahora -->
 
     self.pedido = pedidosService.getPedidoEnContruccionById(userService.getLoggedUserNick());
     self.precioBase = 0;
@@ -56,32 +49,6 @@ function PizzaController($state, pizzaService, pedidosService, platoService, use
     this.getPromos();
     this.getPrecioBase();
 
-
-    // Cambio:
-    // Armando pizzas? en mi controller??? recuerden muchachos: Responsabilidad del controler es cablear
-    // Modelo con Vista, nada mas. No deberian crear naranja.
-
-    // Antes -->
-
-    /*
-
-    this.armaTuPizza   = function () {
-
-        var jsonPizzaDTO = {
-            "nombre" : "Customizada",
-            "precio" : self.precioBase,
-            "ingredientes":[]
-        };
-
-
-        var pizza = new PizzaDTO(jsonPizzaDTO);
-
-        self.seleccionar(pizza);
-
-    };
-     */
-
-    // Ahora -->
 
     this.armaTuPizza   = function () {
 
