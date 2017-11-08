@@ -1,9 +1,7 @@
-dominoApp.controller('SessionCrl', function($state, sesionService,pedidosService,userService) {
-    return new SessionController( $state, sesionService,pedidosService,userService);
-});
+dominoApp.controller('SessionCrl', SessionController);
 
 
-function SessionController($state, sesionService, pedidosService, userService) {
+function SessionController($state, sesionService, pedidosService, userService, errorHandler) {
 
     /* Atributos */
 
@@ -11,15 +9,11 @@ function SessionController($state, sesionService, pedidosService, userService) {
 
     self.nick = '';
     self.pass = '';
-
-
-    this.errorHandler = function (error) {
-
-        alert(error.error)
-    };
+    self.erroresDuranteLaSesion         = errorHandler.errors;
+    self.notificacionesDuranteLaSesion  = errorHandler.msgs;
 
     this.validUserCredentials = function () {
-        return sesionService.validate(self.nick, self.pass).then(self.goToPizza).catch(function(response){ self.errorHandler(response.data)});
+        return sesionService.validate(self.nick, self.pass).then(self.goToPizza).catch(function(response){ errorHandler.notificarError(response.data.error)});
 
     };
 

@@ -8,8 +8,6 @@
     <!-- Css -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
-
-
     <!-- JQUERY -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
@@ -43,19 +41,46 @@
 <body>
 
 <div class="container">
-    <div class="page-header">
-        <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
-        <div ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
-            <a ui-sref="perfilUsuario">PerfilUsuario</a>
-            <a ui-sref="pizzaSelector">Menu</a>
-        </div>
+
+    <!-- Mensajes-->
+    <div  class="header clearfix">
+
+    <div ng-controller="SessionCrl as ses" class="row">
+        <ul class="example-animate-container">
+            <li class="message bg-success animate-repeat" data-ng-repeat="msg in ses.notificacionesDuranteLaSesion">{{msg}}</li>
+        </ul>
+        <ul class="example-animate-container">
+            <li class="alert alert-danger animate-repeat" data-ng-repeat="error in ses.erroresDuranteLaSesion">{{error}}</li>
+        </ul>
     </div>
 
-    <div class="well-lg">
-        <div ui-view></div>
+    <div >
+        <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
+
+        <nav ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
+            <ul class="nav nav-pills float-right">
+                <li class="nav-item">
+                    <a class="nav-link" ui-sref="perfilUsuario">PerfilUsuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ui-sref="pizzaSelector">Menu</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
+    </div>
+
+    <main role="main">
+        <div ui-view></div>
+    </main>
+
+    <footer class="footer">
+        <p>© ACaraDePerro 2017</p>
+    </footer>
 
 </div>
+
 
 <!-- nuestra aplicacion js -->
 
@@ -83,6 +108,7 @@
 <script src="js/controllers/confirmarPedido.js"></script>
 
 <script src="js/services/UserService.js"></script>
+<script src="js/services/ErrorHandlerService.js"></script>
 <script src="js/services/sesionService.js"></script>
 <script src="js/services/pizzaService.js"></script>
 <script src="js/services/tamanioService.js"></script>
