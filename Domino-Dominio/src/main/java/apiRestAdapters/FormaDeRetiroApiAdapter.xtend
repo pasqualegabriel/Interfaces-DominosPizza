@@ -10,13 +10,13 @@ class FormaDeRetiroApiAdapter {
 	
 	String tipo
 	String direccion
-	String precio
+	Double precio
 	
 	new(){}
 	
 	new(FormaDeRetiro formaDeRetiro) {
 		tipo	= formaDeRetiro.tipo
-		precio	= formaDeRetiro.precioDeRetiro.toString
+		precio	= formaDeRetiro.precioDeRetiro
 		if (tipo.equals("Delivery")) putDirection(formaDeRetiro)
 	}
 	

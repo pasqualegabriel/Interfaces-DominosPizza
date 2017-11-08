@@ -1,11 +1,13 @@
-dominoApp.service("userService", function () {
-    return new UserRepo();
+dominoApp.service("userService", function ($http) {
+    return new UserRepo($http);
 });
 
 
-function UserRepo() {
+function UserRepo($http) {
     var self= this;
     self.userLoggin=undefined;
+    self.registrar  =new  Registrar($http);
+    self.nuevosCambios = new NuevosCambios($http);
 
     this.setUserLoggin = function (aUser) {
         self.userLoggin= aUser;
@@ -18,4 +20,34 @@ function UserRepo() {
     this.hayUsuarioLogeado = function(){
         return self.userLoggin !== undefined
     };
+
+    this.registrarse=function (registro) {
+        self.registrar.registro(registro)
+    };
+
+    this.updateUser=function (user) {
+        self.nuevosCambios.update(user)
+    }
 }
+
+function Registrar($http) {
+
+    return {
+        registro: function(registro) {
+            return $http.post("/usuarios", registro);
+        }
+    }
+
+}
+
+
+function NuevosCambios($http) {
+
+    return {
+        update: function(user) {
+            return $http.put("/usuarios/" + user.nick , user);
+        }
+    }
+
+}
+

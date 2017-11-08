@@ -1,7 +1,7 @@
 dominoApp.controller('SessionCrl', SessionController);
 
 
-function SessionController($state, sesionService, pedidosService, userService, errorHandler) {
+function SessionController($state, sesionService, pedidosService, userService, messageHandler) {
 
     /* Atributos */
 
@@ -9,11 +9,9 @@ function SessionController($state, sesionService, pedidosService, userService, e
 
     self.nick = '';
     self.pass = '';
-    self.erroresDuranteLaSesion         = errorHandler.errors;
-    self.notificacionesDuranteLaSesion  = errorHandler.msgs;
 
     this.validUserCredentials = function () {
-        return sesionService.validate(self.nick, self.pass).then(self.goToPizza).catch(function(response){ errorHandler.notificarError(response.data.error)});
+        return sesionService.validate(self.nick, self.pass).then(self.goToPizza).catch(function(response){ messageHandler.notificarError(response.data.error)});
 
     };
 
@@ -32,6 +30,18 @@ function SessionController($state, sesionService, pedidosService, userService, e
         return userService.hayUsuarioLogeado();
     }
 
+}
 
+dominoApp.controller('MensajesCrl', MensajesController);
+
+
+function MensajesController( messageHandler) {
+
+    /* Atributos */
+
+    var self = this;
+
+    self.erroresDuranteLaSesion         = messageHandler.errors;
+    self.notificacionesDuranteLaSesion  = messageHandler.msgs;
 
 }
