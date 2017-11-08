@@ -22,6 +22,14 @@ dominoApp.controller('UsuarioCtrl', function (userService,pedidosService,$state,
     };
     this.getHistorialDePedidos();
 
+    this.guardarCambios = function() {
+        self.user.nombre    = self.nombre;
+        self.user.mail      = self.mail;
+        self.user.direccion = self.direccion;
+
+        userService.updateUser(self.user)//.catch(function(response){messageHandler.notificarError(response.data.error)});
+    };
+
     this.repetirPedido=function (aPedido) {
         pedidosService.repetirPedido(aPedido);
         $state.go("confirmarPedido");

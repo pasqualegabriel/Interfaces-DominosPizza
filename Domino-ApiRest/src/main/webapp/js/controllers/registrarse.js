@@ -15,27 +15,27 @@ function RegisterController($state, userService) {
 
     var self = this;
 
-    this.nick              = "";
+    self.nick              = "";
 
-    this.contrasenia       = "";
+    self.contrasenia       = "";
 
-    this.repitaContrasenia = "";
+    self.repitaContrasenia = "";
 
-    this.mail              = "";
+    self.mail              = "";
 
-    this.direccion         = "";
+    self.direccion         = "";
 
-    this.nombre            = "";
+    self.nombre            = "";
 
 
     /* Protocolo */
 
-    this.errorHandler = function (error) {
+    self.errorHandler = function (error) {
         alert(error.error)
     };
 
     this.laContraseniaCoincide = function(){
-        return this.contrasenia === this.repitaContrasenia
+        return self.contrasenia === self.repitaContrasenia
     };
 
     this.goToLogin = function() {
@@ -44,30 +44,30 @@ function RegisterController($state, userService) {
 
     this.register = function() {
 
-        if (! this.laContraseniaCoincide()){
-            //Cambio
-            // En vez de levantar un alert en el procedimiento, se lo paso al errorHandler que sabe encargarse de errores.
+        if (!this.laContraseniaCoincide()) {
 
-
-            //antes -->
-
-            // alert("las contraseñas no son iguales");
-
-            //ahora -->
-
-            var error=  { error : "Las contraseñas no son iguales"};
+            var error = {error: "Las contraseñas no son iguales"};
             this.errorHandler(error);
-        }else{
-            var newUser = new Miembro(this.nombre, this.nick, this.contrasenia, this.mail, this.direccion,[] );
-            /**Hacer que la api guarde al usuario creado*/
-
-            //userService.validate(newUser).then(this.goToLogin).catch(function(response){ self.errorHandler(response.data)});
-        }
+        } else {
+            var newUser = new Miembro(this.nombre, this.nick, this.contrasenia, this.mail, this.direccion, []);
 
 
+            var n = {
+                "nombre": this.nombre,
+                "nick": this.nick,
+                "password": this.contrasenia,
+                "mail": this.mai,
+                "direccion": this.direccio,
+                "historialDePedidos": []
+            };
 
-    };
-
+            userService.registrarse(n)/*.then(function () {
+                $state.go("logIn");
+            }).catch(function (response) {
+                self.errorHandler(response.data)
+            });
+        }*/
+    }}
 
 
 }
