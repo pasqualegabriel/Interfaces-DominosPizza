@@ -39,7 +39,7 @@ function PedidoRepo($http){
 
     this.repetirPedido = function (pedido) {
 
-        self.pedidoActual= new Pedido(pedido.miembro).tranform(pedido.formaDeRetiro,pedido.platosEnConstruccion);
+        self.pedidoActual= new HidratacionPedido().tranform(pedido);
     }
 
 }

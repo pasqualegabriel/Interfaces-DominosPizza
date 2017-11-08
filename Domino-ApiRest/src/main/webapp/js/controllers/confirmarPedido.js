@@ -91,4 +91,5 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
     this.formaDeRetiro = function(){
         return self.pedido.formaDeRetiro
     }
+
 }

@@ -7,6 +7,9 @@ function Plato(unaPizza,aID){
     self.tamanio             = undefined;
     self.ingredientesExtras  = new DistribucionEnPizza([]);
 
+    this.getId=function () {
+        return self.id;
+    };
 
     this.getIngredientesDePizza = function (){
         return self.pizza.getIngredientes()

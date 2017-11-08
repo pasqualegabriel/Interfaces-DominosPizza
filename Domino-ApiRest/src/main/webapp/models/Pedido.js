@@ -20,7 +20,7 @@ function Pedido(aIdMiembro){
     };
 
     this.platoEsValido = function (plato) {
-      return plato.todosLosIngredientesCompletos();
+        return plato.todosLosIngredientesCompletos();
     };
 
     //Cambio
@@ -32,11 +32,21 @@ function Pedido(aIdMiembro){
     this.confirmarPLato = function () {
 
         if(self.platoEsValido(self.platoEnConstruccion)){
-            self.platosConfirmados.push(self.platoEnConstruccion)
+            self.agregarPlato();
         }
         else{
             throw "Faltan Completar Ingredientes"
         }
+    };
+    this.agregarPlato=function () {
+        if(self.existePlatoConId(self.platoEnConstruccion.getId())){
+            self.platosConfirmados.splice(self.platosConfirmados.indexOf(self.platoEnConstruccion),1);
+        }
+        self.platosConfirmados.push(self.platoEnConstruccion)
+    };
+
+    this.existePlatoConId=function (aId) {
+        return self.platosConfirmados.some(function (t) { return angular.equals(t.id,aId)})
     };
 
     this.eliminarPlato = function(plato){
@@ -54,14 +64,14 @@ function Pedido(aIdMiembro){
             return 0;
         }else {
             return self.platosConfirmados
-                .map(function (unPlato)
-                    { return unPlato.getCalcularPrecioConIngredientes() }
-                )
-                .reduce(function (total, numero)
-                    { return total + numero; }
-                )
-                    + self.formaDeRetiro.precio
-                    //+ tipoDeFormaDeEnvio.precio
+                    .map(function (unPlato)
+                        { return unPlato.getCalcularPrecioConIngredientes() }
+                    )
+                    .reduce(function (total, numero)
+                        { return total + numero; }
+                    )
+                + self.formaDeRetiro.precio
+            //+ tipoDeFormaDeEnvio.precio
         }
     };
 
@@ -69,11 +79,11 @@ function Pedido(aIdMiembro){
         return self.formaDeRetiro.esLocal() || self.formaDeRetiro.esDelivery()
     };
 
-    this.tranform=function (formaDeRetiro,platos) {
+/*    this.tranform=function (formaDeRetiro,platos) {
         self.formaDeRetiro          = formaDeRetiro;
         self.platosConfirmados      = platos;
         return self;
-    }
+    }*/
 }
 
 
@@ -86,11 +96,11 @@ function PedidoDTO(unPedido){
     self.aclaracion     = unPedido.aclaracion;
     self.formaDeRetiro  = unPedido.formaDeRetiro;
 
-/*
-    this.tranformPLatoDTO=function (aPLato){
-        return new PlatoDTO(aPLato);
-    }
-*/
+    /*
+        this.tranformPLatoDTO=function (aPLato){
+            return new PlatoDTO(aPLato);
+        }
+    */
 
 }
 
@@ -103,7 +113,8 @@ function PedidoDeApi(json){
     self.miembro                = json.miembro;
     self.platosEnConstruccion   = json.platos.map(function (t) { return new HidratadorDePlatro().tranform(t,self.miembro)});
     self.aclaracion             = json.aclaracion;
-    self.formaDeRetiro          = new FormaDeRetiro("","",0).transformar(json.formaDeRetiro);
+    self.formaDeRetiro          =  new HidratarFormaDeRetiro().tranform(json.formaDeRetiro);
+        //new FormaDeRetiro("","",0).transformar(json.formaDeRetiro);
     self.monto                  = json.monto;
 
     this.direccion = function () {
@@ -123,10 +134,16 @@ function PedidoDeApi(json){
         }
 
     }
-    /*
-        this.tranformPLatoDTO=function (aPLato){
-            return new PlatoDTO(aPLato);
-        }
-    */
 
+}
+
+function HidratacionPedido() {
+
+    this.tranform =function (pedido) {
+        var newPedido= new Pedido(pedido.miembro);
+
+        newPedido.formaDeRetiro          = pedido.formaDeRetiro;
+        newPedido.platosConfirmados      = pedido.platosEnConstruccion;
+        return newPedido;
+    }
 }

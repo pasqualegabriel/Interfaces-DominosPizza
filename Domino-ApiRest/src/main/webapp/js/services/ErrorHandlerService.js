@@ -1,7 +1,7 @@
-dominoApp.service("errorHandler", ErrorHandler);
+dominoApp.service("messageHandler", MessageHandler);
 
 
-function ErrorHandler($timeout) {
+function MessageHandler($timeout) {
 
     // FEEDBACK & ERRORES
     this.msgs = [];
