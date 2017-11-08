@@ -1,43 +1,50 @@
-
+<head>
+	<!-- Css -->
+	<link rel="stylesheet" type="text/css" href="../css/iniciarSesionStyles.css">
+</head>
 
 <div class = "container-fluid">
+	<form>
+		<div style="padding-bottom: 10px">
+			<h3> Elige tu pizza ideal</h3>
+		</div>
+	</form>
 
+	
+	<div class="row">
+				<div data-ng-repeat="pizza in customPizza.listaDePromos">
+					<div  data-toggle="tooltip" title={{pizza.listaDeNombresIngredientes()}}>
+					<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" >
+							<div class="panel price panel-red">
+								<div class="panel-heading arrow_box text-center">
+									<h3>{{pizza.nombre}}</h3>
+								</div>
+								<div class="panel-body text-center">
+									<p class="lead" style="font-size:40px"><strong>$ {{pizza.precioBase}}</strong></p>
+								</div>
+								<ul class="list-group list-group-flush text-center">
 
-		  <label>
-			<h1>Elige tu pizza ideal</h1>
-		  </label>
-
-				<ul data-ng-repeat="pizza in customPizza.listaDePromos">
-
-
-					<button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.seleccionar(pizza)">
-
-						<label class="block" >
-							<div id="datos">
-								<h2>{{pizza.nombre}}</h2>
-								<h4>{{pizza.listaDeNombresIngredientes()}}</h4>
-						    </div>
-						</label>
-						<label>
-							<div id="precio">
-					        	<h3><span class="label label-primary">$ {{pizza.precioBase}}</span></h3>
-					        </div>
-						</label>
-						<label>
-						    <div id="imagen" >
-							    <img src="../resources/imagenes/flechita.png" width="38" height="80">
+								</ul>
+								<div class="panel-footer">
+									<button type="button" class="btn btn-lg btn-block btn-info" name="seleccionar" ng-click="customPizza.seleccionar(pizza)" >Seleccionar</button>
+								</div>
 							</div>
-						</label>
-					</button>
 
-				</ul>
 
-<ul>
+					</div></div>
+
+
+				</div>
+
+	</div>
+
+ <div class="modal-footer">
+
             <button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.armaTuPizza()">
 
                 <label class="block" >
                     <div id="datos">
-                        <h2>Arma tu pizza</h2>
+                        <h2>Arma tu propia pizza</h2>
                         <h4>Con los ingredientes que mas te guste</h4>
                     </div>
                 </label>
@@ -47,12 +54,10 @@
                     </div>
                 </label>
                 <label>
-                    <div id="imagen" >
-                        <img src="../resources/imagenes/flechita.png" width="38" height="80">
-                    </div>
+
                 </label>
             </button>
-</ul>
+ </div>
 
 
 

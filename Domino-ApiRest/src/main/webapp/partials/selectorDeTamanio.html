@@ -1,36 +1,42 @@
-
+<head>
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="../css/iniciarSesionStyles.css">
+</head>
 
 <div class = "container-fluid">
+    <form>
+        <div style="padding-bottom: 10px">
+            <h3> Elige el tamanio de tu pizza</h3>
+        </div>
+    </form>
 
 
-        <label>
-            <h1>Elige el tamanio de tu pizza</h1>
-        </label>
 
-
-        <ul data-ng-repeat="tamanio in customSize.tamanios">
-
-            <button id="boton" type="submit" class="btn btn-default" ng-click="customSize.armarPizza(tamanio)">
-
-                <label class="block">
-                    <div id="datos">
-                        <h2>{{tamanio.nombre}}</h2>
-
+    <div class="row">
+        <div data-ng-repeat="tamanio in customSize.tamanios">
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" >
+                <div class="panel price panel-blue">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3>{{tamanio.nombre}}</h3>
                     </div>
-                </label>
-                <label>
-                    <div id="precio">
-                        <h3><span class="label label-primary">$ {{customSize.aplicarFactorDeTamanioAlPrecioBase(tamanio)}}</span></h3>
-                        <!--<h3><span class="label label-primary">$ {{tamanio.precio}}</span></h3>-->
+                    <div class="panel-body text-center">
+                        <p class="lead" style="font-size:40px"><strong>${{customSize.aplicarFactorDeTamanioAlPrecioBase(tamanio)}}</strong></p>
                     </div>
-                </label>
-                <label>
-                    <div id="imagen" >
-                        <img src="../resources/imagenes/flechita.png" width="38" height="80">
-                    </div>
-                </label>
-            </button>
+                    <ul class="list-group list-group-flush text-center">
 
-        </ul>
+                    </ul>
+                    <div class="panel-footer">
+                        <button type="button" class="btn btn-lg btn-block btn-info" name="seleccionar" ng-click="customSize.armarPizza(tamanio)" >Seleccionar</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 
 </div>
