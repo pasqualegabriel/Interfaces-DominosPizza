@@ -15,8 +15,7 @@ function TamanioRepo($http){
                     return listJson.map(transformSize)
                 }
 
-            )
-        }
+            )}
     }
 }
 

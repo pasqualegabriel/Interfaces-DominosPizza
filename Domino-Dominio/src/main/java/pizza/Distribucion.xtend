@@ -19,6 +19,10 @@ class Distribucion {
 	new() {
 		ingredientes = newArrayList
 	}
+	
+	new(List<PairIngredienteDistribucionPizza> aIngredientes) {
+		ingredientes = aIngredientes
+	}
 
 	// Metodos
 	/**

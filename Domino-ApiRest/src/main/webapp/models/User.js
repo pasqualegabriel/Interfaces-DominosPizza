@@ -1,9 +1,9 @@
 
 function MiembroDTO(json) {
-    return new Miembro(json.nombre, json.nick, json.password, json.mail, json.direccion, json.historialDePedidos);
+    return new Miembro(json.nombre, json.nick, json.password, json.mail, json.direccion);
 }
 
-function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion, unHistorialDePedidos) {
+function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion) {
 
 
     this.nombre= unNombre;
@@ -11,7 +11,6 @@ function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion, unHistorial
     this.password = unPassword;
     this.mail = unMail;
     this.direccion = unaDireccion;
-    this.historialDePedidos = unHistorialDePedidos.map(function (t) { return new PedidoDeApi(t) });
 
     this.getNick = function () {
         return this.nick;

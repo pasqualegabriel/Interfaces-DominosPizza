@@ -68,6 +68,12 @@ function Pedido(aIdMiembro){
     this.hayFormaDeEnvio = function(){
         return self.formaDeRetiro.esLocal() || self.formaDeRetiro.esDelivery()
     };
+
+    this.tranform=function (formaDeRetiro,platos) {
+        self.formaDeRetiro          = formaDeRetiro;
+        self.platosConfirmados      = platos;
+        return self;
+    }
 }
 
 
@@ -94,15 +100,14 @@ function PedidoDeApi(json){
 
 
 
-    self.miembro                = json.id;
-    self.platosEnConstruccion   = json.platos.map(function (t) { return new Plato(new PizzaDeAPI(t.pizza),self.miembro).tranform(t)});
+    self.miembro                = json.miembro;
+    self.platosEnConstruccion   = json.platos.map(function (t) { return new HidratadorDePlatro().tranform(t,self.miembro)});
     self.aclaracion             = json.aclaracion;
     self.formaDeRetiro          = new FormaDeRetiro("","",0).transformar(json.formaDeRetiro);
-
     self.monto                  = json.monto;
 
     this.direccion = function () {
-        return  self.formaDeRetiro.direccion
+        return  self.formaDeRetiro.getDireccion()
     };
 
     this.pizza  =function () {

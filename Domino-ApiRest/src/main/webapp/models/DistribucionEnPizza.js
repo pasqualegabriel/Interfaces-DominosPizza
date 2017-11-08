@@ -6,10 +6,10 @@ function DistribucionEnPizza(listIngredientes) {
 
     var list = function (listIngredientes) {
         var listaLocal= [];
-        angular.forEach(listIngredientes,function (lisDistribucion) {
-            var nombreIng= lisDistribucion.ingrediente.nombre;
-            var precioIng= lisDistribucion.ingrediente.precio;
-            listaLocal.push(new PairIngredienteDistribucionPizza(new Ingrediente(nombreIng,precioIng),lisDistribucion.distribucion))
+        listIngredientes.map(function (element) {
+            var nombreIng= element.ingrediente.nombre;
+            var precioIng= element.ingrediente.precio;
+            listaLocal.push(new PairIngredienteDistribucionPizza(new Ingrediente(nombreIng,precioIng),element.distribucion))
         });
         return listaLocal
     };

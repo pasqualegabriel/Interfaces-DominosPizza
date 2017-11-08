@@ -79,6 +79,7 @@ class PedidoApiAdapter
 				unPedido.formaDeRetiro  = this.formaDeRetiro.convertir
 				
 		//Se devuelve el pedido transformado	
+		unMiembro.agregarPedido(unPedido)
 		unPedido
 	}
 	

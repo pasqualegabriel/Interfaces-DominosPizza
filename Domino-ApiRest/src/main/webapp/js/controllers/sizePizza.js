@@ -1,7 +1,7 @@
-dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioService,pedidosService) {
+dominoApp.controller('sizeSelectorCrl', function ( $state, tamanioService,pedidosService) {
 
 
-    return new SizeController($stateParams, $state, tamanioService,pedidosService);
+    return new SizeController( $state, tamanioService,pedidosService);
 
 
 });
@@ -10,12 +10,12 @@ dominoApp.controller('sizeSelectorCrl', function ($stateParams, $state, tamanioS
 /* Responsabilidad */
 // Conectar la vista de IngredientesExtra con el modelo
 
-function SizeController($stateParams, $state, tamanioService, pedidosService){
+function SizeController($state, tamanioService, pedidosService){
 
     var self= this;
     /* Atributos */
 
-    self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
+    self.pedido = pedidosService.getPedidoActual();
     self.platoEnConstruccion = self.pedido.platoEnConstruccion;
     self.tamanios = [];
 
@@ -36,7 +36,7 @@ function SizeController($stateParams, $state, tamanioService, pedidosService){
     this.armarPizza = function(unTamanio)
     {
         self.platoEnConstruccion.tamanio = unTamanio;
-        $state.go("ingredientesExtras", {id:$stateParams.id });
+        $state.go("ingredientesExtras");
     };
 
     this.getSize();

@@ -10,16 +10,25 @@ import pizza.Chica
 
 @Accessors
 class TamanioApiAdapter {
-	List<Tamanio> tamanios = newArrayList
 	
-	new() {
-		tamanios.add(new Chica)
-		tamanios.add(new Familiar)
-		tamanios.add(new Grande);
-		tamanios.add(new Porcion)
+	String nombre
+	double factorDeTamanio
+	
+	
+	new(){
+		super()
+	}
+
+	new(Tamanio tamanio) {
+		nombre= tamanio.nombre
+		factorDeTamanio= tamanio.factorDeTamanio
 	}
 	
-	def convertir(String unNombre) {
-		tamanios.findFirst[it.nombre.equals(unNombre)] 	
+	def convertir() {
+		tamanios.findFirst[it.nombre.equalsIgnoreCase(nombre)] 	
+	}
+	
+	def tamanios(){
+		# [new Chica, new Familiar, new Grande, new Porcion]
 	}
 }

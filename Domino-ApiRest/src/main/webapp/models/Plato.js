@@ -5,7 +5,7 @@ function Plato(unaPizza,aID){
     self.id                  = aID;
     self.pizza               = unaPizza;
     self.tamanio             = undefined;
-    self.ingredientesExtras  = new DistribucionEnPizza();
+    self.ingredientesExtras  = new DistribucionEnPizza([]);
 
 
     this.getIngredientesDePizza = function (){
@@ -74,18 +74,24 @@ function Plato(unaPizza,aID){
       return  this.ingredientesExtras.todosLosIngredientesCompletos()
     };
 
-    this.tranform =function (json) {
-        self.tamanio             = json.tamanio;
-        self.ingredientesExtras  = new DistribucionEnPizza(json.ingredientesExtras.ingredientes);
-        return self;
-    }
+
 
 }
 
 function PlatoDTO(aPlato){
 
     this.pizza               = new PizzaDTO(aPlato.pizza);
-    this.tamanio             = aPlato.tamanio.nombre;
+    this.tamanio             = new Tamanio(aPlato.tamanio);
     this.ingredientesExtras  = aPlato.ingredientesExtras;
 }
 
+function HidratadorDePlatro() {
+
+    this.tranform =function (json,nick) {
+        var newPLato= new Plato(new PizzaDeAPI(json.pizza),nick);
+        newPLato.tamanio= new Tamanio(json.tamanio);
+        newPLato.ingredientesExtras=new DistribucionEnPizza(json.ingredientesExtras.ingredientes);
+
+        return newPLato;
+    }
+}

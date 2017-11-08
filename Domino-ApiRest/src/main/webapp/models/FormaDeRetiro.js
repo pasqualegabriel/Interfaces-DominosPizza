@@ -16,10 +16,20 @@ function FormaDeRetiro(unTipo, unaDireccion, unPrecio){
 
     this.direccionValida = function()
     {
-        if(this.esLocal())
+        return self.esLocal() || !angular.equals(this.direccion,"");
+       /* if(this.esLocal())
         {   return true }
         else
-        {   return !angular.equals(this.direccion,""); }
+        {   return !angular.equals(this.direccion,""); }*/
+    };
+
+    this.getDireccion = function () {
+        if(self.direccion.length === 0){
+            return "Retiro por Local";
+        }
+        else {
+            return self.direccion;
+        }
     };
 
     this.tieneDireccion = function() {

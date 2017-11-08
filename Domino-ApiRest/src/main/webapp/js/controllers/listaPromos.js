@@ -1,27 +1,20 @@
 'use strict';
 
-dominoApp.controller('ListaPromosCrl',function(pedidosService, $state,$stateParams,ingredienteService) {
-    return new ControllerListaPromo(pedidosService, $state,$stateParams,ingredienteService)
+dominoApp.controller('ListaPromosCrl',function(pedidosService, $state,ingredienteService) {
+    return new ControllerListaPromo(pedidosService, $state,ingredienteService)
 
 });
 
-/* Responsabilidad */
-// Conectar la vista de ingredientesExtra con el modelo
 
-function ControllerListaPromo(pedidosService, $state, $stateParams, ingredienteService) {
+function ControllerListaPromo(pedidosService, $state, ingredienteService) {
 
     var self                     = this;
     /* Atributos */
 
-    /* Protocolo */
-    self.pedido                  = pedidosService.getPedidoEnContruccionById($stateParams.id);
+    self.pedido                  = pedidosService.getPedidoActual();
     self.platoEnConstruccion     = self.pedido.platoEnConstruccion;
 
-    //cambio:
-    // Antes ->
-    //self.ingredientesDeLaPizza   = self.platoEnConstruccion.pizza.distribucion.ingredientes;
 
-    // Ahora ->
     self.ingredientesDeLaPizza   = self.platoEnConstruccion.getIngredientesDePizza();
 
     self.ingredientesDisponibles = undefined;
@@ -39,19 +32,6 @@ function ControllerListaPromo(pedidosService, $state, $stateParams, ingredienteS
         return self.platoEnConstruccion.nombreTamanio();
     };
 
-    //cambio:
-
-    // Logica muy fuerte para un controller. Que un ingrediente sepa el mismo si esta en una lista.
-
-    //antes ->
-
-    // this.estaEnListaDeIngredientes = function (unaLista, unIngrediente) {
-    //    return unaLista.some(function(pairDeIngEnPizza){ return pairDeIngEnPizza.esElIngrediente(unIngrediente)});
-    //};
-
-    //  var funcionDeFiltrado = function(ingrediente){ return !self.estaEnListaDeIngredientes(self.ingredientesDeLaPizza, ingrediente) && !self.estaEnListaDeIngredientes(self.platoEnConstruccion.ingredientesExtraConDist(), ingrediente)};
-
-    //ahora ->
 
     this.ingredientesExtraAAgregar = function(unaListaDeIngredientes) {
 
@@ -100,7 +80,7 @@ function ControllerListaPromo(pedidosService, $state, $stateParams, ingredienteS
     this.finalizarPlato= function () {
        try {
            self.pedido.confirmarPLato();
-           $state.go("confirmarPedido",{id: $stateParams.id});
+           $state.go("confirmarPedido");
        }
        catch (e){
            var error =  {

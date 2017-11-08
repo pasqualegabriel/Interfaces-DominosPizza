@@ -5,12 +5,12 @@ dominoApp.controller('pedidosCtrl', ConfirmarPedidoController);
 /* Responsabilidad */
 // Conectar la vista de ConfirmarPedido con el modelo
 
-function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroService, $state) {
+function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state) {
 
     var self= this;
     /* Atributos */
 
-    self.pedido = pedidosService.getPedidoEnContruccionById($stateParams.id);
+    self.pedido = pedidosService.getPedidoActual();
 
 
     /* Protocolo */
@@ -72,12 +72,11 @@ function ConfirmarPedidoController($stateParams, pedidosService, formaDeRetiroSe
             var error =  { error: "No puede continuar. Revise: Que haya platos agregados, que elegio el tipo de envio y si eligio delivery, que haya completado la direccion." };
             this.errorHandler(error)
         }
-        //self.pedido.setFormaDeEnvio(self.tipoDeFormaDeEnvio);
-        //return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza).catch(function(response){ self.errorHandler(response.data)});
+
     };
 
     this.goToPizza = function() {
-        pedidosService.newPedido($stateParams.id);
+        pedidosService.newPedido(self.pedido.idMiembro);
         $state.go("pizzaSelector");
     };
 

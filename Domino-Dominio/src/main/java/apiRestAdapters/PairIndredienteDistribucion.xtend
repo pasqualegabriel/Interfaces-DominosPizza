@@ -2,6 +2,8 @@ package apiRestAdapters
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import pizza.Ingrediente
+import pizza.PairIngredienteDistribucionPizza
+import pizza.DistribucionEnPizza
 
 @Accessors
 class PairIndredienteDistribucion {
@@ -13,4 +15,9 @@ class PairIndredienteDistribucion {
 		ingrediente		= aIngrediente
 		distribucion	= aDistribucion
 	}
+	
+	def convertir() {
+		new PairIngredienteDistribucionPizza(ingrediente,DistribucionEnPizza.valueOf(distribucion))
+	}
+	
 }

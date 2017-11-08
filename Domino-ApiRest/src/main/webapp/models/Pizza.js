@@ -3,7 +3,7 @@
 
 
 function PizzaDeAPI(json) {
-    return new Pizza(json.nombre, json.precio, json.ingredientes)
+    return new Pizza(json.nombre, json.precioBase, json.distribucion.ingredientes)
 }
 
 function PizzaDTO(unaPizza) {

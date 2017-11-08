@@ -6,9 +6,9 @@
 // aca no deberia haber logica de negocio.
 // nos van a criticar por un error como ese, mejor evitarlo.
 
-dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService,pedidosService,platoService,userService){
+dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService,pedidosService,platoService){
 
-    return new PizzaController($state, pizzaService,pedidosService,platoService,userService);
+    return new PizzaController($state, pizzaService,pedidosService,platoService);
 
 });
 
@@ -16,7 +16,7 @@ dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService,pedidosSe
 /* Responsabilidad */
 // Conectar la vista de SelectorDePizza con el modelo
 
-function PizzaController($state, pizzaService, pedidosService, platoService, userService) {
+function PizzaController($state, pizzaService, pedidosService, platoService) {
 
 
     /* Atributos */
@@ -25,7 +25,7 @@ function PizzaController($state, pizzaService, pedidosService, platoService, use
     self.listaDePromos = [];
 
 
-    self.pedido = pedidosService.getPedidoEnContruccionById(userService.getLoggedUserNick());
+    self.pedido = pedidosService.getPedidoActual();
     self.precioBase = 0;
 
     /* Protocolo */
@@ -62,7 +62,7 @@ function PizzaController($state, pizzaService, pedidosService, platoService, use
     {
         var plato = platoService.newPlato(unaPizza);
         self.pedido.setPlatoEnConstruccion(plato);
-        $state.go("seleccionDeTamanio",{id: self.pedido.idMiembro});
+        $state.go("seleccionDeTamanio");
     };
 
 }

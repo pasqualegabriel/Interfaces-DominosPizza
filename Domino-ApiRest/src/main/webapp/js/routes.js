@@ -30,19 +30,19 @@ dominoApp.config(function ($stateProvider, $urlRouterProvider) {
         })
 
         .state('seleccionDeTamanio', {
-            url: "/ed/seleccionTamanio/:id",
+            url: "/ed/seleccionTamanio",
             templateUrl: "../partials/selectorDeTamanio.html",
             controller: "sizeSelectorCrl as customSize"
         })
 
         .state('ingredientesExtras', {
-            url: "/ed/customizarPedido/:id",
+            url: "/ed/customizarPedido",
             templateUrl: "../partials/ingredientesExtras.html",
             controller: "ListaPromosCrl as promos"
         })
 
         .state('confirmarPedido', {
-            url: "/ed/confirmarPedido/:id",
+            url: "/ed/confirmarPedido",
             templateUrl: "../partials/confirmarPedido.html",
             controller: "pedidosCtrl as pedido"
 

@@ -1,9 +1,9 @@
 'use strict';
-dominoApp.controller('UsuarioCtrl', function (userService) {
+dominoApp.controller('UsuarioCtrl', function (userService,pedidosService,$state) {
 	var self = this;
 	self.user= userService.userLoggin;
 
-	this.datosDePedido = self.user.historialDePedidos;
+	self.datosDePedido = undefined;
 
 
     self.nick = self.user.nick;
@@ -14,9 +14,22 @@ dominoApp.controller('UsuarioCtrl', function (userService) {
 
     self.direccion = self.user.direccion;
 
-    this.repetirPedido = function (pedido) {
+    self.errorHandler = function (error) {
 
+        alert(error.error)
+    };
+
+    this.getHistorialDePedidos = function () {
+        pedidosService.getPedido(self.nick).then(function (list) {
+            self.datosDePedido  = list;
+            alert(list)
+        }).catch(self.errorHandler);
+    };
+    this.getHistorialDePedidos();
+
+    this.repetirPedido=function (aPedido) {
+        pedidosService.repetirPedido(aPedido);
+        $state.go("confirmarPedido");
     }
-
 
 });

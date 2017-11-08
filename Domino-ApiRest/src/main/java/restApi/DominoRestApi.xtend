@@ -132,7 +132,8 @@ class DominoRestApi {
 		response.contentType = ContentType.APPLICATION_JSON
 		try {
 			var PedidoApiAdapter unPedidoApiAdapter = body.fromJson(PedidoApiAdapter)
-			var unPedido = unPedidoApiAdapter.convertir
+			var  unPedido = unPedidoApiAdapter.convertir
+			
 			try {
 				HomePedido.instance.agregarPedido(unPedido)
 				ok()
