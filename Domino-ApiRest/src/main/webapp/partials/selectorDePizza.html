@@ -29,15 +29,33 @@
 									<button type="button" class="btn btn-lg btn-block btn-info" name="seleccionar" ng-click="customPizza.seleccionar(pizza)" >Seleccionar</button>
 								</div>
 							</div>
-
-
-					</div></div>
+					</div>
+                    </div>
 
 
 				</div>
 
-	</div>
+        <div  data-toggle="tooltip" title={{pizza.listaDeNombresIngredientes()}}>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" >
+                <div class="panel price panel-red">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3>Arma tu propia pizza</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <p class="lead" style="font-size:40px"><strong>$ {{customPizza.precioBase}}</strong></p>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
 
+                    </ul>
+                    <div class="panel-footer">
+                        <button type="button" class="btn btn-lg btn-block btn-info" name="seleccionar" ng-click="customPizza.armaTuPizza()" >Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	</div>
+<!--
  <div class="modal-footer">
 
             <button id="boton" type="submit" class="btn btn-default" ng-click="customPizza.armaTuPizza()">
@@ -58,7 +76,7 @@
                 </label>
             </button>
  </div>
-
+-->
 
 
 </div>

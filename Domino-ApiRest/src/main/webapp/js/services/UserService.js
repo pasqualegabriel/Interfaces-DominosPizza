@@ -22,11 +22,11 @@ function UserRepo($http) {
     };
 
     this.registrarse=function (registro) {
-        self.registrar.registro(registro)
+        return self.registrar.registro(registro)
     };
 
     this.updateUser=function (user) {
-        self.nuevosCambios.update(user)
+        return self.nuevosCambios.update(user)
     }
 }
 

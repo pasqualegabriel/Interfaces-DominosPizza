@@ -17,7 +17,7 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
 
     //self.totalAPagar= 0;
     //self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
-    self.nombreDeRetiro=  "";
+    self.nombreDeRetiro= "";
 
     this.cancelarPlato = function(plato){
         self.pedido.eliminarPlato(plato);
@@ -90,6 +90,11 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
 
     this.formaDeRetiro = function(){
         return self.pedido.formaDeRetiro
-    }
+    };
 
+    this.cargarNombreDeFormaDeRetiro = function(){
+        self.nombreDeRetiro = self.formaDeRetiro().tipo
+    };
+
+    this.cargarNombreDeFormaDeRetiro()
 }

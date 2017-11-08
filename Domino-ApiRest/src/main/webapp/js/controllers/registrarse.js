@@ -1,14 +1,14 @@
 'use strict';
 
-dominoApp.controller('RegisterCrl', function ($state, userService) {
-    return new RegisterController( $state, userService);
+dominoApp.controller('RegisterCrl', function ($state, userService,messageHandler) {
+    return new RegisterController( $state, userService,messageHandler);
 
 });
 
 /* Responsabilidad */
 // Conectar la vista de registrarse con el modelo
 
-function RegisterController($state, userService) {
+function RegisterController($state, userService,messageHandler) {
 
 
     /* Atributos */
@@ -30,10 +30,10 @@ function RegisterController($state, userService) {
 
     /* Protocolo */
 
-    self.errorHandler = function (error) {
+/*    self.errorHandler = function (error) {
         alert(error.error)
     };
-
+*/
     this.laContraseniaCoincide = function(){
         return self.contrasenia === self.repitaContrasenia
     };
@@ -44,30 +44,21 @@ function RegisterController($state, userService) {
 
     this.register = function() {
 
-        if (!this.laContraseniaCoincide()) {
-
-            var error = {error: "Las contraseñas no son iguales"};
-            this.errorHandler(error);
+        if (!this.laContraseniaCoincide())
+        {
+            messageHandler.notificarError("Las contraseñas no son iguales");
         } else {
             var newUser = new Miembro(this.nombre, this.nick, this.contrasenia, this.mail, this.direccion, []);
 
-
-            var n = {
-                "nombre": this.nombre,
-                "nick": this.nick,
-                "password": this.contrasenia,
-                "mail": this.mai,
-                "direccion": this.direccio,
-                "historialDePedidos": []
-            };
-
-            userService.registrarse(n)/*.then(function () {
-                $state.go("logIn");
-            }).catch(function (response) {
-                self.errorHandler(response.data)
-            });
-        }*/
-    }}
+            userService .registrarse(newUser)
+                        .then(function (response){
+                                                    alert(response.data);
+                                                    self.goToLogin();
+                                                 }
+                             )
+                        .catch(function (response) { messageHandler.notificarError(response.data.error)})
+        }
+    }
 
 
 }

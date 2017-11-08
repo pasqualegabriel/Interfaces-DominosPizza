@@ -74,7 +74,8 @@ class DominoRestApi {
 			try {
 				miembro.nick= nick
 				miembro.realizarModificaciones
-				ok()
+				var respuesta="Los Cambios Fueron Guardados".toJson
+				ok(respuesta)
 			} catch (UserException exception) {
 				badRequest(getErrorJson(exception.message))
 			}
@@ -89,10 +90,10 @@ class DominoRestApi {
 		response.contentType = ContentType.APPLICATION_JSON
 		try {
 			var MiembroApiAdapter miembroAdapter = body.fromJson(MiembroApiAdapter)
-			var miembro = miembroAdapter.convertir
+			var miembro = miembroAdapter.crearNuevoMiembro
 			try {
 				HomeMiembro.instance.registrarUsuario(miembro)
-				ok()
+				ok("Registro Completado. ¡Bienvenido!".toJson)
 			} catch (UserException exception) {
 				badRequest(getErrorJson(exception.message))
 			}
@@ -206,7 +207,6 @@ class DominoRestApi {
 		try {
 			var Login unLogin = body.fromJson(Login)
 			try {
-//				HomeLogin.instance.registrarLogin(unLogin)
 				var MiembroApiAdapter usuario =  new MiembroApiAdapter(HomeLogin.instance.verificarLogin(unLogin))
 				ok(usuario.toJson)
 			} catch (UserException exception) {

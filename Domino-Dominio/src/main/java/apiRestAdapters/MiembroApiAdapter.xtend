@@ -34,7 +34,7 @@ class MiembroApiAdapter {
 		miembro.mail		= this.mail
 		miembro.direccion 	= this.direccion
 	}
-	
+	/* 
 	def convertir() {
 		val miembro = new Miembro
 				miembro.nombre	           = this.nombre
@@ -45,6 +45,12 @@ class MiembroApiAdapter {
 				this.historialDePedidos.forEach[miembro.historialDePedidos.add(it.convertir)]
 			
 		miembro 
+	}*/
+	
+	/*Metodo utilizado a la hora de registrarse un nuevo usuario desde la web. Adapta los datos obtenidos para ser utilizados en una clase miembro, compatible con el dominio*/
+	def crearNuevoMiembro()
+	{
+		return new Miembro(this.nombre, this.nick, this.password, this.mail, this.direccion)
 	}
 	
 }

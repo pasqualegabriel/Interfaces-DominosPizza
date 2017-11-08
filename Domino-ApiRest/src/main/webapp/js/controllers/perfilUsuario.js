@@ -27,7 +27,7 @@ dominoApp.controller('UsuarioCtrl', function (userService,pedidosService,$state,
         self.user.mail      = self.mail;
         self.user.direccion = self.direccion;
 
-        userService.updateUser(self.user)//.catch(function(response){messageHandler.notificarError(response.data.error)});
+        userService.updateUser(self.user).then(function(response){messageHandler.notificarMensaje(response.data)}).catch(function(response){messageHandler.notificarError(response.data.error)});
     };
 
     this.repetirPedido=function (aPedido) {
