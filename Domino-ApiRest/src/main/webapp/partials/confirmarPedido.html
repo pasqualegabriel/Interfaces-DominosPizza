@@ -1,46 +1,41 @@
 <head>
     <meta charset="utf-8">
     <title>Confirmar Pedido</title>
-    <link rel="stylesheet" type="text/css" href="../css/confirmarPedido.css">
+    <link rel="stylesheet" type="text/css" href="../css/iniciarSesionStyles.css">
 </head>
 
 
-<div class = "container">
+<div class = "container-fluid">
 
     <header class="page-header">
         <h1>Pedido</h1>
         <h3>Pizzas</h3>
     </header>
 
-    <div>
+    <div class="row">
+        <div data-ng-repeat="plato in pedido.getCollecionDePlatos()">
+            <div  data-toggle="tooltip" title={{plato.nombreDeIngredientes()}}>
+                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" >
+                    <div class="panel price panel-red">
+                        <div class="panel-heading arrow_box text-center">
+                            <h3>{{plato.nombreDePizza()}}</h3>
+                        </div>
+                        <div class="text-center">
+                            <p class="lead" style="font-size:40px"><strong>$ {{plato.getCalcularPrecioConIngredientes()}}</strong></p>
+                        </div>
+                        <ul class="list-group list-group-flush text-center">
 
-        <ul data-ng-repeat="plato in pedido.getCollecionDePlatos()">
-
-            <button id="boton" type="submit" class="btn btn-default" ng-click="pedido.cancelarPlato(plato)">
-
-                <label class="block" >
-                    <div id="datos">
-                        <h2>{{plato.nombreDePizza()}}</h2>
-                        <h4>{{plato.nombreDeIngredientes()}}</h4>
+                        </ul>
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-lg btn-block btn-danger" name="cancelar" ng-click="pedido.cancelarPlato(plato)" >X</button>
+                        </div>
                     </div>
-                </label>
-                <label>
-                    <div id="precio">
-                        <h3><span class="label label-primary">$ {{plato.getCalcularPrecioConIngredientes()}}</span></h3>
-                    </div>
-                </label>
-                <label>
-                    <div >
-                        <h2>X</h2>
-                    </div>
-                </label>
-            </button>
-
-        </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div>
-
         <a ui-sref="pizzaSelector">Agregar otra Pizza</a>
 
         <hr>
@@ -60,9 +55,12 @@
         </form>
         <span style="float:left; margin-left: 10px">Recargo por Envio: $ {{pedido.recargoPorEnvio()}} </span>
     </div>
+
     <br>
     <hr>
-    <div>
-        <h3 style="float:left;"> Total A Pagar</h3> <h4 style="float:left; margin-left: 10px">$ {{pedido.costoTotalAPagar()}} </h4> <input style=" margin-left: 10px" type="button" ng-click="pedido.confirmarPedido()" value="Confirmar Pedido">
+
+    <div style="padding-bottom: 10px">
+        Total A Pagar: <span class="label label-primary">$ {{pedido.costoTotalAPagar()}} </span> <button class="btn btn-info" style=" margin-left: 10px" type="button" ng-click="pedido.confirmarPedido()" >Confirmar Pedido</button>
     </div>
+
 </div>

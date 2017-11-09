@@ -46,29 +46,32 @@
     <!-- Mensajes-->
     <div  class="header clearfix">
 
-    <div ng-controller="MensajesCrl as ses" class="row">
-        <ul class="example-animate-container">
-            <li class="message bg-success animate-repeat" data-ng-repeat="msg in ses.notificacionesDuranteLaSesion">{{msg}}</li>
-        </ul>
-        <ul class="example-animate-container">
-            <li class="alert alert-danger animate-repeat" data-ng-repeat="error in ses.erroresDuranteLaSesion">{{error}}</li>
-        </ul>
-    </div>
-
-    <div>
-        <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
-        <nav ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
-            <ul class="nav nav-pills float-right">
-                <li class="nav-item" ng-show="user.esUsuarioRegistrado()">
-                    <a class="nav-link" ui-sref="perfilUsuario">PerfilUsuario</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" ui-sref="pizzaSelector" ng-click="user.nuevoPedido()">Menu</a>
-                </li>
-
+        <div ng-controller="MensajesCrl as ses" class="row">
+            <ul class="example-animate-container">
+                <li class="message bg-success animate-repeat" data-ng-repeat="msg in ses.notificacionesDuranteLaSesion">{{msg}}</li>
             </ul>
-        </nav>
-    </div>
+            <ul class="example-animate-container">
+                <li class="alert alert-danger animate-repeat" data-ng-repeat="error in ses.erroresDuranteLaSesion">{{error}}</li>
+            </ul>
+        </div>
+
+        <div style="padding-bottom: 10px">
+            <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
+        </div>
+        <div>
+            <nav ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
+                <ul class="nav nav-pills float-right">
+                    <li class="nav-item" ng-show="user.esUsuarioRegistrado()">
+                        <a class="nav-link" ui-sref="perfilUsuario">PerfilUsuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="pizzaSelector" ng-click="user.nuevoPedido()">Menu</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
     </div>
 
     <main role="main">

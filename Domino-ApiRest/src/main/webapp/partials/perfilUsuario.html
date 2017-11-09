@@ -1,27 +1,43 @@
 
     <div class="container">
 
+
+
       <div class="well-lg">
 
-        <form>
-          <div class="input-group" ng-data="usuario.nombre" type="text">
-            <h2>{{usuario.userName}}</h2>
+
+        <form name="form1">
+
+          <form>
+            <div class="input-group" ng-data="usuario.nombre" type="text">
+              <h2>{{usuario.userName}}</h2>
+            </div>
+          </form>
+
+          <div class="form-group row">
+            <label for="inputNick" class="col-sm-2 col-form-label">Nombre:</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="usuario.nombre" class="form-control mx-sm-3" id="inputNick" name="nick">
+            </div>
           </div>
+
+          <div class="form-group row">
+            <label for="inputMail" class="col-sm-2 col-form-label">Mail:</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="usuario.mail" class="form-control mx-sm-3" id="inputMail" name="mail">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputDir" class="col-sm-2 col-form-label">Direccion:</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="usuario.direccion" class="form-control mx-sm-3" id="inputDir" name="dir">
+            </div>
+          </div>
+
         </form>
 
-        <div  class="panel-body">
-            <label>Nombre:</label> <input ng-model="usuario.nombre" type="text" placeholder="nombre">
-        </div>
-
-        <div  class="panel-body">
-            <label>Mail:     </label> <input ng-model="usuario.mail" type="text" placeholder="nombre">
-        </div>
-
-        <div  class="panel-body">
-            <label>Direccion:</label> <input ng-model="usuario.direccion" type="text" placeholder="nombre">
-        </div>
-
-        <br/>
+        <br>
 
         <div class="btn-group">
           <button type="button" class="btn btn-primary" ng-click="usuario.guardarCambios()">
@@ -30,6 +46,7 @@
         </div>
 
         <br/><br/>
+        <hr>
 
         <form>
           <div class="input-group">

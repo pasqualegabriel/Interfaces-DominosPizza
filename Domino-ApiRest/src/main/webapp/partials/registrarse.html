@@ -1,64 +1,60 @@
+<div class="container-fluid">
 
-
-    <div class="container-fluid">
-
-      <form>
-        <div style="padding-bottom: 10px">
-          <h3> Registrarse</h3>
-        </div>
-      </form>
-
-      <form name="form1" class="form-group row">
-        <label for="inputNick" class="col-sm-2 col-form-label">Usuario:</label>
-        <div class="col-sm-10">
-          <input  ng-model="newUser.nick" type="text" placeholder="usuario"  id="inputNick" name="usuario" class="form-control mx-sm-3" required>
-        </div>
-      </form >
-
-      <form name="form2"  class="form-group row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
-        <div class="col-sm-10">
-          <input  ng-model="newUser.contrasenia" type="password" placeholder="password"  id="inputPassword" name="contrasenia" class="form-control mx-sm-3" required>        </div>
-      </form>
-
-      <form name="form3"  class="form-group row">
-        <label for="inputPassword2" class="col-sm-2 col-form-label">Repita contraseña:</label>
-        <div class="col-sm-10">
-          <input  ng-model="newUser.repitaContrasenia" type="password" placeholder="password"  id="inputPassword2" name="contraseniarepetir" class="form-control mx-sm-3" required>        </div>
-      </form>
-
-      <form name="form4" class="form-group row">
-        <label for="inputName" class="col-sm-2 col-form-label">Nombre:</label>
-        <div class="col-sm-10">
-          <input  ng-model="newUser.nombre" type="text" placeholder="nombre"  id="inputName" name="nombre" class="form-control mx-sm-3" required>        </div>
-      </form>
-
-      <form name="form5" class="form-group row">
-        <label for="inputMail" class="col-sm-2 col-form-label">Mail:</label>
-        <div class="col-sm-10">
-          <input  ng-model="newUser.mail" type="email" placeholder="mail"  id="inputMail" name="mail" class="form-control mx-sm-3" required>        </div>
-      </form>
-
-      <form name="form6" class="form-group row">
-        <label for="inputDireccion" class="col-sm-2 col-form-label">Direccion:</label>
-        <div class="col-sm-10">
-          <input  ng-model="newUser.direccion" type="text" placeholder="direccion"  id="inputDireccion" name="direccion" class="form-control mx-sm-3" required>        </div>
-      </form>
-
-        <br>
-
-        <form class="modal-footer" name="form7">
-          <button type="submit" name="registrarse" class="btn btn-primary" ng-click="newUser.register()" ng-disabled="form1.usuario.$invalid || form2.contrasenia.$invalid || form3.contraseniarepetir.$invalid ||                                                                                                            form4.nombre.$invalid  || form5.mail.$invalid || form6.direccion.$invalid           ">
-          Registrarse
-          </button>
-
-
-
-
-        </form>
-      <div ng-controller="SessionCrl as user">
-        <p><a ui-sref="pizzaSelector" ng-click="user.logInInvitado()">O puedes ingresar como INVITADO</a></p>
-      </div>
-      </div>
+  <form>
+    <div style="padding-bottom: 10px">
+      <h3> Registrarse</h3>
     </div>
+  </form>
+
+  <form name="form1" class="form-group row">
+    <label for="inputNick" class="col-sm-2 col-form-label">Usuario:</label>
+    <div class="col-sm-10">
+      <input  ng-model="newUser.nick" type="text" placeholder="usuario"  id="inputNick" name="usuario" class="form-control mx-sm-3" required>
+    </div>
+  </form >
+
+  <form name="form2"  class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
+    <div class="col-sm-10">
+      <input  ng-model="newUser.contrasenia" type="password" placeholder="password"  id="inputPassword" name="contrasenia" class="form-control mx-sm-3" required>        </div>
+  </form>
+
+  <form name="form3"  class="form-group row">
+    <label for="inputPassword2" class="col-sm-2 col-form-label">Repita contraseña:</label>
+    <div class="col-sm-10">
+      <input  ng-model="newUser.repitaContrasenia" type="password" placeholder="password"  id="inputPassword2" name="contraseniarepetir" class="form-control mx-sm-3" required>        </div>
+  </form>
+
+  <form name="form4" class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">Nombre:</label>
+    <div class="col-sm-10">
+      <input  ng-model="newUser.nombre" type="text" placeholder="nombre"  id="inputName" name="nombre" class="form-control mx-sm-3" required>        </div>
+  </form>
+
+  <form name="form5" class="form-group row">
+    <label for="inputMail" class="col-sm-2 col-form-label">Mail:</label>
+    <div class="col-sm-10">
+      <input  ng-model="newUser.mail" type="email" placeholder="mail"  id="inputMail" name="mail" class="form-control mx-sm-3" required>        </div>
+  </form>
+
+  <form name="form6" class="form-group row">
+    <label for="inputDireccion" class="col-sm-2 col-form-label">Direccion:</label>
+    <div class="col-sm-10">
+      <input  ng-model="newUser.direccion" type="text" placeholder="direccion"  id="inputDireccion" name="direccion" class="form-control mx-sm-3" required>        </div>
+  </form>
+
+  <br>
+
+  <form class="modal-footer" name="form7">
+    <button type="submit" name="registrarse" class="btn btn-primary" ng-click="newUser.register()" ng-disabled="form1.usuario.$invalid || form2.contrasenia.$invalid || form3.contraseniarepetir.$invalid ||                                                                                                            form4.nombre.$invalid  || form5.mail.$invalid || form6.direccion.$invalid           ">
+      Registrarse
+    </button>
+  </form>
+
+  <div ng-controller="SessionCrl as user">
+    <p><a ui-sref="pizzaSelector" ng-click="user.logInInvitado()">O puedes ingresar como INVITADO</a></p>
+  </div>
+
+</div>
+
 
