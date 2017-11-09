@@ -60,4 +60,8 @@ class Miembro extends Usuario {
 		listaDePedidos
 	}
 	
+	override  boolean esInvitado(){
+		false
+	}
+	
 }

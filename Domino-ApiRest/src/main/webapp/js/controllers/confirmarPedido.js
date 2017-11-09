@@ -15,8 +15,6 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
 
     /* Protocolo */
 
-    //self.totalAPagar= 0;
-    //self.tipoDeFormaDeEnvio= new FormaDeRetiro("", "", 0);
     self.nombreDeRetiro= "";
 
     this.cancelarPlato = function(plato){
@@ -33,7 +31,7 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
 
     this.hayFormaDeEnvio = function () {
         return self.pedido.hayFormaDeEnvio()
-        //return this.tipoDeFormaDeEnvio.tipo !== ""
+
     };
 
     this.isNotDelivery=function () {
@@ -42,19 +40,18 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
 
     this.estaListoParaConfirmar = function(){
         return self.hayPlato() && self.hayFormaDeEnvio() && self.direccionValida()
-        //return !(self.hayPlato() && self.hayFormaDeEnvio() && self.tipoDeFormaDeEnvio.tieneDireccion())
+
     };
 
 
 
     this.costoTotalAPagar = function(){
         return self.pedido.costoTotalDelPedido();
-        //return self.pedido.costoTotalDelPedido(self.tipoDeFormaDeEnvio);
+
     };
 
     this.setFormaDeRetiro = function(){
-        //self.tipoDeFormaDeEnvio= formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro);
-        self.pedido.setFormaDeEnvio( formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro));
+         self.pedido.setFormaDeEnvio( formaDeRetiroService.newFormaDeRetiro(self.nombreDeRetiro));
         self.costoTotalAPagar()
     };
 

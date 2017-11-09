@@ -20,5 +20,8 @@ abstract class Usuario {
 	
 	abstract def void agregarPedido(Pedido pedido)
 	
+	def  boolean esInvitado(){
+		true
+	}
 
 }

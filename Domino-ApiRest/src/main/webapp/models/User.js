@@ -5,20 +5,26 @@ function MiembroDTO(json) {
 
 function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion) {
 
-
-    this.nombre= unNombre;
-    this.nick = unNick;
-    this.password = unPassword;
-    this.mail = unMail;
-    this.direccion = unaDireccion;
+    var self=this;
+    self.nombre= unNombre;
+    self.nick = unNick;
+    self.password = unPassword;
+    self.mail = unMail;
+    self.direccion = unaDireccion;
 
     this.getNick = function () {
-        return this.nick;
+        return self.nick;
     };
 
     this.esUsuario = function()
     {
         return true;
+    };
+
+    this.realizarCambios = function (nombre,mail,direccion) {
+        self.nombre    = nombre;
+        self.mail      = mail;
+        self.direccion = direccion;
     }
 
 

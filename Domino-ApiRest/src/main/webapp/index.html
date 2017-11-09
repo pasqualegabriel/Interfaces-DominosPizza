@@ -59,12 +59,13 @@
         <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
         <nav ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
             <ul class="nav nav-pills float-right">
-                <li ui-state="" class="nav-item" ng-show="user.esUsuarioRegistrado()">
+                <li class="nav-item" ng-show="user.esUsuarioRegistrado()">
                     <a class="nav-link" ui-sref="perfilUsuario">PerfilUsuario</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" ui-sref="pizzaSelector" ng-click="user.nuevoPedido()">Menu</a>
                 </li>
+
             </ul>
         </nav>
     </div>

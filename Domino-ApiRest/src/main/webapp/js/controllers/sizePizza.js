@@ -1,9 +1,5 @@
 dominoApp.controller('sizeSelectorCrl', function ( $state, tamanioService,pedidosService) {
-
-
     return new SizeController( $state, tamanioService,pedidosService);
-
-
 });
 
 

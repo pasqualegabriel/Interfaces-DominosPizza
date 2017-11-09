@@ -42,6 +42,8 @@ function SessionController($state, sesionService, pedidosService, userService, m
     {
         return userService.esUsuarioRegistrado();
     }
+
+
 }
 
 dominoApp.controller('MensajesCrl', MensajesController);

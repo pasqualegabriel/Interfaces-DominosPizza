@@ -1,12 +1,12 @@
 'use strict';
 
-dominoApp.controller('ListaPromosCrl',function(pedidosService, $state,ingredienteService) {
-    return new ControllerListaPromo(pedidosService, $state,ingredienteService)
+dominoApp.controller('ListaPromosCrl',function(pedidosService, $state,ingredienteService,messageHandler) {
+    return new ControllerListaPromo(pedidosService, $state,ingredienteService,messageHandler)
 
 });
 
 
-function ControllerListaPromo(pedidosService, $state, ingredienteService) {
+function ControllerListaPromo(pedidosService, $state, ingredienteService,messageHandler) {
 
     var self                     = this;
     /* Atributos */
@@ -50,7 +50,7 @@ function ControllerListaPromo(pedidosService, $state, ingredienteService) {
         ingredienteService.getAllIngredientes().then(function (listaDeIngredientes) {
                 self.ingredientesDisponibles= listaDeIngredientes;
                 return listaDeIngredientes;
-            }).then(self.ingredientesExtraAAgregar).catch(function(response){ self.errorHandler(response.data)})
+            }).then(self.ingredientesExtraAAgregar).catch(function(response){messageHandler.notificarError(response.data.error)})
     };
 
 

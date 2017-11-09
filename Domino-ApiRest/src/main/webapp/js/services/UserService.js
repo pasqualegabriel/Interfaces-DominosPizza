@@ -4,10 +4,10 @@ dominoApp.service("userService", function ($http) {
 
 
 function UserRepo($http) {
-    var self= this;
-    self.userLoggin=undefined;
-    self.registrar  =new  Registrar($http);
-    self.nuevosCambios = new NuevosCambios($http);
+    var self                = this;
+    self.userLoggin         = undefined;
+    self.registrar          = new  Registrar($http);
+    self.nuevosCambios      = new NuevosCambios($http);
 
     this.setUserLoggin = function (aUser) {
         self.userLoggin= aUser;
@@ -35,10 +35,16 @@ function UserRepo($http) {
 
     this.esUsuarioRegistrado = function()
     {
+
+
         if (angular.isUndefined(self.userLoggin))
         { return false}
         else
         { return self.userLoggin.esUsuario();}
+    };
+
+    this.newUser=function (nombre, nick, pass, mail, direccion) {
+        return new Miembro(nombre, nick, pass, mail, direccion, []);
     }
 }
 

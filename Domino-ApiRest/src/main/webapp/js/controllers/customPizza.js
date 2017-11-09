@@ -24,7 +24,7 @@ function PizzaController($state, pizzaService, pedidosService, platoService) {
     self.listaDePromos = [];
 
 
-    self.pedido = pedidosService.getPedidoActual();
+    //self.pedido = pedidosService.getPedidoActual();
     self.precioBase = 0;
 
     /* Protocolo */
@@ -60,7 +60,6 @@ function PizzaController($state, pizzaService, pedidosService, platoService) {
     this.seleccionar = function(unaPizza)
     {
         var plato = platoService.newPlato(unaPizza);
-        //self.pedido.setPlatoEnConstruccion(plato);
         pedidosService.getPedidoActual().setPlatoEnConstruccion(plato);
         $state.go("seleccionDeTamanio");
     };

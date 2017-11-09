@@ -23,10 +23,7 @@ dominoApp.controller('UsuarioCtrl', function (userService,pedidosService,$state,
     this.getHistorialDePedidos();
 
     this.guardarCambios = function() {
-        self.user.nombre    = self.nombre;
-        self.user.mail      = self.mail;
-        self.user.direccion = self.direccion;
-
+        self.user.realizarCambios(self.nombre,self.mail,self.direccion);
         userService.updateUser(self.user).then(function(response){messageHandler.notificarMensaje(response.data)}).catch(function(response){messageHandler.notificarError(response.data.error)});
     };
 

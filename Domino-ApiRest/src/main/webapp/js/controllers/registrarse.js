@@ -28,14 +28,9 @@ function RegisterController($state, userService,messageHandler) {
     self.nombre            = "";
 
 
-    /* Protocolo */
-
-/*    self.errorHandler = function (error) {
-        alert(error.error)
-    };
-*/
     this.laContraseniaCoincide = function(){
-        return self.contrasenia === self.repitaContrasenia
+        return  angular.equals(self.contrasenia,self.repitaContrasenia);
+
     };
 
     this.goToLogin = function() {
@@ -48,15 +43,14 @@ function RegisterController($state, userService,messageHandler) {
         {
             messageHandler.notificarError("Las contraseñas no son iguales");
         } else {
-            var newUser = new Miembro(this.nombre, this.nick, this.contrasenia, this.mail, this.direccion, []);
-
+            var newUser = userService.newUser(self.nombre, self.nick, self.contrasenia, self.mail, self.direccion);
             userService .registrarse(newUser)
-                        .then(function (response){
-                                                    alert(response.data);
-                                                    self.goToLogin();
-                                                 }
-                             )
-                        .catch(function (response) { messageHandler.notificarError(response.data.error)})
+                .then(function (response){
+                        alert(response.data);
+                        self.goToLogin();
+                    }
+                )
+                .catch(function (response){messageHandler.notificarError(response.data.error)})
         }
     };
 
