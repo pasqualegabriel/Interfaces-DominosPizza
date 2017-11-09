@@ -1,4 +1,4 @@
-package menuPizzas
+package arenaAppModels
 
 import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -55,11 +55,11 @@ class MenuDeDominoAppModel {
 	}
 
 	def getPromosDisponibles() {
-		HomePizza.instance.todasLasPromociones // CORREGIDO //faltan los firepropertychanged
+		HomePizza.instance.todasLasPromociones
 	}
 
 	def getIngredientesDisponibles() {
-		HomeIngrediente.instance.todosLosIngredientes // CORREGIDO //faltan los firepropertychanged
+		HomeIngrediente.instance.todosLosIngredientes
 	}
 
 }

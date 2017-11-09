@@ -1,4 +1,4 @@
-package pedido
+package arenaAppModels
 
 import pedido.Pedido
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -40,7 +40,7 @@ class PedidoAppModel {
 	}
 
 	/**Devuelve true si el plato es eliminable*/
-	@Dependencies("platoSeleccionado","itemsPlatos")
+	@Dependencies(#["platoSeleccionado", "itemsPlatos"])
 	def getSePuedeEliminar() {
 		platoSeleccionado != null && itemsPlatos.size > 1
 
@@ -58,7 +58,7 @@ class PedidoAppModel {
 	}
 
 	/**Devuelve la hora del pedido en un formato que se pueda ver en la vista */
-	def getHora() { //Corregido
+	def getHora() {
 		pedidoAdaptado.fecha.toLocalTime
 	}
 
@@ -124,17 +124,11 @@ class PedidoAppModel {
 	}
 
 	/**Al aceptar los cambios desde la ventana, guarda la lista de platos en el pedido */
-//	@Dependencies("itemsPlatos")
 	def void aceptarCambios() 
-	{
-		pedidoAdaptado.platos = itemsPlatos
-//		ObservableUtils.firePropertyChanged(pedidoAdaptado,"platos")
-//		ObservableUtils.firePropertyChanged(pedidoAdaptado,"precio")
-	}
+	{	pedidoAdaptado.platos = itemsPlatos	}
 	
 	def actualizar()
 	{
-//		platoSeleccionado = null
 		ObservableUtils.firePropertyChanged(this,"itemsPlatos")
 		ObservableUtils.firePropertyChanged(this,"precio")
 		ObservableUtils.firePropertyChanged(pedidoAdaptado,"platos")

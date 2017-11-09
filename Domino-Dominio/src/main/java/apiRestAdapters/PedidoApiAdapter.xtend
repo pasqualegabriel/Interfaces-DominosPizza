@@ -61,7 +61,6 @@ class PedidoApiAdapter {
 		// Se crea el pedido y se lo transforma
 		val unPedido = new Pedido(unMiembro, HomePedido.instance.newId)
 
-		// unPedido.id			    = this.id
 		unPedido.aclaracion = this.aclaracion
 		unPedido.tiempoDeEspera = this.tiempoDeEspera
 
@@ -70,9 +69,6 @@ class PedidoApiAdapter {
 		// Se recrean los platos
 		this.platos.forEach[unPedido.platos.add(it.convertir)]
 
-		// Se convierte la fecha de string a localDateTime
-		/*No Es Necesaria por que se instancia la fecha cuando se crea el pedido en el dominio
-		 unPedido.fecha 		    = convertirFecha(this.fecha)*/
 		// Se recrea la forma de retiro
 		unPedido.formaDeRetiro = this.formaDeRetiro.convertir
 

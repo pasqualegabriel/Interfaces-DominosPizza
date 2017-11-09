@@ -4,10 +4,12 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
+import pedido.PedidoWindowEditar
+import pedido.Pedido
 
-class PedidoCerradoWindow extends pedido.PedidoWindowEditar
+class PedidoCerradoWindow extends PedidoWindowEditar
 {
-	new(WindowOwner owner, pedido.Pedido pedido) 
+	new(WindowOwner owner, Pedido pedido) 
 	{	super(owner, pedido)	}
 	
 	/**Redefine el titulo para que sea acorde a la ventana de pedidos Cerrados */

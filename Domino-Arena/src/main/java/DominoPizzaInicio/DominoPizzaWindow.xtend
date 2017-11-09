@@ -9,9 +9,10 @@ import org.uqbar.arena.widgets.Button
 import menuPizzas.MenuDeDominoMainWindow
 import listadoDePedidosCerrados.MainWindowListaPedidosCerrados
 import org.uqbar.arena.bindings.NotNullObservable
-import menuPizzas.MenuDeDominoAppModel
-import pedido.PedidoWindowEditar
 import org.uqbar.commons.model.exceptions.UserException
+import arenaAppModels.DominoPizzaAppModel
+import arenaAppModels.MenuDeDominoAppModel
+import pedido.PedidoWindowEditar
 
 /**Clase que genera y muestra la ventana donde se muestran los Pedidos Abiertos. En esta ventana se puede
  * hacer avanzar o retroceder el estado de un pedido, se lo puede cancelar y tambien se puede acceder a la 
@@ -65,7 +66,10 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel>
 
 		new Button(panelTablaDePedido) => [
 			caption = "Editar"
-			onClick [	this.abrirDialogoDeEditarPedido	]
+			onClick [	
+						this.abrirDialogoDeEditarPedido
+						this.modelObject.actualizar
+					]
 			bindEnabled(unPedidoSeleccionado)
 		]
 
@@ -73,7 +77,9 @@ class DominoPizzaWindow extends SimpleWindow<DominoPizzaAppModel>
 
 	/**Abre la ventana para poder editar el pedido */
 	def abrirDialogoDeEditarPedido() {
-		new PedidoWindowEditar(this, modelObject.pedidoSelectItem).open
+		new PedidoWindowEditar(this, modelObject.pedidoSelectItem) => [ open 
+			onAccept[modelObject.actualizar]
+		]
 	}
 
 	/**Define los botones de avance y retroceso de estado de los pedidos */

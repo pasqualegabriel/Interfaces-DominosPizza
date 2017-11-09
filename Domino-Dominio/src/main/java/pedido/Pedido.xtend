@@ -11,6 +11,7 @@ import java.time.LocalTime
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import persistencia.HomePedido
 import domino.Usuario
+import org.uqbar.commons.model.annotations.Dependencies
 
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
@@ -100,7 +101,8 @@ class Pedido {
 		estadoActual.estaEntregado
 	}
 
-	def cambiarAEstado(estados.EstadoDePedido pedido) {
+	def cambiarAEstado(EstadoDePedido unEstado) {
+		this.estadoActual = unEstado
 		/**Se fija si el estado a cambiar es al estado entregado, 
 		 * si es asi lo mueve a la lista de pedidos cerrados y calcula el tiempo de entrega*/
 		if (this.estadoActual.estaEntregado) {
@@ -120,6 +122,7 @@ class Pedido {
 		this.formaDeRetiro.precioDeRetiro
 	}
 
+	@Dependencies("platos")
 	def getPrecio() {
 		platos.stream.mapToDouble[it.getPrecio].sum + this.formaDeRetiro.precioDeRetiro
 	}

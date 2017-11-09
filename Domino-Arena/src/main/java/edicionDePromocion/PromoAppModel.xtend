@@ -7,7 +7,7 @@ import java.util.List
 import pizza.Pizza
 import pizza.Distribucion
 import java.util.ArrayList
-
+import edicionDePromocion.IngredienteAdapterAbstract
 
 @Observable
 @Accessors
@@ -48,7 +48,7 @@ class PromoAppModel {
 		if(pizza.nombre.length>0 && pizza.precioBase != null){
 			agregarIngredientes
 		}
-		else throw new NombrePrecioException ("No hay nombre ni precio")
+		else throw new edicionDePromocion.NombrePrecioException ("No hay nombre ni precio")
 	}
 	
 }

@@ -14,6 +14,7 @@ import pizza.Pizza
 import pizza.Distribucion
 
 import edicionDePromocion.EditarPromocionWindow
+import arenaAppModels.MenuDeDominoAppModel
 import edicionDePromocion.PromoAppModel
 
 class MenuDeDominoMainWindow  extends SimpleWindow<MenuDeDominoAppModel>

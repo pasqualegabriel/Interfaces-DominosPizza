@@ -16,6 +16,7 @@ import org.uqbar.arena.widgets.TextBox
 import estados.EstadoDePedido
 import plato.PlatoWindow
 import plato.AgregarPlatoWindow
+import arenaAppModels.PedidoAppModel
 
 /** Clase que genera la ventana de edicion de un pedido*/
 class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel> 
@@ -227,6 +228,6 @@ class PedidoWindowEditar extends TransactionalDialog<PedidoAppModel>
 	override executeTask()
 	{
 		super.executeTask
-		modelObject.aceptarCambios
+		this.modelObject.aceptarCambios
 	}
 }

@@ -1,4 +1,4 @@
-package DominoPizzaInicio
+package arenaAppModels
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
@@ -33,16 +33,14 @@ class DominoPizzaAppModel {
 	}
 
 	/**Pasa el pedido al siguiente estado */
-	@Dependencies("itemsPedidosAbiertos")
 	def void siguienteEstadoPedidoSeleccionado() {
 		pedidoSelectItem.siguiente
 		/*verifica si el pedido pasa a un pedido entregado,
 		 *  si es asi lo cierra y lo envia a pedido cerrados*/
-		if (pedidoSelectItem.estaEntregado){ //corregido
-			this.cerrarPedidoSeleccionado
-	
-			
+		if (pedidoSelectItem.estaEntregado){
+			this.cerrarPedidoSeleccionado		
 		}
+		ObservableUtils.firePropertyChanged(this, "itemsPedidosAbiertos")
 	}
 
 	/**Pasa el pedido al anterior estado */
@@ -51,21 +49,27 @@ class DominoPizzaAppModel {
 		/*verifica si el pedido no es el estado preparando. Si
 		 * es asi pasa al estado anterior, sino levanta una excepcion avisando
 		 * que no se puede pasar*/		
-		if (!pedidoSelectItem.estaPreparando) { //Corregido
+		if (!pedidoSelectItem.estaPreparando) {
 			pedidoSelectItem.anterior
 	
 		} else {
-			throw new StateException("No se puede ir a un estado atras estas en el inicial")
+			throw new DominoPizzaInicio.StateException("No se puede ir a un estado atras estas en el inicial")
 		}
 	}
 
 	/**Cierra un pedido seleccionado */
 	@Dependencies("itemsPedidosAbiertos")
-	def void cerrarPedidoSeleccionado(){ //Corregido
-	
-	
+	def void cerrarPedidoSeleccionado()
+	{	
 		pedidoSelectItem.cerrarPedido	
 		pedidoSelectItem = null
+	}
+
+	@Dependencies("itemsPedidosAbiertos")
+	def actualizar()
+	{
+		ObservableUtils.firePropertyChanged(pedidoSelectItem, "precio")
+		ObservableUtils.firePropertyChanged(this, "itemsPedidosAbiertos")
 	}
 
 	/**ordena la lista de pedidos cerrados */
@@ -75,6 +79,8 @@ class DominoPizzaAppModel {
 		}
 		listaActualizada
 	}
+
+
 
 }
 

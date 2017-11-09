@@ -37,11 +37,7 @@ class HomePizza {
 	 * Precondicion: tiene que estar la pizza a quitar
 	 */
 	def borrarPromocion(Pizza unaPizza) 
-	{
-		
-		//if(promocionesDisponibles.contains(unaPizza)){promocionesDisponibles.remove(unaPizza)}
-		promocionesDisponibles.remove(unaPizza)
-	}
+	{	promocionesDisponibles.remove(unaPizza)	}
 	
 	def getTodasLasPromociones() {
 		val listaDePromociones = newArrayList

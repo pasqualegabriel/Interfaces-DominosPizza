@@ -9,7 +9,7 @@ import persistencia.Bootstrap
 import formasDeComunicacion.ComunicacionPorMail
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import DominoPizzaInicio.DominoPizzaAppModel
+import arenaAppModels.DominoPizzaAppModel
 
 class DominoPizzaAppModelTest 
 {

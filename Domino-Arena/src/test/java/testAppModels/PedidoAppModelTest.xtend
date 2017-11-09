@@ -3,7 +3,6 @@ package testAppModels
 import static org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import pedido.PedidoAppModel
 import pedido.Pedido
 import domino.Miembro
 import pedido.Delivery
@@ -18,6 +17,7 @@ import pedido.Local
 import estados.ListoParaRetirar
 import estados.ListoParaEnviar
 import estados.EnViaje
+import appModels.PedidoAppModel
 
 class PedidoAppModelTest {
 	

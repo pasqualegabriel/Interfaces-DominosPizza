@@ -19,6 +19,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import pedido.PrecioTransformer
 import pedido.Plato
 import pizza.PairIngredienteDistribucionPizza
+import arenaAppModels.PlatoAppModel
 
 class PlatoWindow extends TransactionalDialog<PlatoAppModel>{
 	
