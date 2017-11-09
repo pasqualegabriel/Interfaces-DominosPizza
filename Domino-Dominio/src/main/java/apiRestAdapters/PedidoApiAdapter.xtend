@@ -65,7 +65,7 @@ class PedidoApiAdapter {
 		unPedido.tiempoDeEspera = this.tiempoDeEspera
 
 		// Se recrea el estado actual
-		unPedido.estadoActual = new Preparando() // (new EstadoDePedidoApiAdapter(this.estadoActual)).convertir()
+		unPedido.estadoActual = new Preparando()
 		// Se recrean los platos
 		this.platos.forEach[unPedido.platos.add(it.convertir)]
 

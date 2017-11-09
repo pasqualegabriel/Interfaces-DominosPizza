@@ -29,12 +29,6 @@ function FormaDeRetiro(unTipo, unaDireccion, unPrecio){
         }
     };
 
-/*
-    this.tieneDireccion = function() {
-        return angular.equals(self.tipo,EnumFormaDeEnvio.Local) || !angular.equals(self.direccion, "");
-
-    };
-*/
 
 
 

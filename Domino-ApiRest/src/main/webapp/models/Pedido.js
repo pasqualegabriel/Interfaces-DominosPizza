@@ -7,7 +7,6 @@ function Pedido(aIdMiembro){
     self.idMiembro              = aIdMiembro;
     self.aclaracion             = "";
     self.formaDeRetiro          = new FormaDeRetiro("", "", 0);
-    //self.formaDeRetiro          = undefined;
     self.monto                  = "";
 
     self.platoEnConstruccion     = undefined;
@@ -71,7 +70,7 @@ function Pedido(aIdMiembro){
                         { return total + numero; }
                     )
                 + self.formaDeRetiro.precio
-            //+ tipoDeFormaDeEnvio.precio
+
         }
     };
 
@@ -79,11 +78,6 @@ function Pedido(aIdMiembro){
         return self.formaDeRetiro.esLocal() || self.formaDeRetiro.esDelivery()
     };
 
-/*    this.tranform=function (formaDeRetiro,platos) {
-        self.formaDeRetiro          = formaDeRetiro;
-        self.platosConfirmados      = platos;
-        return self;
-    }*/
 }
 
 
@@ -96,12 +90,6 @@ function PedidoDTO(unPedido){
     self.aclaracion     = unPedido.aclaracion;
     self.formaDeRetiro  = unPedido.formaDeRetiro;
 
-    /*
-        this.tranformPLatoDTO=function (aPLato){
-            return new PlatoDTO(aPLato);
-        }
-    */
-
 }
 
 function PedidoDeApi(json){
@@ -111,10 +99,9 @@ function PedidoDeApi(json){
 
 
     self.miembro                = json.miembro;
-    self.platosEnConstruccion   = json.platos.map(function (t) { return new HidratadorDePlatro().tranform(t,self.miembro)});
+    self.platosEnConstruccion   = json.platos.map(function (t) { return new HidratadorDePlato().tranform(t,self.miembro)});
     self.aclaracion             = json.aclaracion;
     self.formaDeRetiro          =  new HidratarFormaDeRetiro().tranform(json.formaDeRetiro);
-        //new FormaDeRetiro("","",0).transformar(json.formaDeRetiro);
     self.monto                  = json.monto;
 
     this.direccion = function () {

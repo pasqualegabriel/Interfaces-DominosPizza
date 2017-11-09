@@ -88,7 +88,7 @@ function PlatoDTO(aPlato){
     this.ingredientesExtras  = aPlato.ingredientesExtras;
 }
 
-function HidratadorDePlatro() {
+function HidratadorDePlato() {
 
     this.tranform =function (json,nick) {
         var newPLato= new Plato(new PizzaDeAPI(json.pizza),nick);
