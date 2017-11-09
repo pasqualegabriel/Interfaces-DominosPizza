@@ -16,8 +16,8 @@ function SessionController($state, sesionService, pedidosService, userService, m
     };
 
     this.goToPizza = function(user) {
-        pedidosService.newPedido(user.nick);
         userService.setUserLoggin(user);
+        self.nuevoPedido();
         $state.go("pizzaSelector");
     };
 
@@ -28,8 +28,20 @@ function SessionController($state, sesionService, pedidosService, userService, m
 
     this.hayUsuarioLogeado = function(){
         return userService.hayUsuarioLogeado();
-    }
+    };
 
+    this.nuevoPedido = function(){
+        pedidosService.newPedido(userService.getLoggedUserNick());
+    };
+
+    this.logInInvitado = function(){
+        self.goToPizza(userService.nuevoInvitado());
+    };
+
+    this.esUsuarioRegistrado = function()
+    {
+        return userService.esUsuarioRegistrado();
+    }
 }
 
 dominoApp.controller('MensajesCrl', MensajesController);

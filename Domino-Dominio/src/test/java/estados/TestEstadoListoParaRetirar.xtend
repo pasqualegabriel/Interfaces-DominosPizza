@@ -24,7 +24,7 @@ class TestEstadoListoParaRetirar {
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoListoParaRetirar = new ListoParaRetirar
-		unPedido                 = new Pedido(unMiembroMock)
+		unPedido                 = new Pedido(unMiembroMock,0)
 	}
 	
 	// Tests

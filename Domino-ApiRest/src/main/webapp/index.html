@@ -42,6 +42,7 @@
 
 <div class="container">
 
+
     <!-- Mensajes-->
     <div  class="header clearfix">
 
@@ -54,20 +55,18 @@
         </ul>
     </div>
 
-    <div >
+    <div>
         <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
-
         <nav ng-controller="SessionCrl as user" ng-show="user.hayUsuarioLogeado()">
             <ul class="nav nav-pills float-right">
-                <li class="nav-item">
+                <li ui-state="" class="nav-item" ng-show="user.esUsuarioRegistrado()">
                     <a class="nav-link" ui-sref="perfilUsuario">PerfilUsuario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ui-sref="pizzaSelector">Menu</a>
+                    <a class="nav-link" ui-sref="pizzaSelector" ng-click="user.nuevoPedido()">Menu</a>
                 </li>
             </ul>
         </nav>
-
     </div>
     </div>
 
@@ -95,6 +94,7 @@
 <script src="models/Sesion.js"></script>
 <script src="models/Tamanio.js"></script>
 <script src="models/User.js"></script>
+<script src="models/Invitado.js"></script>
 
 <script src="js/dominoApp.js"></script>
 <script src="js/routes.js"></script>

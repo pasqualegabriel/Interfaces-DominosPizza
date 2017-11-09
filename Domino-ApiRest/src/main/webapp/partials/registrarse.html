@@ -56,8 +56,8 @@
 
 
         </form>
-      <div>
-        <p><a href="https://cdn.meme.am/images/10432150.jpg">O puedes ingresar como INVITADO</a></p>
+      <div ng-controller="SessionCrl as user">
+        <p><a ui-sref="pizzaSelector" ng-click="user.logInInvitado()">O puedes ingresar como INVITADO</a></p>
       </div>
       </div>
     </div>

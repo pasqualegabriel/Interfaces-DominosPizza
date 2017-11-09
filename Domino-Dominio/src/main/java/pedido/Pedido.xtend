@@ -5,12 +5,12 @@ import java.util.List
 import java.util.ArrayList
 import java.time.LocalDateTime
 import estados.Preparando
-import domino.Miembro
 import estados.EstadoDePedido
 import estados.Cancelado
 import java.time.LocalTime
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import persistencia.HomePedido
+import domino.Usuario
 
 /**
  *  Responsabilidad: - Contener los platos de un pedido en especifico.
@@ -24,7 +24,7 @@ class Pedido {
 	// Estructura
 	Integer 		id
 	EstadoDePedido 	estadoActual
-	Miembro 		miembro
+	Usuario 		miembro
 	List<Plato> 	platos
 	LocalDateTime 	fecha
 	String 			aclaracion
@@ -33,7 +33,7 @@ class Pedido {
 	
 	new (){}
 	// Constructor
-	new(Miembro unMiembro,Integer aId) {
+	new(Usuario unMiembro,Integer aId) {
 
 		super()
 		id				= aId;

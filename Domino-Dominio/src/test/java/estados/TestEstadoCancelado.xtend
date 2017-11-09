@@ -22,7 +22,7 @@ class TestEstadoCancelado {
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unPedido		  = new Pedido(unMockMiembro)
+		unPedido		  = new Pedido(unMockMiembro,0)
 		unEstadoCancelado = new Cancelado
 		
 	}

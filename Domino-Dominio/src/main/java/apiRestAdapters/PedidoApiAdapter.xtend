@@ -9,6 +9,8 @@ import java.time.LocalDateTime
 import java.time.LocalDate
 import persistencia.HomePedido
 import estados.Preparando
+import domino.Invitado
+import domino.Usuario
 
 @Accessors
 class PedidoApiAdapter 
@@ -57,7 +59,8 @@ class PedidoApiAdapter
 	
 	def convertir() {
 		// Se va a buscar al miembro
-		var unMiembro = HomeMiembro.instance.getMiembro(this.miembro)
+		
+		var unMiembro = this.traerMiembro()
 		// Se crea el pedido y se lo transforma
 		val unPedido = new Pedido(unMiembro,HomePedido.instance.newId)
 		
@@ -79,7 +82,7 @@ class PedidoApiAdapter
 				unPedido.formaDeRetiro  = this.formaDeRetiro.convertir
 				
 		//Se devuelve el pedido transformado	
-		unMiembro.agregarPedido(unPedido)
+		this.agregarPedidoAMiembro(unMiembro, unPedido)
 		unPedido
 	}
 	
@@ -88,4 +91,16 @@ class PedidoApiAdapter
 		LocalDateTime.from(LocalDate.parse(fecha, formatter).atStartOfDay())
 	}
 	
+	def traerMiembro()
+	{
+		if(this.miembro.equalsIgnoreCase("Invitado"))
+		{ return new Invitado()}
+		else
+		{ return HomeMiembro.instance.getMiembro(this.miembro)}
+	}
+	
+	def agregarPedidoAMiembro(Usuario unMiembro, Pedido unPedido)
+	{
+		
+	}
 }

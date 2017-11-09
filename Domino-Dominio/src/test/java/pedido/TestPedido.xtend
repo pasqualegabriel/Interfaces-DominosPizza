@@ -27,7 +27,7 @@ class TestPedido {
 	@Before
 	def void setUp() {
 		MockitoAnnotations.initMocks(this)
-		pedido = new Pedido(clienteMock)
+		pedido = new Pedido(clienteMock,0)
 		pedido.tiempoDeEspera = 30
 	}
 	

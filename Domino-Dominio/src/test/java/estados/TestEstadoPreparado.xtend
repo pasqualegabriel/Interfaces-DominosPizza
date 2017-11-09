@@ -27,7 +27,7 @@ class TestEstadoPreparado {
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoPreparado           = new Preparando
-		unPedido                    = new Pedido(unMiembroMock)
+		unPedido                    = new Pedido(unMiembroMock,0)
 		unaFormaDeRetiroPorLocal    = new Local
 		unaFormadeRetiroPorDelivery = new Delivery ("No necesita")
 	}

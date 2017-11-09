@@ -27,6 +27,18 @@ function UserRepo($http) {
 
     this.updateUser=function (user) {
         return self.nuevosCambios.update(user)
+    };
+
+    this.nuevoInvitado = function(){
+        return new Invitado;
+    };
+
+    this.esUsuarioRegistrado = function()
+    {
+        if (angular.isUndefined(self.userLoggin))
+        { return false}
+        else
+        { return self.userLoggin.esUsuario();}
     }
 }
 

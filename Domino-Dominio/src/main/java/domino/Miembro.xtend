@@ -18,10 +18,7 @@ import java.util.ArrayList
 @TransactionalAndObservable
 class Miembro extends Usuario {
 	
-	// Estructura
-	
-	String 				nombre
-	String 				nick
+	// Estructura	
 	public String 				password
 	String				mail
 	String 				direccion
@@ -47,7 +44,7 @@ class Miembro extends Usuario {
 	}
 	
 	// Metodos
-	def agregarPedido(Pedido unPedido) { 
+	override void agregarPedido(Pedido unPedido) { 
 		
 		historialDePedidos.add(unPedido)
 	}
@@ -62,6 +59,5 @@ class Miembro extends Usuario {
 		historialDePedidos.forEach[listaDePedidos.add(it)]
 		listaDePedidos
 	}
-	
 	
 }

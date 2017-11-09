@@ -58,7 +58,7 @@ function RegisterController($state, userService,messageHandler) {
                              )
                         .catch(function (response) { messageHandler.notificarError(response.data.error)})
         }
-    }
+    };
 
 
 }

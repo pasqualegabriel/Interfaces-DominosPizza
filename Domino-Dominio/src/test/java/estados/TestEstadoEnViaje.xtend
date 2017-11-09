@@ -24,7 +24,7 @@ class TestEstadoEnViaje {
 	def void SetUp(){
 		MockitoAnnotations.initMocks(this)
 		unEstadoEnViaje	= new EnViaje
-		unPedido		= new Pedido(unMockMiembro)
+		unPedido		= new Pedido(unMockMiembro,0)
 	}
 	
 	// Tests

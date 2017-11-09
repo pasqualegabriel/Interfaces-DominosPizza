@@ -1,7 +1,6 @@
 package apiRestAdapters
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
 import pizza.Tamanio
 import pizza.Porcion
 import pizza.Grande

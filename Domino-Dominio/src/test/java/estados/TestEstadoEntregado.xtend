@@ -21,7 +21,7 @@ class TestEstadoEntregado {
 	@Before
 	def void setUp(){
 		MockitoAnnotations.initMocks(this)
-		unPedido                = new Pedido(unMiembroMock)
+		unPedido                = new Pedido(unMiembroMock,0)
 		unEstadoEntregado		= new Entregado
 		
 	}

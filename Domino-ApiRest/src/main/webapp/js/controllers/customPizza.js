@@ -18,7 +18,6 @@ dominoApp.controller('pizzaSelectorCrl', function($state, pizzaService,pedidosSe
 
 function PizzaController($state, pizzaService, pedidosService, platoService) {
 
-
     /* Atributos */
     var self= this;
 
@@ -61,7 +60,8 @@ function PizzaController($state, pizzaService, pedidosService, platoService) {
     this.seleccionar = function(unaPizza)
     {
         var plato = platoService.newPlato(unaPizza);
-        self.pedido.setPlatoEnConstruccion(plato);
+        //self.pedido.setPlatoEnConstruccion(plato);
+        pedidosService.getPedidoActual().setPlatoEnConstruccion(plato);
         $state.go("seleccionDeTamanio");
     };
 

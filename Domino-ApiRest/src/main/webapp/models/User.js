@@ -16,4 +16,10 @@ function Miembro(unNombre, unNick, unPassword, unMail, unaDireccion) {
         return this.nick;
     };
 
+    this.esUsuario = function()
+    {
+        return true;
+    }
+
+
 }
