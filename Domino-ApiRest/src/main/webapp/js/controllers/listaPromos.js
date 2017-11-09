@@ -1,9 +1,6 @@
 'use strict';
 
-dominoApp.controller('ListaPromosCrl',function(pedidosService, $state,ingredienteService,messageHandler) {
-    return new ControllerListaPromo(pedidosService, $state,ingredienteService,messageHandler)
-
-});
+dominoApp.controller('ListaPromosCrl', ControllerListaPromo);
 
 
 function ControllerListaPromo(pedidosService, $state, ingredienteService,messageHandler) {
@@ -20,9 +17,6 @@ function ControllerListaPromo(pedidosService, $state, ingredienteService,message
     self.ingredientesDisponibles = undefined;
     self.ingredientesExtra       = undefined;
 
-    this.errorHandler = function (error) {
-        alert(error.error)
-    };
 
     this.nombreDePizza = function(){
         return self.platoEnConstruccion.nombreDePizza();
@@ -83,10 +77,8 @@ function ControllerListaPromo(pedidosService, $state, ingredienteService,message
            $state.go("confirmarPedido");
        }
        catch (e){
-           var error =  {
-             error: "Por favor seleccione la distribucion de todos los ingredientes Extra"
-           };
-           this.errorHandler(error)
+           var error= "Por favor seleccione la distribucion de todos los ingredientes Extra";
+           messageHandler.notificarError(error)
        }
     };
 

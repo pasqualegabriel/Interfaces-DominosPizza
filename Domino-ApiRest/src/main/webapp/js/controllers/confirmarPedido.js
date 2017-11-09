@@ -5,7 +5,7 @@ dominoApp.controller('pedidosCtrl', ConfirmarPedidoController);
 /* Responsabilidad */
 // Conectar la vista de ConfirmarPedido con el modelo
 
-function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state) {
+function ConfirmarPedidoController(messageHandler, pedidosService, formaDeRetiroService, $state) {
 
     var self= this;
     /* Atributos */
@@ -43,8 +43,6 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
 
     };
 
-
-
     this.costoTotalAPagar = function(){
         return self.pedido.costoTotalDelPedido();
 
@@ -55,25 +53,22 @@ function ConfirmarPedidoController(pedidosService, formaDeRetiroService, $state)
         self.costoTotalAPagar()
     };
 
-    this.errorHandler = function (error) {
-
-        alert(error.error)
-    };
 
     this.confirmarPedido = function(){
         if(self.estaListoParaConfirmar())
         {
-            return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza()).catch(function(response){ self.errorHandler(response.data)});
+            return pedidosService.confirmarPedido(self.pedido).then(self.goToPizza()).catch(function(response){ messageHandler.notificarError(response.data.error)});
         }
         else{
-            var error =  { error: "No puede continuar. Revise: Que haya platos agregados, que elegio el tipo de envio y si eligio delivery, que haya completado la direccion." };
-            this.errorHandler(error)
+            var error =  "No puede continuar. Revise: Que haya platos agregados, que elegio el tipo de envio y si eligio delivery, que haya completado la direccion." ;
+            messageHandler.notificarError(error)
         }
 
     };
 
     this.goToPizza = function() {
         pedidosService.newPedido(self.pedido.idMiembro);
+        messageHandler.notificarMensaje("Su pedido comenzara a preparse en breve. Gracias por elegirnos!");
         $state.go("pizzaSelector");
     };
 

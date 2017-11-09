@@ -1,7 +1,5 @@
 'use strict';
-dominoApp.service("pizzaService", function ($http) {
-    return new PizzaRepo($http);
-});
+dominoApp.service("pizzaService", PizzaRepo);
 
 
 function PizzaRepo($http){

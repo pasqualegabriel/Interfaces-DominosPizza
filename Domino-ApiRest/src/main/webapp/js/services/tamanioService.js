@@ -1,8 +1,6 @@
 'use strict';
 
-dominoApp.service('tamanioService', function($http) {
-    return new TamanioRepo($http);
-});
+dominoApp.service('tamanioService', TamanioRepo);
 
 function TamanioRepo($http){
 

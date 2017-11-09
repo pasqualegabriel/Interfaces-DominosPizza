@@ -45,15 +45,12 @@
 
     <!-- Mensajes-->
     <div  class="header clearfix">
-
-        <div ng-controller="MensajesCrl as ses" class="row">
+        <div style="padding-bottom: 30px" ng-controller="MensajesCrl as ses" class="row">
             <ul class="example-animate-container">
                 <li class="message bg-success animate-repeat" data-ng-repeat="msg in ses.notificacionesDuranteLaSesion">{{msg}}</li>
             </ul>
-            <ul class="example-animate-container">
-                <li class="alert alert-danger animate-repeat" data-ng-repeat="error in ses.erroresDuranteLaSesion">{{error}}</li>
-            </ul>
         </div>
+
 
         <div style="padding-bottom: 10px">
             <img style="max-width: 500px; margin-top: -7px;" src="imagen/i.jpg">
@@ -66,6 +63,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ui-sref="pizzaSelector" ng-click="user.nuevoPedido()">Menu</a>
+                    </li>
+                    <li  style="float:right" class="nav-item" ng-show="user.esUsuarioRegistrado()">
+                        <a class="nav-link" ng-click="user.desloguear()" ui-sref="logIn">Log Out</a>
+                    </li>
+                    <li  style="float:right" class="nav-item" ng-show="!user.esUsuarioRegistrado()">
+                        <a class="nav-link" ng-click="user.desloguear()" ui-sref="logIn">Iniciar Sesion</a>
                     </li>
 
                 </ul>
@@ -80,6 +83,11 @@
 
     <footer class="footer">
         <p>© ACaraDePerro 2017</p>
+        <div style="padding-bottom: 30px" ng-controller="MensajesCrl as ses" class="row">
+            <ul class="example-animate-container">
+                <li class="alert alert-danger animate-repeat" data-ng-repeat="error in ses.erroresDuranteLaSesion">{{error}}</li>
+            </ul>
+        </div>
     </footer>
 
 </div>

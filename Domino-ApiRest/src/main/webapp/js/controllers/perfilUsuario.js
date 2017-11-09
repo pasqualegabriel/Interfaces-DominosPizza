@@ -1,5 +1,7 @@
 'use strict';
-dominoApp.controller('UsuarioCtrl', function (userService,pedidosService,$state,messageHandler) {
+dominoApp.controller('UsuarioCtrl', PerfilUsuarioController);
+
+function PerfilUsuarioController (userService,pedidosService,$state,messageHandler) {
 	var self = this;
 	self.user= userService.userLoggin;
 
@@ -32,4 +34,4 @@ dominoApp.controller('UsuarioCtrl', function (userService,pedidosService,$state,
         $state.go("confirmarPedido");
     }
 
-});
+}

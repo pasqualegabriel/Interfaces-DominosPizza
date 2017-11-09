@@ -4,7 +4,6 @@ dominoApp.controller('SessionCrl', SessionController);
 function SessionController($state, sesionService, pedidosService, userService, messageHandler) {
 
     /* Atributos */
-
     var self = this;
 
     self.nick = '';
@@ -18,6 +17,7 @@ function SessionController($state, sesionService, pedidosService, userService, m
     this.goToPizza = function(user) {
         userService.setUserLoggin(user);
         self.nuevoPedido();
+        messageHandler.notificarMensaje("Bienvenido !");
         $state.go("pizzaSelector");
     };
 
@@ -36,6 +36,10 @@ function SessionController($state, sesionService, pedidosService, userService, m
 
     this.logInInvitado = function(){
         self.goToPizza(userService.nuevoInvitado());
+    };
+
+    this.desloguear = function(){
+        userService.logOut();
     };
 
     this.esUsuarioRegistrado = function()

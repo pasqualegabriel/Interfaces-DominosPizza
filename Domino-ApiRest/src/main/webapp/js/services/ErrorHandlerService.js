@@ -20,7 +20,7 @@ function MessageHandler($timeout) {
     this.notificar = function(mensajes) {
         $timeout(function() {
             while (mensajes.length > 0) mensajes.pop();
-        }, 7500);
+        }, 5500);
     };
 
 }

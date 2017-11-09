@@ -1,6 +1,4 @@
-dominoApp.service("userService", function ($http) {
-    return new UserRepo($http);
-});
+dominoApp.service("userService", UserRepo);
 
 
 function UserRepo($http) {
@@ -15,6 +13,10 @@ function UserRepo($http) {
 
     this.getLoggedUserNick = function () {
       return self.userLoggin.getNick()
+    };
+
+    this.logOut = function () {
+        self.userLoggin = undefined;
     };
 
     this.hayUsuarioLogeado = function(){

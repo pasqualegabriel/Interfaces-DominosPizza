@@ -1,9 +1,6 @@
 'use strict';
 
-dominoApp.controller('RegisterCrl', function ($state, userService,messageHandler) {
-    return new RegisterController( $state, userService,messageHandler);
-
-});
+dominoApp.controller('RegisterCrl', RegisterController);
 
 /* Responsabilidad */
 // Conectar la vista de registrarse con el modelo
@@ -46,7 +43,7 @@ function RegisterController($state, userService,messageHandler) {
             var newUser = userService.newUser(self.nombre, self.nick, self.contrasenia, self.mail, self.direccion);
             userService .registrarse(newUser)
                 .then(function (response){
-                        alert(response.data);
+                        messageHandler.notificarMensaje(response.data);
                         self.goToLogin();
                     }
                 )

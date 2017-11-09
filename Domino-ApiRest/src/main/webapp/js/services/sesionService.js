@@ -1,9 +1,5 @@
 'use strict';
-dominoApp.service("sesionService", function ($http) {
-    return new SesionRepo($http);
-
-
-});
+dominoApp.service("sesionService", SesionRepo);
 
 function SesionRepo($http) {
 

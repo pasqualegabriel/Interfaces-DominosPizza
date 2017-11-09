@@ -5,26 +5,15 @@ function PedidoRepo($http){
 
     var self = this;
     self.pedidoActual   = undefined;
-/*    self.pedidosLocales =[];*/
     self.confirmador    = new ConfirmadorDePedidos($http);
     self.pedidos        =  new TraerPedidos($http);
 
-/*    this.addPedidoEnContruccion = function (unPedido) {
-        this.pedidosLocales.push(unPedido);
-    };*/
 
     this.newPedido = function (aIdMiembro) {
 
         self.pedidoActual= new Pedido(aIdMiembro);
 
     };
-
-
-/*    this.getPedidoEnContruccionById = function (aId) {
-        return _.find(this.pedidosLocales, function (unPedido) {
-            return unPedido.idMiembro === aId;
-        })
-    };*/
 
     this.getPedidoActual= function () {
         return self.pedidoActual;

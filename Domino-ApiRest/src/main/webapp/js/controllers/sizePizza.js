@@ -1,12 +1,10 @@
-dominoApp.controller('sizeSelectorCrl', function ( $state, tamanioService,pedidosService) {
-    return new SizeController( $state, tamanioService,pedidosService);
-});
+dominoApp.controller('sizeSelectorCrl', SizeController);
 
 
 /* Responsabilidad */
 // Conectar la vista de IngredientesExtra con el modelo
 
-function SizeController($state, tamanioService, pedidosService){
+function SizeController(messageHandler, $state, tamanioService, pedidosService){
 
     var self= this;
     /* Atributos */
@@ -15,10 +13,6 @@ function SizeController($state, tamanioService, pedidosService){
     self.platoEnConstruccion = self.pedido.platoEnConstruccion;
     self.tamanios = [];
 
-    this.errorHandler = function (error) {
-        alert(error.error)
-    };
-
     this.aplicarFactorDeTamanioAlPrecioBase = function (aSize) {
         return self.platoEnConstruccion.calcularPrecioConTamanio(aSize);
     };
@@ -26,7 +20,7 @@ function SizeController($state, tamanioService, pedidosService){
     this.getSize=function () {
         tamanioService.getTamanio().then(function (listSize) {
             self.tamanios  = listSize;
-        }).catch(function(response){ self.errorHandler(response.data)})
+        }).catch(function(response){ messageHandler.notificarError(response.data.error)})
     };
 
     this.armarPizza = function(unTamanio)

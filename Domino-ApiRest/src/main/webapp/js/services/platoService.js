@@ -1,7 +1,5 @@
 'use strict';
-dominoApp.service("platoService", function () {
-    return new PlatoRepo();
-});
+dominoApp.service("platoService", PlatoRepo);
 
 
 function PlatoRepo(){
