@@ -32,5 +32,9 @@ class HomeTamanio {
 			tamaniosDisponibles.filter[it.nombre.toLowerCase.contains(subString.toLowerCase)].toList
 		}
 	}
+	
+	def deleteAll() {
+		tamaniosDisponibles = newArrayList
+	}
 
 }

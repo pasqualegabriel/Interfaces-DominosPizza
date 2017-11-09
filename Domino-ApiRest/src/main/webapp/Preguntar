@@ -12,3 +12,6 @@ toda esa logica?
         self.pedido.addPlato(plato);
         self.pedido.setIdPizzaActual(unaPizza.nombre);
         $state.go("seleccionDeTamanio",{nombre:pizzaService.newPizza()});
+
+
+

@@ -41,5 +41,9 @@ class HomeMiembro {
 		miembro
 	}
 	
+	def deleteAll() {
+		miembros  = newArrayList
+	}
+	
 	
 }

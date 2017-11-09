@@ -29,4 +29,8 @@ class HomeLogin {
 		{ throw new UserException ( "La contraseña es incorrecta")}
 	}
 	
+	def deleteAll() {
+		logins = newArrayList
+	}
+	
 }

@@ -53,4 +53,8 @@ class HomePizza {
 		}
 	}
 	
+	def deleteAll() {
+		promocionesDisponibles = newArrayList
+	}
+	
 }

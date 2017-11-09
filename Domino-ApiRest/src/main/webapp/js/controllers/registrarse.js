@@ -52,6 +52,8 @@ function RegisterController($state, userService,messageHandler) {
     };
 
 
+
+
 }
 
 

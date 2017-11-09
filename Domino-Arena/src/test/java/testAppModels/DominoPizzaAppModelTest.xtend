@@ -10,6 +10,7 @@ import formasDeComunicacion.ComunicacionPorMail
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import arenaAppModels.DominoPizzaAppModel
+import org.junit.After
 
 class DominoPizzaAppModelTest 
 {
@@ -67,7 +68,6 @@ class DominoPizzaAppModelTest
 	def Un_Pedido_Seleccionado_Si_Se_Pasa_A_Estado_Siguiente_Y_Pasa_A_Entregado_Pasa_A_Su_Siguiente_Y_Pasa_A_La_Lista_De_Pedidos_Cerrados()
 	{
 		//Setup
-		elBootstrap.inicializar
 		unPedidoAbiertoSeleccionado				= HomePedido.instance.pedidosAbiertos.get(2)
 		unDominoPizzaAppModel.pedidoSelectItem 	= unPedidoAbiertoSeleccionado
 		var estadoAntesDePasarAlSiguiente		= unPedidoAbiertoSeleccionado.estadoActual.nombre
@@ -82,12 +82,11 @@ class DominoPizzaAppModelTest
 		assertFalse(unDominoPizzaAppModel.itemsPedidosAbiertos.contains(unPedidoAbiertoSeleccionado))
 		assertTrue(unDominoPizzaAppModel.itemsPedidosCerrados.contains(unPedidoAbiertoSeleccionado))
 	}
-	
+
 	@Test
 	def Un_Pedido_Seleccionado_No_Esta_En_Estado_Preparando_Y_Pasa_A_Estado_Anterior_Lo_Hace()
 	{
 		//Setup
-		elBootstrap.inicializar
 		unPedidoAbiertoSeleccionado				= HomePedido.instance.pedidosAbiertos.get(2)
 		unDominoPizzaAppModel.pedidoSelectItem 	= unPedidoAbiertoSeleccionado
 		var estadoAntesDePasarAlAnterior		= unPedidoAbiertoSeleccionado.estadoActual.nombre
@@ -108,6 +107,11 @@ class DominoPizzaAppModelTest
 		unDominoPizzaAppModel.pedidoSelectItem 	= unPedidoAbiertoSeleccionado
 		//Exercise
 		unDominoPizzaAppModel.anteriorEstadoPedidoSeleccionado
+	}
+	
+	@After
+	def void tirarRepos(){
+		elBootstrap.dropAll
 	}
 	
 }

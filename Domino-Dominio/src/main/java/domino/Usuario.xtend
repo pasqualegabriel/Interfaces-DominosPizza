@@ -1,9 +1,9 @@
 package domino
 
-import comunicables.Comunicable
 import formasDeComunicacion.FormaDeComunicacion
 import org.eclipse.xtend.lib.annotations.Accessors
 import pedido.Pedido
+import comunicables.Comunicable
 
 // Responsabilidad: Representacion informatica de los usuarios del servicio junto con sus preferencias
 
@@ -15,10 +15,9 @@ abstract class Usuario {
 	FormaDeComunicacion formaDeComunicacion
 	
 	// Metodo
+	def abstract void agregarPedido(Pedido unPedido);
 	
-	abstract def void comunicar(Comunicable unaComunicacion)
-	
-	abstract def void agregarPedido(Pedido pedido)
+	def abstract void comunicar(Comunicable unComunicable);
 	
 	def  boolean esInvitado(){
 		true

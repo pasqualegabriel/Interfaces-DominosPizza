@@ -108,7 +108,7 @@ class DominoRestApi {
 		ok(HomeIngrediente.instance.searchIngrediente(string).toJson)
 	}
 
-	@Get("/pedidos")
+	@Get("/pedidos/estado")
 	def getPedidoPorEstado(String estado) {
 		response.contentType = ContentType.APPLICATION_JSON
 		var pedidoAMostrar = HomePedido.instance.searchPedidoPorEstado(estado).map[p|new PedidoApiAdapter(p)].toArray
@@ -149,7 +149,7 @@ class DominoRestApi {
 		}
 	}
 
-    @Post("/pedidos/:id")
+    @Post("/pedidos/:id/estado")
     def cambiarEstadoDePedido(@Body String body) {
        response.contentType = ContentType.APPLICATION_JSON
       

@@ -41,7 +41,7 @@ class HomePedido {
 		if (StringUtils.isBlank(nombreDeEstado)) 
 		{	this.pedidosAbiertos	}
 		else 
-		{	this.pedidosAbiertos.filter[it.estadoActual.nombre.toLowerCase.replaceAll(" ","").contains(nombreDeEstado.toLowerCase)].toList	}
+		{	this.pedidosAbiertos.filter[ it.estadoActual.nombre.toLowerCase.replaceAll(" ","").equalsIgnoreCase(nombreDeEstado)].toList	}
 	}
 	
 	def Pedido getPedido(Integer integer) {
@@ -60,6 +60,12 @@ class HomePedido {
 		id++
 		
 		retornarId;
+	}
+	
+	def deleteAll() {
+		pedidosAbiertos = newArrayList
+		pedidosCerrados = newArrayList
+		id					 = 0;
 	}
 	
 }

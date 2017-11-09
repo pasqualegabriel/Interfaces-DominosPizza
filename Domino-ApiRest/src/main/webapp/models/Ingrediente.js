@@ -16,7 +16,8 @@ function Ingrediente(aName, aPrecio) {
 
     this.estaEnLista = function(unaLista){
         return unaLista.some(function(pairDeIngEnPizza){ return pairDeIngEnPizza.esElIngrediente(self)})
-    }
+    };
+
 
 }
 

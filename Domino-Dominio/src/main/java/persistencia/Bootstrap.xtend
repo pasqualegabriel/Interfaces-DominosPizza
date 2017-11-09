@@ -147,4 +147,14 @@ class Bootstrap {
 		HomePedido.instance.pedidosCerrados.add(pedidoCerrado2)
 		
 	}
+	
+	def dropAll() {
+		HomePedido.instance.deleteAll()
+		HomeIngrediente.instance.deleteAll()
+		HomeLogin.instance.deleteAll()
+		HomeMiembro.instance.deleteAll()
+		HomePizza.instance.deleteAll()
+		HomeTamanio.instance.deleteAll()
+	}
+	
 }

@@ -53,4 +53,8 @@ class HomeIngrediente {
 		{	ingredientes.filter[it.nombre.toLowerCase.contains(subString.toLowerCase)].toList	}
 	}
 	
+	def deleteAll() {
+		ingredientesDisponibles = newArrayList
+	}
+	
 }

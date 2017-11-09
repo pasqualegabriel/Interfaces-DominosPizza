@@ -37,12 +37,12 @@ function UserRepo($http) {
 
     this.esUsuarioRegistrado = function()
     {
-
-
+        return !angular.isUndefined(self.userLoggin) && self.userLoggin.esUsuario();
+/*
         if (angular.isUndefined(self.userLoggin))
         { return false}
         else
-        { return self.userLoggin.esUsuario();}
+        { return self.userLoggin.esUsuario();}*/
     };
 
     this.newUser=function (nombre, nick, pass, mail, direccion) {

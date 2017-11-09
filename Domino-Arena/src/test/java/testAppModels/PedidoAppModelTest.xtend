@@ -17,7 +17,7 @@ import pedido.Local
 import estados.ListoParaRetirar
 import estados.ListoParaEnviar
 import estados.EnViaje
-import appModels.PedidoAppModel
+import arenaAppModels.PedidoAppModel
 
 class PedidoAppModelTest {
 	
