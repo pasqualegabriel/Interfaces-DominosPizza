@@ -20,6 +20,7 @@ import org.uqbar.xtrest.api.annotation.Put
 import apiRestAdapters.MiembroApiAdapter
 import apiRestAdapters.EstadoDePedidoApiAdapter
 import apiRestAdapters.PizzaApiAddapter
+import pedido.HolaMundo
 
 @Controller
 class DominoRestApi {
@@ -184,6 +185,20 @@ class DominoRestApi {
 			return badRequest(getErrorJson("El id debe ser un numero entero"))
 		}
 	}
+	
+	
+	@Get("/holaMundo")
+	def gethola() {
+		try {
+			response.contentType = ContentType.APPLICATION_JSON
+			var hola= new HolaMundo
+			ok(hola.toJson)
+		} catch (UserException exception) {
+			badRequest(getErrorJson("Introduzca un id valido"))
+		}
+		
+	}
+	
 
 	@Get("/pedidos/:id/estado")
 	def getEstadoDePedido() {
