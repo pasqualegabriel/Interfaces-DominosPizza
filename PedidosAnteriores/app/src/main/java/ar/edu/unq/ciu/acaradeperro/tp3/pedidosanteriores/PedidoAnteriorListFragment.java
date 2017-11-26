@@ -1,37 +1,25 @@
 package ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
+import java.util.ArrayList;
 import java.util.List;
-
-import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Controller.ListadoDePedidos;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.PedidoService;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.ServiceAPIManager;
-import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.HolaMundo;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Pedido;
 import retrofit.Callback;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.support.v4.app.ListFragment;
-import android.widget.Toast;
-
-/**
- * Created by Victor on 23/11/2017.
- */
 
 public class PedidoAnteriorListFragment extends ListFragment{
 
     //La lista de los Pedidos Anteriores a Mostrar
-    List<Pedido> pedidosAnteriores;
-    HolaMundo a;
+    //List<Pedido> pedidosAnteriores;
+
     /**
      * The serialization (saved instance state) Bundle key representing the
      * activated item position. Only used on tablets.
@@ -71,11 +59,13 @@ public class PedidoAnteriorListFragment extends ListFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        List<Pedido> pedidosAnteriores = PedidoService.getInstance().getPedidos();
         //Se asigna los pedidos anteriores
         //pedidosAnteriores = ListadoDePedidos.getInstance().todosLosPedidosAnteriores();
-        this.obtenerPedidosAnteriores();
+        //pedidosAnteriores = new ArrayList<Pedido>();
+        this.obtenerPedidosAnteriores(); // Pensar en que al hacer atras en el detalle se va a volvera llamar el metodo
 
-        setListAdapter(new ArrayAdapter<>(
+        setListAdapter(new ArrayAdapter<Pedido>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
@@ -156,22 +146,20 @@ public class PedidoAnteriorListFragment extends ListFragment{
 
 
     private void obtenerPedidosAnteriores() {
-       ServiceAPIManager servicesPedido = PedidoService.getInstance().createServiceAPIManager();
+        ServiceAPIManager servicesPedido = PedidoService.getInstance().createServiceAPIManager();
 
-        servicesPedido.getPedidosAnteriores("g", new Callback<List<Pedido>>() {
+        servicesPedido.getPedidosAnteriores("g", new Callback<ArrayList<Pedido>>() {
             @Override
-            public void success(List<Pedido> pedidos, Response response)
+            public void success(ArrayList<Pedido> pedidos, Response response)
             {
+                PedidoService.getInstance().setPedidos(pedidos);
                 agregarPedidos(pedidos);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                //Toast.makeText(PedidoAnteriorListFragment.this, "El participante no se pudo cargar, intente nuevamente mas tarde.", Toast.LENGTH_SHORT).show();
-                Log.e("", error.getMessage());
-                error.printStackTrace();
-                throw error;
             }
+
         });
     }
 

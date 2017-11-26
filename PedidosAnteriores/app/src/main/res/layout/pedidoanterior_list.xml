@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListActivity"
-    tools:listitem="@layout/pedidoanterior_list_content"
-    />
+    tools:context=".PedidoAnteriorListActivity"
+    tools:layout="@android:layout/list_content"/>
+    <!--tools:listitem="@layout/pedidoanterior_list_content"-->
+
 <!--
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
