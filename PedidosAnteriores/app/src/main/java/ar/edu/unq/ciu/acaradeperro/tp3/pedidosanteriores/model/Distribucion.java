@@ -34,10 +34,23 @@ public class Distribucion{
             resultado.concat(listaDeNombres.get(i).nombreIngrediente()).concat(", ");
         }
         resultado   .concat(listaDeNombres.get(listaDeNombres.size()).nombreIngrediente())
-                    .concat(" y ")
-                    .concat(ultimoNombre);
-
+                .concat(" y ")
+                .concat(ultimoNombre);
         return resultado;
+        /*
+        if (! this.getIngredientes().isEmpty() && this.getIngredientes().size() > 1)
+        {
+            List<PairIngredienteDistribucionPizza> pares = this.getIngredientes().subList(0, this.getIngredientes().size() - 1);
+            PairIngredienteDistribucionPizza ultimoPar = this.getIngredientes().get(this.getIngredientes().size() - 1);
+            List<String> nombres = new ArrayList<String>();
+
+            for (PairIngredienteDistribucionPizza par : pares) {
+                nombres.add(par.nombreIngrediente());
+            }
+        }
+        else
+
+            return android.text.TextUtils.join(",", nombres).concat(" y ").concat(ultimoPar.nombreIngrediente());*/
     }
 
     private List<PairIngredienteDistribucionPizza> getIngredientes()

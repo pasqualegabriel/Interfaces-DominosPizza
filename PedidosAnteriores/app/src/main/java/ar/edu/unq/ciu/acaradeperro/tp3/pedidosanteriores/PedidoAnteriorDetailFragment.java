@@ -118,14 +118,16 @@ public class PedidoAnteriorDetailFragment extends Fragment {
         //List<String> nombres = new ArrayList<>();
 
 
-        //ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, platosDelPedido);
 
+        //ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, platosDelPedido);
+/*
         listView.setAdapter(new ArrayAdapter<Plato>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 platosDelPedido
-        ));
+        ));*/
+        listView.setAdapter(new PlatoAdapter(getContext(),platosDelPedido));
     }
 
     @Override
