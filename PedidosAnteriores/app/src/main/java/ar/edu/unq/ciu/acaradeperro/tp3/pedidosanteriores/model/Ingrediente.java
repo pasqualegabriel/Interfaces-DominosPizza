@@ -4,4 +4,10 @@ public class Ingrediente
 {
     String nombre;
     Double precio;
+
+    public String nombre()
+    {   return this.getNombre();    }
+
+    private String getNombre()
+    {   return nombre;  }
 }

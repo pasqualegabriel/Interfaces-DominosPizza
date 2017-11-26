@@ -36,6 +36,9 @@ public class Pedido implements Serializable{
     public String toString()
     {   return this.titulo();  }
 
+    public String direccionDeRetiro()
+    {   return this.getFormaDeRetiro().getDireccion();   }
+
 /*Getters & Setters*/
     public Integer getId() {
         return id;
@@ -77,8 +80,12 @@ public class Pedido implements Serializable{
         this.fecha = fecha;
     }
 
-    public String getAclaracion() {
-        return aclaracion;
+    public String getAclaracion()
+    {
+        if (this.aclaracion.isEmpty())
+        { return "-";}
+        else
+        {return aclaracion;}
     }
 
     public void setAclaracion(String aclaracion) {

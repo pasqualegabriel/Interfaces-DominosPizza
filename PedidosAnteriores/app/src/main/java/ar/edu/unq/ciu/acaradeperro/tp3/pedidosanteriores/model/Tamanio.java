@@ -5,4 +5,6 @@ public class Tamanio {
     String nombre;
     String factorDeTamanio;
 
+    public String getNombre()
+    {   return nombre;  }
 }

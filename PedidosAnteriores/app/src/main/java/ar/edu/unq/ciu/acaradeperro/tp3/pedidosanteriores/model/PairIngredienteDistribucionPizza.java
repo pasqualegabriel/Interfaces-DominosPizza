@@ -10,4 +10,11 @@ public class PairIngredienteDistribucionPizza
         this.ingrediente = unIngrediente;
         this.distribucion = unaDistribucion;
     }
+
+    public String nombreIngrediente() {
+        return this.getIngrediente().nombre();
+    }
+
+    private Ingrediente getIngrediente()
+    {   return this.ingrediente;    }
 }

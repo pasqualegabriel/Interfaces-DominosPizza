@@ -1,3 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorDetailFragment">
+
+    <TextView
+        android:id="@+id/pedido_titulo"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado del Pedido:"/>
+    <TextView
+        android:id="@+id/pedido_estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aclaraciones:"/>
+    <TextView
+        android:id="@+id/pedido_aclaracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Direcccion de Envio:"/>
+    <TextView
+        android:id="@+id/pedido_direccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Precio:"/>
+    <TextView
+        android:id="@+id/pedido_precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tiempo de entrega:"/>
+    <TextView
+        android:id="@+id/pedido_tiempoDeEspera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Platos del Pedido:"/>
+
+    <ListView
+        android:id="@+id/pedido_platos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+<!--
+    <FrameLayout android:id="@+id/plato_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
+-->
+</LinearLayout>
+
+<!--
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pedidoanterior_detail"
@@ -7,3 +84,4 @@
     android:padding="16dp"
     android:textIsSelectable="true"
     tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorDetailFragment" />
+-->

@@ -14,4 +14,16 @@ public class Pizza{
         this.precioBase 	= unPrecio;
         this.distribucion 	= unaDistribucion;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Double getPrecioBase() {
+        return precioBase;
+    }
+
+    public Distribucion getDistribucion() {
+        return distribucion;
+    }
 }

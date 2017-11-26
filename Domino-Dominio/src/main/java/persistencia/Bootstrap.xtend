@@ -88,7 +88,13 @@ class Bootstrap {
 		var plato    = new Plato(pizza4,tamanio1,new Distribucion)
 		pedidoG1.agregarPlato(plato)
 		g1.agregarPedido(pedidoG1)
-
+		
+		var pedidoG2 = new Pedido(g1,HomePedido.instance.newId)
+		var platog2    = new Plato(pizza1,tamanio1,distribucion3)
+		pedidoG2.formaDeRetiro = new Delivery("El Rey De Los Mini Super 01")
+		pedidoG2.agregarPlato(plato)
+		pedidoG2.agregarPlato(platog2)
+		g1.agregarPedido(pedidoG2)
 
 		// agregamos forma de retiro al pedido
 		pedido1.formaDeRetiro = new Delivery ("Cerrado 128")
@@ -115,6 +121,7 @@ class Bootstrap {
 		HomePedido.instance.agregarPedido(pedido2)
 		HomePedido.instance.agregarPedido(pedido3)
 		HomePedido.instance.agregarPedido(pedidoG1)
+		HomePedido.instance.agregarPedido(pedidoG2)
 		
 		// Agregamos los usuarios
 		HomeMiembro.instance.registrarUsuario(ivan)

@@ -23,7 +23,7 @@ public class PedidoAnteriorDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedidoanterior_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -33,7 +33,7 @@ public class PedidoAnteriorDetailActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -50,17 +50,19 @@ public class PedidoAnteriorDetailActivity extends AppCompatActivity {
         //
         // http://developer.android.com/guide/components/fragments.html
         //
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
+        {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(PedidoAnteriorDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(PedidoAnteriorDetailFragment.ARG_ITEM_ID));
+            arguments.putString (   PedidoAnteriorDetailFragment.ARG_ITEM_ID,
+                                    getIntent().getStringExtra(PedidoAnteriorDetailFragment.ARG_ITEM_ID)
+                                );
             PedidoAnteriorDetailFragment fragment = new PedidoAnteriorDetailFragment();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.pedidoanterior_detail_container, fragment)
-                    .commit();
+            getSupportFragmentManager() .beginTransaction()
+                                        .add(R.id.pedidoanterior_detail_container, fragment)
+                                        .commit();
         }
     }
 

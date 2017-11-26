@@ -14,12 +14,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.support.v4.app.ListFragment;
+import android.widget.Toast;
 
-public class PedidoAnteriorListFragment extends ListFragment{
-
-    //La lista de los Pedidos Anteriores a Mostrar
-    //List<Pedido> pedidosAnteriores;
-
+public class PedidoAnteriorListFragment extends ListFragment
+{
     /**
      * The serialization (saved instance state) Bundle key representing the
      * activated item position. Only used on tablets.
@@ -41,11 +39,10 @@ public class PedidoAnteriorListFragment extends ListFragment{
      * A dummy implementation of the {@link Callbacks} interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static Callbacks sDummyCallbacks = new Callbacks() {
+    private static Callbacks sDummyCallbacks = new Callbacks()
+    {
         @Override
-        public void onItemSelected(String unIDPedido) {
-
-        }
+        public void onItemSelected(String unIDPedido) { }
     };
 
     /**
@@ -56,20 +53,20 @@ public class PedidoAnteriorListFragment extends ListFragment{
     {/*Sin Implementacion, constructor vacio necesario para el Fragment Manager*/}
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         List<Pedido> pedidosAnteriores = PedidoService.getInstance().getPedidos();
-        //Se asigna los pedidos anteriores
-        //pedidosAnteriores = ListadoDePedidos.getInstance().todosLosPedidosAnteriores();
-        //pedidosAnteriores = new ArrayList<Pedido>();
         this.obtenerPedidosAnteriores(); // Pensar en que al hacer atras en el detalle se va a volvera llamar el metodo
 
-        setListAdapter(new ArrayAdapter<Pedido>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                pedidosAnteriores));
+        setListAdapter  (new ArrayAdapter<>(
+                                            getActivity(),
+                                            android.R.layout.simple_list_item_activated_1,
+                                            android.R.id.text1,
+                                            pedidosAnteriores
+                                           )
+                        );
     }
 
     @Override
@@ -109,8 +106,8 @@ public class PedidoAnteriorListFragment extends ListFragment{
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        Pedido unPedidoAnterior = (Pedido) listView.getAdapter().getItem(position);
-        mCallbacks.onItemSelected(String.valueOf(unPedidoAnterior.getId()));
+        Pedido unPedidoAnterior = (Pedido) listView.getAdapter().getItem(position); //Obtiene la posicion en la lista del pedido seleccionado
+        mCallbacks.onItemSelected(String.valueOf(unPedidoAnterior.getId()));        //Se lo pasa al callback
     }
 
     @Override
@@ -145,25 +142,31 @@ public class PedidoAnteriorListFragment extends ListFragment{
     }
 
 
-    private void obtenerPedidosAnteriores() {
+    /**Obtiene los pedidos del servidor para poder mostrarlos*/
+    private void obtenerPedidosAnteriores()
+    {
+        //Crea el service para comunicarse con la api.
         ServiceAPIManager servicesPedido = PedidoService.getInstance().createServiceAPIManager();
 
-        servicesPedido.getPedidosAnteriores("g", new Callback<ArrayList<Pedido>>() {
-            @Override
-            public void success(ArrayList<Pedido> pedidos, Response response)
-            {
-                PedidoService.getInstance().setPedidos(pedidos);
-                agregarPedidos(pedidos);
-            }
+        //Se comunica con el service y se le pasa un callback para manejar los casos de en donde sea exitosa la request o falle
+        servicesPedido.getPedidosAnteriores
+                ("g", new Callback<ArrayList<Pedido>>()
+                        {
+                            @Override
+                            public void success(ArrayList<Pedido> pedidos, Response response)
+                            {
+                                PedidoService.getInstance().setPedidos(pedidos);    //El service se guarda los pedidos
+                                agregarPedidos(pedidos);                            //Se lo setea al list adapter para mostarlos
+                            }
 
-            @Override
-            public void failure(RetrofitError error) {
-            }
+                            @Override
+                            public void failure(RetrofitError error)
+                            {   Toast.makeText(getContext(),"Hubo un problema, reintente por favor", Toast.LENGTH_LONG).show();  }
+                        }
+                );
 
-        });
     }
-
-    private void agregarPedidos(List<Pedido> pedidos) {
-        setListAdapter(new PedidoAdapter(getActivity(), pedidos));
-    }
+    /**Se setea el adapter de los pedidos para poder mostrarlos en la vista*/
+    private void agregarPedidos(List<Pedido> pedidos)
+    {   setListAdapter(new PedidoAdapter(getActivity(), pedidos));  }
 }
