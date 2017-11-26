@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Aca Declaras todos los activitys que vas a usar. -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores">
 
@@ -29,6 +31,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListActivity" />
+        </activity>
+        <activity
+            android:name=".DatosDeUsuarioActivity"
+            android:label="@string/DatosDeUsuario"
+            android:parentActivityName=".PedidoAnteriorListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DatosDeUsuarioActivity" />
         </activity>
     </application>
 

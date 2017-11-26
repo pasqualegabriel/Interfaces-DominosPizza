@@ -3,6 +3,8 @@ package ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * An activity representing a list of Pedidos Anteriores. This activity
@@ -19,12 +21,14 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
      * device.
      */
     private boolean mTwoPane;
+    Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pedidoanterior_list);
-
+        addListenerOnButton();
         if (findViewById(R.id.pedidoanterior_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -39,6 +43,48 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
             .setActivateOnItemClick(true);
         }
 
+
+
+    }
+
+    public void addListenerOnButton() {
+
+        button = (Button) findViewById(R.id.EditarDatos);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+
+
+            @Override
+            public void onClick(View arg0) {
+                if (mTwoPane) {
+                    // In two-pane mode, show the detail view in this activity by
+                    // adding or replacing the detail fragment using a
+                    // fragment transaction.
+                    Bundle arguments = new Bundle();
+                    arguments.putString(DatosDeUsuarioFragment.ARG_ITEM_ID, "g");         //Le asigna la id del pedido para usarlo luego
+                    DatosDeUsuarioFragment fragment = new DatosDeUsuarioFragment();         //Crea El Fragmento del detalle Del Pedido
+                    fragment.setArguments(arguments);                                           //Setea la variable arguments al fragment
+                    getSupportFragmentManager().beginTransaction()                              //Le dice al manager que comienze la transaccion
+                            .replace(R.id.datos_de_usuario, fragment)                           //con el nuevo fragmento y le pasa el fragment
+                            .commit();                                                          //lo "Comitea" para que se muestre
+
+                } else {
+                    // In single-pane mode, simply start the detail activity
+                    // for the selected item ID.
+                    Intent detailIntent = new Intent(getSelf(), DatosDeUsuarioActivity.class);
+                    detailIntent.putExtra(PedidoAnteriorDetailFragment.ARG_ITEM_ID, "g");
+                    startActivity(detailIntent);
+                }
+
+            }
+
+        });
+
+    }
+
+    private PedidoAnteriorListActivity getSelf(){
+        return this;
     }
 
     /** Implementacion del callbacks para mostrar el pedido seleccionado.

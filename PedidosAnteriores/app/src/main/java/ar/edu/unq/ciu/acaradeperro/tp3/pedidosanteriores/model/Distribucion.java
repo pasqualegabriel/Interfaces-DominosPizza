@@ -24,6 +24,7 @@ public class Distribucion{
 
     public String nombreDeIngredientes()
     {
+        /*
         List<PairIngredienteDistribucionPizza> listaDeNombres = this.getIngredientes();
         String ultimoNombre = listaDeNombres.get(listaDeNombres.size()-1).nombreIngrediente();
         listaDeNombres.remove(listaDeNombres.size()-1);
@@ -36,8 +37,8 @@ public class Distribucion{
         resultado   .concat(listaDeNombres.get(listaDeNombres.size()).nombreIngrediente())
                 .concat(" y ")
                 .concat(ultimoNombre);
-        return resultado;
-        /*
+        return resultado;*/
+
         if (! this.getIngredientes().isEmpty() && this.getIngredientes().size() > 1)
         {
             List<PairIngredienteDistribucionPizza> pares = this.getIngredientes().subList(0, this.getIngredientes().size() - 1);
@@ -47,10 +48,13 @@ public class Distribucion{
             for (PairIngredienteDistribucionPizza par : pares) {
                 nombres.add(par.nombreIngrediente());
             }
+            return android.text.TextUtils.join(",", nombres).concat(" y ").concat(ultimoPar.nombreIngrediente());
         }
-        else
+        else if (this.getIngredientes().size() == 1)
+            { return this.getIngredientes().get(0).nombreIngrediente(); }
+            else
+            { return "No se eligieron Ingredientes Extras"; }
 
-            return android.text.TextUtils.join(",", nombres).concat(" y ").concat(ultimoPar.nombreIngrediente());*/
     }
 
     private List<PairIngredienteDistribucionPizza> getIngredientes()

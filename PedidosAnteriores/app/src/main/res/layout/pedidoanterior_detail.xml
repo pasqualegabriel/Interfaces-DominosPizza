@@ -66,22 +66,5 @@
         android:id="@+id/pedido_platos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-<!--
-    <FrameLayout android:id="@+id/plato_detail_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3" />
--->
-</LinearLayout>
 
-<!--
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pedidoanterior_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorDetailFragment" />
--->
+</LinearLayout>

@@ -1,0 +1,54 @@
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.DatosDeUsuarioFragment">
+-->
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/datos_de_usuario_vista"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.DatosDeUsuarioFragment"
+        tools:ignore="MergeRootFrame"/>
+
+        <!--
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Datos Personales" />
+
+    <EditText
+        android:id="@+id/editNombreDeUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nombre" />
+
+    <EditText
+        android:id="@+id/editDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Direccion" />
+
+    <EditText
+        android:id="@+id/editMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="Mail" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Cambios" />
+
+
+</LinearLayout>-->

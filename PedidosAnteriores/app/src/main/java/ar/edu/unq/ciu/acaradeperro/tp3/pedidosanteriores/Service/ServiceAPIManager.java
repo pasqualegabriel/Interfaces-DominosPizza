@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Pedido;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Usuario;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -18,6 +19,11 @@ public interface ServiceAPIManager {
 
     @GET("/pedidos")
     void getPedidosAnteriores(@Query("usuario") String usuario, Callback<ArrayList<Pedido>> unCallback);
+
+    @GET("/usuarios/{nick}")
+    void getUsuario(@Path("nick") String nick, Callback<Usuario> callback);
+
+
 
     //@GET("/pedidos/{usuario}")
     //void getPedidosAnteriores(@retrofit.http.Path("usuario") String id, Callback<List<Pedido>> callback);

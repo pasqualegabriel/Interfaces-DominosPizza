@@ -1,27 +1,37 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<!--Este es para los celulares -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pedidoanterior_list"
-    android:name="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    tools:context=".PedidoAnteriorListActivity"
-    tools:layout="@android:layout/list_content"/>
-    <!--tools:listitem="@layout/pedidoanterior_list_content"-->
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="vertical"
+    android:showDividers="middle"
+    tools:context=".PedidoAnteriorListActivity">
 
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pedidoanterior_list"
-    android:name="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListActivity"
-    tools:listitem="@layout/pedidoanterior_list_content" />
--->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/pedidoanterior_list"
+        android:name="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="380dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+
+
+        tools:context=".PedidoAnteriorListActivity"
+        tools:layout="@android:layout/list_content" />
+
+    <Button
+        android:id="@+id/EditarDatos"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="111dp"
+        android:layout_weight="1"
+        android:background="@drawable/ic_launcher_foreground"
+        android:text="Editar Datos" />
+
+    <!-- Context  es donde va a estar puesto el fragmento-->
+</LinearLayout>
