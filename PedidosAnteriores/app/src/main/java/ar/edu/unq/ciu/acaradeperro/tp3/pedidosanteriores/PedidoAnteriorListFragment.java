@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.PedidoService;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.ServiceAPIManager;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.UsuarioService;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Pedido;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Usuario;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.support.v4.app.ListFragment;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PedidoAnteriorListFragment extends ListFragment
@@ -56,7 +60,6 @@ public class PedidoAnteriorListFragment extends ListFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         List<Pedido> pedidosAnteriores = PedidoService.getInstance().getPedidos();
         this.obtenerPedidosAnteriores(); // Pensar en que al hacer atras en el detalle se va a volvera llamar el metodo
 
@@ -166,6 +169,8 @@ public class PedidoAnteriorListFragment extends ListFragment
                 );
 
     }
+
+
     /**Se setea el adapter de los pedidos para poder mostrarlos en la vista*/
     private void agregarPedidos(List<Pedido> pedidos)
     {   setListAdapter(new PedidoAdapter(getActivity(), pedidos));  }

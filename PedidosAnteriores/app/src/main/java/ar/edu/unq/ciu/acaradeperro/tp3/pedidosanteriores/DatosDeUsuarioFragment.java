@@ -1,19 +1,13 @@
 package ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.ServiceAPIManager;
@@ -92,6 +86,18 @@ public class DatosDeUsuarioFragment extends Fragment {
 
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.datos_de_usuario_vista, container, false);
+
+        // Show the dummy content as text in a TextView.
+        /*if (mItem != null) {
+            ((TextView) rootView.findViewById(R.id.pedidoanterior_detail)).setText(mItem.details);
+        }*/
+
+        return rootView;
+    }
 
     private class ObservadorDeTexto implements TextWatcher {
 

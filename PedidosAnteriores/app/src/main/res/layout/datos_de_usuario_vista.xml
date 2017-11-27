@@ -1,17 +1,27 @@
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.DatosDeUsuarioFragment">
--->
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/datos_de_usuario_vista"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.DatosDeUsuarioFragment"
-        tools:ignore="MergeRootFrame"/>
+       android:layout_height="match_parent"
+       android:layout_width="match_parent"
+       android:orientation="vertical"
+       tools:context=".DatosDeUsuarioFragment">
+
+    <TextView
+    android:id="@+id/textView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Datos Personales" />
+
+</LinearLayout>
+<!--
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/datos_de_usuario"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.DatosDeUsuarioFragment"
+    tools:ignore="MergeRootFrame"/>
+-->
 
         <!--
     <TextView

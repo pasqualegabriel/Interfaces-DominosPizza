@@ -4,7 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.ServiceAPIManager;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.UsuarioService;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Usuario;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * An activity representing a list of Pedidos Anteriores. This activity
@@ -21,14 +32,15 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
      * device.
      */
     private boolean mTwoPane;
-    Button button;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pedidoanterior_list);
-        addListenerOnButton();
+        //addListenerOnButton();
+        setActionGuardarCambios();
+        traerUsuario("g");
+
         if (findViewById(R.id.pedidoanterior_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -46,7 +58,7 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
 
 
     }
-
+/*
     public void addListenerOnButton() {
 
         button = (Button) findViewById(R.id.EditarDatos);
@@ -73,7 +85,7 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
                     // In single-pane mode, simply start the detail activity
                     // for the selected item ID.
                     Intent detailIntent = new Intent(getSelf(), DatosDeUsuarioActivity.class);
-                    detailIntent.putExtra(PedidoAnteriorDetailFragment.ARG_ITEM_ID, "g");
+                    detailIntent.putExtra(DatosDeUsuarioFragment.ARG_ITEM_ID, "g");
                     startActivity(detailIntent);
                 }
 
@@ -82,7 +94,7 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
         });
 
     }
-
+*/
     private PedidoAnteriorListActivity getSelf(){
         return this;
     }
@@ -112,5 +124,48 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
             detailIntent.putExtra(PedidoAnteriorDetailFragment.ARG_ITEM_ID, unIDPedido);
             startActivity(detailIntent);
         }
+    }
+
+    /*Edicion de los datos del Usuario*/
+    private void traerUsuario(String idUsuario)
+    {
+        ServiceAPIManager servicesUsuario = UsuarioService.getInstance().createServiceAPIManager();
+        servicesUsuario.getUsuario(idUsuario, new Callback<Usuario>()
+                {
+                    @Override
+                    public void success(Usuario usuario, Response response)
+                    {   mostrarUsuario(usuario);  }
+
+                    @Override
+                    public void failure(RetrofitError error)
+                    {   Toast.makeText(getApplicationContext(),"Hubo un problema, reintente por favor", Toast.LENGTH_LONG).show();  }
+                }
+        );
+    }
+
+    private void mostrarUsuario(Usuario unUsuario)
+    {
+        ((EditText) findViewById(R.id.editNombreDeUsuario)).setText(unUsuario.getNombre(), TextView.BufferType.EDITABLE);
+        ((EditText) findViewById(R.id.editDireccion)).setText(unUsuario.getDireccion(), TextView.BufferType.EDITABLE);
+        ((EditText) findViewById(R.id.editMail)).setText(unUsuario.getMail(),TextView.BufferType.EDITABLE);
+    }
+
+    private void setActionGuardarCambios()
+    {
+        Button buttonGuardarCambios =(Button) findViewById(R.id.guardarCambiosButton);
+        buttonGuardarCambios.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+
+                String nombreAGuardar = ((EditText) findViewById(R.id.editNombreDeUsuario)).getText().toString();
+                String direccionAGuardar = ((EditText) findViewById(R.id.editDireccion)).getText().toString();
+                String emailAGuardar = ((EditText) findViewById(R.id.editMail)).getText().toString();
+
+        /*Falta Hacer Que Le Pegue a la API*/
+            }
+        });
+    }
+
+    public void onClickGuardarCambios(View view)
+    {
     }
 }

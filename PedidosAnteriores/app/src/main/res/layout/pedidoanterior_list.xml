@@ -11,19 +11,56 @@
     android:showDividers="middle"
     tools:context=".PedidoAnteriorListActivity">
 
+    <EditText
+        android:id="@+id/editNombreDeUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nombre"/>
+
+    <EditText
+        android:id="@+id/editDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Direccion" />
+
+    <EditText
+        android:id="@+id/editMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="Mail" />
+
+    <Button
+        android:id="@+id/guardarCambiosButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickGuardarCambios"
+        android:text="Guardar Cambios" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Pedidos:"/>
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/pedidoanterior_list"
         android:name="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="380dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
 
 
         tools:context=".PedidoAnteriorListActivity"
         tools:layout="@android:layout/list_content" />
-
+<!--
     <Button
         android:id="@+id/EditarDatos"
         style="@style/Widget.AppCompat.Button"
@@ -32,6 +69,6 @@
         android:layout_weight="1"
         android:background="@drawable/ic_launcher_foreground"
         android:text="Editar Datos" />
-
+-->
     <!-- Context  es donde va a estar puesto el fragmento-->
 </LinearLayout>

@@ -32,6 +32,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListActivity" />
         </activity>
+<!--
         <activity
             android:name=".DatosDeUsuarioActivity"
             android:label="@string/DatosDeUsuario"
@@ -39,8 +40,9 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DatosDeUsuarioActivity" />
+                android:value="ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.PedidoAnteriorListActivity" />
         </activity>
+-->
     </application>
 
 </manifest>

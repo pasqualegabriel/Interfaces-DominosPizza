@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class DatosDeUsuarioActivity extends AppCompatActivity {
 
-    public DatosDeUsuarioActivity()
-    {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,7 @@ public class DatosDeUsuarioActivity extends AppCompatActivity {
             getSupportFragmentManager() .beginTransaction()
                     .add(R.id.datos_de_usuario_vista, fragment)
                     .commit();
+
         }
     }
 }
