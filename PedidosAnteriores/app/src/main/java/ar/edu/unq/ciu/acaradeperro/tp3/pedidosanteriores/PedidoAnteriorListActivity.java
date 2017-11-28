@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.ServiceAPIManager;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.Service.UsuarioService;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.excepciones.DireccionException;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.excepciones.EmailException;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.excepciones.NombreException;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosanteriores.model.Usuario;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -32,6 +34,8 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
      * device.
      */
     private boolean mTwoPane;
+
+    private Usuario usuarioLoggeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +138,10 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
                 {
                     @Override
                     public void success(Usuario usuario, Response response)
-                    {   mostrarUsuario(usuario);  }
+                    {
+                        usuarioLoggeado = usuario;
+                        mostrarUsuario(usuarioLoggeado);
+                    }
 
                     @Override
                     public void failure(RetrofitError error)
@@ -155,17 +162,50 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
         Button buttonGuardarCambios =(Button) findViewById(R.id.guardarCambiosButton);
         buttonGuardarCambios.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                try {
+                    String nombreAGuardar = ((EditText) findViewById(R.id.editNombreDeUsuario)).getText().toString();
+                    String direccionAGuardar = ((EditText) findViewById(R.id.editDireccion)).getText().toString();
+                    String emailAGuardar = ((EditText) findViewById(R.id.editMail)).getText().toString();
 
-                String nombreAGuardar = ((EditText) findViewById(R.id.editNombreDeUsuario)).getText().toString();
-                String direccionAGuardar = ((EditText) findViewById(R.id.editDireccion)).getText().toString();
-                String emailAGuardar = ((EditText) findViewById(R.id.editMail)).getText().toString();
+                    Validador.getInstance().tieneDatos(nombreAGuardar);
+                    Validador.getInstance().tieneDireccion(direccionAGuardar);
+                    Validador.getInstance().tieneEmail(emailAGuardar);
 
-        /*Falta Hacer Que Le Pegue a la API*/
+                    cargarModificacionesAlUsuario(nombreAGuardar, direccionAGuardar, emailAGuardar);
+                    enviarModificacionesUsuario(usuarioLoggeado);
+                } catch (DireccionException e){
+                    Toast.makeText(getApplicationContext(), "Debe ingresar una Direccion", Toast.LENGTH_LONG).show();
+                } catch (EmailException e) {
+                    Toast.makeText(getApplicationContext(), "Debe ingresar un Email", Toast.LENGTH_LONG).show();
+                } catch (NombreException e) {
+                    Toast.makeText(getApplicationContext(), "Debe ingresar un Nombre", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
-    public void onClickGuardarCambios(View view)
+    private void enviarModificacionesUsuario(Usuario usuario)
     {
+        ServiceAPIManager servicesUsuario = UsuarioService.getInstance().createServiceAPIManager();
+        servicesUsuario.putUsuario("g", usuario, new Callback<String>()
+                {
+                    @Override
+                    public void success(String respuesta, Response response)
+                    {
+                        Toast.makeText(getApplicationContext(),"Cambios guardados ", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error)
+                    {   Toast.makeText(getApplicationContext(),"Hubo un problema, reintente por favor", Toast.LENGTH_LONG).show();  }
+                }
+        );
+    }
+
+    private void cargarModificacionesAlUsuario(String nombreAGuardar, String direccionAGuardar, String emailAGuardar)
+    {
+        this.usuarioLoggeado.setNombre(nombreAGuardar);
+        this.usuarioLoggeado.setDireccion(direccionAGuardar);
+        this.usuarioLoggeado.setMail(emailAGuardar);
     }
 }

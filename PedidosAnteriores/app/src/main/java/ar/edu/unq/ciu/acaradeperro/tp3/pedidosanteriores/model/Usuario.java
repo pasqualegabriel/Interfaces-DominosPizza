@@ -25,4 +25,15 @@ public class Usuario {
         return mail;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 }
