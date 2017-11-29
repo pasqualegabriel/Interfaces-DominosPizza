@@ -19,6 +19,7 @@ import java.time.LocalDateTime
 import estados.Entregado
 import estados.Cancelado
 import pizza.Grande
+import estados.EnViaje
 
 class Bootstrap {
 	def	inicializar(){
@@ -87,6 +88,7 @@ class Bootstrap {
 		var pedidoG1 = new Pedido(g1,HomePedido.instance.newId)
 		var plato    = new Plato(pizza4,tamanio1,new Distribucion)
 		pedidoG1.agregarPlato(plato)
+		pedidoG1.estadoActual = new EnViaje
 		g1.agregarPedido(pedidoG1)
 		
 		var pedidoG2 = new Pedido(g1,HomePedido.instance.newId)
@@ -94,6 +96,7 @@ class Bootstrap {
 		pedidoG2.formaDeRetiro = new Delivery("El Rey De Los Mini Super 01")
 		pedidoG2.agregarPlato(plato)
 		pedidoG2.agregarPlato(platog2)
+		pedidoG2.estadoActual = new Preparando
 		g1.agregarPedido(pedidoG2)
 
 		// agregamos forma de retiro al pedido

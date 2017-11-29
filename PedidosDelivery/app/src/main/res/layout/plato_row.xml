@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/plato_pizza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/plato_tamanio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/plato_extras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+</LinearLayout>

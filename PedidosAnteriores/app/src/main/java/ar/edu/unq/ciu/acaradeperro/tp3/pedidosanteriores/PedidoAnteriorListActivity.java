@@ -161,26 +161,26 @@ public class PedidoAnteriorListActivity extends FragmentActivity implements Call
     {
         Button buttonGuardarCambios =(Button) findViewById(R.id.guardarCambiosButton);
         buttonGuardarCambios.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    String nombreAGuardar = ((EditText) findViewById(R.id.editNombreDeUsuario)).getText().toString();
-                    String direccionAGuardar = ((EditText) findViewById(R.id.editDireccion)).getText().toString();
-                    String emailAGuardar = ((EditText) findViewById(R.id.editMail)).getText().toString();
+                public void onClick(View v) {
+                    try {
+                        String nombreAGuardar = ((EditText) findViewById(R.id.editNombreDeUsuario)).getText().toString();
+                        String direccionAGuardar = ((EditText) findViewById(R.id.editDireccion)).getText().toString();
+                        String emailAGuardar = ((EditText) findViewById(R.id.editMail)).getText().toString();
 
-                    Validador.getInstance().tieneDatos(nombreAGuardar);
-                    Validador.getInstance().tieneDireccion(direccionAGuardar);
-                    Validador.getInstance().tieneEmail(emailAGuardar);
+                        Validador.getInstance().tieneDatos(nombreAGuardar);
+                        Validador.getInstance().tieneDireccion(direccionAGuardar);
+                        Validador.getInstance().tieneEmail(emailAGuardar);
 
-                    cargarModificacionesAlUsuario(nombreAGuardar, direccionAGuardar, emailAGuardar);
-                    enviarModificacionesUsuario(usuarioLoggeado);
-                } catch (DireccionException e){
-                    Toast.makeText(getApplicationContext(), "Debe ingresar una Direccion", Toast.LENGTH_LONG).show();
-                } catch (EmailException e) {
-                    Toast.makeText(getApplicationContext(), "Debe ingresar un Email", Toast.LENGTH_LONG).show();
-                } catch (NombreException e) {
-                    Toast.makeText(getApplicationContext(), "Debe ingresar un Nombre", Toast.LENGTH_LONG).show();
+                        cargarModificacionesAlUsuario(nombreAGuardar, direccionAGuardar, emailAGuardar);
+                        enviarModificacionesUsuario(usuarioLoggeado);
+                    } catch (DireccionException e){
+                        Toast.makeText(getApplicationContext(), "Debe ingresar una Direccion", Toast.LENGTH_LONG).show();
+                    } catch (EmailException e) {
+                        Toast.makeText(getApplicationContext(), "Debe ingresar un Email", Toast.LENGTH_LONG).show();
+                    } catch (NombreException e) {
+                        Toast.makeText(getApplicationContext(), "Debe ingresar un Nombre", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
         });
     }
 
