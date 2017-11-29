@@ -6,6 +6,7 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.Service.PedidoService;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.Service.ServiceAPIManager;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.EstadoEnum;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.Pedido;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -24,7 +26,7 @@ import retrofit.client.Response;
 
 public class PedidoEnViajeListFragment extends ListFragment
 {
-
+    EstadoEnum state = EstadoEnum.ListoParaEnviar;
     /**
      * The serialization (saved instance state) Bundle key representing the
      * activated item position. Only used on tablets.
@@ -63,6 +65,7 @@ public class PedidoEnViajeListFragment extends ListFragment
     {
         super.onCreate(savedInstanceState);
         List<Pedido> pedidosEnViaje = PedidoService.getInstance().getPedidos();
+        obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
 
         setListAdapter  (new ArrayAdapter<>(
                         getActivity(),
@@ -71,6 +74,27 @@ public class PedidoEnViajeListFragment extends ListFragment
                         pedidosEnViaje
                 )
         );
+    }
+
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        final TextView textoPedido         = getActivity().findViewById(R.id.pedidos_a_ver);
+
+        if(state.equals(EstadoEnum.ListoParaEnviar))  {
+            obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
+            textoPedido.setText("Pedidos Listos Para Enviar:");
+        }
+        else  {
+            obtenerPedidosPorEstado(EstadoEnum.EnViaje);
+            textoPedido.setText("EnViaje");
+        }
+
+
+
+
     }
 
     @Override
@@ -148,14 +172,16 @@ public class PedidoEnViajeListFragment extends ListFragment
 
     /**Obtiene los pedidos del servidor para poder mostrarlos
      * TIENE QUE TRAER SOLO LOS EN VIAJE O LISTO PARA ENVIAR*/
-    public void obtenerPedidosPorEstado(String unEstado)
+    public void obtenerPedidosPorEstado(EstadoEnum unEstado)
     {
         //Crea el service para comunicarse con la api.
         ServiceAPIManager servicesPedido = PedidoService.getInstance().createServiceAPIManager();
 
+        state = unEstado;
         //Se comunica con el service y se le pasa un callback para manejar los casos de en donde sea exitosa la request o falle
         servicesPedido.getPedidosPorEstado
-                (unEstado, new Callback<ArrayList<Pedido>>()
+
+                (unEstado.toString(), new Callback<ArrayList<Pedido>>()
                         {
                             @Override
                             public void success(ArrayList<Pedido> pedidos, Response response)

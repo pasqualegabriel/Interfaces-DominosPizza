@@ -51,6 +51,7 @@ public class PedidoEnviajeDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (getArguments().containsKey(ARG_ITEM_ID))
         {
             String itemID = getArguments().getString(ARG_ITEM_ID);

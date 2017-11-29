@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.EstadoEnum;
+
 /**
  * An activity representing a list of Pedidos En Viaje. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -81,7 +83,7 @@ public class PedidoEnviajeListActivity extends FragmentActivity implements Callb
             public void onClick(View v) {
                 /*SE PODRIA MEJORAR HACIENDO QUE LA ACTIVITY GUARDE EL FRAGMENT A LA HORA DE IMPLANTARLO, ASI NO SE CASTEA*/
                 ((PedidoEnViajeListFragment) getSupportFragmentManager().findFragmentById(R.id.pedidoenviaje_list))
-                                                                        .obtenerPedidosPorEstado("EnViaje");
+                                                                        .obtenerPedidosPorEstado(EstadoEnum.EnViaje);
                 textoPedido.setText("Pedidos En Viaje:");
             }
         });
@@ -89,7 +91,7 @@ public class PedidoEnviajeListActivity extends FragmentActivity implements Callb
         buttonPedidosListosParaEnviar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((PedidoEnViajeListFragment) getSupportFragmentManager().findFragmentById(R.id.pedidoenviaje_list))
-                                                                        .obtenerPedidosPorEstado("ListoParaEnviar");
+                                                                        .obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
                 textoPedido.setText("Pedidos Listos Para Enviar:");
             }
         });
