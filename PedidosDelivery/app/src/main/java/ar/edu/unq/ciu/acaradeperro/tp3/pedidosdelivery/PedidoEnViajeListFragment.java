@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +13,8 @@ import java.util.List;
 
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.Service.PedidoService;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.Service.ServiceAPIManager;
-import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.EstadoEnum;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.HandlerYPermisos.PermisoEnListoParaEnviar;
+import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.HandlerYPermisos.PermisosDeEstados;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.Pedido;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,8 +26,9 @@ import retrofit.client.Response;
 
 public class PedidoEnViajeListFragment extends ListFragment
 {
-    ArrayList<Pedido> pedidosDelivery = new ArrayList<Pedido>();
-    EstadoEnum state = EstadoEnum.ListoParaEnviar;
+    //HandlerXxx handlerXxx;
+    //EstadoEnum state = EstadoEnum.ListoParaEnviar;
+    PermisosDeEstados state = new PermisoEnListoParaEnviar();
     /**
      * The serialization (saved instance state) Bundle key representing the
      * activated item position. Only used on tablets.
@@ -59,7 +60,9 @@ public class PedidoEnViajeListFragment extends ListFragment
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public PedidoEnViajeListFragment() {}
+    public PedidoEnViajeListFragment() {
+       // handlerXxx = new HandlerXxx();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -78,15 +81,17 @@ public class PedidoEnViajeListFragment extends ListFragment
     {
         getListView().clearChoices();
         final TextView textoPedido         = getActivity().findViewById(R.id.pedidos_a_ver);
+        state.ejecutar(this,textoPedido);
+        //handlerXxx.xxxx(this,state,textoPedido);
 
-        if(state.equals(EstadoEnum.ListoParaEnviar))  {
+/*        if(state.equals(EstadoEnum.ListoParaEnviar))  {
             obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
-            textoPedido.setText("Pedidos Listos Para Enviar:");
+            textoPedido.setText("Listos Para Enviar:");
         }
         else  {
             obtenerPedidosPorEstado(EstadoEnum.EnViaje);
-            textoPedido.setText("EnViaje");
-        }
+            textoPedido.setText("En Viaje");
+        }*/
 
     }
 
@@ -172,7 +177,8 @@ public class PedidoEnViajeListFragment extends ListFragment
 
     /**Obtiene los pedidos del servidor para poder mostrarlos
      * TIENE QUE TRAER SOLO LOS EN VIAJE O LISTO PARA ENVIAR*/
-    public void obtenerPedidosPorEstado(EstadoEnum unEstado)
+
+    public void obtenerPedidosPorEstado(PermisosDeEstados unEstado)
     {
         //Crea el service para comunicarse con la api.
         ServiceAPIManager servicesPedido = PedidoService.getInstance().createServiceAPIManager();
@@ -181,7 +187,7 @@ public class PedidoEnViajeListFragment extends ListFragment
         //Se comunica con el service y se le pasa un callback para manejar los casos de en donde sea exitosa la request o falle
         servicesPedido.getPedidosPorEstado
 
-                (unEstado.toString(), new Callback<ArrayList<Pedido>>()
+                (unEstado.getNombre(), new Callback<ArrayList<Pedido>>()
                         {
                             @Override
                             public void success(ArrayList<Pedido> pedidos, Response response)
@@ -195,6 +201,9 @@ public class PedidoEnViajeListFragment extends ListFragment
                         }
                 );
     }
+
+
+
 
 
 

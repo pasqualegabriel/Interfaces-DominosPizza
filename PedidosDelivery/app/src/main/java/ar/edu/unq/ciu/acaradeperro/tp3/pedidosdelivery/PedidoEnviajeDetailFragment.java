@@ -1,6 +1,6 @@
 package ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery;
 
-import android.app.ActivityManager;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -147,14 +147,6 @@ public class PedidoEnviajeDetailFragment extends Fragment {
 
             }
         });
-    }
-
-    public void actualizar()
-    {
-        //PedidoService.getInstance().quitarPedido(pedidoSeleccionado.getId());
-        //ROMPE POR QUE NO ENCUENTRA LA ACTIVITY FRAGMENT, LA IDEA SERIA HACER QUE USE LA LISTA GUARDADA DE PEDIDOS Y QUE NO LE PUEGE A LA API. SI NO SE PUEDE HAY QUE HACER QUE PEGUE A LA API
-        //((PedidoEnViajeListFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.pedidoenviaje_list)).agregarPedidos(PedidoService.getInstance().getPedidos());
-        setActionBotonesDeEstado();
     }
 
 }
