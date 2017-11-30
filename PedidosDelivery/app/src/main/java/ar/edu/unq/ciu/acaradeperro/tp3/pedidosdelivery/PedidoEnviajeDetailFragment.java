@@ -112,8 +112,8 @@ public class PedidoEnviajeDetailFragment extends Fragment {
                             @Override
                             public void success(String respuesta, Response response)
                             {
+                                getActivity().onBackPressed();
                                 Toast.makeText(getContext(),"Cambios guardado", Toast.LENGTH_LONG).show();
-                                actualizar();
                             }
 
                             @Override
@@ -144,14 +144,14 @@ public class PedidoEnviajeDetailFragment extends Fragment {
                 cambiarEstadoDePedido(elEstado);
                 pedidoSeleccionado.setEstadoActual(elEstado.nombre);
                 ((TextView) getView().findViewById(R.id.pedido_estado)).setText(elEstado.nombre);
-                getActivity().onBackPressed();
+
             }
         });
     }
 
     public void actualizar()
     {
-        PedidoService.getInstance().quitarPedido(pedidoSeleccionado.getId());
+        //PedidoService.getInstance().quitarPedido(pedidoSeleccionado.getId());
         //ROMPE POR QUE NO ENCUENTRA LA ACTIVITY FRAGMENT, LA IDEA SERIA HACER QUE USE LA LISTA GUARDADA DE PEDIDOS Y QUE NO LE PUEGE A LA API. SI NO SE PUEDE HAY QUE HACER QUE PEGUE A LA API
         //((PedidoEnViajeListFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.pedidoenviaje_list)).agregarPedidos(PedidoService.getInstance().getPedidos());
         setActionBotonesDeEstado();

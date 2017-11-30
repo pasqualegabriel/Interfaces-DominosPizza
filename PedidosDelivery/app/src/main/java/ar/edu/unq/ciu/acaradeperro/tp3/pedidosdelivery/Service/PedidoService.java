@@ -12,10 +12,10 @@ public class PedidoService
 {
     /*Atributos*/
     private static PedidoService instance;
-    public List<Pedido> pedidosEnViaje;
+    //private List<Pedido> pedidosEnViaje = new ArrayList<>();
 
     /*Constructor*/
-    private PedidoService() {   this.pedidosEnViaje = new ArrayList<Pedido>(); }
+    //private PedidoService() {   this.pedidosEnViaje = new ArrayList<>(); }
 
     /*Getters & Setters*/
     static public PedidoService getInstance(){
@@ -24,9 +24,9 @@ public class PedidoService
         return instance;
     }
 
-    public List<Pedido> getPedidos() {  return this.pedidosEnViaje;    }
+    //public List<Pedido> getPedidos() {  return this.pedidosEnViaje;    }
 
-    public void setPedidos(List<Pedido> listaPedidos) { this.pedidosEnViaje = listaPedidos;    }
+    //public void setPedidos(List<Pedido> listaPedidos) { this.pedidosEnViaje = listaPedidos;    }
 
     /*Metodos*/
     /**Crea una instancia de RestAdapter con la interface de ServiceAPIManager*/
@@ -40,7 +40,7 @@ public class PedidoService
         restAdapter.setLogLevel(LogLevel.FULL); //Esta solo para corroborar el correcto funcionamiento.
         return restAdapter.create(ServiceAPIManager.class);
     }
-
+/*
     public boolean hayPedidos()
     {   return this.getPedidos().size() > 0;    }
 
@@ -50,8 +50,8 @@ public class PedidoService
 
         for ( Pedido pedido : listaARevisar)
         {
-            if(pedido.getId() == unPedidoId)
+            if(pedido.getId() == unPedidoId && ! pedido.getEstadoActual().equalsIgnoreCase("En Viaje" ))//(pedido.getEstadoActual().equalsIgnoreCase("cancelado" )|| pedido.getEstadoActual().equalsIgnoreCase("entregado")))
             {this.pedidosEnViaje.remove(pedido);}
         }
-    }
+    }*/
 }

@@ -26,6 +26,7 @@ import retrofit.client.Response;
 
 public class PedidoEnViajeListFragment extends ListFragment
 {
+    ArrayList<Pedido> pedidosDelivery = new ArrayList<Pedido>();
     EstadoEnum state = EstadoEnum.ListoParaEnviar;
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -64,23 +65,18 @@ public class PedidoEnViajeListFragment extends ListFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        List<Pedido> pedidosEnViaje = PedidoService.getInstance().getPedidos();
-        obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
-
-        setListAdapter  (new ArrayAdapter<>(
-                        getActivity(),
-                        android.R.layout.simple_list_item_activated_1,
-                        android.R.id.text1,
-                        pedidosEnViaje
-                )
-        );
     }
 
-
     @Override
-    public void onResume()
+    public void onStart()
     {
-        super.onResume();
+        super.onStart();
+        this.actualizador();
+    }
+
+    public void actualizador()
+    {
+        getListView().clearChoices();
         final TextView textoPedido         = getActivity().findViewById(R.id.pedidos_a_ver);
 
         if(state.equals(EstadoEnum.ListoParaEnviar))  {
@@ -92,10 +88,10 @@ public class PedidoEnViajeListFragment extends ListFragment
             textoPedido.setText("EnViaje");
         }
 
-
-
-
     }
+
+    public void agregarPedidos(List<Pedido> pedidos)
+    {   setListAdapter(new PedidoAdapter(getActivity(), pedidos));  }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -146,6 +142,10 @@ public class PedidoEnViajeListFragment extends ListFragment
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
     }
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+    }
 
     /**
      * Turns on activate-on-click mode. When this mode is on, list items will be
@@ -186,7 +186,6 @@ public class PedidoEnViajeListFragment extends ListFragment
                             @Override
                             public void success(ArrayList<Pedido> pedidos, Response response)
                             {
-                                PedidoService.getInstance().setPedidos(pedidos);
                                 agregarPedidos(pedidos);
                             }
 
@@ -198,6 +197,5 @@ public class PedidoEnViajeListFragment extends ListFragment
     }
 
 
-    public void agregarPedidos(List<Pedido> pedidos)
-    {   setListAdapter(new PedidoAdapter(getActivity(), pedidos));  }
+
 }

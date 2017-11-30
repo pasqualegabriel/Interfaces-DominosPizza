@@ -96,7 +96,7 @@ class Bootstrap {
 		pedidoG2.formaDeRetiro = new Delivery("El Rey De Los Mini Super 01")
 		pedidoG2.agregarPlato(plato)
 		pedidoG2.agregarPlato(platog2)
-		pedidoG2.estadoActual = new Preparando
+		pedidoG2.estadoActual = new ListoParaEnviar
 		g1.agregarPedido(pedidoG2)
 
 		// agregamos forma de retiro al pedido
