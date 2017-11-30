@@ -21,21 +21,6 @@ public class Distribucion{
 
     public String nombreDeIngredientes()
     {
-        /*
-        List<PairIngredienteDistribucionPizza> listaDeNombres = this.getIngredientes();
-        String ultimoNombre = listaDeNombres.get(listaDeNombres.size()-1).nombreIngrediente();
-        listaDeNombres.remove(listaDeNombres.size()-1);
-        String resultado = "";
-
-        for(int i=0; i < listaDeNombres.size()-1; i++)
-        {
-            resultado.concat(listaDeNombres.get(i).nombreIngrediente()).concat(", ");
-        }
-        resultado   .concat(listaDeNombres.get(listaDeNombres.size()).nombreIngrediente())
-                .concat(" y ")
-                .concat(ultimoNombre);
-        return resultado;*/
-
         if (! this.getIngredientes().isEmpty() && this.getIngredientes().size() > 1)
         {
             List<PairIngredienteDistribucionPizza> pares = this.getIngredientes().subList(0, this.getIngredientes().size() - 1);

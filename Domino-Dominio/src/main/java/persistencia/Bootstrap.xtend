@@ -84,6 +84,16 @@ class Bootstrap {
 		var pedido2 = new Pedido(nahuel,HomePedido.instance.newId)
 		var pedido3 = new Pedido(gabriel,HomePedido.instance.newId)
 		
+		var pedido12 = new Pedido(ivan,HomePedido.instance.newId)
+		var pedido22 = new Pedido(nahuel,HomePedido.instance.newId)
+		var pedido32 = new Pedido(gabriel,HomePedido.instance.newId)
+		var pedido42 = new Pedido(gabriel,HomePedido.instance.newId)
+		
+		var pedido13 = new Pedido(ivan,HomePedido.instance.newId)
+		var pedido23 = new Pedido(nahuel,HomePedido.instance.newId)
+		var pedido33 = new Pedido(gabriel,HomePedido.instance.newId)
+		var pedido43 = new Pedido(gabriel,HomePedido.instance.newId)
+		
 		// Agrega un pedido al usurio
 		var pedidoG1 = new Pedido(g1,HomePedido.instance.newId)
 		var plato    = new Plato(pizza4,tamanio1,new Distribucion)
@@ -104,20 +114,61 @@ class Bootstrap {
 		pedido2.formaDeRetiro = new Delivery ("Pepota 5")
 		pedido3.formaDeRetiro = new Local
 
+		pedido12.formaDeRetiro = new Delivery ("Cerrado 128")
+		pedido22.formaDeRetiro = new Delivery ("Pepota 5")
+		pedido32.formaDeRetiro = new Local
+		pedido42.formaDeRetiro = new Local
+		
+		pedido13.formaDeRetiro = new Delivery ("Cerrado 128")
+		pedido23.formaDeRetiro = new Delivery ("Pepota 5")
+		pedido33.formaDeRetiro = new Local
+		pedido43.formaDeRetiro = new Local
+		
 		// Agregamos estado de inicio al pedido
 		pedido1.estadoActual = new ListoParaEnviar
 		pedido2.estadoActual = new Preparando
 		pedido3.estadoActual = new ListoParaRetirar
 
+		pedido12.estadoActual = new EnViaje
+		pedido22.estadoActual = new EnViaje
+		pedido32.estadoActual = new EnViaje
+		pedido42.estadoActual = new EnViaje
+		
+		pedido13.estadoActual = new ListoParaEnviar
+		pedido23.estadoActual = new ListoParaEnviar
+		pedido33.estadoActual = new ListoParaEnviar
+		pedido43.estadoActual = new ListoParaEnviar
+		
 		// Agregamos la fecha a los pedidos
 		pedido1.fecha = LocalDateTime.of(2017, 9, 10, 17, 30)
 		pedido2.fecha = LocalDateTime.of(2017, 9, 10, 18, 30)
 		pedido3.fecha = LocalDateTime.of(2017, 9, 10, 19, 15)
-
+	
+		pedido12.fecha = LocalDateTime.of(2017, 9, 10, 20, 30)
+		pedido22.fecha = LocalDateTime.of(2017, 9, 11, 18, 30)
+		pedido32.fecha = LocalDateTime.of(2017, 9, 1, 19, 15)
+		pedido42.fecha = LocalDateTime.of(2017, 10, 10, 19, 15)	
+		
+		pedido13.fecha = LocalDateTime.of(2017, 9, 10, 0, 30)
+		pedido23.fecha = LocalDateTime.of(2017, 11, 12, 18, 30)
+		pedido33.fecha = LocalDateTime.of(2017, 9, 3, 19, 15)
+		pedido43.fecha = LocalDateTime.of(2017, 10, 10, 9, 15)	
+		
 		// Agregamos un plato a cada pedido
 		pedido1.agregarPlato(plato1)
 		pedido2.agregarPlato(plato2)
 		pedido3.agregarPlato(plato3)
+		
+		pedido12.agregarPlato(plato1)
+		pedido22.agregarPlato(plato2)
+		pedido32.agregarPlato(plato3)
+		pedido42.agregarPlato(plato3)
+		
+		pedido13.agregarPlato(plato3)
+		pedido23.agregarPlato(plato3)
+		pedido33.agregarPlato(plato1)
+		pedido43.agregarPlato(plato1)
+		
 
 		// Agregamos los pedidos a abierto
 		HomePedido.instance.agregarPedido(pedido1)
@@ -125,6 +176,15 @@ class Bootstrap {
 		HomePedido.instance.agregarPedido(pedido3)
 		HomePedido.instance.agregarPedido(pedidoG1)
 		HomePedido.instance.agregarPedido(pedidoG2)
+		
+		HomePedido.instance.agregarPedido(pedido12)
+		HomePedido.instance.agregarPedido(pedido22)
+		HomePedido.instance.agregarPedido(pedido32)
+		HomePedido.instance.agregarPedido(pedido42)
+		HomePedido.instance.agregarPedido(pedido13)
+		HomePedido.instance.agregarPedido(pedido23)
+		HomePedido.instance.agregarPedido(pedido33)
+		HomePedido.instance.agregarPedido(pedido43)
 		
 		// Agregamos los usuarios
 		HomeMiembro.instance.registrarUsuario(ivan)

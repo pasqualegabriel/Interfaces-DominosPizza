@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.EstadoEnum;
+
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.HandlerYPermisos.PermisoEnListoParaEnviar;
 import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.HandlerYPermisos.PermisoEnViaje;
 
@@ -77,10 +77,7 @@ public class PedidoEnviajeListActivity extends FragmentActivity implements Callb
 
     private void setAccionesABotones()
     {
-  /*      final TextView  textoPedido         =(TextView) findViewById(R.id.pedidos_a_ver);
-        Button buttonPedidosEnViaje         =(Button) findViewById(R.id.en_viaje);
-        Button buttonPedidosListosParaEnviar=(Button) findViewById(R.id.listo_para_enviar);
-*/
+
         final TextView  textoPedido         = findViewById(R.id.pedidos_a_ver);
         Button buttonPedidosEnViaje         = findViewById(R.id.en_viaje);
         Button buttonPedidosListosParaEnviar=findViewById(R.id.listo_para_enviar);
@@ -90,7 +87,7 @@ public class PedidoEnviajeListActivity extends FragmentActivity implements Callb
             public void onClick(View v) {
                 /*SE PODRIA MEJORAR HACIENDO QUE LA ACTIVITY GUARDE EL FRAGMENT A LA HORA DE IMPLANTARLO, ASI NO SE CASTEA*/
                 ((PedidoEnViajeListFragment) getSupportFragmentManager().findFragmentById(R.id.pedidoenviaje_list))
-                                                                        .obtenerPedidosPorEstado(new PermisoEnViaje());//obtenerPedidosPorEstado(EstadoEnum.EnViaje);
+                                                                        .obtenerPedidosPorEstado(new PermisoEnViaje());
                 textoPedido.setText("Pedidos En Viaje:");
             }
         });
@@ -98,7 +95,7 @@ public class PedidoEnviajeListActivity extends FragmentActivity implements Callb
         buttonPedidosListosParaEnviar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((PedidoEnViajeListFragment) getSupportFragmentManager().findFragmentById(R.id.pedidoenviaje_list))
-                                                                        .obtenerPedidosPorEstado(new PermisoEnListoParaEnviar());//obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
+                                                                        .obtenerPedidosPorEstado(new PermisoEnListoParaEnviar());
                 textoPedido.setText("Pedidos Listos Para Enviar:");
             }
         });

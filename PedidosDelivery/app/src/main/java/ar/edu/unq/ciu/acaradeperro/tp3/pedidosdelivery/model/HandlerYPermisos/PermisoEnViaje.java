@@ -1,6 +1,5 @@
 package ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.HandlerYPermisos;
 
-import ar.edu.unq.ciu.acaradeperro.tp3.pedidosdelivery.model.EstadoEnum;
 
 /**
  * Created by some on 30/11/17.

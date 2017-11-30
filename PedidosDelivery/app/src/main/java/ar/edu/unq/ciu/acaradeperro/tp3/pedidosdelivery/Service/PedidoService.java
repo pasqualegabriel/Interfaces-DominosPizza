@@ -12,10 +12,8 @@ public class PedidoService
 {
     /*Atributos*/
     private static PedidoService instance;
-    //private List<Pedido> pedidosEnViaje = new ArrayList<>();
 
     /*Constructor*/
-    //private PedidoService() {   this.pedidosEnViaje = new ArrayList<>(); }
 
     /*Getters & Setters*/
     static public PedidoService getInstance(){
@@ -24,34 +22,17 @@ public class PedidoService
         return instance;
     }
 
-    //public List<Pedido> getPedidos() {  return this.pedidosEnViaje;    }
-
-    //public void setPedidos(List<Pedido> listaPedidos) { this.pedidosEnViaje = listaPedidos;    }
-
     /*Metodos*/
     /**Crea una instancia de RestAdapter con la interface de ServiceAPIManager*/
     public ServiceAPIManager createServiceAPIManager()
     {
         String SERVER_IP = "10.0.2.15";         //esta ip se usa para comunicarse con mi localhost en el emulador de Android Studio
         String SERVER_IP_GENY = "192.168.57.1"; //esta ip se usa para comunicarse con mi localhost en el emulador de Genymotion
-        String API_URL = "http://"+ SERVER_IP_GENY+":1500";
+        String API_URL = "http://"+"10.12.14.128"+":1500";
 
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(API_URL).build();
         restAdapter.setLogLevel(LogLevel.FULL); //Esta solo para corroborar el correcto funcionamiento.
         return restAdapter.create(ServiceAPIManager.class);
     }
-/*
-    public boolean hayPedidos()
-    {   return this.getPedidos().size() > 0;    }
 
-    public void quitarPedido(int unPedidoId)
-    {
-        List<Pedido> listaARevisar = this.pedidosEnViaje;
-
-        for ( Pedido pedido : listaARevisar)
-        {
-            if(pedido.getId() == unPedidoId && ! pedido.getEstadoActual().equalsIgnoreCase("En Viaje" ))//(pedido.getEstadoActual().equalsIgnoreCase("cancelado" )|| pedido.getEstadoActual().equalsIgnoreCase("entregado")))
-            {this.pedidosEnViaje.remove(pedido);}
-        }
-    }*/
 }

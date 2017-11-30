@@ -26,8 +26,7 @@ import retrofit.client.Response;
 
 public class PedidoEnViajeListFragment extends ListFragment
 {
-    //HandlerXxx handlerXxx;
-    //EstadoEnum state = EstadoEnum.ListoParaEnviar;
+
     PermisosDeEstados state = new PermisoEnListoParaEnviar();
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -61,7 +60,7 @@ public class PedidoEnViajeListFragment extends ListFragment
      * fragment (e.g. upon screen orientation changes).
      */
     public PedidoEnViajeListFragment() {
-       // handlerXxx = new HandlerXxx();
+
     }
 
     @Override
@@ -82,16 +81,7 @@ public class PedidoEnViajeListFragment extends ListFragment
         getListView().clearChoices();
         final TextView textoPedido         = getActivity().findViewById(R.id.pedidos_a_ver);
         state.ejecutar(this,textoPedido);
-        //handlerXxx.xxxx(this,state,textoPedido);
 
-/*        if(state.equals(EstadoEnum.ListoParaEnviar))  {
-            obtenerPedidosPorEstado(EstadoEnum.ListoParaEnviar);
-            textoPedido.setText("Listos Para Enviar:");
-        }
-        else  {
-            obtenerPedidosPorEstado(EstadoEnum.EnViaje);
-            textoPedido.setText("En Viaje");
-        }*/
 
     }
 

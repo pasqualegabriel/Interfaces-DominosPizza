@@ -81,6 +81,7 @@ public class PedidoEnviajeDetailFragment extends Fragment {
         pedidoSeleccionado = unPedidoAnterior;
         ((TextView) this.getView().findViewById(R.id.pedido_titulo)).setText(unPedidoAnterior.titulo());
         ((TextView) this.getView().findViewById(R.id.pedido_estado)).setText(unPedidoAnterior.getEstadoActual());
+        ((TextView) this.getView().findViewById(R.id.pedido_usuario)).setText(unPedidoAnterior.getMiembro());
         ((TextView) this.getView().findViewById(R.id.pedido_direccion)).setText(unPedidoAnterior.direccionDeRetiro());
         ((TextView) this.getView().findViewById(R.id.pedido_aclaracion)).setText(unPedidoAnterior.getAclaracion());
         ((TextView) this.getView().findViewById(R.id.pedido_precio)).setText(unPedidoAnterior.getMonto().toString());

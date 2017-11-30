@@ -20,6 +20,7 @@ public class PedidoAdapter extends AbstractListAdapter<Pedido> {
         View row = generateRow(R.layout.pedido_row, parent);
         setColumnTextView(row, R.id.titulo, unPedido.titulo());
         setColumnTextView(row, R.id.precio, unPedido.getMonto().toString());
+        setColumnTextView(row, R.id.miembro, unPedido.getMiembro());
         return row;
     }
 
